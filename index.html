@@ -503,15 +503,13 @@
 
         <div style="margin-top: 12px; padding: 16px; background: rgba(248, 250, 252, 0.9); border-radius: 12px; max-height: 200px; overflow-y: auto; font-size: 0.85rem; line-height: 1.6; color: #555;">
           <strong style="display: block; margin-bottom: 12px;">利用規約とプライバシーポリシーに同意いただく必要があります。</strong>
-          <p><strong>利用規約</strong></p>
+          <p><strong>【利用規約】</strong></p>
           <p><strong>第1条（目的）</strong><br>本サイトは、学校内における予定・宿題・連絡事項の共有およびコミュニケーションを目的とします。</p>
-          <p><strong>第2条（利用対象）</strong><br>本サイトは、関係する生徒および管理者のみが利用するものとします。</p>
-          <p><strong>第3条（禁止事項）</strong><br>利用者は、以下の行為を行ってはなりません。他人を傷つける発言、誹謗中傷、不適切な内容や画像の投稿、なりすまし行為、個人情報（住所・電話番号など）の投稿、サイトの運営を妨害する行為。</p>
-          <p><strong>第4条（投稿・コメント）</strong><br>投稿・コメントの内容については、利用者が責任を負います。不適切と判断された場合、管理者により削除されることがあります。</p>
-          <p><strong>第5条（管理者権限）</strong><br>管理者は、投稿およびコメントの編集・削除、不適切な利用への対応を行うことができます。</p>
-          <p><strong>第6条（データの取り扱い）</strong><br>投稿・コメントなどのデータはシステム上に保存されます。</p>
-          <p style="margin-top: 12px;"><strong>プライバシーポリシー</strong></p>
-          <p>本サイトでは、名前、クラス、投稿内容・コメント内容を取得する場合があります。取得した情報は、サイトの運営および機能提供、利用状況の把握、不適切な利用への対応に利用します。取得した情報を第三者に提供することはありません。</p>
+          <p><strong>第2条（利用対象）</strong><br>本サイトは、関係する生徒および管理者のみが利用するものとします。管理者により利用が許可されたユーザーのみが本サービスを利用できます。</p>
+          <p><strong>第3条（禁止事項）</strong><br>利用者は、以下の行為を行ってはなりません。他人を傷つける発言や誹謗中傷、不適切な内容や画像の投稿、なりすまし行為、個人情報（住所・電話番号など）の投稿、サイトの運営を妨害する行為。</p>
+          <p><strong>第4条～第9条</strong><br>詳細は「利用規約」ボタンからご確認ください。</p>
+          <p style="margin-top: 12px;"><strong>【プライバシーポリシー】</strong></p>
+          <p>詳細は「利用規約」ボタンからご確認ください。</p>
         </div>
 
         <label style="display: flex; align-items: center; gap: 8px;">
@@ -562,6 +560,7 @@
             <button class="chip" data-category-filter="宿題">宿題</button>
             <button class="chip" data-category-filter="連絡事項">連絡事項</button>
           </div>
+          <button class="ghost-button" id="termsButton" type="button" style="margin-left: auto;">利用規約</button>
         </div>
       </section>
 
@@ -609,6 +608,54 @@
   </div>
 
   <div class="toast" id="toast"></div>
+
+  <!-- 利用規約モーダル -->
+  <div class="modal hidden" id="termsModal">
+    <div class="modal-panel" style="width: min(720px, 100%); max-height: 90vh; overflow-y: auto;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 class="modal-title">利用規約とプライバシーポリシー</h2>
+        <button type="button" onclick="closeTermsModal()" class="ghost-button" style="min-height: 40px;">閉じる</button>
+      </div>
+
+      <div style="font-size: 0.9rem; line-height: 1.8; color: #555;">
+        <h3>【利用規約】</h3>
+        <p><strong>第1条（目的）</strong><br>本サイトは、学校内における予定・宿題・連絡事項の共有およびコミュニケーションを目的とします。</p>
+        
+        <p><strong>第2条（利用対象）</strong><br>本サイトは、関係する生徒および管理者のみが利用するものとします。管理者により利用が許可されたユーザーのみが本サービスを利用できます。</p>
+        
+        <p><strong>第3条（禁止事項）</strong><br>利用者は、以下の行為を行ってはなりません。<br>・他人を傷つける発言や誹謗中傷<br>・不適切な内容や画像の投稿<br>・なりすまし行為<br>・個人情報（住所・電話番号など）の投稿<br>・サイトの運営を妨害する行為</p>
+        
+        <p><strong>第4条（投稿・コメント）</strong><br>投稿およびコメントの内容については、利用者が責任を負います。不適切と判断された場合、管理者により削除されることがあります。また、通報や確認により内容が精査される場合があります。</p>
+        
+        <p><strong>第5条（管理者権限）</strong><br>管理者は、投稿およびコメントの編集・削除、不適切な利用への対応、利用者のアクセス制限、サイト内容の変更または停止を行うことができます。</p>
+        
+        <p><strong>第6条（データの取り扱い）</strong><br>投稿・コメントなどのデータはシステム上に保存されます。必要に応じて削除される場合があります。</p>
+        
+        <p><strong>第7条（利用規約の変更）</strong><br>本利用規約は、必要に応じて予告なく変更される場合があります。変更後の利用規約は、本サイト上に掲載した時点で効力を生じるものとします。</p>
+        
+        <p><strong>第8条（システム障害）</strong><br>本サイトは、システムの不具合、通信環境の影響、その他の理由により、一時的に利用できなくなる場合があります。これにより生じた損害について、管理者は一切の責任を負いません。</p>
+        
+        <p><strong>第9条（免責事項）</strong><br>本サイトの利用により生じたトラブルについて、管理者は一切の責任を負いません。また、投稿の未反映、遅延、見落とし等により、宿題の未提出や確認漏れなどの不利益が生じた場合でも、管理者は一切の責任を負いません。利用者は重要な情報について自己の責任において確認するものとします。</p>
+
+        <hr style="margin: 24px 0; border: none; border-top: 1px solid var(--border);">
+
+        <h3>【プライバシーポリシー】</h3>
+        <p><strong>第1条（取得する情報）</strong><br>本サイトでは、以下の情報を取得する場合があります。<br>・名前（ニックネームを含む）<br>・学年・クラス情報<br>・投稿内容およびコメント内容<br>・ログイン情報（Firebase Authenticationにより取得される識別情報）</p>
+        
+        <p><strong>第2条（利用目的）</strong><br>取得した情報は、以下の目的で利用します。<br>・本サービスの提供および運営<br>・利用者の識別および管理<br>・不適切な利用への対応<br>・サービスの改善および機能向上</p>
+        
+        <p><strong>第3条（第三者提供）</strong><br>取得した情報は、法令に基づく場合を除き、第三者に提供することはありません。</p>
+        
+        <p><strong>第4条（情報の管理）</strong><br>取得した情報は適切に管理し、不正アクセス、漏洩、改ざん等の防止に努めます。</p>
+        
+        <p><strong>第5条（情報の保存期間）</strong><br>取得した情報は、サービス運営上必要な期間保存し、その後適切に削除される場合があります。</p>
+        
+        <p><strong>第6条（ポリシーの変更）</strong><br>本プライバシーポリシーは、必要に応じて予告なく変更される場合があります。変更後の内容は本サイト上に掲載した時点で効力を生じるものとします。</p>
+        
+        <p><strong>第7条（利用規約との関係）</strong><br>本プライバシーポリシーは、本サイトの利用規約と一体として適用されます。</p>
+      </div>
+    </div>
+  </div>
 
   <!-- 管理者ダッシュボード -->
   <div class="modal hidden" id="adminDashboardModal">
@@ -1065,6 +1112,15 @@
       updateDateDisplay();
       renderPosts();
     });
+
+    // === 利用規約ボタン ===
+    document.getElementById("termsButton").addEventListener("click", () => {
+      document.getElementById("termsModal").classList.remove("hidden");
+    });
+
+    window.closeTermsModal = function() {
+      document.getElementById("termsModal").classList.add("hidden");
+    };
 
     // === カテゴリフィルター ===
     document.querySelectorAll("[data-category-filter]").forEach(btn => {
