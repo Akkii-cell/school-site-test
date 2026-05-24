@@ -821,38 +821,17 @@
       }
     }
 
-    // ログイン時
+    // ログイン時とオンライン状態管理
     onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        await setUserOnline(true);
-      }
-    });
-
-    // ページ離脱時
-    window.addEventListener("beforeunload", async () => {
-      if (state.user) {
-        await setUserOnline(false);
-      }
-    });
-
-    // ページが非アクティブになったら
-    document.addEventListener("visibilitychange", async () => {
-      if (document.hidden) {
-        if (state.user) {
-          await setUserOnline(false);
-        }
-      } else {
-        if (state.user) {
-          await setUserOnline(true);
-        }
-      }
-    });
       if (!user) {
         // ログインしていない
         document.getElementById("loginModal").classList.remove("hidden");
         document.getElementById("mainContent").style.display = "none";
         return;
       }
+
+      // オンライン状態を記録
+      await setUserOnline(true);
 
       state.user = user;
 
@@ -919,6 +898,26 @@
         document.getElementById("loginModal").classList.add("hidden");
         document.getElementById("mainContent").style.display = "none";
         document.getElementById("setupModal").classList.add("hidden");
+      }
+    });
+
+    // ページ離脱時
+    window.addEventListener("beforeunload", async () => {
+      if (state.user) {
+        await setUserOnline(false);
+      }
+    });
+
+    // ページが非アクティブになったら
+    document.addEventListener("visibilitychange", async () => {
+      if (document.hidden) {
+        if (state.user) {
+          await setUserOnline(false);
+        }
+      } else {
+        if (state.user) {
+          await setUserOnline(true);
+        }
       }
     });
 
