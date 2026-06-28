@@ -19,6 +19,27 @@ color-scheme: light;
 --radius-lg: 22px;
 --max-width: 1220px;
 }
+/* --- ここからダークモードの追加コード --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --bg: #121214;
+    --surface: rgba(30, 30, 34, 0.94);
+    --border: rgba(255, 255, 255, 0.12);
+    --text: #f5f5f7;
+    --muted: #9898ed;
+    --shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+  }
+  /* 元のコードで白系に固定されているパーツの調整 */
+  .avatar-option { background: #222226; }
+  .comment-item { background: rgba(255, 255, 255, 0.04); }
+  .comment-input { background: #222226; color: #fff; }
+  .empty-state { background: #1a1a1e; }
+  .terms-box { background: #1a1a1e; color: #ceced2; }
+  .terms-box h4 { color: #fff; }
+  .debug-error-box { background: #2c1a00; border-color: #d97706; color: #fcd34d; }
+}
+/* --- ここまで --- */
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
