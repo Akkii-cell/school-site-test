@@ -1230,9 +1230,7 @@ e.preventDefault();
   clearDebugErrors();
   const username = document.getElementById("usernameInput").value.trim();
   const password = document.getElementById("passwordInput").value;
-  if (!username || !password) {
-    return;
-  }
+  if (!username || !password) return;
   const fakeEmail = username + "@shiragane.internal"; 
   try {
     await signInWithEmailAndPassword(auth, fakeEmail, password);
