@@ -271,16 +271,31 @@ transition: background 0.25s, border-color 0.25s;
 .modal-title { font-size: 1.4rem; margin-bottom: 20px; font-weight: 700; }
 
 .terms-box { background: var(--terms-bg); border: 1px solid var(--border); border-radius: 14px; padding: 16px; max-height: 280px; overflow-y: auto; font-size: 0.85rem; line-height: 1.6; color: var(--post-body-color); margin-bottom: 16px; text-align: left; }
-.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 12px 18px; border-radius: 999px; background: rgba(17, 24, 39, 0.92); color: #fff; opacity: 0; pointer-events: none; z-index: 120; transition: opacity 0.2s; text-align: center; }
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 12px 18px; border-radius: 999px; background: rgba(17, 24, 39, 0.92); color: #fff; opacity: 0; pointer-events: none; z-index: 1120; transition: opacity 0.2s; text-align: center; }
 .toast.show { opacity: 1; }
 
 .admin-footer { position: fixed; bottom: 16px; right: 16px; z-index: 100; display: flex; gap: 8px; flex-wrap: wrap; }
 .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: rgba(0, 113, 227, 0.1); color: #0071e3; margin-right: 6px; width: auto; }
 .debug-error-box { background: #fef3c7; border: 2px solid #f59e0b; color: #b45309; padding: 12px; border-radius: 12px; font-family: monospace; font-size: 0.85rem; margin-top: 12px; display: none; }
 
-/* 📱 ハンバーガーメニュー & レスポンシブ */
-.hamburger-menu { position: fixed; top: 0; left: -100%; width: 280px; height: 100vh; background: var(--surface); z-index: 1000; transition: left 0.3s ease; box-shadow: var(--shadow); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
-.hamburger-menu.active { left: 0; }
+/* 📱 ハンバーガーメニューサイドバー (pointer-eventsと初期値の修正) */
+.hamburger-menu { 
+position: fixed; 
+top: 0; 
+left: -280px; /* 画面外に完全に隠す */
+width: 280px; 
+height: 100vh; 
+background: var(--surface); 
+z-index: 1005; 
+transition: left 0.3s ease; 
+box-shadow: var(--shadow); 
+padding: 24px; 
+display: flex; 
+flex-direction: column; 
+gap: 16px; 
+pointer-events: none; /* 閉じている時はタッチを完全にスルー */
+}
+.hamburger-menu.active { left: 0; pointer-events: auto; }
 .hamburger-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.44); z-index: 999; backdrop-filter: blur(4px); }
 .hamburger-overlay.active { display: block; }
 .hamburger-button { position: fixed; top: 16px; left: 16px; z-index: 101; width: 44px; height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; display: none; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: var(--shadow); }
@@ -291,10 +306,14 @@ transition: background 0.25s, border-color 0.25s;
 
 input, select, textarea { background: var(--card-bg-inline); border: 1px solid var(--border); color: var(--text); }
 
+/* 初期表示はPC用のみ */
+#pcDateNav { display: grid; }
+#mobileDateNav { display: none !important; }
+
 @media (max-width: 768px) {
   .hamburger-button { display: flex; }
-  #pcDateNav { display: none !important; }
-  #mobileDateNav { display: block !important; }
+  #pcDateNav { display: none !important; } /* スマホではPC用を完全に非表示 */
+  #mobileDateNav { display: block !important; } /* スマホ用のみ表示 */
   .shell { padding: 76px 0 100px; }
   
   .hero-card { padding: 14px; gap: 12px; border-radius: 18px; margin-bottom: 12px; }
@@ -304,7 +323,7 @@ input, select, textarea { background: var(--card-bg-inline); border: 1px solid v
   
   #mobileDateNav { margin-bottom: 14px; padding: 12px; }
   #mobileDateNav .toolbar-row { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 8px; }
-  #mobileDateNav .ghost-button { flex: 0 0 auto; min-height: 38px; padding: 0 12px; font-size: 0.8rem; border-radius: 10px; }
+  #mobileDateNav .ghost-button { flex: 0 0 auto; min-height: 38px; padding: 0 12px; font-size: 0.8rem; border-radius: 10px; width: auto; }
   #mobileDateNav .date-display { flex: 1; font-size: 0.95rem; text-align: center; min-width: 0; }
   
   .form-grid-2 { grid-template-columns: 1fr !important; gap: 10px; }
@@ -563,16 +582,16 @@ function renderPosts() {
   container.innerHTML = "";
   
   // 選択日を 'YYYY-MM-DD' にフォーマット
-  const targetStr = state.currentDate.toISOString().split('T')[0];
+  const d = state.currentDate;
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, '0');
+  const dd = String(d.getDate()).padStart(2, '0');
+  const targetStr = `${yyyy}-${mm}-${dd}`;
   
   const filtered = state.posts.filter(post => {
-    // 日付範囲チェック
     const isWithinDate = targetStr >= post.startDate && targetStr <= post.endDate;
-    // クラス制限チェック
     const isTargetClass = post.target === "両方" || post.target === state.userClass || state.isAdmin;
-    // カテゴリフィルタ
     const isTargetCategory = state.categoryFilter === "all" || post.category === state.categoryFilter;
-    
     return isWithinDate && isTargetClass && isTargetCategory;
   });
 
@@ -598,7 +617,6 @@ function renderPosts() {
     container.appendChild(card);
   });
 
-  // 削除ボタンのイベント付与
   if (state.isAdmin) {
     container.querySelectorAll(".delete-post-btn").forEach(btn => {
       btn.addEventListener("click", async (e) => {
@@ -621,7 +639,7 @@ function showToast(msg) {
 // カテゴリ変更処理
 window.selectCategory = function(cat) {
   state.categoryFilter = cat;
-  const titles = { all: "予定・宿題・連絡", "予定": "📅 予定一覧", "宿現": "✏️ 宿題一覧", "連絡事項": "📢 連絡事項" };
+  const titles = { all: "予定・宿題・連絡", "予定": "📅 予定一覧", "宿 homework": "✏️ 宿題一覧", "連絡事項": "📢 連絡事項" };
   document.getElementById("categoryTitle").textContent = titles[cat] || "一覧";
   renderPosts();
 };
@@ -655,6 +673,29 @@ document.getElementById("nextDateButton").addEventListener("click", () => change
 document.getElementById("prevDateButtonMobile").addEventListener("click", () => changeDate(-1));
 document.getElementById("nextDateButtonMobile").addEventListener("click", () => changeDate(1));
 
+// エラー削除用
+function clearDebugErrors() {
+  const loginErr = document.getElementById("loginDebugError");
+  if(loginErr) loginErr.style.display = "none";
+}
+
+// 既存のログインフロー再現用関数
+function proceedToNextStepAfterLogin(user) {
+  const savedSetup = localStorage.getItem(`user_setup_done_${user.uid}`);
+  if (!savedSetup) {
+    document.getElementById("setupModal").classList.remove("hidden");
+    document.getElementById("pendingApprovalModal").classList.add("hidden");
+    document.getElementById("suspendedModal").classList.add("hidden");
+    return;
+  }
+
+  const setup = JSON.parse(savedSetup);
+  state.userName = setup.name;
+  state.userClass = setup.class;
+  state.userAvatarUrl = setup.avatarUrl || "👤";
+  checkApprovalStatus(user);
+}
+
 // 承認確認監視
 function checkApprovalStatus(user) {
   onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
@@ -665,8 +706,8 @@ function checkApprovalStatus(user) {
         document.getElementById("mainContent").style.display = "none";
         return;
       }
-      state.userName = data.name || "ユーザー";
-      state.userClass = data.class || "7-1";
+      state.userName = data.name || state.userName;
+      state.userClass = data.class || state.userClass;
       state.userAvatarUrl = data.avatarUrl || "👤";
       document.getElementById("userAvatarHeader").textContent = state.userAvatarUrl;
 
@@ -689,13 +730,27 @@ function checkApprovalStatus(user) {
 
 // 認証状態の監視
 onAuthStateChanged(auth, async (user) => {
+  clearDebugErrors();
   if (!user) {
     document.getElementById("loginModal").classList.remove("hidden");
+    document.getElementById("termsModal").classList.add("hidden");
+    document.getElementById("setupModal").classList.add("hidden");
+    document.getElementById("pendingApprovalModal").classList.add("hidden");
+    document.getElementById("suspendedModal").classList.add("hidden");
     document.getElementById("mainContent").style.display = "none";
     return;
   }
   state.user = user;
   document.getElementById("loginModal").classList.add("hidden");
+  
+  const hasAgreed = localStorage.getItem(`user_terms_agreed_${user.uid}`);
+  if (!hasAgreed) {
+    document.getElementById("mainContent").style.display = "none";
+    document.getElementById("termsModal").classList.remove("hidden");
+    document.getElementById("setupModal").classList.add("hidden");
+    document.getElementById("pendingApprovalModal").classList.add("hidden");
+    return;
+  }
   
   if (user.uid === ADMIN_UID) {
     state.isAdmin = true;
@@ -709,7 +764,7 @@ onAuthStateChanged(auth, async (user) => {
       updateDateDisplay();
     });
   } else {
-    checkApprovalStatus(user);
+    proceedToNextStepAfterLogin(user);
   }
 });
 
@@ -736,6 +791,16 @@ document.getElementById("postForm").addEventListener("submit", async (e) => {
   showToast("投稿が完了しました！");
 });
 
+// 利用規約同意
+document.getElementById("termsForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (document.getElementById("termsCheckbox").checked && state.user) {
+    localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true");
+    document.getElementById("termsModal").classList.add("hidden");
+    proceedToNextStepAfterLogin(state.user);
+  }
+});
+
 // ログインフォーム処理
 document.getElementById("emailLoginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -745,7 +810,7 @@ document.getElementById("emailLoginForm").addEventListener("submit", async (e) =
   
   let email = input;
   if(!input.includes("@")) {
-    email = `${input}@shinagawa.ic.tech`; // 任意ドメイン補完など
+    email = `${input}@example.com`; 
   }
   
   try {
@@ -753,10 +818,7 @@ document.getElementById("emailLoginForm").addEventListener("submit", async (e) =
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     try {
-      // ログインに失敗したら新規アカウント作成を試みる
       await createUserWithEmailAndPassword(auth, email, password);
-      // 新規の場合は規約やセットアップモーダルを表示させる等
-      document.getElementById("termsModal").classList.remove("hidden");
     } catch(signUpErr) {
       errorBox.textContent = "エラー: " + signUpErr.message;
       errorBox.style.display = "block";
