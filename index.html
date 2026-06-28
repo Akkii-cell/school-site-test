@@ -7,7 +7,7 @@
 <link rel="icon" href="ChatGPT Image 2026年6月28日 00_40_40 - コピー.png">
 <style>
 :root {
-color-scheme: light;
+color-scheme: light dark;
 --bg: #f5f5f7;
 --surface: rgba(255, 255, 255, 0.92);
 --border: rgba(15, 23, 42, 0.08);
@@ -18,43 +18,45 @@ color-scheme: light;
 --radius-xl: 28px;
 --radius-lg: 22px;
 --max-width: 1220px;
---card-bg-inline: #ffffff;
---panel-bg: rgba(255, 255, 255, 0.92);
---terms-bg: #f9fafb;
---post-body-color: #344054;
 }
 
-/* 🌙 ダークモード設定 */
 @media (prefers-color-scheme: dark) {
-  :root:not(.light-mode) {
-    color-scheme: dark;
-    --bg: #1c1c1e;
-    --surface: rgba(28, 28, 30, 0.85);
-    --border: rgba(255, 255, 255, 0.1);
-    --text: #f5f5f7;
-    --muted: #8e8e93;
-    --accent: #0a84ff;
-    --shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
-    --card-bg-inline: #2c2c2e;
-    --panel-bg: rgba(44, 44, 46, 0.85);
-    --terms-bg: #2c2c2e;
-    --post-body-color: #eaecf0;
-  }
+:root {
+--bg: #1c1c1e;
+--surface: rgba(28, 28, 30, 0.92);
+--border: rgba(255, 255, 255, 0.15);
+--text: #f5f5f7;
+--muted: #a1a1aa;
+--accent: #0a84ff;
+--shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
 }
-
-:root.dark-mode {
-  color-scheme: dark;
-  --bg: #1c1c1e;
-  --surface: rgba(28, 28, 30, 0.85);
-  --border: rgba(255, 255, 255, 0.1);
-  --text: #f5f5f7;
-  --muted: #8e8e93;
-  --accent: #0a84ff;
-  --shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
-  --card-bg-inline: #2c2c2e;
-  --panel-bg: rgba(44, 44, 46, 0.85);
-  --terms-bg: #2c2c2e;
-  --post-body-color: #eaecf0;
+.comment-item {
+background: rgba(255, 255, 255, 0.05) !important;
+}
+.comment-input, .terms-box, .avatar-option, .empty-state {
+background: #2c2c2e !important;
+color: #f5f5f7 !important;
+}
+.post-body, .comment-text, .terms-box p, .terms-box h4 {
+color: #e5e5ea !important;
+}
+.ghost-button {
+background: rgba(255, 255, 255, 0.05) !important;
+color: #f5f5f7 !important;
+border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.ghost-button:hover {
+background: rgba(255, 255, 255, 0.15) !important;
+}
+.reaction-btn {
+background: rgba(255, 255, 255, 0.08) !important;
+color: #f5f5f7 !important;
+}
+.reaction-btn.active {
+background: rgba(10, 132, 255, 0.15) !important;
+color: #0a84ff !important;
+border-color: rgba(10, 132, 255, 0.4) !important;
+}
 }
 
 * { box-sizing: border-box; }
@@ -66,10 +68,9 @@ font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont,
 color: var(--text);
 background: var(--bg);
 -webkit-font-smoothing: antialiased;
-transition: background-color 0.3s, color 0.3s;
 }
 
-button, input, select, textarea { font: inherit; width: 100%; box-sizing: border-box; color: var(--text); background: transparent; }
+button, input, select, textarea { font: inherit; width: 100%; box-sizing: border-box; }
 img { max-width: 100%; display: block; }
 button { border: none; cursor: pointer; }
 
@@ -80,12 +81,10 @@ padding: 28px 0 100px;
 }
 
 .card, .frosted, .panel {
-background: var(--panel-bg);
+background: var(--surface);
 border: 1px solid var(--border);
 border-radius: var(--radius-xl);
 box-shadow: var(--shadow);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
 }
 
 .hero-card { padding: 32px; position: relative; display: flex; align-items: center; gap: 20px; }
@@ -105,7 +104,7 @@ height: 64px;
 border-radius: 50%;
 object-fit: cover;
 background: #e5e7eb;
-border: 2px solid var(--card-bg-inline);
+border: 2px solid #fff;
 box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 font-size: 32px;
 display: flex;
@@ -127,7 +126,7 @@ padding: 4px;
 .avatar-option {
 font-size: 2rem;
 padding: 10px;
-background: var(--terms-bg);
+background: #f3f4f6;
 border-radius: 14px;
 text-align: center;
 cursor: pointer;
@@ -172,7 +171,7 @@ margin-bottom: 16px;
 }
 
 .post-body {
-color: var(--post-body-color);
+color: #344054;
 line-height: 1.8;
 white-space: pre-wrap;
 overflow-wrap: anywhere;
@@ -202,8 +201,6 @@ color: var(--text);
 transition: all 0.15s ease;
 width: auto;
 }
-:root.dark-mode .reaction-btn { background: rgba(255, 255, 255, 0.06); }
-
 .reaction-btn:hover {
 background: rgba(15, 23, 42, 0.08);
 transform: translateY(-1px);
@@ -213,13 +210,30 @@ background: rgba(0, 113, 227, 0.08);
 border-color: rgba(0, 113, 227, 0.3);
 color: var(--accent);
 }
-.reaction-count { font-size: 0.8rem; opacity: 0.8; }
+.reaction-count {
+font-size: 0.8rem;
+opacity: 0.8;
+}
 
-.comment-section { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
-.comment-list { display: grid; gap: 12px; margin-bottom: 14px; }
-.comment-item { display: flex; gap: 12px; align-items: flex-start; background: rgba(15, 23, 42, 0.02); padding: 10px 14px; border-radius: 14px; position: relative; }
-:root.dark-mode .comment-item { background: rgba(255, 255, 255, 0.03); }
-
+.comment-section {
+margin-top: 16px;
+padding-top: 16px;
+border-top: 1px solid var(--border);
+}
+.comment-list {
+display: grid;
+gap: 12px;
+margin-bottom: 14px;
+}
+.comment-item {
+display: flex;
+gap: 12px;
+align-items: flex-start;
+background: rgba(15, 23, 42, 0.02);
+padding: 10px 14px;
+border-radius: 14px;
+position: relative;
+}
 .comment-avatar {
 width: 32px;
 height: 32px;
@@ -232,15 +246,70 @@ align-items: center;
 justify-content: center;
 flex-shrink: 0;
 }
-.comment-content { flex: 1; min-width: 0; }
-.comment-author { font-size: 0.85rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-.comment-text { font-size: 0.9rem; color: var(--post-body-color); white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; }
-.comment-form { display: flex; gap: 8px; align-items: center; }
-.comment-input { flex: 1; padding: 10px 14px; border: 1px solid var(--border); border-radius: 12px; font-size: 0.9rem; background: var(--card-bg-inline); color: var(--text); }
-.comment-submit-btn { background: var(--accent); color: #fff; padding: 10px 16px; border-radius: 12px; font-size: 0.85rem; font-weight: 700; height: 38px; white-space: nowrap; width: auto; }
-.comment-delete-btn { background: transparent; color: #d92d20; font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 6px; cursor: pointer; margin-left: auto; align-self: center; width: auto; }
+.comment-content {
+flex: 1;
+min-width: 0;
+}
+.comment-author {
+font-size: 0.85rem;
+font-weight: 700;
+color: var(--text);
+margin-bottom: 2px;
+}
+.comment-text {
+font-size: 0.9rem;
+color: #344054;
+white-space: pre-wrap;
+overflow-wrap: anywhere;
+line-height: 1.5;
+}
+.comment-form {
+display: flex;
+gap: 8px;
+align-items: center;
+}
+.comment-input {
+flex: 1;
+padding: 10px 14px;
+border: 1px solid var(--border);
+border-radius: 12px;
+font-size: 0.9rem;
+background: #fff;
+}
+.comment-submit-btn {
+background: var(--accent);
+color: #fff;
+padding: 10px 16px;
+border-radius: 12px;
+font-size: 0.85rem;
+font-weight: 700;
+height: 38px;
+white-space: nowrap;
+width: auto;
+}
+.comment-delete-btn {
+background: transparent;
+color: #d92d20;
+font-size: 0.75rem;
+font-weight: 700;
+padding: 4px 8px;
+border-radius: 6px;
+cursor: pointer;
+margin-left: auto;
+align-self: center;
+width: auto;
+}
+.comment-delete-btn:hover {
+background: rgba(217, 45, 32, 0.08);
+}
 
-.empty-state { padding: 28px; text-align: center; color: var(--muted); border-radius: 16px; background: var(--terms-bg); }
+.empty-state {
+padding: 28px;
+text-align: center;
+color: var(--muted);
+border-radius: 16px;
+background: #f9fafb;
+}
 
 .button, .ghost-button, .danger-button {
 display: inline-flex;
@@ -252,97 +321,144 @@ border-radius: 999px;
 font-weight: 700;
 width: auto;
 }
+
 .button { background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; }
-.ghost-button { 
-background: rgba(255, 255, 255, 0.03); 
+
+.ghost-button {
+background: rgba(255, 255, 255, 0.03);
 backdrop-filter: blur(24px) saturate(140%);
 -webkit-backdrop-filter: blur(24px) saturate(140%);
-color: var(--text); 
-border: 1px solid var(--border); 
-box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02), inset 0 1px 1px rgba(255, 255, 255, 0.15);
-transition: background 0.25s, border-color 0.25s;
+color: #111827;
+border: 1px solid rgba(255, 255, 255, 0.5);
+box-shadow:
+0 4px 14px rgba(0, 0, 0, 0.02),
+inset 0 1px 1px rgba(255, 255, 255, 0.35),
+inset 0 -1px 2px rgba(0, 0, 0, 0.02);
+transition: background 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s, transform 0.1s;
 }
-.ghost-button:hover { background: rgba(255, 255, 255, 0.15); border-color: var(--accent); }
-.danger-button { background: rgba(217, 45, 32, 0.12); color: #d92d20; min-height: 36px; padding: 0 12px; font-size: 0.85rem; }
-
-.modal { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; padding: 20px; background: rgba(15, 23, 42, 0.44); backdrop-filter: blur(16px); z-index: 100; }
-.modal.hidden { display: none !important; }
-.modal-panel { width: min(720px, 100%); max-height: 90vh; overflow-y: auto; padding: 28px; border-radius: 28px; background: var(--surface); border: 1px solid var(--border); box-shadow: var(--shadow); }
-.modal-title { font-size: 1.4rem; margin-bottom: 20px; font-weight: 700; }
-
-.terms-box { background: var(--terms-bg); border: 1px solid var(--border); border-radius: 14px; padding: 16px; max-height: 280px; overflow-y: auto; font-size: 0.85rem; line-height: 1.6; color: var(--post-body-color); margin-bottom: 16px; text-align: left; }
-.toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); padding: 12px 18px; border-radius: 999px; background: rgba(17, 24, 39, 0.92); color: #fff; opacity: 0; pointer-events: none; z-index: 1120; transition: opacity 0.2s; text-align: center; }
-.toast.show { opacity: 1; }
-
-.admin-footer { position: fixed; bottom: 16px; right: 16px; z-index: 100; display: flex; gap: 8px; flex-wrap: wrap; }
-.badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: rgba(0, 113, 227, 0.1); color: #0071e3; margin-right: 6px; width: auto; }
-.debug-error-box { background: #fef3c7; border: 2px solid #f59e0b; color: #b45309; padding: 12px; border-radius: 12px; font-family: monospace; font-size: 0.85rem; margin-top: 12px; display: none; }
-
-/* 📱 ハンバーガーメニューサイドバー (pointer-eventsと画面外退避を徹底) */
-.hamburger-menu { 
-position: fixed; 
-top: 0; 
-left: -280px; 
-width: 280px; 
-height: 100vh; 
-background: var(--surface); 
-z-index: 1005; 
-transition: left 0.3s ease; 
-box-shadow: var(--shadow); 
-padding: 24px; 
-display: flex; 
-flex-direction: column; 
-gap: 16px; 
-pointer-events: none; 
+.ghost-button:hover {
+background: rgba(255, 255, 255, 0.15);
+border-color: rgba(255, 255, 255, 0.65);
+box-shadow:
+0 6px 20px rgba(0, 0, 0, 0.04),
+inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
-.hamburger-menu.active { left: 0; pointer-events: auto; }
-.hamburger-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.44); z-index: 999; backdrop-filter: blur(4px); }
-.hamburger-overlay.active { display: block; }
-.hamburger-button { position: fixed; top: 16px; left: 16px; z-index: 101; width: 44px; height: 44px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; display: none; align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: var(--shadow); }
-
-.menu-category { display: grid; gap: 12px; }
-.menu-category-btn { padding: 14px; background: rgba(15, 23, 42, 0.04); color: var(--text); border-radius: 12px; font-weight: 700; font-size: 0.95rem; text-align: left; transition: background 0.2s; }
-:root.dark-mode .menu-category-btn { background: rgba(255, 255, 255, 0.05); }
-
-input, select, textarea { background: var(--card-bg-inline); border: 1px solid var(--border); color: var(--text); }
-
-/* 初期はPC用ナビを表示、スマホ用は隠す */
-#pcDateNav { display: grid; }
-#mobileDateNav { display: none !important; }
 
 @media (max-width: 768px) {
-  .hamburger-button { display: flex; }
-  #pcDateNav { display: none !important; } /* スマホではPC用を100%非表示 */
-  #mobileDateNav { display: block !important; } /* スマホではスマホ用を100%表示 */
-  .shell { padding: 76px 0 100px; }
-  
-  .hero-card { padding: 14px; gap: 12px; border-radius: 18px; margin-bottom: 12px; }
-  .profile-avatar { width: 44px; height: 44px; font-size: 22px; }
-  .hero-title { font-size: 1.2rem; font-weight: 800; }
-  .hero-lead { font-size: 0.8rem; }
-  
-  #mobileDateNav { margin-bottom: 14px; padding: 12px; }
-  #mobileDateNav .toolbar-row { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 8px; }
-  #mobileDateNav .ghost-button { flex: 0 0 auto; min-height: 38px; padding: 0 12px; font-size: 0.8rem; border-radius: 10px; width: auto; }
-  #mobileDateNav .date-display { flex: 1; font-size: 0.95rem; text-align: center; min-width: 0; }
-  
-  .form-grid-2 { grid-template-columns: 1fr !important; gap: 10px; }
-  .panel { padding: 16px; border-radius: var(--radius-lg); margin-bottom: 12px; }
+.hamburger-button { display: flex; }
+.hamburger-menu { display: block; }
+#pcDateNav { display: none !important; }
+#mobileDateNav { display: block !important; }
+.shell { padding: 12px 0 100px; }
+
+.hero-card {
+padding: 10px 14px;
+flex-direction: row;
+text-align: left;
+gap: 12px;
+border-radius: 18px;
+margin-bottom: 8px;
+}
+.profile-avatar {
+width: 32px;
+height: 32px;
+font-size: 18px;
+border-width: 1px;
+}
+.hero-title {
+font-size: 0.95rem;
+font-weight: 800;
+margin-bottom: 0;
+}
+.hero-lead {
+font-size: 0.65rem;
+line-height: 1.2;
+}
+
+#mobileDateNav {
+padding: 8px 12px;
+margin-bottom: 12px;
+border-radius: 18px;
+}
+#mobileDateNav .toolbar-row {
+display: flex;
+flex-wrap: nowrap;
+justify-content: space-between;
+align-items: center;
+gap: 8px;
+width: 100%;
+}
+#mobileDateNav .ghost-button {
+flex: 0 0 auto;
+min-height: 34px;
+padding: 0 10px;
+font-size: 0.75rem;
+border-radius: 10px;
+white-space: nowrap;
+width: auto;
+border: 1px solid rgba(255, 255, 255, 0.5);
+}
+#mobileDateNav .date-display {
+flex: 1 1 auto;
+font-size: 0.85rem;
+min-width: 0;
+margin: 0;
+text-align: center;
+}
+
+.form-grid-2 {
+grid-template-columns: 1fr !important;
+gap: 10px;
+}
+#adminPostForm .panel {
+padding: 14px;
+border-radius: var(--radius-lg);
+margin-bottom: 12px;
+width: 100%;
+}
+#adminPostForm .panel-title {
+font-size: 1rem;
+margin-bottom: 10px;
+}
+#adminPostForm input, #adminPostForm textarea, #adminPostForm select {
+padding: 10px 12px;
+font-size: 0.85rem;
+border-radius: 10px;
+width: 100% !important;
+}
+#adminPostForm button {
+width: 100% !important;
+}
+
+.panel { padding: 16px; border-radius: var(--radius-lg); margin-bottom: 12px; }
+.post-card { padding: 16px; border-radius: var(--radius-lg); }
+.admin-footer { bottom: 8px; right: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.admin-footer button { width: auto; }
+.hamburger-menu { left: -100%; width: 100%; }
+.hamburger-menu.active { left: 0; }
+}
+
+@media (min-width: 769px) {
+.hamburger-button { display: none; }
+.hamburger-menu { display: none; }
+#pcDateNav { display: grid; }
+#mobileDateNav { display: none !important; }
 }
 </style>
 </head>
 <body>
 
 <div class="modal" id="loginModal">
-<div class="modal-panel" style="width: min(450px, 100%);">
+<div class="modal-panel" style="width: min(500px, 100%);">
 <h2 class="modal-title">ログイン / 新規登録</h2>
 <form id="emailLoginForm" style="display: grid; gap: 12px;">
-<select id="loginType" style="padding: 12px 14px; border-radius: 12px;">
+<label for="loginType">ログイン方法</label>
+<select id="loginType">
 <option value="username" selected>ユーザー名</option>
 <option value="email">メールアドレス</option>
 </select>
-<input id="emailInput" type="text" placeholder="メールアドレス または ユーザー名" required style="padding: 12px 14px; border-radius: 12px;">
-<input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border-radius: 12px;">
+<input id="emailInput" type="text" placeholder="メールアドレス または ユーザー名" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <button type="submit" class="button" style="width: 100%;">ログイン / 登録</button>
 </form>
 <div id="loginDebugError" class="debug-error-box"></div>
@@ -351,74 +467,174 @@ input, select, textarea { background: var(--card-bg-inline); border: 1px solid v
 
 <div class="modal hidden" id="termsModal">
 <div class="modal-panel" style="width: min(600px, 100%);">
-<h2 class="modal-title">利用規約・プライバシーポリシー</h2>
+<h2 class="modal-title" style="font-size: 1.3rem; margin-bottom: 12px;">利用規約・プライバシーポリシー</h2>
+<p style="font-size: 0.8rem; color: var(--muted); margin-bottom: 12px;">本サービスをご利用になる前に、必ず以下の内容をお読みいただき、同意をお願いいたします。</p>
+
 <div class="terms-box">
-<p>本サービスを利用するすべての利用者は、本規約に同意したものとみなします。不適切な投稿は管理者の裁量により削除、またはアカウント停止措置を行う場合があります。</p>
+<strong>最終更新日：2026年6月27日</strong>
+<h4>利用規約</h4>
+<h4>第1条（適用）</h4>
+<p>本利用規約（以下「本規約」）は、AKKI（以下「管理者」）が運営する学校予定共有Webサイト（以下「本サービス」）の利用条件を定めるものです。本サービスを利用するすべての利用者は、本規約に同意したものとみなします。</p>
+<h4>第2条（本サービスについて）</h4>
+<p>1. 本サービスは、管理者（AKKI）が個人で運営する学校予定共有Webサイトです。<br>
+2. 本サービスは学校が運営・管理する公式Webサイトではありません。<br>
+3. 本サービスは、学校を代表するものではなく、学校の公式な見解を示すものではありません。<br>
+4. 掲載している予定やお知らせについては正確な情報の提供に努めていますが、誤りや更新漏れが生じる場合があります。正式な情報については、学校から配布されるお知らせや先生からの連絡をご確認ください。</p>
+<h4>第3条（利用対象）</h4>
+<p>1. 本サービスは、対象となる学校の生徒のみが利用できます。<br>
+2. 外部の方は、本サービスを利用することはできません。<br>
+3. 利用者は、本規約を守って本サービスを利用してください。</p>
+<h4>第4条（アカウント登録）</h4>
+<p>1. 本サービスを利用するには、アカウントを作成する必要があります。<br>
+2. 作成されたアカウントは、管理者による承認後に利用できます。<br>
+3. 利用者は、正確な情報を登録してください。<br>
+4. アカウント情報は利用者本人が責任を持って管理してください。<br>
+5. 他人にアカウントを貸与・譲渡することは禁止します。</p>
+<h4>第5条（利用できる機能）</h4>
+<p>1. 管理者のみが学校予定やお知らせを投稿できます。<br>
+2. 利用者は投稿にコメントできます。<br>
+3. 利用者は投稿に「グッド（いいね）」でリアクションできます。</p>
+<h4>第6条（禁止事項）</h4>
+<p>利用者は、次の行為を行ってはいけません。<br>
+・他人への誹傷中傷や嫌がらせ<br>
+・荒らし行為、スパム行為<br>
+・不適切なコメントの投稿<br>
+・法令や学校のルールに反する内容の投稿<br>
+・他人になりすます行為<br>
+・他人のアカウントを使用する行為<br>
+・システムへの不正アクセスや改ざんを試みる行為<br>
+・本サービスの運営を妨害する行為<br>
+・他の利用者に迷惑をかける行為<br>
+・その他、管理者が不適切と判断する行為</p>
+<h4>第7条（違反への対応）</h4>
+<p>管理者は、本規約に違反した利用者に対し、必要に応じて以下の対応を行うことがあります。<br>
+・コメントの削除<br>
+・警告<br>
+・アカウントの一時停止<br>
+・アカウントの削除<br>
+・本サービスの利用禁止<br>
+悪質な場合は、事前の通知なく対応することがあります。</p>
+<h4>第8条（免責事項）</h4>
+<p>1. 管理者は、本サービスに掲載する情報の正確性・完全性・最新性を保証するものではありません。<br>
+2. 本サービスの利用により利用者または第三者に生じた損害について、管理者は責任を負いません。<br>
+3. サーバーメンテナンスや障害などにより、本サービスが一時的に利用できなくなる場合があります。</p>
+<h4>第9条（サービスの変更・停止）</h4>
+<p>管理者は、事前の通知なく本サービスの内容を変更、停止または終了することがあります。</p>
+<h4>第10条（規約の変更）</h4>
+<p>管理者は、必要に応じて本規約を変更できます。変更後の規約は、本サービスへ掲載した時点から効力を生じます。</p>
+
+<hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;">
+
+<h4>プライバシーポリシー</h4>
+<h4>第1条（取得する情報）</h4>
+<p>本サービスでは、以下の情報を取得する場合があります。<br>
+・氏名または表示名<br>
+・学年・クラス（必要な場合）<br>
+・メールアドレス<br>
+・ログイン情報<br>
+・コメント内容<br>
+・アクセス日時などの利用記録</p>
+<h4>第2条（利用目的）</h4>
+<p>取得した情報は、以下の目的で利用します。<br>
+・本サービスの提供・運営<br>
+・本人確認<br>
+・アカウント管理<br>
+・学校予定やお知らせの共有<br>
+・コメント機能の提供<br>
+・不正利用や荒らし行為への対応<br>
+・サービス改善<br>
+・お問い合わせへの対応</p>
+<h4>第3条（個人情報の管理）</h4>
+<p>管理者は、取得した個人情報を適切に管理し、漏えい、改ざん、不正アクセスなどの防止に努めます。</p>
+<h4>第4条（第三者への提供）</h4>
+<p>管理者は、次の場合を除き、利用者の個人情報を第三者へ提供しません。<br>
+・利用者本人の同意がある場合<br>
+・法令に基づき提供が必要な場合</p>
+<h4>第5条（コメント）</h4>
+<p>1. 利用者が投稿したコメントは、他の利用者が閲覧できます。<br>
+2. 管理者は、誹謗中傷、荒らし行為、不適切な内容を含むコメントを予告なく削除できるものとします。</p>
+<h4>第6条（アカウントの削除）</h4>
+<p>利用者が退会した場合、または本規約に違反した場合は、管理者はアカウントおよび関連データを削除することがあります。<br>
+<h4>第7条（プライバシーポリシーの変更）</h4>
+<p>管理者は、必要に応じて本ポリシーを変更できます。変更後は本サービスに掲載した時点から効力を生じます。</p>
+
+<hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;">
+
+<h4>お問い合わせ</h4>
+<p>本サービスに関するお問い合わせは、管理者（AKKI）までご連絡ください。<br>
+運営者：AKKI（個人運営）</p>
 </div>
+
 <form id="termsForm" style="display: grid; gap: 14px;">
-<label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem;">
-<input id="termsCheckbox" type="checkbox" required style="width: 18px; height: 18px;">
+<label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
+<input id="termsCheckbox" type="checkbox" required style="width: 18px; height: 18px; margin: 0;">
 <span>利用規約とプライバシーポリシーに同意する</span>
 </label>
-<button type="submit" class="button">次へ進む</button>
+<button type="submit" class="button" style="width: 100%;">次へ進む</button>
 </form>
 </div>
 </div>
 
 <div class="modal hidden" id="setupModal">
-<div class="modal-panel" style="width: min(450px, 100%);">
+<div class="modal-panel" style="width: min(500px, 100%);">
 <h2 class="modal-title">初期セットアップ</h2>
+<p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">利用を開始するためにお名前とクラスを登録してください。</p>
 <form id="setupForm" style="display: grid; gap: 16px;">
-<input id="setupName" type="text" maxlength="30" placeholder="お名前" required style="padding: 12px 14px; border-radius: 12px;">
-<select id="setupClass" required style="padding: 12px 14px; border-radius: 12px;">
+<input id="setupName" type="text" maxlength="30" placeholder="お名前" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<select id="setupClass" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <option value="">クラスを選択</option>
 <option value="7-1">7-1組</option>
 <option value="7-2">7-2組</option>
 </select>
-<button type="submit" class="button">登録して承認申請</button>
+<button type="submit" class="button" style="width: 100%;">登録して承認申請</button>
 </form>
+<div id="setupDebugError" class="debug-error-box"></div>
 </div>
 </div>
 
 <div class="modal hidden" id="pendingApprovalModal">
-<div class="modal-panel" style="width: min(450px, 100%); text-align: center; padding: 40px 28px;">
-<h2 class="modal-title" style="color: var(--accent); font-size: 1.5rem;">⏳ 承認待ち</h2>
-<p style="line-height: 1.6; margin-bottom: 24px; color: var(--muted);">現在、管理者の承認を待っています。<br>承認されると自動的に画面が切り替わります。</p>
+<div class="modal-panel" style="width: min(500px, 100%); text-align: center; padding: 40px 28px;">
+<h2 class="modal-title" style="color: var(--accent); font-size: 1.6rem; margin-bottom: 16px;">⏳ 承認待ち</h2>
+<p style="line-height: 1.6; margin-bottom: 24px;">アカウントの登録が完了しました。<br>現在、管理者の承認を待っています。<br>承認されると自動的に画面が切り替わります。</p>
 <button type="button" id="pendingLogoutButton" class="ghost-button" style="width: 100%;">ログイン画面に戻る</button>
+<div id="pendingDebugError" class="debug-error-box"></div>
 </div>
 </div>
 
 <div class="modal hidden" id="suspendedModal">
-<div class="modal-panel" style="width: min(500px, 100%); text-align: center;">
-<h2 class="modal-title" style="color: #d92d20;">🔒 アカウント停止中</h2>
+<div class="modal-panel" style="width: min(550px, 100%); text-align: center;">
+<h2 class="modal-title" style="color: #d92d20; font-size: 1.5rem;">🔒 アカウントが停止されています</h2>
+<p style="line-height: 1.6; color: var(--text); margin-bottom: 16px; text-align: left;">利用規約違反または管理者判断により、あなたのアカウントは一時的に停止されました。この決定に不服がある場合は、以下より異議申し立てを送信できます。</p>
 <form id="appealForm" style="display: grid; gap: 14px; text-align: left;">
-<textarea id="appealReason" placeholder="再審査・申し立て理由を入力してください..." required style="padding: 12px 14px; border-radius: 12px; min-height: 120px;"></textarea>
-<button type="submit" class="button" style="background: #d92d20;">申し立てを送信</button>
-<button type="button" id="suspendedLogoutButton" class="ghost-button">ログアウト</button>
+<div>
+<label style="font-size: 0.85rem; color: var(--text); font-weight: 700; display: block; margin-bottom: 6px;">申し立て理由 (必須)</label>
+<textarea id="appealReason" placeholder="停止に対する異議や理由を詳しく入力してください..." required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 120px; width: 100%;"></textarea>
+</div>
+<button type="submit" class="button" style="width: 100%; background: linear-gradient(135deg, #d92d20, #f04438);">異議申し立てを送信する</button>
+<button type="button" id="suspendedLogoutButton" class="ghost-button" style="width: 100%;">ログアウト</button>
 </form>
+<div id="suspendedDebugError" class="debug-error-box"></div>
 </div>
 </div>
 
 <div class="hamburger-menu" id="hamburgerMenu">
-<h3 style="margin: 0 0 8px 0; font-size: 1.2rem;">メニュー</h3>
+<h2 style="margin-bottom: 24px; font-size: 1.2rem;">カテゴリを選択</h2>
 <div class="menu-category">
-<button class="menu-category-btn" id="menuAllBtn">📋 すべて表示</button>
-<button class="menu-category-btn" id="menuScheduleBtn" style="border-left: 4px solid #0071e3;">📅 予定</button>
-<button class="menu-category-btn" id="menuHomeworkBtn" style="border-left: 4px solid #f59e0b;">✏️ 宿題</button>
-<button class="menu-category-btn" id="menuNoticeBtn" style="border-left: 4px solid #a78bfa;">📢 連絡事項</button>
+<button class="menu-category-btn" onclick="window.selectCategory('all')">📋 すべて</button>
+<button class="menu-category-btn" onclick="window.selectCategory('予定')" style="background: linear-gradient(135deg, #0f9f6e, #10b981);">📅 予定</button>
+<button class="menu-category-btn" onclick="window.selectCategory('宿現')" style="background: linear-gradient(135deg, #d97706, #f59e0b);">✏️ 宿題</button>
+<button class="menu-category-btn" onclick="window.selectCategory('連絡事項')" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">📢 連絡事項</button>
 </div>
-<hr style="border: none; border-top: 1px solid var(--border); margin: 8px 0;">
-<button class="ghost-button" id="themeToggleButtonMobile" style="justify-content: flex-start; gap: 8px; width: 100%;">🌙 ダークモード切り替え</button>
 </div>
+
 <div class="hamburger-overlay" id="hamburgerOverlay"></div>
 <button class="hamburger-button" id="hamburgerButton">☰</button>
 
 <div id="mainContent" style="display: none;">
 <div class="admin-footer" id="adminFooter">
-<button class="ghost-button" id="themeToggleButton" style="min-height: 40px; width: 44px; padding: 0; font-size: 1.1rem;">🌙</button>
-<button class="ghost-button" id="adminDashboardButton" style="display: none; min-height: 40px;">📊 ダッシュボード</button>
-<button class="ghost-button" id="profileModalButton" style="min-height: 40px;">👤 設定</button>
-<button class="ghost-button" id="logoutButton" style="min-height: 40px;">ログアウト</button>
+<button class="ghost-button" id="adminDashboardButton" style="display: none; min-height: 40px; padding: 0 14px; font-size: 0.85rem;">📊 ダッシュボード</button>
+<button class="ghost-button" id="profileModalButton" style="min-height: 40px; padding: 0 14px; font-size: 0.85rem;">👤 プロフィール</button>
+<button class="ghost-button" id="logoutButton" style="min-height: 40px; padding: 0 14px; font-size: 0.85rem;">ログアウト</button>
 </div>
 
 <section class="toolbar frosted" id="pcDateNav">
@@ -430,7 +646,7 @@ input, select, textarea { background: var(--card-bg-inline); border: 1px solid v
 </section>
 
 <main class="shell">
-<section class="hero-card frosted" style="margin-bottom: 16px;">
+<section class="hero-card frosted" style="margin-bottom: 12px;">
 <div id="userAvatarHeader" class="profile-avatar">👤</div>
 <div>
 <h1 class="hero-title" id="categoryTitle">予定・宿題・連絡</h1>
@@ -438,7 +654,7 @@ input, select, textarea { background: var(--card-bg-inline); border: 1px solid v
 </div>
 </section>
 
-<section class="toolbar frosted" id="mobileDateNav">
+<section class="toolbar frosted" id="mobileDateNav" style="display: none;">
 <div class="toolbar-row">
 <button class="ghost-button" id="prevDateButtonMobile">← 前日</button>
 <div class="date-display" id="dateDisplayMobile">読み込み中...</div>
@@ -450,25 +666,25 @@ input, select, textarea { background: var(--card-bg-inline); border: 1px solid v
 <div class="panel">
 <h3 class="panel-title">新規投稿</h3>
 <form id="postForm" style="display: grid; gap: 14px;">
-<input id="postTitle" type="text" placeholder="タイトル" required style="padding: 12px 14px; border-radius: 12px;">
-<textarea id="postBodyText" placeholder="内容" required style="padding: 12px 14px; border-radius: 12px; min-height: 100px;"></textarea>
+<input id="postTitle" type="text" maxlength="100" placeholder="タイトル" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width: 100%;">
+<textarea id="postBody" placeholder="内容" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 100px; width: 100%;"></textarea>
 <div class="form-grid-2">
-<select id="postCategory" required style="padding: 12px 14px; border-radius: 12px;">
+<select id="postCategory" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <option value="予定">予定</option>
 <option value="宿題">宿題</option>
 <option value="連絡事項">連絡事項</option>
 </select>
-<select id="postTarget" required style="padding: 12px 14px; border-radius: 12px;">
+<select id="postTarget" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <option value="両方">全体向け</option>
 <option value="7-1">7-1組</option>
 <option value="7-2">7-2組</option>
 </select>
 </div>
 <div class="form-grid-2">
-<input id="postStartDate" type="date" required style="padding: 12px 14px; border-radius: 12px;">
-<input id="postEndDate" type="date" required style="padding: 12px 14px; border-radius: 12px;">
+<input id="postStartDate" type="date" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<input id="postEndDate" type="date" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 </div>
-<button type="submit" class="button">投稿</button>
+<button type="submit" class="button" style="width: 100%;">投稿</button>
 </form>
 </div>
 </section>
@@ -477,366 +693,649 @@ input, select, textarea { background: var(--card-bg-inline); border: 1px solid v
 </main>
 </div>
 
+<div class="modal hidden" id="adminDashboardModal">
+<div class="modal-panel" style="width: min(800px, 100%); max-height: 90vh; overflow: auto;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<h2 class="modal-title">📊 管理者ダッシュボード</h2>
+<button type="button" id="closeAdminDashboard" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
+</div>
+<div id="dashboardDebugError" class="debug-error-box"></div>
+<div style="display: grid; gap: 24px;">
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">📋 申請中</h3>
+<div id="pendingUsersListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">✅ 承認済みユーザー</h3>
+<div id="allowedUsersListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; color: #d92d20;">⚖️ 届いた異議申し立て</h3>
+<div id="appealsListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+</div>
+</div>
+</div>
+
 <div class="modal hidden" id="profileModal">
 <div class="modal-panel" style="width: min(500px, 100%);">
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
 <h2 class="modal-title">👤 プロフィール設定</h2>
-<button type="button" id="closeProfileModal" class="ghost-button">閉じる</button>
+<button type="button" id="closeProfileModal" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
 </div>
-<form id="profileEditForm" style="display: grid; gap: 16px;">
-<div class="avatar-grid" id="avatarGrid"></div>
-<input id="profileImageUrlInput" type="url" placeholder="カスタム画像URL (任意)" style="padding: 12px 14px; border-radius: 12px;">
-<input id="profileNameInput" type="text" maxlength="30" placeholder="表示名" required style="padding: 12px 14px; border-radius: 12px;">
-<button type="submit" class="button">保存</button>
+<div id="profileDebugError" class="debug-error-box"></div>
+<form id="profileForm" style="display: grid; gap: 16px;">
+<div class="avatar-grid" id="avatarGridContainer"></div>
+<input id="profileName" type="text" maxlength="30" placeholder="お名前" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<select id="profileClass" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<option value="7-1">7-1組</option>
+<option value="7-2">7-2組</option>
+</select>
+<button type="submit" class="button" style="width: 100%;">保存する</button>
 </form>
 </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="toastMessage"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, arrayUnion, arrayRemove, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, query, where, onSnapshot, orderBy, addDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyDoMvVErqyv06Tdn-rXNhHkcW_-Q7BfoAg",
-authDomain: "school-site-475fc.firebaseapp.com",
-projectId: "school-site-475fc",
-storageBucket: "school-site-475fc.firebasestorage.app",
-messagingSenderId: "69139986081",
-appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0"
+apiKey: "AIzaSyAsXXXXXXXXXXXXXX_XXXXXX_XXXXXXX",
+authDomain: "shirokane-hills-7th.firebaseapp.com",
+projectId: "shirokane-hills-7th",
+storageBucket: "shirokane-hills-7th.appspot.com",
+messagingSenderId: "123456789012",
+appId: "1:123456789012:web:abcdef1234567890abcdef"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
-const state = { 
-  user: null, 
-  isAdmin: false, 
-  userName: "", 
-  userClass: "", 
-  userAvatarUrl: "👤", 
-  currentDate: new Date(), 
-  posts: [], 
-  categoryFilter: "all" 
+const state = {
+user: null,
+userName: "",
+userClass: "",
+userAvatarUrl: "👤",
+isAdmin: false,
+currentDate: new Date(),
+currentCategory: "all",
+posts: [],
+reactions: {},
+comments: {},
+selectedAvatar: "👤"
 };
 
-// 🌗 ダークモード制御
-function initTheme() {
-  const savedTheme = localStorage.getItem("theme");
-  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const isDark = savedTheme === "dark" || (!savedTheme && systemPrefersDark);
-  
-  if (isDark) {
-    document.documentElement.classList.add("dark-mode");
-    document.documentElement.classList.remove("light-mode");
-  } else {
-    document.documentElement.classList.add("light-mode");
-    document.documentElement.classList.remove("dark-mode");
-  }
-  updateThemeUI(isDark);
+const avatars = ["👤", "👨‍🎓", "👩‍🎓", "🦁", "🐱", "🐶", "🦊", "🐻", "🐼", "🐨", "🐯", "🐰", "🤖", "👾", "🌟", "🍀"];
+
+function showToast(msg) {
+const t = document.getElementById("toastMessage");
+t.textContent = msg;
+t.classList.add("show");
+setTimeout(() => t.classList.remove("show"), 2500);
 }
 
-function toggleTheme() {
-  const isDark = document.documentElement.classList.contains("dark-mode");
-  if (isDark) {
-    document.documentElement.classList.remove("dark-mode");
-    document.documentElement.classList.add("light-mode");
-    localStorage.setItem("theme", "light");
-    updateThemeUI(false);
-  } else {
-    document.documentElement.classList.remove("light-mode");
-    document.documentElement.classList.add("dark-mode");
-    localStorage.setItem("theme", "dark");
-    updateThemeUI(true);
-  }
+function clearDebugErrors() {
+document.querySelectorAll(".debug-error-box").forEach(b => { b.textContent = ""; b.style.display = "none"; });
 }
 
-function updateThemeUI(isDark) {
-  const btnPc = document.getElementById("themeToggleButton");
-  const btnMobile = document.getElementById("themeToggleButtonMobile");
-  if (btnPc) btnPc.textContent = isDark ? "☀️" : "🌙";
-  if (btnMobile) btnMobile.textContent = isDark ? "☀️ ライトモード" : "🌙 ダークモード";
+function showDebugError(elementId, err) {
+const b = document.getElementById(elementId);
+if (b) {
+b.textContent = `[エラー詳細]\nCode: ${err.code || "unknown"}\nMessage: ${err.message || err}`;
+b.style.display = "block";
+}
 }
 
-// 日付表示アップデート
 function updateDateDisplay() {
-  const options = { year: 'numeric', month: 'long', day: 'numeric', weekday: 'short' };
-  const dateStr = state.currentDate.toLocaleDateString('ja-JP', options);
-  document.getElementById("dateDisplay").textContent = dateStr;
-  document.getElementById("dateDisplayMobile").textContent = dateStr;
-  renderPosts();
+const y = state.currentDate.getFullYear();
+const m = state.currentDate.getMonth() + 1;
+const d = state.currentDate.getDate();
+const w = ["日", "月", "火", "水", "木", "金", "土"][state.currentDate.getDay()];
+const str = `${y}年${m}月${d}日 (${w})`;
+document.getElementById("dateDisplay").textContent = str;
+document.getElementById("dateDisplayMobile").textContent = str;
 }
 
 function changeDate(days) {
-  state.currentDate.setDate(state.currentDate.getDate() + days);
-  updateDateDisplay();
+state.currentDate.setDate(state.currentDate.getDate() + days);
+updateDateDisplay();
+renderPosts();
 }
 
-// 投稿の描画処理
-function renderPosts() {
-  const container = document.getElementById("postsContainer");
-  container.innerHTML = "";
-  
-  const d = state.currentDate;
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  const targetStr = `${yyyy}-${mm}-${dd}`;
-  
-  const filtered = state.posts.filter(post => {
-    const isWithinDate = targetStr >= post.startDate && targetStr <= post.endDate;
-    
-    // クラス名表記の揺れをカバー (例: "7-1" と "7-1組" をどちらも同じとみなす)
-    const cleanUserClass = state.userClass.replace("組", "");
-    const cleanPostTarget = post.target.replace("組", "");
-    const isTargetClass = post.target === "両方" || cleanPostTarget === cleanUserClass || state.isAdmin;
-    
-    const isTargetCategory = state.categoryFilter === "all" || post.category === state.categoryFilter;
-    return isWithinDate && isTargetClass && isTargetCategory;
-  });
-
-  if (filtered.length === 0) {
-    const displayCat = state.categoryFilter === 'all' ? '情報' : state.categoryFilter;
-    container.innerHTML = `<div class="empty-state">この日の${displayCat}はありません。</div>`;
-    return;
-  }
-
-  filtered.forEach(post => {
-    const card = document.createElement("div");
-    card.className = "post-card";
-    card.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
-        <div>
-          <span class="badge">${post.category}</span>
-          <span style="font-size:0.8rem; color:var(--muted);">${post.target === '両方' ? '全体' : post.target}向け</span>
-          <h3 style="margin-top:6px; font-weight:700;">${post.title}</h3>
-        </div>
-        ${state.isAdmin ? `<button class="danger-button delete-post-btn" data-id="${post.id}">削除</button>` : ""}
-      </div>
-      <div class="post-body">${post.body}</div>
-    `;
-    container.appendChild(card);
-  });
-
-  if (state.isAdmin) {
-    container.querySelectorAll(".delete-post-btn").forEach(btn => {
-      btn.addEventListener("click", async (e) => {
-        if(confirm("この投稿を削除しますか？")) {
-          await deleteDoc(doc(db, "posts", e.target.dataset.id));
-          showToast("投稿を削除しました");
-        }
-      });
-    });
-  }
-}
-
-function showToast(msg) {
-  const toast = document.getElementById("toast");
-  toast.textContent = msg;
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 2500);
-}
-
-// カテゴリ変更処理 (タイポ修正版)
-window.selectCategory = function(cat) {
-  state.categoryFilter = cat;
-  const titles = { all: "予定・宿題・連絡", "予定": "📅 予定一覧", "宿題": "✏️ 宿題一覧", "連絡事項": "📢 連絡事項" };
-  document.getElementById("categoryTitle").textContent = titles[cat] || "一覧";
-  renderPosts();
-};
-
-// 📱 ハンバーガーメニュー開閉
-const hamburgerBtn = document.getElementById("hamburgerButton");
-const hamburgerMenu = document.getElementById("hamburgerMenu");
-const hamburgerOverlay = document.getElementById("hamburgerOverlay");
-
-function toggleMenu() {
-  hamburgerBtn.classList.toggle("active");
-  hamburgerMenu.classList.toggle("active");
-  hamburgerOverlay.classList.toggle("active");
-}
-hamburgerBtn.addEventListener("click", toggleMenu);
-hamburgerOverlay.addEventListener("click", toggleMenu);
-
-// ハンバーガー内カテゴリーイベント
-document.getElementById("menuAllBtn").addEventListener("click", () => { window.selectCategory("all"); toggleMenu(); });
-document.getElementById("menuScheduleBtn").addEventListener("click", () => { window.selectCategory("予定"); toggleMenu(); });
-document.getElementById("menuHomeworkBtn").addEventListener("click", () => { window.selectCategory("宿題"); toggleMenu(); });
-document.getElementById("menuNoticeBtn").addEventListener("click", () => { window.selectCategory("連絡事項"); toggleMenu(); });
-
-// テーマ切り替えイベント紐付け
-document.getElementById("themeToggleButton").addEventListener("click", toggleTheme);
-document.getElementById("themeToggleButtonMobile").addEventListener("click", () => { toggleTheme(); toggleMenu(); });
-
-// 前日・翌日ナビゲーションイベント
 document.getElementById("prevDateButton").addEventListener("click", () => changeDate(-1));
 document.getElementById("nextDateButton").addEventListener("click", () => changeDate(1));
 document.getElementById("prevDateButtonMobile").addEventListener("click", () => changeDate(-1));
 document.getElementById("nextDateButtonMobile").addEventListener("click", () => changeDate(1));
 
-// エラー削除用
-function clearDebugErrors() {
-  const loginErr = document.getElementById("loginDebugError");
-  if(loginErr) loginErr.style.display = "none";
+const hamburgerButton = document.getElementById("hamburgerButton");
+const hamburgerMenu = document.getElementById("hamburgerMenu");
+const hamburgerOverlay = document.getElementById("hamburgerOverlay");
+
+function toggleMenu() {
+hamburgerButton.classList.toggle("active");
+hamburgerMenu.classList.toggle("active");
+hamburgerOverlay.classList.toggle("active");
+if (hamburgerButton.classList.contains("active")) {
+hamburgerButton.textContent = "✕";
+} else {
+hamburgerButton.textContent = "☰";
+}
+}
+hamburgerButton.addEventListener("click", toggleMenu);
+hamburgerOverlay.addEventListener("click", toggleMenu);
+
+window.selectCategory = function(cat) {
+state.currentCategory = cat;
+const titles = { all: "予定・宿題・連絡", "予定": "📅 予定", "宿現": "✏️ 宿題", "連絡事項": "📢 連絡事項" };
+document.getElementById("categoryTitle").textContent = titles[cat] || "一覧";
+if (hamburgerMenu.classList.contains("active")) toggleMenu();
+renderPosts();
+};
+
+document.getElementById("profileModalButton").addEventListener("click", () => {
+document.getElementById("profileName").value = state.userName;
+document.getElementById("profileClass").value = state.userClass;
+state.selectedAvatar = state.userAvatarUrl;
+renderAvatarGrid("avatarGridContainer");
+document.getElementById("profileModal").classList.remove("hidden");
+});
+
+document.getElementById("closeProfileModal").addEventListener("click", () => {
+document.getElementById("profileModal").classList.add("hidden");
+});
+
+function renderAvatarGrid(containerId) {
+const container = document.getElementById(containerId);
+container.innerHTML = "";
+avatars.forEach(a => {
+const d = document.createElement("div");
+d.className = `avatar-option ${state.selectedAvatar === a ? "selected" : ""}`;
+d.textContent = a;
+d.addEventListener("click", () => {
+state.selectedAvatar = a;
+renderAvatarGrid(containerId);
+});
+container.appendChild(d);
+});
 }
 
-// 既存のログインフロー再現用関数
-function proceedToNextStepAfterLogin(user) {
-  const savedSetup = localStorage.getItem(`user_setup_done_${user.uid}`);
-  if (!savedSetup) {
-    document.getElementById("setupModal").classList.remove("hidden");
-    document.getElementById("pendingApprovalModal").classList.add("hidden");
-    document.getElementById("suspendedModal").classList.add("hidden");
-    return;
-  }
+document.getElementById("profileForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+clearDebugErrors();
+const name = document.getElementById("profileName").value.trim();
+const cls = document.getElementById("profileClass").value;
+if (!name || !cls) return;
 
-  const setup = JSON.parse(savedSetup);
-  state.userName = setup.name;
-  state.userClass = setup.class;
-  state.userAvatarUrl = setup.avatarUrl || "👤";
-  checkApprovalStatus(user);
+try {
+await updateDoc(doc(db, "users", state.user.uid), {
+name: name,
+class: cls,
+avatarUrl: state.selectedAvatar
+});
+state.userName = name;
+state.userClass = cls;
+state.userAvatarUrl = state.selectedAvatar;
+document.getElementById("userAvatarHeader").textContent = state.userAvatarUrl;
+document.getElementById("profileModal").classList.add("hidden");
+showToast("プロフィールを更新しました");
+renderPosts();
+} catch (err) {
+showDebugError("profileDebugError", err);
 }
-
-// 承認確認監視
-function checkApprovalStatus(user) {
-  onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
-    if (snapshot.exists()) {
-      const data = snapshot.data();
-      if (data.suspended === true) {
-        document.getElementById("suspendedModal").classList.remove("hidden");
-        document.getElementById("mainContent").style.display = "none";
-        return;
-      }
-      state.userName = data.name || state.userName;
-      state.userClass = data.class || state.userClass;
-      state.userAvatarUrl = data.avatarUrl || "👤";
-      document.getElementById("userAvatarHeader").textContent = state.userAvatarUrl;
-
-      document.getElementById("pendingApprovalModal").classList.add("hidden");
-      document.getElementById("mainContent").style.display = "block";
-      
-      // リアルタイムの投稿データ取得
-      const q = query(collection(db, "posts"), orderBy("serverTime", "desc"));
-      onSnapshot(q, (snapshot) => {
-        state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-        updateDateDisplay();
-      });
-      
-    } else {
-      document.getElementById("pendingApprovalModal").classList.remove("hidden");
-      document.getElementById("mainContent").style.display = "none";
-    }
-  });
-}
-
-// 認証状態の監視
-onAuthStateChanged(auth, async (user) => {
-  clearDebugErrors();
-  if (!user) {
-    document.getElementById("loginModal").classList.remove("hidden");
-    document.getElementById("termsModal").classList.add("hidden");
-    document.getElementById("setupModal").classList.add("hidden");
-    document.getElementById("pendingApprovalModal").classList.add("hidden");
-    document.getElementById("suspendedModal").classList.add("hidden");
-    document.getElementById("mainContent").style.display = "none";
-    return;
-  }
-  state.user = user;
-  document.getElementById("loginModal").classList.add("hidden");
-  
-  const hasAgreed = localStorage.getItem(`user_terms_agreed_${user.uid}`);
-  if (!hasAgreed) {
-    document.getElementById("mainContent").style.display = "none";
-    document.getElementById("termsModal").classList.remove("hidden");
-    document.getElementById("setupModal").classList.add("hidden");
-    document.getElementById("pendingApprovalModal").classList.add("hidden");
-    return;
-  }
-  
-  if (user.uid === ADMIN_UID) {
-    state.isAdmin = true;
-    document.getElementById("mainContent").style.display = "block";
-    document.getElementById("adminPostForm").style.display = "block";
-    document.getElementById("adminDashboardButton").style.display = "block";
-    
-    const q = query(collection(db, "posts"), orderBy("serverTime", "desc"));
-    onSnapshot(q, (snapshot) => {
-      state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      updateDateDisplay();
-    });
-  } else {
-    proceedToNextStepAfterLogin(user);
-  }
 });
 
-// 新規投稿処理 (管理者用)
-document.getElementById("postForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  if(!state.isAdmin) return;
-  
-  const title = document.getElementById("postTitle").value;
-  const body = document.getElementById("postBodyText").value;
-  const category = document.getElementById("postCategory").value;
-  const target = document.getElementById("postTarget").value;
-  const startDate = document.getElementById("postStartDate").value;
-  const endDate = document.getElementById("postEndDate").value;
-  
-  await addDoc(collection(db, "posts"), {
-    title, body, category, target, startDate, endDate,
-    uid: state.user.uid,
-    author: "管理者",
-    serverTime: serverTimestamp()
-  });
-  
-  e.target.reset();
-  showToast("投稿が完了しました！");
-});
-
-// 利用規約同意
-document.getElementById("termsForm").addEventListener("submit", (e) => {
-  e.preventDefault();
-  if (document.getElementById("termsCheckbox").checked && state.user) {
-    localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true");
-    document.getElementById("termsModal").classList.add("hidden");
-    proceedToNextStepAfterLogin(state.user);
-  }
-});
-
-// ログインフォーム処理
-document.getElementById("emailLoginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const input = document.getElementById("emailInput").value;
-  const password = document.getElementById("passwordInput").value;
-  const errorBox = document.getElementById("loginDebugError");
-  
-  let email = input;
-  if(!input.includes("@")) {
-    email = `${input}@example.com`; 
-  }
-  
-  try {
-    errorBox.style.display = "none";
-    await signInWithEmailAndPassword(auth, email, password);
-  } catch (err) {
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-    } catch(signUpErr) {
-      errorBox.textContent = "エラー: " + signUpErr.message;
-      errorBox.style.display = "block";
-    }
-  }
-});
-
-// ログアウト処理
 document.getElementById("logoutButton").addEventListener("click", () => signOut(auth));
 document.getElementById("pendingLogoutButton").addEventListener("click", () => signOut(auth));
+document.getElementById("suspendedLogoutButton").addEventListener("click", () => signOut(auth));
 
-// テーマ初期化
-initTheme();
+document.getElementById("emailLoginForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+clearDebugErrors();
+const type = document.getElementById("loginType").value;
+const input = document.getElementById("emailInput").value.trim();
+const password = document.getElementById("passwordInput").value;
+
+let email = input;
+if (type === "username") {
+email = `${input.toLowerCase()}@shirokane-hills.local`;
+}
+
+try {
+await signInWithEmailAndPassword(auth, email, password);
+} catch (err) {
+if (err.code === "auth/user-not-found") {
+try {
+const credential = await createUserWithEmailAndPassword(auth, email, password);
+localStorage.removeItem(`user_terms_agreed_${credential.user.uid}`);
+} catch (createErr) {
+showDebugError("loginDebugError", createErr);
+}
+} else {
+showDebugError("loginDebugError", err);
+}
+}
+});
+
+document.getElementById("termsForm").addEventListener("submit", (e) => {
+e.preventDefault();
+if (!document.getElementById("termsCheckbox").checked) return;
+localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true");
+document.getElementById("termsModal").classList.add("hidden");
+proceedToNextStepAfterLogin(state.user);
+});
+
+document.getElementById("setupForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+clearDebugErrors();
+const name = document.getElementById("setupName").value.trim();
+const cls = document.getElementById("setupClass").value;
+if (!name || !cls) return;
+
+try {
+renderAvatarGrid("setupAvatarGridContainer");
+const initialAvatar = "👤";
+await setDoc(doc(db, "users", state.user.uid), {
+uid: state.user.uid,
+name: name,
+class: cls,
+avatarUrl: initialAvatar,
+role: "student",
+status: "pending",
+createdAt: new Date().toISOString()
+});
+localStorage.setItem(`user_setup_saved_${state.user.uid}`, JSON.stringify({ name, class: cls, avatarUrl: initialAvatar }));
+proceedToNextStepAfterLogin(state.user);
+} catch (err) {
+showDebugError("setupDebugError", err);
+}
+});
+
+document.getElementById("appealForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+clearDebugErrors();
+const reason = document.getElementById("appealReason").value.trim();
+if (!reason) return;
+
+try {
+await addDoc(collection(db, "appeals"), {
+uid: state.user.uid,
+userName: state.userName,
+reason: reason,
+timestamp: new Date().toISOString()
+});
+showToast("申し立てを送信しました。");
+document.getElementById("appealReason").value = "";
+} catch (err) {
+showDebugError("suspendedDebugError", err);
+}
+});
+
+function listenToData() {
+const startOfDay = new Date(state.currentDate);
+startOfDay.setHours(0,0,0,0);
+const endOfDay = new Date(state.currentDate);
+endOfDay.setHours(23,59,59,999);
+
+onSnapshot(collection(db, "posts"), (snapshot) => {
+const allPosts = [];
+snapshot.forEach(doc => {
+allPosts.push({ id: doc.id, ...doc.data() });
+});
+state.posts = allPosts;
+renderPosts();
+});
+
+onSnapshot(collection(db, "reactions"), (snapshot) => {
+const rMap = {};
+snapshot.forEach(doc => {
+const d = doc.data();
+if (!rMap[d.postId]) rMap[d.postId] = {};
+if (!rMap[d.postId][d.type]) rMap[d.postId][d.type] = [];
+rMap[d.postId][d.type].push(d.uid);
+});
+state.reactions = rMap;
+renderPosts();
+});
+
+onSnapshot(collection(db, "comments"), (snapshot) => {
+const cMap = {};
+snapshot.forEach(doc => {
+const d = doc.data();
+if (!cMap[d.postId]) cMap[d.postId] = [];
+cMap[d.postId].push({ id: doc.id, ...d });
+});
+for (const pId in cMap) {
+cMap[pId].sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
+}
+state.comments = cMap;
+renderPosts();
+});
+}
+
+function renderPosts() {
+const container = document.getElementById("postsContainer");
+if (!container) return;
+container.innerHTML = "";
+
+const targetDateStr = state.currentDate.toISOString().split("T")[0];
+
+const filtered = state.posts.filter(p => {
+if (state.currentCategory !== "all" && p.category !== state.currentCategory) return false;
+if (!state.isAdmin && p.target !== "両方" && p.target !== state.userClass) return false;
+return targetDateStr >= p.startDate && targetDateStr <= p.endDate;
+});
+
+if (filtered.length === 0) {
+container.innerHTML = `<div class="empty-state">この日の連絡事項や予定はありません。</div>`;
+return;
+}
+
+filtered.forEach(p => {
+const card = document.createElement("article");
+card.className = "post-card";
+
+const badgeColors = { "予定": "background:rgba(15,159,110,0.1);color:#0f9f6e;", "宿現": "background:rgba(217,119,6,0.1);color:#d97706;", "連絡事項": "background:rgba(139,92,246,0.1);color:#8b5cf6;" };
+const bStyle = badgeColors[p.category] || "background:#e5e7eb;color:#4b5563;";
+const targetText = p.target === "両方" ? "全体向け" : `${p.target}組向け`;
+
+const postReactions = state.reactions[p.id] || {};
+const goodUsers = postReactions["good"] || [];
+const isGoodActive = goodUsers.includes(state.user?.uid);
+
+let deleteBtnHtml = "";
+if (state.isAdmin) {
+deleteBtnHtml = `<button class="comment-delete-btn" style="margin-left:8px;" onclick="window.deletePost('${p.id}')">削除</button>`;
+}
+
+card.innerHTML = `
+<div style="display:flex; align-items:center; margin-bottom:12px; gap:6px; flex-wrap:wrap;">
+<span class="badge" style="${bStyle}">${p.category}</span>
+<span class="badge" style="background:rgba(15,23,42,0.05); color:var(--text);">${targetText}</span>
+<h3 style="font-size:1.15rem; font-weight:700; flex:1; min-width:150px;">${p.title}</h3>
+${deleteBtnHtml}
+</div>
+<div class="post-body">${p.body}</div>
+<div class="reaction-container">
+<button class="reaction-btn ${isGoodActive ? "active" : ""}" onclick="window.toggleReaction('${p.id}', 'good')">
+<span>👍 グッド</span>
+<span class="reaction-count">${goodUsers.length}</span>
+</button>
+</div>
+<div class="comment-section">
+<div class="comment-list" id="comments-${p.id}"></div>
+<form class="comment-form" onsubmit="window.submitComment(event, '${p.id}')">
+<input type="text" class="comment-input" placeholder="コメントを入力..." required maxlength="200">
+<button type="submit" class="comment-submit-btn">送信</button>
+</form>
+</div>
+`;
+
+container.appendChild(card);
+const cList = card.querySelector(`#comments-${p.id}`);
+const pComments = state.comments[p.id] || [];
+pComments.forEach(c => {
+const cItem = document.createElement("div");
+cItem.className = "comment-item";
+let cDeleteBtn = "";
+if (state.isAdmin || c.uid === state.user?.uid) {
+cDeleteBtn = `<button class="comment-delete-btn" onclick="window.deleteComment('${c.id}')">削除</button>`;
+}
+cItem.innerHTML = `
+<div class="comment-avatar">${c.userAvatarUrl || "👤"}</div>
+<div class="comment-content">
+<div class="comment-author">${c.userName} <span style="font-weight:400; font-size:0.75rem; color:var(--muted); margin-left:6px;">${c.userClass}</span></div>
+<div class="comment-text">${c.text}</div>
+</div>
+${cDeleteBtn}
+`;
+cList.appendChild(cItem);
+});
+});
+}
+
+window.deletePost = async function(id) {
+if (!confirm("本当にこの投稿を削除しますか？")) return;
+try { await deleteDoc(doc(db, "posts", id)); showToast("投稿を削除しました"); } catch(e) { alert(e.message); }
+};
+
+window.toggleReaction = async function(postId, type) {
+const rKey = `${postId}_${state.user.uid}_${type}`;
+const postReactions = state.reactions[postId] || {};
+const users = postReactions[type] || [];
+if (users.includes(state.user.uid)) {
+await deleteDoc(doc(db, "reactions", rKey));
+} else {
+await setDoc(doc(db, "reactions", rKey), { postId, uid: state.user.uid, type });
+}
+};
+
+window.submitComment = async function(e, postId) {
+e.preventDefault();
+const input = e.target.querySelector(".comment-input");
+const txt = input.value.trim();
+if (!txt) return;
+try {
+await addDoc(collection(db, "comments"), {
+postId,
+uid: state.user.uid,
+userName: state.userName,
+userClass: state.userClass,
+userAvatarUrl: state.userAvatarUrl,
+text: txt,
+timestamp: new Date().toISOString()
+});
+input.value = "";
+} catch(err) { alert(err.message); }
+};
+
+window.deleteComment = async function(id) {
+if (!confirm("コメントを削除しますか？")) return;
+try { await deleteDoc(doc(db, "comments", id)); } catch(e) { alert(e.message); }
+};
+
+document.getElementById("postForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+const title = document.getElementById("postTitle").value.trim();
+const body = document.getElementById("postBody").value.trim();
+const category = document.getElementById("postCategory").value;
+const target = document.getElementById("postTarget").value;
+const startDate = document.getElementById("postStartDate").value;
+const endDate = document.getElementById("postEndDate").value;
+
+try {
+await addDoc(collection(db, "posts"), { title, body, category, target, startDate, endDate, createdAt: new Date().toISOString() });
+document.getElementById("postForm").reset();
+showToast("投稿しました");
+} catch(err) { alert(err.message); }
+});
+
+function initAdminDashboard() {
+document.getElementById("adminDashboardButton").addEventListener("click", () => {
+document.getElementById("adminDashboardModal").classList.remove("hidden");
+loadAdminDashboardData();
+});
+document.getElementById("closeAdminDashboard").addEventListener("click", () => {
+document.getElementById("adminDashboardModal").classList.add("hidden");
+});
+}
+
+function loadAdminDashboardData() {
+onSnapshot(collection(db, "users"), (snapshot) => {
+const pendingContainer = document.getElementById("pendingUsersListAdmin");
+const allowedContainer = document.getElementById("allowedUsersListAdmin");
+pendingContainer.innerHTML = "";
+allowedContainer.innerHTML = "";
+
+snapshot.forEach(docSnap => {
+const u = docSnap.data();
+const item = document.createElement("div");
+item.style = "display:flex; justify-content:space-between; align-items:center; background:rgba(15,23,42,0.02); padding:12px; border-radius:12px; border:1px solid var(--border);";
+
+if (u.status === "pending") {
+item.innerHTML = `<div><strong>${u.name}</strong> (${u.class})</div>
+<div>
+<button class="button" style="padding:6px 12px; min-height:32px; font-size:0.8rem; margin-right:6px;" onclick="window.updateUserStatus('${u.uid}', 'allowed')">承認</button>
+<button class="danger-button" style="border-radius:999px;" onclick="window.updateUserStatus('${u.uid}', 'suspended')">拒否</button>
+</div>`;
+pendingContainer.appendChild(item);
+} else if (u.status === "allowed" && u.role !== "admin") {
+item.innerHTML = `<div><strong>${u.name}</strong> (${u.class})</div>
+<div><button class="danger-button" style="border-radius:999px;" onclick="window.updateUserStatus('${u.uid}', 'suspended')">アカウント停止</button></div>`;
+allowedContainer.appendChild(item);
+} else if (u.status === "suspended") {
+item.innerHTML = `<div><strong style="color:#d92d20;">${u.name}</strong> (${u.class}) [停止中]</div>
+<div><button class="button" style="padding:6px 12px; min-height:32px; font-size:0.8rem;" onclick="window.updateUserStatus('${u.uid}', 'allowed')">解除</button></div>`;
+allowedContainer.appendChild(item);
+}
+});
+});
+
+onSnapshot(collection(db, "appeals"), (snapshot) => {
+const container = document.getElementById("appealsListAdmin");
+container.innerHTML = "";
+snapshot.forEach(docSnap => {
+const a = docSnap.data();
+const item = document.createElement("div");
+item.style = "background:rgba(217,45,32,0.02); border:1px solid rgba(217,45,32,0.2); padding:14px; border-radius:14px; position:relative;";
+item.innerHTML = `
+<div style="font-weight:700; margin-bottom:4px; color:#d92d20;">送信者: ${a.userName || "不明"}</div>
+<div style="font-size:0.9rem; line-height:1.5; white-space:pre-wrap;">${a.reason}</div>
+<button class="comment-delete-btn" style="position:absolute; top:12px; right:12px;" onclick="window.deleteAppeal('${docSnap.id}')">削除</button>
+`;
+container.appendChild(item);
+});
+});
+}
+
+window.updateUserStatus = async function(uid, status) {
+try { await updateDoc(doc(db, "users", uid), { status }); showToast(`ステータスを更新しました`); } catch(e) { alert(e.message); }
+};
+
+window.deleteAppeal = async function(id) {
+try { await deleteDoc(doc(db, "appeals", id)); showToast("申し立て履歴を削除しました"); } catch(e) { alert(e.message); }
+};
+
+async function checkApprovalStatus(user) {
+try {
+const docSnap = await getDoc(doc(db, "users", user.uid));
+if (!docSnap.exists()) {
+document.getElementById("setupModal").classList.remove("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("suspendedModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("hamburgerButton").style.display = "none";
+return;
+}
+
+const data = docSnap.data();
+state.userName = data.name;
+state.userClass = data.class;
+state.userAvatarUrl = data.avatarUrl || "👤";
+state.isAdmin = data.role === "admin";
+
+document.getElementById("userAvatarHeader").textContent = state.userAvatarUrl;
+
+if (data.status === "suspended") {
+document.getElementById("suspendedModal").classList.remove("hidden");
+document.getElementById("loginModal").classList.add("hidden");
+document.getElementById("termsModal").classList.add("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("hamburgerButton").style.display = "none";
+return;
+}
+
+if (data.status !== "allowed" && !state.isAdmin) {
+document.getElementById("pendingApprovalModal").classList.remove("hidden");
+document.getElementById("loginModal").classList.add("hidden");
+document.getElementById("termsModal").classList.add("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("suspendedModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("hamburgerButton").style.display = "none";
+return;
+}
+
+document.getElementById("loginModal").classList.add("hidden");
+document.getElementById("termsModal").classList.add("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("suspendedModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "block";
+
+if (window.innerWidth <= 768) {
+document.getElementById("hamburgerButton").style.display = "flex";
+} else {
+document.getElementById("hamburgerButton").style.display = "none";
+}
+
+if (state.isAdmin) {
+document.getElementById("adminPostForm").style.display = "block";
+document.getElementById("adminDashboardButton").style.display = "inline-flex";
+initAdminDashboard();
+} else {
+document.getElementById("adminPostForm").style.display = "none";
+document.getElementById("adminDashboardButton").style.display = "none";
+}
+
+listenToData();
+
+} catch (err) {
+showDebugError("loginDebugError", err);
+}
+}
+
+function proceedToNextStepAfterLogin(user) {
+const savedSetup = localStorage.getItem(`user_setup_saved_${user.uid}`);
+if (!savedSetup) {
+document.getElementById("setupModal").classList.remove("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("suspendedModal").classList.add("hidden");
+return;
+}
+
+const setup = JSON.parse(savedSetup);
+state.userName = setup.name;
+state.userClass = setup.class;
+state.userAvatarUrl = setup.avatarUrl || "👤";
+checkApprovalStatus(user);
+}
+
+onAuthStateChanged(auth, async (user) => {
+clearDebugErrors();
+if (!user) {
+document.getElementById("loginModal").classList.remove("hidden");
+document.getElementById("termsModal").classList.add("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("suspendedModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("hamburgerButton").style.display = "none";
+return;
+}
+
+state.user = user;
+document.getElementById("loginModal").classList.add("hidden");
+
+const hasAgreed = localStorage.getItem(`user_terms_agreed_${user.uid}`);
+if (!hasAgreed) {
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("termsModal").classList.remove("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+return;
+}
+
+proceedToNextStepAfterLogin(user);
+});
+
+updateDateDisplay();
 </script>
 </body>
 </html>
