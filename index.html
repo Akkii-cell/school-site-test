@@ -285,179 +285,25 @@ width: auto;
 
 .button { background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; }
 
-.ghost-button { 
-background: rgba(255, 255, 255, 0.03); 
+.ghost-button {
+background: rgba(255, 255, 255, 0.03);
 backdrop-filter: blur(24px) saturate(140%);
 -webkit-backdrop-filter: blur(24px) saturate(140%);
-color: #111827; 
-border: 1px solid rgba(255, 255, 255, 0.5); 
-box-shadow: 
-  0 4px 14px rgba(0, 0, 0, 0.02), 
-  inset 0 1px 1px rgba(255, 255, 255, 0.35),
-  inset 0 -1px 2px rgba(0, 0, 0, 0.02);
+color: #111827;
+border: 1px solid rgba(255, 255, 255, 0.5);
+box-shadow:
+0 4px 14px rgba(0, 0, 0, 0.02),
+inset 0 1px 1px rgba(255, 255, 255, 0.35),
+inset 0 -1px 2px rgba(0, 0, 0, 0.02);
 transition: background 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s, transform 0.1s;
 }
 .ghost-button:hover {
 background: rgba(255, 255, 255, 0.15);
 border-color: rgba(255, 255, 255, 0.65);
-box-shadow: 
-  0 6px 20px rgba(0, 0, 0, 0.04), 
-  inset 0 1px 1px rgba(255, 255, 255, 0.5);
+box-shadow:
+0 6px 20px rgba(0, 0, 0, 0.04),
+inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
-
-@keyframes popIn {
-  from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
-  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-}
-.guide-bubble {
-  position: fixed;
-  left: 50%;
-  bottom: 80px;
-  transform: translateX(-50%);
-  background: rgba(17, 24, 39, 0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  color: #fff;
-  padding: 16px 20px;
-  border-radius: 20px;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
-  z-index: 2000;
-  font-size: 0.9rem;
-  width: max-content;
-  max-width: 320px;
-  animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  text-align: left;
-}
-.guide-bubble::after {
-  content: "";
-  position: absolute;
-  bottom: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 8px 8px 0;
-  border-style: solid;
-  border-color: rgba(17, 24, 39, 0.96) transparent;
-  display: block;
-  width: 0;
-}
-
-.danger-button { background: rgba(217, 45, 32, 0.12); color: #d92d20; min-height: 36px; padding: 0 12px; font-size: 0.85rem; }
-
-.modal {
-position: fixed;
-inset: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 20px;
-background: rgba(15, 23, 42, 0.44);
-backdrop-filter: blur(16px);
-z-index: 100;
-}
-
-.modal.hidden { display: none; }
-
-.modal-panel {
-width: min(720px, 100%);
-max-height: 90vh;
-overflow-y: auto;
-padding: 28px;
-border-radius: 28px;
-background: var(--surface);
-border: 1px solid var(--border);
-box-shadow: var(--shadow);
-}
-
-.modal-title { font-size: 1.4rem; margin-bottom: 20px; font-weight: 700; }
-
-.terms-box {
-background: #f9fafb;
-border: 1px solid var(--border);
-border-radius: 14px;
-padding: 16px;
-max-height: 280px;
-overflow-y: auto;
-font-size: 0.85rem;
-line-height: 1.6;
-color: #344054;
-margin-bottom: 16px;
-text-align: left;
-}
-.terms-box h4 { margin-top: 12px; margin-bottom: 4px; font-size: 0.9rem; color: var(--text); }
-.terms-box p { margin-bottom: 8px; }
-
-.toast {
-position: fixed;
-left: 50%;
-bottom: 24px;
-transform: translateX(-50%);
-padding: 12px 18px;
-border-radius: 999px;
-background: rgba(17, 24, 39, 0.92);
-color: #fff;
-opacity: 0;
-pointer-events: none;
-z-index: 120;
-transition: opacity 0.2s;
-text-align: center;
-width: max-content;
-max-width: 90vw;
-}
-.toast.show { opacity: 1; }
-
-.admin-footer { position: fixed; bottom: 16px; right: 16px; z-index: 100; display: flex; gap: 8px; }
-.badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: rgba(0, 113, 227, 0.1); color: #0071e3; margin-right: 6px; width: auto; }
-
-.debug-error-box {
-background: #fef3c7;
-border: 2px solid #f59e0b;
-color: #b45309;
-padding: 12px;
-border-radius: 12px;
-font-family: monospace;
-font-size: 0.85rem;
-margin-top: 12px;
-display: none;
-white-space: pre-wrap;
-word-break: break-all;
-text-align: left;
-}
-
-.hamburger-menu {
-display: none;
-position: fixed;
-top: 0;
-left: -100%;
-width: 100%;
-height: 100vh;
-background: var(--surface);
-z-index: 1000;
-transition: left 0.3s ease;
-overflow-y: auto;
-padding: 20px;
-}
-.hamburger-menu.active { left: 0; }
-.hamburger-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.44); z-index: 999; }
-.hamburger-overlay.active { display: block; }
-.hamburger-button {
-position: fixed;
-top: 16px;
-left: 16px;
-z-index: 101;
-width: 44px;
-height: 44px;
-background: var(--surface);
-border: 1px solid var(--border);
-border-radius: 12px;
-display: none;
-align-items: center;
-justify-content: center;
-font-size: 1.4rem;
-}
-.hamburger-button.active { position: fixed; top: 16px; right: 16px; left: auto; }
-
-.menu-category { display: grid; gap: 12px; margin-bottom: 20px; }
-.menu-category-btn { padding: 16px; background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; border-radius: 12px; font-weight: 700; font-size: 1rem; text-align: center; width: 100%; }
 
 @media (max-width: 768px) {
 .hamburger-button { display: flex; }
@@ -466,27 +312,27 @@ font-size: 1.4rem;
 #mobileDateNav { display: block !important; }
 .shell { padding: 12px 0 100px; }
 
-.hero-card { 
-padding: 10px 14px; 
-flex-direction: row; 
-text-align: left; 
-gap: 12px; 
+.hero-card {
+padding: 10px 14px;
+flex-direction: row;
+text-align: left;
+gap: 12px;
 border-radius: 18px;
 margin-bottom: 8px;
 }
-.profile-avatar { 
-width: 32px; 
-height: 32px; 
-font-size: 18px; 
+.profile-avatar {
+width: 32px;
+height: 32px;
+font-size: 18px;
 border-width: 1px;
 }
-.hero-title { 
-font-size: 0.95rem; 
-font-weight: 800; 
+.hero-title {
+font-size: 0.95rem;
+font-weight: 800;
 margin-bottom: 0;
 }
-.hero-lead { 
-font-size: 0.65rem; 
+.hero-lead {
+font-size: 0.65rem;
 line-height: 1.2;
 }
 
@@ -497,24 +343,24 @@ border-radius: 18px;
 }
 #mobileDateNav .toolbar-row {
 display: flex;
-flex-wrap: nowrap; 
+flex-wrap: nowrap;
 justify-content: space-between;
 align-items: center;
 gap: 8px;
 width: 100%;
 }
 #mobileDateNav .ghost-button {
-flex: 0 0 auto; 
+flex: 0 0 auto;
 min-height: 34px;
 padding: 0 10px;
 font-size: 0.75rem;
 border-radius: 10px;
 white-space: nowrap;
 width: auto;
-border: 1px solid rgba(255, 255, 255, 0.5); 
+border: 1px solid rgba(255, 255, 255, 0.5);
 }
 #mobileDateNav .date-display {
-flex: 1 1 auto; 
+flex: 1 1 auto;
 font-size: 0.85rem;
 min-width: 0;
 margin: 0;
@@ -585,200 +431,236 @@ width: 100% !important;
 <strong>最終更新日：2026年6月27日</strong>
 <h4>利用規約</h4>
 <h4>第1条（適用）</h4>
-<p>本利用規約（以下「本規約」）は、AKKI（以下「管理者」）が運営する学校予定共有Webサイト（以下「本サービス」）の利用条件を定めるものです。本サービスを利用するすべての利用者は、本規約に同意したものとみなします。</p>
+<p>本利用規約（以下「本規約」）は、AKKI（以下「管理者」）が运营する学校予定共有Webサイト（以下「本サービス」）の利用条件を定めるものです。本サービスを利用するすべての利用者は、本規約に同意したものとみなします。</p>
 <h4>第2条（本サービスについて）</h4>
-<p>1. 本サービスは、管理者（AKKI）が個人で運営する学校予定共有Webサイトです。<br>
+<p>1. 本サービスは、管理者（AKKI）が個人で运营する学校予定共有Webサイトです。<br>
 2. 本サービスは学校が運営・管理する公式Webサイトではありません。<br>
 3. 本サービスは、学校を代表するものではなく、学校の公式な見解を示すものではありません。<br>
 4. 掲載している予定やお知らせについては正確な情報の提供に努めていますが、誤りや更新漏れが生じる場合があります。正式な情報については、学校から配布されるお知らせや先生からの連絡をご確認ください。</p>
 <h4>第3条（利用対象）</h4>
 <p>1. 本サービスは、対象となる学校の生徒のみが利用できます。<br>
 2. 外部の方は、本サービスを利用することはできません。<br>
-3. 利用者は、本規約を守って本サービスを利用してください。</p>
-<h4>第4条（アカウント登録）</h4>
-<p>1. 本サービスを利用するには、アカウントを作成する必要があります。<br>
-2. 作成されたアカウントは、管理者による承認後に利用できます。<br>
-3. 利用者は、正確な情報を登録してください。<br>
-4. アカウント情報は利用者本人が責任を持って管理してください。<br>
-5. 他人にアカウントを貸与・譲渡することは禁止します。</p>
-<h4>第5条（利用できる機能）</h4>
-<p>1. 管理者のみが学校予定やお知らせを投稿できます。<br>
-2. 利用者は投稿にコメントできます。<br>
-3. 利用者は投稿に「グッド（いいね）」でリアクションできます。</p>
-<h4>第6条（禁止事項）</h4>
-<p>利用者は、次の行為を行ってはいけません。<br>
-・他人への誹傷中傷や嫌がらせ<br>
-・荒らし行為、スパム行為<br>
-・不適切なコメントの投稿<br>
-・法令や学校のルールに反する内容の投稿<br>
-・他人になりすます行為<br>
-・他人のアカウントを使用する行為<br>
-・システムへの不正アクセスや改ざんを試みる行為<br>
-・本サービスの運営を妨害する行為<br>
-・他の利用者に迷惑をかける行為<br>
-・その他、管理者が不適切と判断する行為</p>
-<h4>第7条（違反への対応）</h4>
-<p>管理者は、本規約に違反した利用者に対し、必要に応じて以下の対応を行うことがあります。<br>
-・コメントの削除<br>
-・警告<br>
-・アカウントの一時停止<br>
-・アカウントの削除<br>
-・本サービスの利用禁止<br>
-悪質な場合は、事前の通知なく対応することがあります。</p>
+3. 利用者は、本規約に同意することにより、対象学校の生徒であることを表明したものとみなされます。</p>
+<h4>第4条（アカウントの管理と管理者承認）</h4>
+<p>1. 本サービスを利用するには、ユーザー名およびパスワードを設定し、アカウントを登録する必要があります。<br>
+2. アカウント登録後、管理者がその利用を承認するまでは、本サービスの一部の機能またはすべての機能を利用することはできません。管理者は、利用者が対象学校の生徒であることを確認した上で承認を行います。<br>
+3. 利用者は、自己の責任において、本サービスのユーザー名およびパスワードを適切に管理・保管するものとし、これを第三者に利用させ、または貸与、譲渡、名義変更、売買等をしてはならないものとします。<br>
+4. パスワードの管理不十分、使用上の過誤、第三者の使用等によって生じた損害の責任は利用者が負うものとし、管理者は一切の責任を負いません。</p>
+<h4>第5条（禁止事項）</h4>
+<p>利用者は、本サービスの利用にあたり、以下の行為をしてはなりません。<br>
+1. 法令または公序良俗に違反する行為<br>
+2. 犯罪行為に関連する行為<br>
+3. 本サービスの内容をスクリーショト等で外部に漏洩・転載する行為、またはそれに準ずる行為<br>
+4. 本サービスに含まれる著作権、商標権ほか知的財産権を侵害する行為<br>
+5. 本サービスのサーバーまたはネットワークの機能を破壊したり、妨害したりする行為<br>
+6. 本サービスによって得られた情報を商業的に利用する行為<br>
+7. 管理者のサービスの運営を妨害するおそれのある行為<br>
+8. 不正アクセスをし、またはこれを試みる行為<br>
+9. 他の利用者に関する個人情報等を収集または蓄積する行為<br>
+10. 不正な目的を持って本サービスを利用する行為<br>
+11. 本サービスの他の利用者またはその他の第三者に不利益、損害、不快感を与える行為<br>
+12. 他の利用者に成りすます行為<br>
+13. 管理者が許諾しない本サービス上での宣伝、広告、勧誘、または営業行為<br>
+14. 本サービスの他の利用者に対する嫌がらせや誹謗中傷行為<br>
+15. その他、管理者が不適切と判断する行為</p>
+<h4>第6条（利用制限およびアカウント削除）</h4>
+<p>1. 管理者は、利用者が以下のいずれかに該当する場合は、事前の通知をすることなく、利用者に対して本サービスの全部もしくは一部の利用を制限し、またはアカウントを削除することができるものとします。<br>
+&nbsp;&nbsp;(1) 本規約のいずれかの条項に違反した場合<br>
+&nbsp;&nbsp;(2) 登録事項に虚偽の事実があることが判明した場合<br>
+&nbsp;&nbsp;(3) 管理者からの連絡に対し、一定期間返答がない場合<br>
+&nbsp;&nbsp;(4) その他、管理者が本サービスの利用を適当でないと判断した場合<br>
+2. 管理者は、本条に基づき管理者が行った行為により利用者に生じた損害について、一切の責任を負いません。</p>
+<h4>第7条（本サービスの提供の停止等）</h4>
+<p>1. 管理者は、以下のいずれかの事由があると判断した場合、利用者に事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。<br>
+&nbsp;&nbsp;(1) 本サービスにかかるコンピュータシステムの保守点検または更新を行う場合<br>
+&nbsp;&nbsp;(2) 地震、落雷、火災、停電または天災などの不可抗力により、本サービスの提供が困難となった場合<br>
+&nbsp;&nbsp;(3) コンピュータまたは通信回線等が事故により停止した場合<br>
+&nbsp;&nbsp;(4) その他、管理者が本サービスの提供が困難と判断した場合<br>
+2. 管理者は、本サービスの提供の停止または中断により、利用者または第三者が被ったいかなる不利益または損害についても、一切の責任を負わないものとします。</p>
 <h4>第8条（免責事項）</h4>
-<p>1. 管理者は、本サービスに掲載する情報の正確性・完全性・最新性を保証するものではありません。<br>
-2. 本サービスの利用により利用者または第三者に生じた損害について、管理者は責任を負いません。<br>
-3. サーバーメンテナンスや障害などにより、本サービスが一時的に利用できなくなる場合があります。</p>
-<h4>第9条（サービスの変更・停止）</h4>
-<p>管理者は、事前の通知なく本サービスの内容を変更、停止または終了することがあります。</p>
-<h4>第10条（規約の変更）</h4>
-<p>管理者は、必要に応じて本規約を変更できます。変更後の規約は、本サービスへ掲載した時点から効力を生じます。</p>
+<p>1. 管理者は、本サービスに事実上または法律上の瑕疵（安全性、信頼性、正確性、完全性、有効性、特定の目的への適合性、セキュリティなどに関する欠陥、エラーやバグ、権利侵害などを含みます。）がないことを明示的にも黙示的にも保証しておりません。<br>
+2. 管理者は、本サービスに起因して利用者に生じたあらゆる損害について、管理者の故意又は重過失による場合を除き、一切の責任を負いません。<br>
+3. 管理者は、本サービスに関して、利用者と他の利用者または第三者との間において生じた取引、連絡または紛争等について一切責任を負いません。</p>
+<h4>第9条（サービス内容の変更等）</h4>
+<p>管理者は、利用者に通知することなく、本サービスの内容を変更しまたは本サービスの提供を中止することができるものとし、これによって利用者に生じた損害について一切の責任を負いません。</p>
+<h4>第10条（利用規約の変更）</h4>
+<p>管理者は、必要と判断した場合には、利用者に通知することなくいつでも本規約を変更することができるものとします。なお、本規約の変更後、本サービスの利用を開始した場合には、当該利用者は変更後の規約に同意したものとみなします。</p>
+<h4>第11条（個人情報の取扱い）</h4>
+<p>本サービスの利用によって取得する個人情報については、別途定める「プライバシーポリシー」に従い適切に取り扱うものとします。</p>
+<h4>第12条（準拠法・裁判管轄）</h4>
+<p>1. 本規約の解釈にあたっては、日本法を準拠法とします。<br>
+2. 本サービスに関して紛争が生じた場合には、管理者の居住地を管轄する裁判所を専属的合意管轄とします。</p>
 
-<hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;">
+<hr style="border:none; border-top:1px solid var(--border); margin:16px 0;">
 
 <h4>プライバシーポリシー</h4>
-<h4>第1条（取得する情報）</h4>
-<p>本サービスでは、以下の情報を取得する場合があります。<br>
-・氏名または表示名<br>
-・学年・クラス（必要な場合）<br>
-・メールアドレス<br>
-・ログイン情報<br>
-・コメント内容<br>
-・アクセス日時などの利用記録</p>
-<h4>第2条（利用目的）</h4>
-<p>取得した情報は、以下の目的で利用します。<br>
-・本サービスの提供・運営<br>
-・本人確認<br>
-・アカウント管理<br>
-・学校予定やお知らせの共有<br>
-・コメント機能の提供<br>
-・不正利用や荒らし行為への対応<br>
-・サービス改善<br>
-・お問い合わせへの対応</p>
-<h4>第3条（個人情報の管理）</h4>
-<p>管理者は、取得した個人情報を適切に管理し、漏えい、改ざん、不正アクセスなどの防止に努めます。</p>
-<h4>第4条（第三者への提供）</h4>
-<p>管理者は、次の場合を除き、利用者の個人情報を第三者へ提供しません。<br>
-・利用者本人の同意がある場合<br>
-・法令に基づき提供が必要な場合</p>
-<h4>第5条（コメント）</h4>
-<p>1. 利用者が投稿したコメントは、他の利用者が閲覧できます。<br>
-2. 管理者は、誹謗中傷、荒らし行為、不適切な内容を含むコメントを予告なく削除できるものとします。</p>
-<h4>第6条（アカウントの削除）</h4>
-<p>利用者が退会した場合、または本規約に違反した場合は、管理者はアカウントおよび関連データを削除することがあります。</p>
-<h4>第7条（プライバシーポリシーの変更）</h4>
-<p>管理者は、必要に応じて本ポリシーを変更できます。変更後は本サービスに掲載した時点から効力を生じます。</p>
-
-<hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;">
-
-<h4>お問い合わせ</h4>
-<p>本サービスに関するお問い合わせは、管理者（AKKI）までご連絡ください。<br>
-運営者：AKKI（個人運営）</p>
+<p>AKKI（以下「管理者」）は、本ウェブサイト上で提供するサービス（以下「本サービス」）における、利用者の個人情報の取扱いについて、以下のとおりプライバシーポリシー（以下「本ポリシー」）を定めます。</p>
+<h4>第1条（個人情報の定義）</h4>
+<p>「個人情報」とは、個人情報保護法にいう「個人情報」を指すものとし、生存する個人に関する情報であって、当該情報に含まれる氏名、生年月日、住所、電話番号、連絡先その他の記述等により特定の個人を識別できる情報（個人識別情報）を指します。</p>
+<h4>第2条（個人情報の収集方法）</h4>
+<p>本サービスでは、利用者がアカウント登録をする際に、ユーザー名、クラス、出席番号などの情報をお尋ねすることがあります。また、Firebase Authentication等を利用した認証に伴い、システム内部的な識別子（UID）や暗号化されたログイン情報を収集・管理します。</p>
+<h4>第3条（個人情報を収集・利用する目的）</h4>
+<p>管理者が個人情報を収集・利用する目的は、以下のとおりです。<br>
+1. 本サービスの提供・運営のため（学校予定、宿題、連絡事項等の適切な共有およびクラス毎の表示出し分けなど）<br>
+2. 利用者が対象学校の生徒であることを管理者が確認・承認するため<br>
+3. 利用者からのお問い合わせに回答するため（本人確認を行うことを含む）<br>
+4. 利用者が利用中のサービスの新機能、更新情報等をお知らせするため<br>
+5. メンテナンス、重要なお知らせなど必要に応じたご連絡のため<br>
+6. 利用規約に違反した利用者や、不正・不当な目的でサービスを利用しようとする利用者の特定をおこない、利用を断るため<br>
+7. 上記の利用目的に付随する目的</p>
+<h4>第4条（利用目的の変更）</h4>
+<p>1. 管理者は、利用目的が変更前と関連性を有すると合理的に認められる場合に限り、個人情報の利用目的を変更するものとします。<br>
+2. 利用目的の変更を行った場合には、変更後の目的について、本ウェブサイト上での公表その他適切な方法により利用者に通知します。</p>
+<h4>第5条（個人情報の第三者提供）</h4>
+<p>1. 管理者は、次に掲げる場合を除いて、あらかじめ利用者の同意を得ることなく、第三者に個人情報を提供することはありません。ただし、個人情報保護法その他の法令で認められる場合を除きます。<br>
+&nbsp;&nbsp;(1) 人の生命、身体又は財産の保護のために必要がある場合であって、本人の同意を得ることが困難であるとき<br>
+&nbsp;&nbsp;(2) 公衆衛生の向上又は児童の健全な育成の推進のために特に必要がある場合であって、本人の同意を得ることが困難であるとき<br>
+&nbsp;&nbsp;(3) 国の機関若しくは地方公共団体又はその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって、本人の同意を得ることにより当該事務の遂行に支帳を及ぼすおそれがあるとき<br>
+2. 前項の定めにかかわらず、次に掲げる場合には、当該情報の提供先は第三者に該当しないものとします。<br>
+&nbsp;&nbsp;(1) 管理者が利用目的の達成に必要な範囲内において個人情報の取扱いの全部又は一部を委託する場合（本サービスで利用しているGoogle Firebase等のクラウドサービス提供元へのデータ保存等）</p>
+<h4>第6条（個人情報の開示・訂正・利用停止等）</h4>
+<p>利用者は、管理者に対し、本サービス上の設定画面、または管理者が指定する連絡方法を通じて、自己の個人情報の開示、訂正、追加、削除、利用停止、又は消去を請求することができます。管理者は、利用者本人からの請求であることを確認した上で、遅滞なく対応いたします。</p>
+<h4>第7条（個人情報の安全管理措置）</h4>
+<p>管理者は、個人情報の漏洩、滅失又は毀損の防止その他の個人情報の安全管理のために、Firebaseが提供するセキュリティルール等の技術的対策を適切に講じ、個人情報を厳重に管理します。</p>
+<h4>第8条（プライバシーポリシーの変更）</h4>
+<p>1. 本ポリシーの内容は、法令その他本ポリシーに別段の定めのある事項を除いて、利用者に通知することなく変更することができるものとします。<br>
+2. 管理者が別途定める場合を除いて、変更後のプライバシーポリシーは、本ウェブサイトに掲載したときから効力を生じるものとします。</p>
+<h4>第9条（お問い合わせ窓口）</h4>
+<p>本ポリシーに関するお問い合わせ、または個人情報の取扱いに関するご請求は、本サービス内の「異議申し立て・お問い合わせフォーム」、または管理者が別途指定する窓口までお願いいたします。</p>
 </div>
 
-<form id="termsForm" style="display: grid; gap: 14px;">
-<label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
-<input id="termsCheckbox" type="checkbox" required style="width: 18px; height: 18px; margin: 0;">
-<span>利用規約とプライバシーポリシーに同意する</span>
-</label>
-<button type="submit" class="button" style="width: 100%;">次へ進む</button>
-</form>
+<button id="agreeTermsButton" class="button" style="width: 100%;">規約に同意して次へ</button>
 </div>
 </div>
 
 <div class="modal hidden" id="setupModal">
 <div class="modal-panel" style="width: min(500px, 100%);">
-<h2 class="modal-title">初期セットアップ</h2>
-<p style="color: var(--muted); font-size: 0.9rem; margin-bottom: 16px;">利用を開始するためにお名前とクラスを登録してください。</p>
-<form id="setupForm" style="display: grid; gap: 16px;">
-<input id="setupName" type="text" maxlength="30" placeholder="お名前" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<select id="setupClass" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<option value="">クラスを選択</option>
+<h2 class="modal-title">初期プロファイル設定</h2>
+<form id="profileSetupForm" style="display: grid; gap: 12px;">
+<div class="avatar-grid" id="setupAvatarGrid"></div>
+<input id="setupNameInput" type="text" placeholder="表示名 (例: たろう)" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<select id="setupClassSelect" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<option value="" disabled selected>クラスを選択してください</option>
 <option value="7-1">7-1組</option>
 <option value="7-2">7-2組</option>
 </select>
-<button type="submit" class="button" style="width: 100%;">登録して承認申請</button>
+<button type="submit" class="button" style="width: 100%;">設定を保存</button>
 </form>
-<div id="setupDebugError" class="debug-error-box"></div>
 </div>
 </div>
 
 <div class="modal hidden" id="pendingApprovalModal">
-<div class="modal-panel" style="width: min(500px, 100%); text-align: center; padding: 40px 28px;">
-<h2 class="modal-title" style="color: var(--accent); font-size: 1.6rem; margin-bottom: 16px;">⏳ 承認待ち</h2>
-<p style="line-height: 1.6; margin-bottom: 24px;">アカウントの登録が完了しました。<br>現在、管理者の承認を待っています。<br>承認されると自動的に画面が切り替わります。</p>
-<button type="button" id="pendingLogoutButton" class="ghost-button" style="width: 100%;">ログイン画面に戻る</button>
-<div id="pendingDebugError" class="debug-error-box"></div>
+<div class="modal-panel" style="width: min(520px, 100%); text-align: center;">
+<div style="font-size: 3.5rem; margin-bottom: 16px;">⏳</div>
+<h2 class="modal-title" style="margin-bottom: 12px;">管理者による承認を待っています</h2>
+<p style="font-size: 0.95rem; color: #344054; line-height: 1.6; margin-bottom: 16px;">
+アカウントの登録が完了しました。<br>
+現在、管理者が順次確認を行っています。<br>
+承認されるまで、もうしばらくお待ちください。
+</p>
+<div style="background: #f3f4f6; padding: 12px; border-radius: 12px; font-size: 0.85rem; color: var(--muted); text-align: left; margin-bottom: 20px;">
+<strong>💡 承認されない場合は？</strong><br>
+学年・クラス・氏名が正しく確認できない場合、承認が遅れることがあります。長期間承認されない場合は、以下のフォームから再申請またはお問い合わせを送ることができます。
+</div>
+<button id="showAppealFormButton" class="ghost-button" style="width: 100%; margin-bottom: 12px;">異議申し立て・お問い合わせを送る</button>
+
+<div id="appealFormContainer" class="hidden" style="border-top: 1px solid var(--border); padding-top: 16px; margin-top: 16px; text-align: left;">
+<form id="appealForm" style="display: grid; gap: 10px;">
+<textarea id="appealMessage" placeholder="メッセージを入力してください (例: 出席番号〇番の〇〇です。登録したユーザー名は〇〇です。確認をお願いします。)" required style="padding: 10px 12px; border: 1px solid var(--border); border-radius: 10px; min-height: 80px; font-size:0.9rem;"></textarea>
+<button type="submit" class="button" style="width: 100%; min-height: 38px; font-size:0.85rem;">申し立てを送信</button>
+</form>
+</div>
+
+<button id="pendingLogoutButton" class="danger-button" style="width: 100%; margin-top: 8px;">ログアウト</button>
 </div>
 </div>
 
 <div class="modal hidden" id="suspendedModal">
-<div class="modal-panel" style="width: min(550px, 100%); text-align: center;">
-<h2 class="modal-title" style="color: #d92d20; font-size: 1.5rem;">🔒 アカウントが停止されています</h2>
-<p style="line-height: 1.6; color: var(--text); margin-bottom: 16px; text-align: left;">利用規約違反または管理者判断により、あなたのアカウントは一時的に停止されました。この決定に不服がある場合は、以下より異議申し立てを送信できます。</p>
-<form id="appealForm" style="display: grid; gap: 14px; text-align: left;">
-<div>
-<label style="font-size: 0.85rem; color: var(--text); font-weight: 700; display: block; margin-bottom: 6px;">申し立て理由 (必須)</label>
-<textarea id="appealReason" placeholder="停止に対する異議や理由を詳しく入力してください..." required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 120px; width: 100%;"></textarea>
-</div>
-<button type="submit" class="button" style="width: 100%; background: linear-gradient(135deg, #d92d20, #f04438);">異議申し立てを送信する</button>
-<button type="button" id="suspendedLogoutButton" class="ghost-button" style="width: 100%;">ログアウト</button>
-</form>
-<div id="suspendedDebugError" class="debug-error-box"></div>
+<div class="modal-panel" style="width: min(500px, 100%); text-align: center;">
+<div style="font-size: 3.5rem; margin-bottom: 16px;">🚫</div>
+<h2 class="modal-title" style="margin-bottom: 12px; color: #d92d20;">アカウントが停止されています</h2>
+<p style="font-size: 0.95rem; color: #344054; line-height: 1.6; margin-bottom: 20px;">
+利用規約違反、または管理者の判断により、このアカウントの利用は一時的に停止されています。
+</p>
+<button id="suspendedLogoutButton" class="button" style="width: 100%;">ログアウト</button>
 </div>
 </div>
 
-<div class="hamburger-menu" id="hamburgerMenu">
-<h2 style="margin-bottom: 24px; font-size: 1.2rem;">カテゴリを選択</h2>
-<div class="menu-category">
-<button class="menu-category-btn" onclick="window.selectCategory('all')">📋 すべて</button>
-<button class="menu-category-btn" onclick="window.selectCategory('予定')" style="background: linear-gradient(135deg, #0f9f6e, #10b981);">📅 予定</button>
-<button class="menu-category-btn" onclick="window.selectCategory('宿現')" style="background: linear-gradient(135deg, #d97706, #f59e0b);">✏️ 宿題</button>
-<button class="menu-category-btn" onclick="window.selectCategory('連絡事項')" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">📢 連絡事項</button>
+<div class="modal hidden" id="profileModal">
+<div class="modal-panel" style="width: min(500px, 100%);">
+<h2 class="modal-title">プロファイル編集</h2>
+<form id="profileUpdateForm" style="display: grid; gap: 12px;">
+<div class="avatar-grid" id="profileAvatarGrid"></div>
+<input id="profileImageUrlInput" type="url" placeholder="または外部画像のURLを入力" style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<input id="profileNameInput" type="text" placeholder="表示名" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<div style="display: flex; gap: 8px;">
+<button type="submit" class="button" style="flex: 1;">保存</button>
+<button type="button" id="closeProfileModal" class="ghost-button" style="flex: 1;">キャンセル</button>
+</div>
+</form>
 </div>
 </div>
 
 <div class="hamburger-overlay" id="hamburgerOverlay"></div>
-<button class="hamburger-button" id="hamburgerButton">☰</button>
+<nav class="hamburger-menu" id="hamburgerMenu">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border);">
+<span style="font-weight: 800; font-size: 1.2rem;">メニュー</span>
+</div>
+<div class="menu-category">
+<button class="menu-category-btn" onclick="window.setCategoryFilter('all'); window.toggleHamburger();">全て</button>
+<button class="menu-category-btn" onclick="window.setCategoryFilter('予定'); window.toggleHamburger();">予定</button>
+<button class="menu-category-btn" onclick="window.setCategoryFilter('宿題'); window.toggleHamburger();">宿題</button>
+<button class="menu-category-btn" onclick="window.setCategoryFilter('連絡事項'); window.toggleHamburger();">連絡事項</button>
+</div>
+<div style="display: grid; gap: 12px; margin-top: 40px;">
+<button id="profileModalButtonMobile" class="ghost-button" style="width: 100%; min-height: 48px; border-radius: 12px;">👤 プロファイル編集</button>
+<button class="danger-button" onclick="window.handleLogout(); window.toggleHamburger();" style="width: 100%; min-height: 48px; border-radius: 12px; background: rgba(217,45,32,0.08); color:#d92d20; font-weight:700;">ログアウト</button>
+</div>
+</nav>
+
+<button class="hamburger-button" id="hamburgerButton" onclick="window.toggleHamburger()">☰</button>
 
 <div id="mainContent" style="display: none;">
-<div class="admin-footer" id="adminFooter">
-<button class="ghost-button" id="adminDashboardButton" style="display: none; min-height: 40px; padding: 0 14px; font-size: 0.85rem;">📊 ダッシュボード</button>
-<button class="ghost-button" id="profileModalButton" style="min-height: 40px; padding: 0 14px; font-size: 0.85rem;">👤 プロフィール</button>
-<button class="ghost-button" id="logoutButton" style="min-height: 40px; padding: 0 14px; font-size: 0.85rem;">ログアウト</button>
+<div class="shell">
+<header class="card hero-card" style="margin-bottom: 18px;">
+<div class="profile-avatar" id="userAvatar">👤</div>
+<div style="flex: 1; min-width: 0;">
+<h1 class="hero-title" id="welcomeMessage">読み込み中...</h1>
+<p class="hero-lead">白金の丘中学校 第7学年 共有サイト</p>
 </div>
+<button id="profileModalButton" class="ghost-button" style="position: absolute; top: 16px; right: 16px; min-height: 32px; padding: 0 12px; font-size: 0.8rem; border-radius: 8px;">編集</button>
+</header>
 
-<section class="toolbar frosted" id="pcDateNav">
+<nav class="card toolbar" id="pcDateNav">
 <div class="toolbar-row">
-<button class="ghost-button" id="prevDateButton">← 前日</button>
-<div class="date-display" id="dateDisplay">読み込み中...</div>
-<button class="ghost-button" id="nextDateButton">次日 →</button>
+<button class="ghost-button" onclick="window.changeDate(-1)">前の日</button>
+<div class="date-display" id="dateLabel">----年--月--日 (ー)</div>
+<button class="ghost-button" onclick="window.changeDate(1)">次の日</button>
+<button class="button" onclick="window.goToday()">今日</button>
 </div>
-</section>
-
-<main class="shell">
-<section class="hero-card frosted" style="margin-bottom: 12px;">
-<div id="userAvatarHeader" class="profile-avatar">👤</div>
-<div>
-<h1 class="hero-title" id="categoryTitle">予定・宿題・連絡</h1>
-<p class="hero-lead" id="heroLead">共有サイト</p>
+<div class="toolbar-row" style="border-top: 1px solid var(--border); padding-top: 14px; gap: 8px;">
+<button class="ghost-button" id="filter-all" onclick="window.setCategoryFilter('all')" style="min-height:36px; font-size:0.85rem; border-radius:10px; background: rgba(0,113,227,0.08); border-color: rgba(0,113,227,0.2); color: var(--accent);">全て</button>
+<button class="ghost-button" id="filter-予定" onclick="window.setCategoryFilter('予定')" style="min-height:36px; font-size:0.85rem; border-radius:10px;">予定</button>
+<button class="ghost-button" id="filter-宿題" onclick="window.setCategoryFilter('宿題')" style="min-height:36px; font-size:0.85rem; border-radius:10px;">宿題</button>
+<button class="ghost-button" id="filter-連絡事項" onclick="window.setCategoryFilter('連絡事項')" style="min-height:36px; font-size:0.85rem; border-radius:10px;">連絡事項</button>
 </div>
-</section>
+</nav>
 
-<section class="toolbar frosted" id="mobileDateNav" style="display: none;">
+<nav class="card toolbar" id="mobileDateNav">
 <div class="toolbar-row">
-<button class="ghost-button" id="prevDateButtonMobile">← 前日</button>
-<div class="date-display" id="dateDisplayMobile">読み込み中...</div>
-<button class="ghost-button" id="nextDateButtonMobile">次日 →</button>
+<button class="ghost-button" onclick="window.changeDate(-1)">◀ 前の日</button>
+<div class="date-display" id="mobileDateLabel">--/-- (ー)</div>
+<button class="ghost-button" onclick="window.changeDate(1)">次の日 ▶</button>
 </div>
-</section>
+</nav>
 
-<section id="adminPostForm" style="display: none;">
+<main>
+<section id="adminPostForm" class="hidden" style="margin-bottom: 20px;">
 <div class="panel">
-<h3 class="panel-title">新規投稿</h3>
-<form id="postForm" style="display: grid; gap: 14px;">
+<h3 class="panel-title">📢 新規投稿 (管理者用)</h3>
+<form id="newPostForm" style="display: grid; gap: 12px;">
 <input id="postTitle" type="text" maxlength="100" placeholder="タイトル" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width: 100%;">
-<textarea id="postBody" placeholder="内容" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 100px; width: 100%;"></textarea>
+<textarea id="postBody" placeholder="内容" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 100px; width: 100%"></textarea>
 <div class="form-grid-2">
 <select id="postCategory" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <option value="予定">予定</option>
@@ -805,52 +687,26 @@ width: 100% !important;
 </div>
 
 <div class="modal hidden" id="adminDashboardModal">
-<div class="modal-panel" style="width: min(800px, 100%); max-height: 90vh; overflow: auto;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-<h2 class="modal-title">📊 管理者ダッシュボード</h2>
-<button type="button" id="closeAdminDashboard" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
+<div class="modal-panel" style="width: min(900px, 100%);">
+<h2 class="modal-title">⚙️ 管理者ダッシュボード</h2>
+<div style="border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px; display:flex; gap:12px;">
+<button class="button" id="dashTabUsers" style="min-height:36px; font-size:0.85rem;">ユーザー管理</button>
+<button class="ghost-button" id="dashTabAppeals" style="min-height:36px; font-size:0.85rem;">お問い合わせ・申し立て</button>
+</div>
+<div id="dashContentUsers">
+<div id="usersListContainer" style="display: grid; gap: 12px; max-height: 50vh; overflow-y: auto; padding: 4px;"></div>
+</div>
+<div id="dashContentAppeals" class="hidden">
+<div id="appealsListContainer" style="display: grid; gap: 12px; max-height: 50vh; overflow-y: auto; padding: 4px;"></div>
 </div>
 <div id="dashboardDebugError" class="debug-error-box"></div>
-<div style="display: grid; gap: 24px;">
-<div>
-<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">📋 申請中</h3>
-<div id="pendingUsersListAdmin" style="display: grid; gap: 12px;"></div>
-</div>
-<div>
-<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">✅ 承認済みユーザー</h3>
-<div id="allowedUsersListAdmin" style="display: grid; gap: 12px;"></div>
-</div>
-<div>
-<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; color: #d92d20;">⚖️ 届いた異議申し立て</h3>
-<div id="appealsListAdmin" style="display: grid; gap: 12px;"></div>
-</div>
-</div>
+<button id="closeAdminDashboardModal" class="ghost-button" style="width: 100%; margin-top: 16px;">閉じる</button>
 </div>
 </div>
 
-<div class="modal hidden" id="profileModal">
-<div class="modal-panel" style="width: min(500px, 100%);">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-<h2 class="modal-title">👤 プロフィール設定</h2>
-<button type="button" id="closeProfileModal" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
-</div>
-<form id="profileEditForm" style="display: grid; gap: 16px;">
-<div>
-<label style="font-size: 0.85rem; color: var(--muted); font-weight:700; display:block; margin-bottom:8px;">お好きなアバターを選択（全50種）</label>
-<div class="avatar-grid" id="avatarGrid">
-</div>
-</div>
-<div style="border-top: 1px solid var(--border); padding-top:12px;">
-<label style="font-size: 0.85rem; color: var(--muted); font-weight:700;">または、ネット上の画像URLを貼り付け</label>
-<input id="profileImageUrlInput" type="url" placeholder="https://example.com/image.png" style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width:100%; margin-top:4px; font-size:0.9rem;">
-</div>
-<div>
-<label style="font-size: 0.85rem; color: var(--muted); font-weight:700;">お名前</label>
-<input id="profileNameInput" type="text" maxlength="30" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width:100%; margin-top:4px;">
-</div>
-<button type="submit" class="button" style="width: 100%;">保存する</button>
-</form>
-<div id="profileDebugError" class="debug-error-box"></div>
+<div class="admin-footer" id="adminFooter" style="display: none;">
+<button class="button" id="openAdminDashboardButton" style="min-height: 38px; padding: 0 16px; font-size: 0.85rem; box-shadow: 0 8px 24px rgba(0,113,227,0.3);">⚙️ ダッシュボード</button>
+<button id="logoutButton" class="danger-button" style="min-height: 38px; border-radius: 999px;">ログアウト</button>
 </div>
 </div>
 
@@ -858,115 +714,72 @@ width: 100% !important;
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, arrayUnion, arrayRemove, serverTimestamp, getDocs, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-const firebaseConfig = {
-apiKey: "AIzaSyDoMvVErqyv06Tdn-rXNhHkcW_-Q7BfoAg",
-authDomain: "school-site-475fc.firebaseapp.com",
-projectId: "school-site-475fc",
-storageBucket: "school-site-475fc.firebasestorage.app",
-messagingSenderId: "69139986081",
-appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
+const firebaseConfig = { apiKey: "AIzaSyAkMLCyIC0x9bT63LEih1x7BXe3XYVuknQ", authDomain: "school-site-475fc.firebaseapp.com", projectId: "school-site-475fc", storageBucket: "school-site-475fc.firebasestorage.app", messagingSenderId: "69139986081", appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0" };
+const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
 const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
-
-const AVATARS = [
-"👤", "🐱", "🐶", "🦊", "🦁", "🐼", "🐨", "🐻", "🐰", "🐸", "🐵", "🐧", "🐦", "🦖", "🦄",
-"✏️", "📐", "📚", "🎒", "🎓", "🧪", "🎨", "🎺", "🎸", "💻",
-"⚽", "🏀", "⚾", "🎾", "🏐", "🏓", "🏸", "🏃", "💃",
-"🎮", "🕹️", "🎧", "🎬", "📸", "🔮", "🛹",
-"🚀", "🛸", "✈️", "🏎️", "🔥", "⚡", "🌟", "🌈", "👑"
-];
+const AVATARS = [ "👤", "🐱", "🐶", "🦊", "🦁", "🐼", "🐨", "🐻", "🐰", "🐸", "🐵", "🐧", "🐦", "🦖", "🦄", "✏️", "📐", "📚", "🎒", "🎓", "🧪", "🎨", "🎺", "🎸", "💻", "⚽", "🏀", "⚾", "🎾", "🏐", "🏓", "🏸", "🏃", "💃", "🎮", "🕹️", "🎧", "🎬", "📸", "🔮", "🛹", "🚀", "🛸", "✈️", "🏎️", "🔥", "⚡", "🌟", "🌈", "👑" ];
 let selectedAvatar = "👤";
 
 const state = {
-user: null,
-isAdmin: false,
-userName: "",
-userClass: "",
-userAvatarUrl: "👤",
-currentDate: new Date(),
-posts: [],
-userReactedMap: {},
-commentsMap: {},
-// 各ユーザーの最新プロフィール情報をリアルタイム同期してキャッシュするマップ
-usersProfileMap: {},
-adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null },
-approvalUnsubscribe: null,
-categoryFilter: "all"
+user: null, userName: "", userClass: "", userAvatarUrl: "👤", isAdmin: false,
+currentDate: new Date(), categoryFilter: "all", posts: [], userReactedMap: {}, commentsMap: {},
+approvalUnsubscribe: null, adminUnsubscribes: { users: null, appeals: null, dynamicProfiles: null }, usersProfileMap: {}
 };
 
-function showDebugError(elementId, error) {
-const box = document.getElementById(elementId);
-if (box) {
-box.textContent = `⚠️ エラー発生: ${error.name || 'Error'}\nメッセージ: ${error.message}`;
-box.style.display = "block";
-}
-}
-
-function clearDebugErrors() {
-document.querySelectorAll(".debug-error-box").forEach(box => { box.style.display = "none"; });
-}
-
-function showToast(msg) {
-const toast = document.getElementById("toast");
-toast.textContent = msg;
-toast.classList.add("show");
-setTimeout(() => toast.classList.remove("show"), 2000);
-}
+function showToast(msg) { const t = document.getElementById("toast"); t.textContent = msg; t.classList.add("show"); setTimeout(() => t.classList.remove("show"), 2500); }
+function showDebugError(id, msg) { const box = document.getElementById(id); if (box) { box.textContent = msg; box.style.display = "block"; } }
+function clearDebugErrors() { document.querySelectorAll(".debug-error-box").forEach(b => { b.textContent = ""; b.style.display = "none"; }); }
 
 function getLocalDateString(date) {
-const year = date.getFullYear();
-const month = String(date.getMonth() + 1).padStart(2, '0');
-const day = String(date.getDate()).padStart(2, '0');
-return `${year}-${month}-${day}`;
+const y = date.getFullYear();
+const m = String(date.getMonth() + 1).padStart(2, '0');
+const d = String(date.getDate()).padStart(2, '0');
+return `${y}-${m}-${d}`;
 }
 
 function updateDateDisplay() {
-const options = { year: "numeric", month: "long", day: "numeric", weekday: "short" };
-const dateStr = state.currentDate.toLocaleDateString("ja-JP", options);
-document.getElementById("dateDisplay").textContent = dateStr;
-document.getElementById("dateDisplayMobile").textContent = dateStr;
+const days = ["日", "月", "火", "水", "木", "金", "土"];
+const y = state.currentDate.getFullYear();
+const m = state.currentDate.getMonth() + 1;
+const d = state.currentDate.getDate();
+const w = days[state.currentDate.getDay()];
+document.getElementById("dateLabel").textContent = `${y}年${m}月${d}日 (${w})`;
+document.getElementById("mobileDateLabel").textContent = `${m}/${d} (${w})`;
+renderPosts();
 }
 
-function updateCategoryTitle() {
-const titles = { "all": "予定・宿題・連絡", "予定": "📅 予定", "宿題": "✏️ 宿題", "連絡事項": "📢 連絡事項" };
-document.getElementById("categoryTitle").textContent = titles[state.categoryFilter] || "予定・宿題・連絡";
-}
+window.changeDate = function(offset) { state.currentDate.setDate(state.currentDate.getDate() + offset); updateDateDisplay(); };
+window.goToday = function() { state.currentDate = new Date(); updateDateDisplay(); };
 
-function updateUIProfile() {
-const headerLead = document.getElementById("heroLead");
-headerLead.textContent = "AKKI によって開発された共有サイト";
+window.toggleHamburger = function() {
+const menu = document.getElementById("hamburgerMenu");
+const overlay = document.getElementById("hamburgerOverlay");
+const btn = document.getElementById("hamburgerButton");
+menu.classList.toggle("active");
+overlay.classList.toggle("active");
+btn.classList.toggle("active");
+};
+document.getElementById("hamburgerOverlay").addEventListener("click", window.toggleHamburger);
 
-const avatarContainer = document.getElementById("userAvatarHeader");
-if (avatarContainer) {
-if (state.userAvatarUrl.startsWith("http")) {
-avatarContainer.innerHTML = `<img src="${state.userAvatarUrl}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
-} else {
-avatarContainer.textContent = state.userAvatarUrl || "👤";
+window.setCategoryFilter = function(cat) {
+state.categoryFilter = cat;
+document.querySelectorAll("#pcDateNav .ghost-button[id^='filter-']").forEach(btn => {
+btn.style.background = "transparent"; btn.style.borderColor = "var(--border)"; btn.style.color = "var(--text)";
+});
+const activeBtn = document.getElementById(`filter-${cat}`);
+if (activeBtn) {
+activeBtn.style.background = "rgba(0,113,227,0.08)"; activeBtn.style.borderColor = "rgba(0,113,227,0.2)"; activeBtn.style.color = "var(--accent)";
 }
-}
-}
+renderPosts();
+};
 
-function getAvatarHTML(avatarUrl, className = "profile-avatar") {
-if (avatarUrl && avatarUrl.startsWith("http")) {
-return `<img src="${avatarUrl}" class="${className}" style="border-radius:50%; object-fit:cover;">`;
-} else {
-return `<div class="${className}" style="display:flex; align-items:center; justify-content:center; background:#e5e7eb; border-radius:50%;">${avatarUrl || "👤"}</div>`;
-}
-}
-
-function showFirstTimeGuide() {
+function checkAndShowGuideBubble() {
 if (localStorage.getItem("guide_seen")) return;
-
-const guide = document.createElement("div");
-guide.className = "guide-bubble";
+const guide = document.createElement("div"); guide.className = "guide-bubble";
 guide.innerHTML = `
 <div style="font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:6px;">💡 使い方のヒント</div>
 <p style="margin:0 0 10px 0; opacity:0.95; line-height:1.5; font-size:0.85rem;">
@@ -975,25 +788,16 @@ guide.innerHTML = `
 <button id="closeGuide" style="width:100%; background:#0071e3; color:#fff; border:none; padding:6px 0; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.8rem;">了解！</button>
 `;
 document.body.appendChild(guide);
-
-document.getElementById("closeGuide").addEventListener("click", () => {
-guide.remove();
-localStorage.setItem("guide_seen", "true");
-});
+document.getElementById("closeGuide").addEventListener("click", () => { guide.remove(); localStorage.setItem("guide_seen", "true"); });
 }
 
-// 🌐 ユーザー情報のグローバルキャッシュに基づいてリアルタイムアイコン抽出を行う関数
 function getDynamicUserAvatar(commentUserId, fallbackAvatar) {
-if (state.usersProfileMap[commentUserId] && state.usersProfileMap[commentUserId].avatarUrl) {
-return state.usersProfileMap[commentUserId].avatarUrl;
-}
+if (state.usersProfileMap[commentUserId] && state.usersProfileMap[commentUserId].avatarUrl) { return state.usersProfileMap[commentUserId].avatarUrl; }
 return fallbackAvatar;
 }
 
 function getDynamicUserName(commentUserId, fallbackName) {
-if (state.usersProfileMap[commentUserId] && state.usersProfileMap[commentUserId].name) {
-return state.usersProfileMap[commentUserId].name;
-}
+if (state.usersProfileMap[commentUserId] && state.usersProfileMap[commentUserId].name) { return state.usersProfileMap[commentUserId].name; }
 return fallbackName;
 }
 
@@ -1008,72 +812,65 @@ const matchesCategory = state.categoryFilter === "all" || post.category === stat
 return matchesClass && isInRange && matchesCategory;
 });
 
-container.innerHTML = filtered.length === 0
-? `<div class="empty-state">投稿がありません</div>`
-: filtered.map(post => {
-    const reactions = post.reactions || { like: 0, checked: 0, thanks: 0 };
-    const userReacted = state.userReactedMap[post.id] || { like: false, checked: false, thanks: false };
-    const comments = state.commentsMap[post.id] || [];
+if (filtered.length === 0) {
+container.innerHTML = `<div class="card empty-state">📅 この日の「${state.categoryFilter === "all" ? "全ジャンル" : state.categoryFilter}」の連絡はありません</div>`;
+return;
+}
 
-    const commentsHTML = comments.map(c => {
-        // ✨ コメント投稿者がアイコンや名前を変更していた場合、最新状態を反映させる
-        const currentAvatar = getDynamicUserAvatar(c.userId, c.avatarUrl);
-        const currentName = getDynamicUserName(c.userId, c.userName);
-        return `
-        <div class="comment-item">
-            ${getAvatarHTML(currentAvatar, "comment-avatar")}
-            <div class="comment-content">
-                <div class="comment-author">${currentName}</div>
-                <div class="comment-text">${c.text}</div>
-            </div>
-            ${state.isAdmin ? `<button class="comment-delete-btn" data-post-id="${post.id}" data-comment-id="${c.id}">削除</button>` : ""}
-        </div>
-        `;
-    }).join("");
+container.innerHTML = filtered.map(post => {
+const reactions = post.reactions || { thumbsUp: 0, eyes: 0, checkmark: 0 };
+const userReacted = state.userReactedMap[post.id] || { thumbsUp: false, eyes: false, checkmark: false };
+const comments = state.commentsMap[post.id] || [];
 
-    return `
-<div class="post-card">
-<div style="display: flex; justify-content: space-between; align-items: start; gap: 12px; margin-bottom: 12px;">
-<h3 style="font-size: 1.2rem; margin: 0;">${post.title}</h3>
-${state.isAdmin ? `<button class="danger-button deletePost-btn" data-post-id="${post.id}">削除</button>` : ""}
+const deleteBtnHtml = state.isAdmin ? `<button class="danger-button deletePost-btn" data-post-id="${post.id}" style="position:absolute; top:16px; right:16px;">削除</button>` : "";
+const targetBadgeColor = post.classTarget === '両方' ? 'background:rgba(16,185,129,0.1); color:#10b981;' : 'background:rgba(0,113,227,0.1); color:#0071e3;';
+const targetBadgeText = post.classTarget === '両方' ? '全体' : post.classTarget;
+
+const commentsHtml = comments.map(c => {
+const isCommentOwner = state.user && c.userId === state.user.uid;
+const delCommentBtn = (state.isAdmin || isCommentOwner) ? `<button class="comment-delete-btn" data-post-id="${post.id}" data-comment-id="${c.id}">削除</button>` : "";
+const dAvatar = getDynamicUserAvatar(c.userId, c.userAvatarUrl || "👤");
+const dName = getDynamicUserName(c.userId, c.userName || "不明");
+return `
+<div class="comment-item">
+<div class="comment-avatar">${dAvatar}</div>
+<div class="comment-content">
+<div class="comment-author">${dName} <span style="font-size:0.75rem; color:var(--muted); font-weight:400; margin-left:6px;">${c.userClass || ""}</span></div>
+<div class="comment-text">${c.text}</div>
 </div>
-<div style="margin-bottom: 12px;">
-<span class="badge">${post.category}</span>
-<span class="badge">${post.startDate}～${post.endDate}</span>
-</div>
-<p class="post-body">${post.body}</p>
+${delCommentBtn}
+</div>`;
+}).join("");
 
-<div class="reaction-container">
-<button class="reaction-btn ${userReacted.like ? 'active' : ''}" data-post-id="${post.id}" data-type="like">
-<span>👍 いいね</span>
-<span class="reaction-count">${reactions.like || 0}</span>
-</button>
-<button class="reaction-btn ${userReacted.checked ? 'active' : ''}" data-post-id="${post.id}" data-type="checked">
-<span>👀 確認した</span>
-<span class="reaction-count">${reactions.checked || 0}</span>
-</button>
-<button class="reaction-btn ${userReacted.thanks ? 'active' : ''}" data-post-id="${post.id}" data-type="thanks">
-<span>🙏 ありがとう</span>
-<span class="reaction-count">${reactions.thanks || 0}</span>
-</button>
+return `
+<article class="card post-card" style="position:relative;">
+<div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; flex-wrap:wrap;">
+<span class="badge" style="${targetBadgeColor} margin:0;">${targetBadgeText}</span>
+<span class="badge" style="background:rgba(107,114,128,0.1); color:#4b5563; margin:0;">${post.category}</span>
+<h2 style="font-size:1.25rem; font-weight:800; letter-spacing:-0.02em; flex:1; min-width:150px; margin:0; padding-right:40px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${post.title}</h2>
 </div>
-
+<div class="post-body">${post.body}</div>
+<div class="reaction-container" data-post-id="${post.id}">
+<button class="reaction-btn ${userReacted.thumbsUp ? 'active' : ''}" data-type="thumbsUp">👍 <span class="reaction-count">${reactions.thumbsUp || 0}</span></button>
+<button class="reaction-btn ${userReacted.eyes ? 'active' : ''}" data-type="eyes">👀 <span class="reaction-count">${reactions.eyes || 0}</span></button>
+<button class="reaction-btn ${userReacted.checkmark ? 'active' : ''}" data-type="checkmark">✅ <span class="reaction-count">${reactions.checkmark || 0}</span></button>
+</div>
 <div class="comment-section">
-    <div class="comment-list">${commentsHTML}</div>
-    <form class="comment-form" data-post-id="${post.id}">
-        <input type="text" class="comment-input" placeholder="コメントを入力..." required maxlength="300">
-        <button type="submit" class="comment-submit-btn">送信</button>
-    </form>
+<div class="comment-list">${commentsHtml}</div>
+<form class="comment-form" data-post-id="${post.id}">
+<input class="comment-input" type="text" maxlength="200" placeholder="コメントを入力..." required>
+<button type="submit" class="comment-submit-btn">送信</button>
+</form>
 </div>
-</div>
-`;
+${deleteBtnHtml}
+</article>`;
 }).join("");
 }
 
 document.getElementById("postsContainer").addEventListener("click", async (e) => {
 const targetBtn = e.target.closest(".reaction-btn");
 if (targetBtn) {
-const postId = targetBtn.getAttribute("data-post-id");
+const postId = targetBtn.closest(".reaction-container").getAttribute("data-post-id");
 const type = targetBtn.getAttribute("data-type");
 if (!state.user) return;
 
@@ -1086,9 +883,7 @@ try {
 if (hasReacted) {
 await deleteDoc(userReactionRef);
 await updateDoc(postRef, { [`reactions.${type}`]: increment(-1) });
-if (state.userReactedMap[postId]) {
-    state.userReactedMap[postId][type] = false;
-}
+if (state.userReactedMap[postId]) { state.userReactedMap[postId][type] = false; }
 } else {
 await setDoc(userReactionRef, { userId: state.user.uid, postId, type, timestamp: serverTimestamp() });
 await updateDoc(postRef, { [`reactions.${type}`]: increment(1) });
@@ -1103,10 +898,7 @@ return;
 if (e.target.classList.contains("deletePost-btn")) {
 const postId = e.target.getAttribute("data-post-id");
 if (confirm("この投稿を本当に削除しますか？")) {
-try {
-await deleteDoc(doc(db, "posts", postId));
-showToast("投稿を削除しました");
-} catch (error) { alert("削除に失敗しました: " + error.message); }
+try { await deleteDoc(doc(db, "posts", postId)); showToast("投稿を削除しました"); } catch (error) { alert("削除に失敗しました: " + error.message); }
 }
 return;
 }
@@ -1115,218 +907,140 @@ if (e.target.classList.contains("comment-delete-btn")) {
 const postId = e.target.getAttribute("data-post-id");
 const commentId = e.target.getAttribute("data-comment-id");
 if (confirm("このコメントを削除しますか？")) {
-try {
-await deleteDoc(doc(db, "posts", postId, "comments", commentId));
-showToast("コメントを削除しました");
-} catch (error) { alert("コメントの削除に失敗しました"); }
+try { await deleteDoc(doc(db, "posts", postId, "comments", commentId)); showToast("コメントを削除しました"); } catch (error) { alert("コメントの削除に失敗しました"); }
 }
 }
 });
 
 document.getElementById("postsContainer").addEventListener("submit", async (e) => {
-const form = e.target.closest(".comment-form");
-if (form) {
+if (e.target.classList.contains("comment-form")) {
 e.preventDefault();
-const postId = form.getAttribute("data-post-id");
-const input = form.querySelector(".comment-input");
+const postId = e.target.getAttribute("data-post-id");
+const input = e.target.querySelector(".comment-input");
 const text = input.value.trim();
-if (!text) return;
+if (!text || !state.user) return;
 
 try {
 await addDoc(collection(db, "posts", postId, "comments"), {
-userId: state.user.uid,
-userName: state.userName,
-avatarUrl: state.userAvatarUrl,
-text: text,
-createdAt: serverTimestamp()
+userId: state.user.uid, userName: state.userName, userClass: state.userClass, userAvatarUrl: state.userAvatarUrl,
+text, createdAt: serverTimestamp()
 });
-input.value = "";
-} catch (error) {
-alert("コメントの送信に失敗しました: " + error.message);
-}
+input.value = ""; showToast("コメントを投稿しました");
+} catch (error) { alert("コメント送信エラー"); }
 }
 });
 
-document.getElementById("postForm")?.addEventListener("submit", async (e) => {
-e.preventDefault();
-const title = document.getElementById("postTitle").value;
-const body = document.getElementById("postBody").value;
-const category = document.getElementById("postCategory").value;
-const classTarget = document.getElementById("postTarget").value;
-const startDate = document.getElementById("postStartDate").value;
-const endDate = document.getElementById("postEndDate").value;
-
-try {
-await addDoc(collection(db, "posts"), {
-title, body, category, classTarget, startDate, endDate,
-reactions: { like: 0, checked: 0, thanks: 0 },
-createdAt: serverTimestamp()
-});
-showToast("投稿しました！");
-document.getElementById("postForm").reset();
-} catch (error) { alert("投稿に失敗しました: " + error.message); }
-});
-
-window.selectCategory = function(category) {
-state.categoryFilter = category;
-updateCategoryTitle();
-renderPosts();
-document.getElementById("hamburgerMenu").classList.remove("active");
-document.getElementById("hamburgerOverlay").classList.remove("active");
-document.getElementById("hamburgerButton").classList.remove("active");
-};
-
-document.getElementById("hamburgerButton")?.addEventListener("click", () => {
-document.getElementById("hamburgerMenu").classList.toggle("active");
-document.getElementById("hamburgerOverlay").classList.toggle("active");
-document.getElementById("hamburgerButton").classList.toggle("active");
-});
-
-document.getElementById("hamburgerOverlay")?.addEventListener("click", () => {
-document.getElementById("hamburgerMenu").classList.remove("active");
-document.getElementById("hamburgerOverlay").classList.remove("active");
-document.getElementById("hamburgerButton").classList.remove("active");
-});
-
-document.getElementById("prevDateButton")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() - 1); updateDateDisplay(); renderPosts(); });
-document.getElementById("nextDateButton")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() + 1); updateDateDisplay(); renderPosts(); });
-document.getElementById("prevDateButtonMobile")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() - 1); updateDateDisplay(); renderPosts(); });
-document.getElementById("nextDateButtonMobile")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() + 1); updateDateDisplay(); renderPosts(); });
-
-const avatarGrid = document.getElementById("avatarGrid");
-if (avatarGrid) {
-avatarGrid.innerHTML = AVATARS.map(av => `<div class="avatar-option" data-avatar="${av}">${av}</div>`).join("");
-avatarGrid.addEventListener("click", (e) => {
+function initAvatarGrid(containerId) {
+const g = document.getElementById(containerId); if (!g) return;
+g.innerHTML = AVATARS.map(a => `<div class="avatar-option" data-avatar="${a}">${a}</div>`).join("");
+g.addEventListener("click", (e) => {
 const target = e.target.closest(".avatar-option");
 if (target) {
-document.querySelectorAll(".avatar-option").forEach(el => el.classList.remove("selected"));
-target.classList.add("selected");
-selectedAvatar = target.dataset.avatar;
-document.getElementById("profileImageUrlInput").value = "";
+document.querySelectorAll(`#${containerId} .avatar-option`).forEach(el => el.classList.remove("selected"));
+target.classList.add("selected"); selectedAvatar = target.dataset.avatar;
+const urlInput = containerId === "setupAvatarGrid" ? null : document.getElementById("profileImageUrlInput");
+if (urlInput) urlInput.value = "";
 }
 });
 }
 
 document.getElementById("profileModalButton")?.addEventListener("click", () => {
 document.getElementById("profileNameInput").value = state.userName;
-document.querySelectorAll(".avatar-option").forEach(el => {
-el.classList.remove("selected");
-if (el.dataset.avatar === state.userAvatarUrl) { el.classList.add("selected"); selectedAvatar = state.userAvatarUrl; }
+document.querySelectorAll("#profileAvatarGrid .avatar-option").forEach(el => {
+el.classList.remove("selected"); if (el.dataset.avatar === state.userAvatarUrl) { el.classList.add("selected"); selectedAvatar = state.userAvatarUrl; }
 });
-if (state.userAvatarUrl.startsWith("http")) {
-document.getElementById("profileImageUrlInput").value = state.userAvatarUrl;
-selectedAvatar = "";
-} else {
-document.getElementById("profileImageUrlInput").value = "";
-}
+if (state.userAvatarUrl.startsWith("http")) { document.getElementById("profileImageUrlInput").value = state.userAvatarUrl; selectedAvatar = ""; }
+else { document.getElementById("profileImageUrlInput").value = ""; }
 document.getElementById("profileModal").classList.remove("hidden");
 });
-
-document.getElementById("closeProfileModal")?.addEventListener("click", () => {
-document.getElementById("profileModal").classList.add("hidden");
+document.getElementById("profileModalButtonMobile")?.addEventListener("click", () => {
+window.toggleHamburger();
+document.getElementById("profileNameInput").value = state.userName;
+document.querySelectorAll("#profileAvatarGrid .avatar-option").forEach(el => {
+el.classList.remove("selected"); if (el.dataset.avatar === state.userAvatarUrl) { el.classList.add("selected"); selectedAvatar = state.userAvatarUrl; }
 });
+if (state.userAvatarUrl.startsWith("http")) { document.getElementById("profileImageUrlInput").value = state.userAvatarUrl; selectedAvatar = ""; }
+else { document.getElementById("profileImageUrlInput").value = ""; }
+document.getElementById("profileModal").classList.remove("hidden");
+});
+document.getElementById("closeProfileModal")?.addEventListener("click", () => { document.getElementById("profileModal").classList.add("hidden"); });
 
-// ===== 修正箇所: emailLoginForm の addEventListener を正しく追加 =====
-document.getElementById("emailLoginForm")?.addEventListener("submit", async (e) => {
-e.preventDefault();
-clearDebugErrors();
+document.getElementById("emailLoginForm").addEventListener("submit", async (e) => {
+e.preventDefault(); clearDebugErrors();
 const username = document.getElementById("usernameInput").value.trim();
 const password = document.getElementById("passwordInput").value;
 if (!username || !password) return;
-const sanitizedUsername = username.replace(/[^a-zA-Z0-9]/g, "_");
-const fakeEmail = sanitizedUsername + "@shiragane.com";
+const fakeEmail = username + "@shiragane.internal";
 try {
-  await signInWithEmailAndPassword(auth, fakeEmail, password);
-  showToast("ログインしました");
+await signInWithEmailAndPassword(auth, fakeEmail, password); showToast("ログインしました");
 } catch (loginErr) {
-  try {
-    await createUserWithEmailAndPassword(auth, fakeEmail, password);
-    showToast("アカウントを作成しました。初期設定を行ってください。");
-  } catch (createErr) {
-    if (createErr.code === "auth/email-already-in-use") {
-      showDebugError("loginDebugError", { name: "ログインエラー", message: "パスワードが間違っています。" });
-    } else {
-      showDebugError("loginDebugError", createErr);
-    }
-  }
+if (loginErr.code === "auth/user-not-found" || loginErr.code === "auth/invalid-credential") {
+try {
+await createUserWithEmailAndPassword(auth, fakeEmail, password);
+showToast("アカウントを作成しました。初期設定を行ってください。");
+} catch (createErr) { showDebugError("loginDebugError", "登録エラー: " + createErr.message); }
+} else { showDebugError("loginDebugError", "ログインエラー: " + loginErr.message); }
 }
 });
 
-// ===== 修正箇所: termsForm・setupForm・profileEditForm・appealForm を document.addEventListener("submit") で正しく囲む =====
-document.addEventListener("submit", async (e) => {
-if (e.target.id === "termsForm") {
+document.getElementById("profileSetupForm").addEventListener("submit", async (e) => {
 e.preventDefault();
-if (document.getElementById("termsCheckbox").checked) {
+const name = document.getElementById("setupNameInput").value.trim();
+const cls = document.getElementById("setupClassSelect").value;
+if (!name || !cls || !state.user) return;
+const setupData = { name, class: cls, avatarUrl: selectedAvatar, uid: state.user.uid, approved: false, suspended: false };
+try {
+await setDoc(doc(db, "allowedUsers", state.user.email), setupData);
+localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify(setupData));
+document.getElementById("setupModal").classList.add("hidden");
+showToast("初期設定が完了しました");
+proceedToNextStepAfterLogin(state.user);
+} catch (error) { alert("初期設定の保存に失敗しました: " + error.message); }
+});
+
+document.getElementById("profileUpdateForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+const name = document.getElementById("profileNameInput").value.trim();
+const url = document.getElementById("profileImageUrlInput").value.trim();
+if (!name || !state.user) return;
+const finalAvatar = url || selectedAvatar || "👤";
+try {
+await updateDoc(doc(db, "allowedUsers", state.user.email), { name, avatarUrl: finalAvatar });
+const savedSetup = localStorage.getItem(`user_setup_${state.user.uid}`);
+if (savedSetup) {
+const parsed = JSON.parse(savedSetup); parsed.name = name; parsed.avatarUrl = finalAvatar;
+localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify(parsed));
+}
+state.userName = name; state.userAvatarUrl = finalAvatar;
+document.getElementById("userAvatar").textContent = finalAvatar.startsWith("http") ? "👤" : finalAvatar;
+document.getElementById("welcomeMessage").textContent = `こんにちは、${name} さん`;
+document.getElementById("profileModal").classList.add("hidden");
+showToast("プロファイルを更新しました"); renderPosts();
+} catch (error) { alert("更新失敗: " + error.message); }
+});
+
+document.getElementById("agreeTermsButton").addEventListener("click", () => {
+if (!state.user) return;
 localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true");
 document.getElementById("termsModal").classList.add("hidden");
 proceedToNextStepAfterLogin(state.user);
-}
-}
-
-if (e.target.id === "setupForm") {
-e.preventDefault();
-state.userName = document.getElementById("setupName").value;
-state.userClass = document.getElementById("setupClass").value;
-state.userAvatarUrl = "👤";
-
-localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: "👤" }));
-try {
-await setDoc(doc(db, "pendingUsers", state.user.email), {
-email: state.user.email,
-name: state.userName,
-class: state.userClass,
-avatarUrl: "👤",
-uid: state.user.uid,
-requestedAt: serverTimestamp()
 });
-document.getElementById("setupModal").classList.add("hidden");
-checkApprovalStatus(state.user);
-} catch (error) { showDebugError("setupDebugError", error); }
-}
 
-if (e.target.id === "profileEditForm") {
-e.preventDefault();
-const newName = document.getElementById("profileNameInput").value;
-const urlInput = document.getElementById("profileImageUrlInput").value.trim();
-
-let finalAvatar = urlInput !== "" ? urlInput : selectedAvatar;
-
-try {
-await setDoc(doc(db, "allowedUsers", state.user.email), {
-name: newName,
-avatarUrl: finalAvatar
-}, { merge: true });
-
-state.userName = newName;
-state.userAvatarUrl = finalAvatar;
-localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: finalAvatar }));
-updateUIProfile();
-document.getElementById("profileModal").classList.add("hidden");
-showToast("プロフィールを更新しました！");
-} catch (error) { showDebugError("profileDebugError", error); }
-}
-
-// 🛑 ユーザーから送信された異議申し立ての処理
-if (e.target.id === "appealForm") {
-e.preventDefault();
-const reason = document.getElementById("appealReason").value.trim();
-if (!reason) return;
-try {
-await addDoc(collection(db, "appeals"), {
-email: state.user.email,
-name: state.userName,
-reason: reason,
-createdAt: serverTimestamp()
+document.getElementById("showAppealFormButton").addEventListener("click", () => {
+document.getElementById("appealFormContainer").classList.toggle("hidden");
 });
-showToast("異議申し立てを送信しました。");
-document.getElementById("appealForm").reset();
-} catch (error) { showDebugError("suspendedDebugError", error); }
-}
+document.getElementById("appealForm").addEventListener("submit", async (e) => {
+e.preventDefault(); const msg = document.getElementById("appealMessage").value.trim(); if (!msg || !state.user) return;
+try {
+await addDoc(collection(db, "appeals"), { uid: state.user.uid, email: state.user.email, message: msg, createdAt: serverTimestamp() });
+document.getElementById("appealMessage").value = ""; document.getElementById("appealFormContainer").classList.add("hidden");
+alert("管理者に申し立てを送信しました。対応をお待ちください。");
+} catch (err) { alert("送信失敗"); }
 });
 
 function initUserReactions() {
 if (!state.user) return;
-const q = query(collection(db, "userReactions"));
+const q = query(collection(db, "userReactions"), orderBy("timestamp", "desc"), limit(500));
 onSnapshot(q, (snapshot) => {
 state.userReactedMap = {};
 snapshot.docs.forEach(doc => {
@@ -1342,15 +1056,11 @@ renderPosts();
 
 let activeCommentListeners = {};
 
-// ✨ コメント内動的アイコン自動書き換えのために全ユーザーのプロファイルをマップに常時ロード
 function initUsersProfiles() {
 if (state.adminUnsubscribes.dynamicProfiles) state.adminUnsubscribes.dynamicProfiles();
 state.adminUnsubscribes.dynamicProfiles = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
 snapshot.docs.forEach(doc => {
-const data = doc.data();
-if (data.uid) {
-state.usersProfileMap[data.uid] = { avatarUrl: data.avatarUrl, name: data.name };
-}
+const data = doc.data(); if (data.uid) { state.usersProfileMap[data.uid] = { avatarUrl: data.avatarUrl, name: data.name }; }
 });
 renderPosts();
 }, (error) => { console.warn("プロファイルデータのリアルタイム同期制限、またはセキュリティルールによる制限:", error); });
@@ -1360,152 +1070,91 @@ function initPosts() {
 const postsRef = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100));
 onSnapshot(postsRef, (snapshot) => {
 state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-
 snapshot.docs.forEach(postDoc => {
-    const postId = postDoc.id;
-    if (!activeCommentListeners[postId]) {
-        const commentsRef = query(collection(db, "posts", postId, "comments"), orderBy("createdAt", "asc"));
-        activeCommentListeners[postId] = onSnapshot(commentsRef, (commentSnap) => {
-            state.commentsMap[postId] = commentSnap.docs.map(cDoc => ({
-                id: cDoc.id,
-                ...cDoc.data()
-            }));
-            renderPosts();
-        });
-    }
+const postId = postDoc.id;
+if (!activeCommentListeners[postId]) {
+const commentsRef = query(collection(db, "posts", postId, "comments"), orderBy("createdAt", "asc"));
+activeCommentListeners[postId] = onSnapshot(commentsRef, (commentSnap) => {
+state.commentsMap[postId] = commentSnap.docs.map(cDoc => ({ id: cDoc.id, ...cDoc.data() }));
+renderPosts();
+});
+}
 });
 renderPosts();
 });
 }
 
-document.getElementById("adminDashboardButton")?.addEventListener("click", () => {
-document.getElementById("adminDashboardModal").classList.remove("hidden");
+document.getElementById("newPostForm").addEventListener("submit", async (e) => {
+e.preventDefault();
+const title = document.getElementById("postTitle").value.trim();
+const body = document.getElementById("postBody").value.trim();
+const cat = document.getElementById("postCategory").value;
+const target = document.getElementById("postTarget").value;
+const start = document.getElementById("postStartDate").value;
+const end = document.getElementById("postEndDate").value;
+if (!title || !body || !cat || !target || !start || !end) return;
+try {
+await addDoc(collection(db, "posts"), { title, body, category: cat, classTarget: target, startDate: start, endDate: end, reactions: { thumbsUp: 0, eyes: 0, checkmark: 0 }, createdAt: serverTimestamp() });
+document.getElementById("newPostForm").reset(); showToast("新しく投稿しました");
+} catch (error) { alert("投稿エラー: " + error.message); }
 });
 
-document.getElementById("closeAdminDashboard")?.addEventListener("click", () => {
-document.getElementById("adminDashboardModal").classList.add("hidden");
-});
-
-function loadAdminData() {
-// 既存のリスナーのクリーンアップ
-if (state.adminUnsubscribes.pendingUsers) state.adminUnsubscribes.pendingUsers();
-if (state.adminUnsubscribes.allowedUsers) state.adminUnsubscribes.allowedUsers();
-if (state.adminUnsubscribes.appeals) state.adminUnsubscribes.appeals();
-
-const pendingList = document.getElementById("pendingUsersListAdmin");
-const allowedList = document.getElementById("allowedUsersListAdmin");
-const appealsList = document.getElementById("appealsListAdmin");
-
-state.adminUnsubscribes.pendingUsers = onSnapshot(collection(db, "pendingUsers"), (snapshot) => {
-if (snapshot.empty) { pendingList.innerHTML = `<p style="color:var(--muted);">申請者なし</p>`; return; }
-pendingList.innerHTML = snapshot.docs.map(doc => {
-const data = doc.data();
-const userEmail = doc.id;
+function initAdminDashboard() {
+if (state.adminUnsubscribes.users) state.adminUnsubscribes.users();
+state.adminUnsubscribes.users = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
+const container = document.getElementById("usersListContainer");
+container.innerHTML = snapshot.docs.map(doc => {
+const data = doc.data(); const userEmail = doc.id; if (userEmail === "admin@shiragane.internal") return "";
+const isApproved = data.approved === true; const isSuspended = data.suspended === true;
 return `
-<div style="background: #f9fafb; border: 1px solid var(--border); border-radius: 12px; padding: 14px; display:flex; align-items:center; gap:12px;">
-${getAvatarHTML(data.avatarUrl)}
-<div>
-<p>お名前: <strong>${data.name || "不明"} (${data.class || "不明"})</strong></p>
-<p style="font-size: 0.85rem; color: var(--muted);">メール: ${userEmail}</p>
-<div style="margin-top:8px;">
-<button class="button" onclick="window.approveUser('${userEmail}', '${data.class || '7-1'}', '${data.name || ''}', '${data.avatarUrl || '👤'}', '${data.uid || ''}')" style="min-height: 32px; padding: 0 12px; font-size: 0.85rem; margin-right: 8px; width:auto;">承認</button>
-<button class="danger-button" onclick="window.rejectUser('${userEmail}')" style="min-height: 32px; padding: 0 12px; font-size: 0.85rem; width:auto;">拒否</button>
+<div style="background:#f9fafb; padding:14px; border-radius:14px; border:1px solid var(--border); display:flex; flex-direction:column; gap:6px;">
+<div style="display:flex; justify-content:between; align-items:center; width:100%;">
+<strong style="font-size:1rem;">${data.name || "未設定"} <span style="font-weight:400; font-size:0.85rem; color:var(--muted);">(${data.class || "未設定"})</span></strong>
+<span class="badge" style="margin-left:auto; background:${isApproved ? 'rgba(16,185,129,0.1)' : 'rgba(245,158,11,0.1)'}; color:${isApproved ? '#10b981' : '#f59e0b'};">${isApproved ? '承認済' : '未承認'}</span>
 </div>
-</div>
-</div>
-`;
-}).join("");
-}, (error) => { showDebugError("dashboardDebugError", error); });
-
-state.adminUnsubscribes.allowedUsers = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
-if (snapshot.empty) { allowedList.innerHTML = `<p style="color:var(--muted);">承認済みなし</p>`; return; }
-allowedList.innerHTML = snapshot.docs.map(doc => {
-const userEmail = doc.id;
-const data = doc.data();
-const isSuspended = data.suspended === true;
-return `
-<div style="background: #f9fafb; border: 1px solid var(--border); border-radius: 12px; padding: 14px; display:flex; align-items:center; gap:12px; ${isSuspended ? 'border-left: 5px solid #d92d20; background: #fef2f2;' : ''}">
-${getAvatarHTML(data.avatarUrl)}
-<div style="flex:1;">
-<p><strong>${data.name || "名前なし"}</strong> ${isSuspended ? '<span style="color:#d92d20; font-weight:bold; font-size:0.8rem;">[停止中]</span>' : ''}</p>
 <p style="font-size: 0.85rem; color: var(--muted); margin-bottom:6px;">メール: ${userEmail}</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
-    <select onchange="window.updateUserClass('${userEmail}', this.value)" style="padding: 4px 8px; border: 1px solid var(--border); border-radius: 8px; font-size:0.8rem; width:auto; height:32px; display:inline-block;">
-        <option value="7-1" ${data.class === '7-1' ? 'selected' : ''}>7-1組</option>
-        <option value="7-2" ${data.class === '7-2' ? 'selected' : ''}>7-2組</option>
-    </select>
-    <button class="danger-button" onclick="window.toggleSuspendUser('${userEmail}', ${isSuspended})" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto; background: ${isSuspended ? 'rgba(16,185,129,0.12)' : 'rgba(217,45,32,0.12)'}; color: ${isSuspended ? '#10b981' : '#d92d20'}">
-        ${isSuspended ? 'アカウント再開' : 'アカウント停止'}
-    </button>
-    <button class="danger-button" onclick="window.removeUser('${userEmail}')" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto;">削除</button>
+<select onchange="window.updateUserClass('${userEmail}', this.value)" style="padding: 4px 8px; border: 1px solid var(--border); border-radius: 8px; font-size:0.8rem; width:auto; height:32px; display:inline-block;">
+<option value="7-1" ${data.class === '7-1' ? 'selected' : ''}>7-1組</option>
+<option value="7-2" ${data.class === '7-2' ? 'selected' : ''}>7-2組</option>
+</select>
+<button class="button" onclick="window.toggleApproveUser('${userEmail}', ${isApproved})" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto; background: ${isApproved ? '#6b7280' : 'linear-gradient(135deg, #10b981, #059669)'};">
+${isApproved ? '承認取消' : '承認する'}
+</button>
+<button class="danger-button" onclick="window.toggleSuspendUser('${userEmail}', ${isSuspended})" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto; background: ${isSuspended ? 'rgba(16,185,129,0.12)' : 'rgba(217,45,32,0.12)'}; color: ${isSuspended ? '#10b981' : '#d92d20'}">
+${isSuspended ? 'アカウント再開' : 'アカウント停止'}
+</button>
+<button class="danger-button" onclick="window.removeUser('${userEmail}')" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto;">削除</button>
 </div>
-</div>
-</div>
-`;
+</div>`;
 }).join("");
 }, (error) => { showDebugError("dashboardDebugError", error); });
 
-// ⚖️ 届いた異議申し立て一覧を取得するリスナー
-state.adminUnsubscribes.appeals = onSnapshot(query(collection(db, "appeals"), orderBy("createdAt", "desc")), (snapshot) => {
-if (snapshot.empty) { appealsList.innerHTML = `<p style="color:var(--muted);">現在、異議申し立てはありません</p>`; return; }
-appealsList.innerHTML = snapshot.docs.map(doc => {
-const d = doc.data();
-const date = d.createdAt ? new Date(d.createdAt.seconds * 1000).toLocaleString("ja-JP") : "送信中...";
+if (state.adminUnsubscribes.appeals) state.adminUnsubscribes.appeals();
+state.adminUnsubscribes.appeals = onSnapshot(collection(db, "appeals"), (snapshot) => {
+const container = document.getElementById("appealsListContainer");
+if (snapshot.docs.length === 0) { container.innerHTML = `<div style="text-align:center; color:var(--muted); padding:20px;">現在申し立てはありません</div>`; return; }
+container.innerHTML = snapshot.docs.map(doc => {
+const data = doc.data(); const timeStr = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleString() : "送信中...";
 return `
-<div style="background: #fff; border: 1px solid #f3f4f6; border-left: 4px solid #f59e0b; border-radius: 12px; padding: 14px; position:relative;">
-    <div style="font-size: 0.8rem; color: var(--muted); margin-bottom: 4px;">${date}</div>
-    <div style="font-weight: 700; margin-bottom: 6px;">${d.name || "不明"} (${d.email})</div>
-    <div style="background: #f9fafb; padding: 10px; border-radius: 8px; font-size: 0.9rem; color: #344054; white-space: pre-wrap; margin-bottom: 8px;">${d.reason}</div>
-    <button class="danger-button" onclick="window.deleteAppeal('${doc.id}')" style="min-height: 28px; padding: 0 10px; font-size: 0.75rem; width:auto;">履歴から削除</button>
-</div>
-`;
+<div style="background:#f9fafb; padding:14px; border-radius:14px; border:1px solid var(--border);">
+<div style="font-size:0.8rem; color:var(--muted); margin-bottom:4px;">日時: ${timeStr} | アカウント: ${data.email}</div>
+<div style="font-size:0.95rem; white-space:pre-wrap; color:var(--text); background:#fff; padding:10px; border-radius:8px; border:1px solid var(--border); margin-bottom:8px;">${data.message}</div>
+<button class="danger-button" onclick="window.deleteAppeal('${doc.id}')" style="min-height:28px; padding:0 10px; font-size:0.75rem;">履歴を削除</button>
+</div>`;
 }).join("");
-}, (error) => { showDebugError("dashboardDebugError", error); });
+});
 }
 
-window.approveUser = async (email, userClass, name, avatarUrl, uid) => {
-try {
-await setDoc(doc(db, "allowedUsers", email), { email, class: userClass, name: name, avatarUrl: avatarUrl, uid: uid, suspended: false, approvedAt: serverTimestamp() });
-await deleteDoc(doc(db, "pendingUsers", email));
-showToast("承認しました");
-} catch (error) { showDebugError("dashboardDebugError", error); }
-};
-
-window.rejectUser = async (email) => {
-try { await deleteDoc(doc(db, "pendingUsers", email)); showToast("拒否しました"); } catch (error) { showDebugError("dashboardDebugError", error); }
-};
-
-window.removeUser = async (email) => {
-try { await deleteDoc(doc(db, "allowedUsers", email)); showToast("削除しました"); } catch (error) { showDebugError("dashboardDebugError", error); }
-};
-
-// ✏️ 管理者がユーザーのクラスを即時変更する関数
-window.updateUserClass = async (email, newClass) => {
-try {
-await updateDoc(doc(db, "allowedUsers", email), { class: newClass });
-showToast(`クラスを ${newClass} 組に変更しました`);
-} catch (error) { alert("クラスの変更に失敗しました"); }
-};
-
-// 🛑 管理者がアカウント停止（BAN）を切り替える関数
-window.toggleSuspendUser = async (email, currentSuspendedState) => {
-const actionStr = currentSuspendedState ? "再開" : "停止";
-if (confirm(`このユーザーのアカウントを本当に${actionStr}しますか？`)) {
-try {
-await updateDoc(doc(db, "allowedUsers", email), { suspended: !currentSuspendedState });
-showToast(`アカウントを${actionStr}しました`);
-} catch (error) { alert(`アカウントの${actionStr}処理に失敗しました`); }
-}
-};
-
-window.deleteAppeal = async (id) => {
-try { await deleteDoc(doc(db, "appeals", id)); showToast("申し立て履歴を削除しました"); } catch (error) { alert("削除失敗"); }
-};
+window.toggleApproveUser = async (email, currentStatus) => { try { await updateDoc(doc(db, "allowedUsers", email), { approved: !currentStatus }); showToast(!currentStatus ? "ユーザーを承認しました" : "承認を取り消しました"); } catch(e) { alert("操作に失敗しました"); } };
+window.updateUserClass = async (email, cls) => { try { await updateDoc(doc(db, "allowedUsers", email), { class: cls }); showToast("クラスを更新しました"); } catch(e) { alert("更新失敗"); } };
+window.toggleSuspendUser = async (email, currentStatus) => { try { await updateDoc(doc(db, "allowedUsers", email), { suspended: !currentStatus }); const actionStr = !currentStatus ? "停止" : "解除"; showToast(`アカウントを${actionStr}しました`); } catch (error) { alert(`アカウントの処理に失敗しました`); } };
+window.removeUser = async (email) => { if (confirm(`${email} のデータを完全に削除しますか？`)) { try { await deleteDoc(doc(db, "allowedUsers", email)); showToast("ユーザーを削除しました"); } catch (error) { alert("削除失敗"); } } };
+window.deleteAppeal = async (id) => { try { await deleteDoc(doc(db, "appeals", id)); showToast("申し立て履歴を削除しました"); } catch (error) { alert("削除失敗"); } };
 
 function handleLogout() {
 if (state.approvalUnsubscribe) { state.approvalUnsubscribe(); state.approvalUnsubscribe = null; }
-Object.values(activeCommentListeners).forEach(unsub => unsub());
-activeCommentListeners = {};
+Object.values(activeCommentListeners).forEach(unsub => unsub()); activeCommentListeners = {};
 signOut(auth).then(() => { showToast("ログアウトしました"); });
 }
 
@@ -1515,77 +1164,49 @@ document.getElementById("suspendedLogoutButton")?.addEventListener("click", hand
 
 function checkApprovalStatus(user) {
 if (state.approvalUnsubscribe) state.approvalUnsubscribe();
-
 state.approvalUnsubscribe = onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
-if (snapshot.exists()) {
+if (!snapshot.exists()) {
+document.getElementById("setupModal").classList.remove("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("suspendedModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
+return;
+}
 const data = snapshot.data();
-
-// 🛑 BAN（停止状態）の監視ロジック
 if (data.suspended === true) {
 document.getElementById("suspendedModal").classList.remove("hidden");
-document.getElementById("mainContent").style.display = "none";
 document.getElementById("pendingApprovalModal").classList.add("hidden");
 document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
 return;
-} else {
+}
 document.getElementById("suspendedModal").classList.add("hidden");
+
+if (data.approved !== true) {
+document.getElementById("pendingApprovalModal").classList.remove("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
+return;
 }
-
-state.userName = data.name ? data.name : state.userName;
-state.userClass = data.class ? data.class : state.userClass;
-state.userAvatarUrl = data.avatarUrl ? data.avatarUrl : "👤";
-
-localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
-
 document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+
+state.userName = data.name || "匿名";
+state.userClass = data.class || "未設定";
+state.userAvatarUrl = data.avatarUrl || "👤";
+
+document.getElementById("userAvatar").textContent = state.userAvatarUrl.startsWith("http") ? "👤" : state.userAvatarUrl;
+document.getElementById("welcomeMessage").textContent = `こんにちは、${state.userName} さん`;
+
 document.getElementById("mainContent").style.display = "block";
-if (window.innerWidth <= 768) {
-document.getElementById("hamburgerButton").style.display = "flex";
-document.getElementById("hamburgerMenu").style.display = "block";
-document.getElementById("mobileDateNav").style.display = "block";
-}
-updateDateDisplay();
-updateCategoryTitle();
-updateUIProfile();
-initPosts();
 initUserReactions();
 initUsersProfiles();
-showFirstTimeGuide();
-
-} else {
-document.getElementById("pendingApprovalModal").classList.remove("hidden");
-document.getElementById("mainContent").style.display = "none";
-document.getElementById("suspendedModal").classList.add("hidden");
-}
-}, (error) => { showDebugError("pendingDebugError", error); });
+initPosts();
+checkAndShowGuideBubble();
+}, (error) => { console.error("Firestoreのリアルタイム同期エラー:", error); });
 }
 
 function proceedToNextStepAfterLogin(user) {
-if (user.uid === ADMIN_UID) {
-state.isAdmin = true;
-state.userName = "管理者";
-state.userClass = "管理";
-state.userAvatarUrl = "👑";
-document.getElementById("mainContent").style.display = "block";
-document.getElementById("adminPostForm").style.display = "block";
-document.getElementById("adminDashboardButton").style.display = "block";
-
-if (window.innerWidth <= 768) {
-document.getElementById("hamburgerButton").style.display = "flex";
-document.getElementById("hamburgerMenu").style.display = "block";
-document.getElementById("mobileDateNav").style.display = "block";
-}
-
-updateDateDisplay();
-updateUIProfile();
-initPosts();
-initUserReactions();
-initUsersProfiles();
-loadAdminData();
-showFirstTimeGuide();
-return;
-}
-
 const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
 if (!savedSetup) {
 document.getElementById("setupModal").classList.remove("hidden");
@@ -1626,9 +1247,44 @@ document.getElementById("pendingApprovalModal").classList.add("hidden");
 return;
 }
 
+// 💡【変更箇所：ここを追加しました】
+// データベースへ承認状態を確認しにいく直前に、確実にメイン画面の非表示を挟み、未承認画面のすり抜けを防止します。
+document.getElementById("mainContent").style.display = "none";
+
+if (user.uid === ADMIN_UID) {
+state.isAdmin = true;
+document.getElementById("adminPostForm").classList.remove("hidden");
+document.getElementById("adminFooter").style.display = "flex";
+document.getElementById("mainContent").style.display = "block";
+initUserReactions();
+initUsersProfiles();
+initPosts();
+initAdminDashboard();
+const openBtn = document.getElementById("openAdminDashboardButton");
+const closeBtn = document.getElementById("closeAdminDashboardModal");
+const modal = document.getElementById("adminDashboardModal");
+openBtn?.addEventListener("click", () => modal.classList.remove("hidden"));
+closeBtn?.addEventListener("click", () => modal.classList.add("hidden"));
+const tUsers = document.getElementById("dashTabUsers");
+const tAppeals = document.getElementById("dashTabAppeals");
+const cUsers = document.getElementById("dashContentUsers");
+const cAppeals = document.getElementById("dashContentAppeals");
+tUsers?.addEventListener("click", () => {
+tUsers.className = "button"; tAppeals.className = "ghost-button"; cUsers.classList.remove("hidden"); cAppeals.classList.add("hidden");
+});
+tAppeals?.addEventListener("click", () => {
+tAppeals.className = "button"; tUsers.className = "ghost-button"; cAppeals.classList.remove("hidden"); cUsers.classList.add("hidden");
+});
+} else {
+state.isAdmin = false;
+document.getElementById("adminPostForm").classList.add("hidden");
+document.getElementById("adminFooter").style.display = "none";
 proceedToNextStepAfterLogin(user);
+}
 });
 
+initAvatarGrid("setupAvatarGrid");
+initAvatarGrid("profileAvatarGrid");
 updateDateDisplay();
 </script>
 </body>
