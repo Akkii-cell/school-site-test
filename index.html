@@ -1,1631 +1,635 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>港区白金の丘中学校 第7学年 共有サイト</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #f5f5f7;
-      --surface: rgba(255, 255, 255, 0.92);
-      --border: rgba(15, 23, 42, 0.08);
-      --text: #111827;
-      --muted: #6b7280;
-      --accent: #0071e3;
-      --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --max-width: 1220px;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>港区白金の丘中学校 第7学年 共有サイト</title>
+<link rel="icon" href="ChatGPT Image 2026年6月28日 00_40_40.png">
+<style>
+:root {
+color-scheme: light;
+--bg: #f5f5f7;
+--surface: rgba(255, 255, 255, 0.92);
+--border: rgba(15, 23, 42, 0.08);
+--text: #111827;
+--muted: #6b7280;
+--accent: #0071e3;
+--shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+--radius-xl: 28px;
+--radius-lg: 22px;
+--max-width: 1220px;
+}
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", sans-serif;
-      color: var(--text);
-      background: radial-gradient(circle at top left, rgba(0, 113, 227, 0.08), transparent 32%), radial-gradient(circle at top right, rgba(15, 169, 107, 0.08), transparent 28%), var(--bg);
-      -webkit-font-smoothing: antialiased;
-      text-rendering: optimizeLegibility;
-    }
+* { box-sizing: border-box; }
+body {
+margin: 0;
+min-height: 100vh;
+font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+color: var(--text);
+background: var(--bg);
+-webkit-font-smoothing: antialiased;
+}
 
-    button, input, select, textarea { font: inherit; }
-    img { max-width: 100%; display: block; }
-    button { border: none; cursor: pointer; }
+button, input, select, textarea { font: inherit; width: 100%; box-sizing: border-box; }
+button { border: none; cursor: pointer; }
 
-    .shell {
-      width: min(var(--max-width), calc(100vw - 32px));
-      margin: 0 auto;
-      padding: 28px 0 calc(80px + env(safe-area-inset-bottom));
-    }
+.shell {
+width: min(var(--max-width), calc(100vw - 24px));
+margin: 0 auto;
+padding: 16px 0 120px;
+}
 
-    .card, .frosted, .panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(24px);
-    }
+.frosted {
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: var(--radius-xl);
+box-shadow: var(--shadow);
+backdrop-filter: blur(20px) saturate(140%);
+-webkit-backdrop-filter: blur(20px) saturate(140%);
+}
 
-    .hero-card {
-      padding: 32px;
-      overflow: hidden;
-      position: relative;
-    }
+/* 📅 日付ナビゲーションのスマホ最適化 */
+.toolbar {
+display: grid;
+gap: 16px;
+padding: 16px;
+margin-bottom: 16px;
+}
 
-    h1, h2, h3, h4, p { margin: 0; }
+.toolbar-row {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 8px;
+}
 
-    .hero-title {
-      font-size: clamp(2rem, 4vw, 3.4rem);
-      line-height: 1.08;
-      letter-spacing: -0.04em;
-      margin-bottom: 14px;
-    }
+.date-display { 
+font-size: 1.1rem; 
+font-weight: 700; 
+text-align: center;
+flex: 1;
+white-space: nowrap;
+}
 
-    .hero-lead {
-      max-width: 60ch;
-      color: var(--muted);
-      font-size: 1rem;
-      line-height: 1.7;
-    }
+.panel { padding: 24px; margin-bottom: 16px; }
+.panel-title { font-size: 1.2rem; margin-bottom: 16px; font-weight: 700; }
 
-    .toolbar {
-      display: grid;
-      gap: 16px;
-      padding: 22px;
-      margin-bottom: 18px;
-    }
+.form-grid-2 {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 12px;
+}
 
-    .toolbar-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: center;
-    }
+.post-card {
+border: 1px solid var(--border);
+background: var(--surface);
+border-radius: var(--radius-lg);
+padding: 20px;
+margin-bottom: 16px;
+}
 
-    .date-nav {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
+.post-body {
+color: #344054;
+line-height: 1.8;
+white-space: pre-wrap;
+overflow-wrap: anywhere;
+margin-bottom: 16px;
+}
 
-    .date-display {
-      font-size: 1.1rem;
-      font-weight: 700;
-      min-width: 220px;
-    }
+.button, .ghost-button, .danger-button {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+min-height: 44px;
+padding: 0 16px;
+border-radius: 999px;
+font-weight: 700;
+width: auto;
+text-decoration: none;
+}
 
-    .chip {
-      min-height: 46px;
-      padding: 0 15px;
-      border-radius: 999px;
-      background: rgba(15, 23, 42, 0.05);
-      color: #334155;
-      font-weight: 700;
-    }
+.button { background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; }
 
-    .chip.active {
-      background: rgba(0, 113, 227, 0.12);
-      color: var(--accent);
-    }
+.ghost-button { 
+background: rgba(0, 0, 0, 0.04); 
+color: #111827; 
+border: 1px solid transparent;
+transition: background 0.2s;
+}
+.ghost-button:hover { background: rgba(0, 0, 0, 0.08); }
 
-    .panel {
-      padding: 24px;
-    }
+.modal {
+position: fixed;
+inset: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+background: rgba(15, 23, 42, 0.3);
+backdrop-filter: blur(16px);
+-webkit-backdrop-filter: blur(16px);
+z-index: 2000;
+}
 
-    .panel-title {
-      font-size: 1.2rem;
-      letter-spacing: -0.03em;
-      margin-bottom: 16px;
-    }
+.modal.hidden { display: none; }
 
-    .post-card {
-      border: 1px solid rgba(148, 163, 184, 0.16);
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 252, 0.92));
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
-      margin-bottom: 16px;
-    }
+.modal-panel {
+width: min(500px, 100%);
+max-height: 90vh;
+overflow-y: auto;
+padding: 24px;
+border-radius: 24px;
+background: #fff;
+box-shadow: var(--shadow);
+}
 
-    .post-card.hidden-post {
-      opacity: 0.5;
-      background: rgba(255, 0, 0, 0.05) !important;
-    }
+.modal-title { font-size: 1.3rem; margin-bottom: 16px; font-weight: 700; }
 
-    .post-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
-    }
+.toast {
+position: fixed;
+left: 50%;
+bottom: 100px;
+transform: translateX(-50%);
+padding: 12px 20px;
+border-radius: 999px;
+background: rgba(17, 24, 39, 0.9);
+color: #fff;
+opacity: 0;
+pointer-events: none;
+z-index: 3000;
+transition: opacity 0.2s;
+}
+.toast.show { opacity: 1; }
 
-    .post-title {
-      font-size: 1.3rem;
-      line-height: 1.25;
-      letter-spacing: -0.03em;
-      flex: 1;
-    }
+/* 📱 ボトム固定ナビゲーション（管理・プロフ等） */
+.admin-footer { 
+position: fixed; 
+bottom: 24px; 
+left: 50%;
+transform: translateX(-50%);
+z-index: 1000; 
+display: flex; 
+gap: 10px; 
+background: rgba(255, 255, 255, 0.85);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+padding: 8px 16px;
+border-radius: 999px;
+border: 1px solid var(--border);
+box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+width: max-content;
+max-width: 90vw;
+}
 
-    .post-body {
-      color: #344054;
-      line-height: 1.8;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      margin-bottom: 16px;
-    }
+.admin-footer .ghost-button {
+min-height: 38px;
+padding: 0 14px;
+font-size: 0.85rem;
+border-radius: 999px;
+background: transparent;
+}
+.admin-footer .ghost-button:hover {
+background: rgba(0,0,0,0.05);
+}
 
-    .post-image {
-      width: 100%;
-      max-width: 400px;
-      border-radius: 12px;
-      margin-bottom: 16px;
-      display: block;
-    }
+.hamburger-menu {
+position: fixed;
+top: 0;
+left: -100%;
+width: 280px;
+height: 100vh;
+background: #fff;
+z-index: 1500;
+transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+padding: 24px;
+box-shadow: 20px 0 40px rgba(0,0,0,0.05);
+}
+.hamburger-menu.active { left: 0; }
+.hamburger-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.2); z-index: 1400; backdrop-filter: blur(4px); }
+.hamburger-overlay.active { display: block; }
 
-    .post-link {
-      display: inline-block;
-      padding: 10px 14px;
-      background: rgba(0, 113, 227, 0.1);
-      border-radius: 8px;
-      color: var(--accent);
-      text-decoration: none;
-      margin-bottom: 16px;
-      word-break: break-all;
-    }
+.hamburger-button {
+width: 44px;
+height: 44px;
+background: var(--surface);
+border: 1px solid var(--border);
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.3rem;
+box-shadow: var(--shadow);
+}
 
-    .post-meta {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 16px;
-    }
+.debug-error-box {
+background: #fef3c7;
+border: 1px solid #f59e0b;
+color: #b45309;
+padding: 12px;
+border-radius: 12px;
+font-family: monospace;
+font-size: 0.8rem;
+margin-top: 12px;
+display: none;
+white-space: pre-wrap;
+word-break: break-all;
+}
 
-    .badge {
-      display: inline-block;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin-right: 8px;
-      margin-bottom: 8px;
-    }
-
-    .badge.schedule { background: rgba(0, 113, 227, 0.1); color: #0071e3; }
-    .badge.homework { background: rgba(15, 159, 110, 0.12); color: #0f9f6e; }
-    .badge.notice { background: rgba(217, 119, 6, 0.12); color: #d97706; }
-
-    .comment-item {
-      background: rgba(248, 250, 252, 0.9);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 14px 16px;
-      margin-bottom: 12px;
-    }
-
-    .comment-author {
-      font-weight: 700;
-      font-size: 0.95rem;
-      margin-bottom: 4px;
-    }
-
-    .comment-text {
-      color: #374151;
-      line-height: 1.6;
-      white-space: pre-wrap;
-      overflow-wrap: anywhere;
-      margin-bottom: 8px;
-    }
-
-    .comment-actions {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      flex-wrap: wrap;
-      margin-top: 8px;
-    }
-
-    .rating-btn {
-      background: rgba(0, 0, 0, 0.05);
-      border: 1px solid transparent;
-      padding: 4px 8px;
-      border-radius: 6px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .rating-btn:hover {
-      background: rgba(0, 113, 227, 0.1);
-    }
-
-    .empty-state {
-      padding: 28px 22px;
-      border-radius: 20px;
-      background: rgba(248, 250, 252, 0.9);
-      border: 1px dashed var(--border);
-      color: var(--muted);
-      line-height: 1.8;
-      text-align: center;
-    }
-
-    .button, .ghost-button, .danger-button, .report-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 48px;
-      padding: 0 16px;
-      border-radius: 999px;
-      font-weight: 700;
-      transition: transform 0.18s ease;
-    }
-
-    .button {
-      background: linear-gradient(135deg, #0071e3, #2e90fa);
-      color: #fff;
-      box-shadow: 0 16px 32px rgba(0, 113, 227, 0.22);
-    }
-
-    .ghost-button {
-      background: rgba(255, 255, 255, 0.88);
-      color: #1f2937;
-      border: 1px solid var(--border);
-    }
-
-    .danger-button {
-      background: rgba(217, 45, 32, 0.12);
-      color: #d92d20;
-    }
-
-    .report-button {
-      background: rgba(217, 119, 6, 0.12);
-      color: #d97706;
-      min-height: 32px;
-      padding: 0 12px;
-      font-size: 0.85rem;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 22px;
-      background: rgba(15, 23, 42, 0.44);
-      backdrop-filter: blur(16px);
-      z-index: 100;
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    .modal.hidden {
-      opacity: 0;
-      pointer-events: none;
-      display: none;
-    }
-
-    .modal-panel {
-      width: min(720px, 100%);
-      max-height: 90vh;
-      overflow: auto;
-      padding: 28px;
-      border-radius: 28px;
-      background: rgba(255, 255, 255, 0.98);
-      border: 1px solid var(--border);
-      box-shadow: 0 30px 70px rgba(15, 23, 42, 0.22);
-    }
-
-    .modal-title {
-      font-size: 1.55rem;
-      letter-spacing: -0.04em;
-      margin-bottom: 16px;
-    }
-
-    .modal-actions {
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 18px;
-    }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 24px;
-      transform: translateX(-50%) translateY(18px);
-      padding: 14px 18px;
-      border-radius: 999px;
-      background: rgba(17, 24, 39, 0.92);
-      color: #fff;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.22s ease;
-      z-index: 120;
-    }
-
-    .toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    .pending-screen {
-      width: 100%;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: var(--bg);
-    }
-
-    .pending-panel {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 40px;
-      max-width: 600px;
-      text-align: center;
-      box-shadow: var(--shadow);
-    }
-
-    .file-input-wrapper {
-      position: relative;
-      overflow: hidden;
-      display: inline-block;
-    }
-
-    .file-input-wrapper input[type="file"] {
-      position: absolute;
-      left: -9999px;
-    }
-
-    .file-input-label {
-      display: inline-block;
-      padding: 8px 12px;
-      background: rgba(0, 113, 227, 0.1);
-      color: var(--accent);
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-
-    .image-preview {
-      max-width: 200px;
-      max-height: 150px;
-      margin-top: 8px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-    }
-
-    @media (max-width: 768px) {
-      .shell {
-        width: min(calc(100vw - 18px), var(--max-width));
-        padding-top: 14px;
-      }
-
-      .chip-row {
-        display: none;
-      }
-    }
-  </style>
+/* 📱 モバイル個別スタイル調整 */
+@media (max-width: 768px) {
+.shell { padding: 12px 0 120px; }
+.hero-header-container { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; justify-content: space-between; }
+.hero-card { display: flex; align-items: center; gap: 12px; background: none; border: none; box-shadow: none; padding: 0; margin: 0; }
+.profile-avatar { width: 40px; height: 40px; font-size: 20px; }
+.hero-title { font-size: 1.1rem; font-weight: 800; }
+.hero-lead { font-size: 0.75rem; }
+.date-display { font-size: 0.95rem; }
+.toolbar .ghost-button { min-height: 36px; padding: 0 12px; font-size: 0.85rem; }
+.form-grid-2 { grid-template-columns: 1fr; }
+}
+</style>
 </head>
 <body>
-  <!-- ログイン画面 -->
-  <div class="modal" id="loginModal">
-    <div class="modal-panel" style="width: min(520px, 100%);">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 class="modal-title">ログイン</h2>
-        <div style="display: flex; gap: 8px;">
-          <button type="button" id="userTabButton" class="ghost-button" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem; font-weight: 700;">ユーザー</button>
-          <button type="button" id="adminTabButton" class="ghost-button" style="min-height: 36px; padding: 0 12px; font-size: 0.75rem;">管理者</button>
-        </div>
-      </div>
 
-      <div id="userLoginTab">
-        <p style="color: var(--muted); margin-bottom: 24px;">Google または メールアドレスでログインしてください。</p>
-        <div style="display: grid; gap: 12px;">
-          <button class="button" id="googleLoginButton" type="button" style="width: 100%;">Google でログイン</button>
-          <div style="display: flex; align-items: center; gap: 12px; margin: 20px 0;">
-            <div style="flex: 1; height: 1px; background: var(--border);"></div>
-            <span style="color: var(--muted); font-size: 0.9rem;">または</span>
-            <div style="flex: 1; height: 1px; background: var(--border);"></div>
-          </div>
-          <form id="emailLoginForm" style="display: grid; gap: 12px;">
-            <input id="emailInput" type="email" placeholder="メールアドレス" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-            <input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-            <button type="submit" class="button" style="width: 100%;">メールでログイン</button>
-          </form>
-        </div>
-      </div>
+<div class="modal" id="loginModal">
+<div class="modal-panel">
+<h2 class="modal-title">ログイン / 新規登録</h2>
+<form id="emailLoginForm" style="display: grid; gap: 12px;">
+<input id="emailInput" type="email" placeholder="メール" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<button type="submit" class="button" style="width: 100%;">ログイン / 登録</button>
+</form>
+<div id="loginDebugError" class="debug-error-box"></div>
+</div>
+</div>
 
-      <div id="adminLoginTab" style="display: none;">
-        <p style="color: var(--muted); margin-bottom: 24px; font-size: 0.9rem;">管理者用ログインページ</p>
-        <form id="adminLoginForm" style="display: grid; gap: 12px;">
-          <input id="adminEmailInput" type="email" placeholder="メールアドレス" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-          <input id="adminPasswordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-          <button type="submit" class="button" style="width: 100%;">ログイン</button>
-        </form>
+<div class="modal hidden" id="termsModal">
+<div class="modal-panel">
+<h2 class="modal-title">利用規約・ポリシー</h2>
+<div style="background:#f9fafb; padding:12px; border-radius:12px; max-height:200px; overflow-y:auto; font-size:0.8rem; margin-bottom:12px;">
+<p>学校予定共有サイトの利用規約です。不適切な投稿や荒らし行為はアカウント停止の対象となります。</p>
+</div>
+<form id="termsForm" style="display: grid; gap: 14px;">
+<label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
+<input id="termsCheckbox" type="checkbox" required style="width: 18px; height: 18px; margin: 0;">
+<span>規約に同意する</span>
+</label>
+<button type="submit" class="button" style="width: 100%;">次へ進む</button>
+</form>
+</div>
+</div>
+
+<div class="modal hidden" id="setupModal">
+<div class="modal-panel">
+<h2 class="modal-title">初期セットアップ</h2>
+<form id="setupForm" style="display: grid; gap: 16px;">
+<input id="setupName" type="text" maxlength="30" placeholder="お名前" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<select id="setupClass" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<option value="">クラスを選択</option>
+<option value="7-1">7-1組</option>
+<option value="7-2">7-2組</option>
+</select>
+<button type="submit" class="button" style="width: 100%;">登録して承認申請</button>
+</form>
+<div id="setupDebugError" class="debug-error-box"></div>
+</div>
+</div>
+
+<div class="modal hidden" id="pendingApprovalModal">
+<div class="modal-panel" style="text-align: center;">
+<h2 class="modal-title" style="color: var(--accent);">⏳ 承認待ち</h2>
+<p style="margin-bottom: 20px; font-size:0.95rem;">アカウント申請中です。<br>管理者の承認をお待ちください。</p>
+<button type="button" id="pendingLogoutButton" class="ghost-button" style="width: 100%;">ログイン画面に戻る</button>
+</div>
+</div>
+
+<div class="modal hidden" id="suspendedModal">
+<div class="modal-panel" style="text-align: center;">
+<h2 class="modal-title" style="color: #d92d20;">⚠️ アカウント停止中</h2>
+<p style="font-size: 0.9rem; margin-bottom: 16px; color: var(--muted);">アクセスが制限されています。解除を求める場合は以下から申し立てを送ってください。</p>
+<form id="appealForm" style="display: grid; gap: 12px; text-align: left;">
+<textarea id="appealReason" placeholder="申し立ての理由..." required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 80px;"></textarea>
+<button type="submit" class="button" style="width: 100%;">申し立てを送信</button>
+</form>
+<button type="button" id="suspendedLogoutButton" class="ghost-button" style="width: 100%; margin-top: 12px;">ログアウト</button>
+</div>
+</div>
+
+<div class="hamburger-menu" id="hamburgerMenu">
+<h3 style="margin-top:0; margin-bottom: 20px;">カテゴリ</h3>
+<div style="display:grid; gap:10px;">
+<button class="button" onclick="window.selectCategory('all')">📋 すべて</button>
+<button class="button" onclick="window.selectCategory('予定')" style="background: #10b981;">📅 予定</button>
+<button class="button" onclick="window.selectCategory('宿題')" style="background: #f59e0b;">✏️ 宿題</button>
+<button class="button" onclick="window.selectCategory('連絡事項')" style="background: #a78bfa;">📢 連絡事項</button>
+</div>
+</div>
+<div class="hamburger-overlay" id="hamburgerOverlay"></div>
+
+<div id="mainContent" style="display: none;">
+<main class="shell">
+  
+  <div class="hero-header-container">
+    <div class="hero-card">
+      <div id="userAvatarHeader" class="profile-avatar" style="width:40px; height:40px; border-radius:50%; background:#e5e7eb; display:flex; align-items:center; justify-content:center;">👤</div>
+      <div>
+        <h1 class="hero-title" id="categoryTitle">予定・宿題・連絡</h1>
+        <p class="hero-lead" id="heroLead">共有サイト</p>
       </div>
     </div>
+    <button class="hamburger-button" id="hamburgerButton">☰</button>
   </div>
 
-  <!-- 初回セットアップモーダル -->
-  <div class="modal hidden" id="setupModal">
-    <div class="modal-panel" style="width: min(520px, 100%); max-height: 90vh; overflow-y: auto;">
-      <h2 class="modal-title">はじめてのご利用</h2>
-      <p style="color: var(--muted); margin-bottom: 20px;">お名前とクラスを入力してください。</p>
-      <form id="setupForm" style="display: grid; gap: 16px;">
-        <div style="display: grid; gap: 8px;">
-          <label for="setupName" style="font-weight: 700;">お名前</label>
-          <input id="setupName" type="text" maxlength="30" placeholder="例：白金 太郎" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-        </div>
-        <div style="display: grid; gap: 8px;">
-          <label for="setupClass" style="font-weight: 700;">クラス</label>
-          <select id="setupClass" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-            <option value="">選択してください</option>
+  <section class="toolbar frosted">
+    <div class="toolbar-row">
+      <button class="ghost-button" id="prevDateButton">← 前日</button>
+      <div class="date-display" id="dateDisplay">読み込み中...</div>
+      <button class="ghost-button" id="nextDateButton">次日 →</button>
+    </div>
+  </section>
+
+  <section id="adminPostForm" style="display: none;">
+    <div class="panel frosted" style="margin-bottom:16px;">
+      <h3 class="panel-title">新規投稿</h3>
+      <form id="postForm" style="display: grid; gap: 12px;">
+        <input id="postTitle" type="text" placeholder="タイトル" required style="padding:10px; border:1px solid var(--border); border-radius:8px;">
+        <textarea id="postBody" placeholder="内容" required style="min-height: 80px; padding:10px; border:1px solid var(--border); border-radius:8px;"></textarea>
+        <div class="form-grid-2">
+          <select id="postCategory" required style="padding:10px; border:1px solid var(--border); border-radius:8px;">
+            <option value="予定">予定</option>
+            <option value="宿題">宿題</option>
+            <option value="連絡事項">連絡事項</option>
+          </select>
+          <select id="postTarget" required style="padding:10px; border:1px solid var(--border); border-radius:8px;">
+            <option value="両方">全体向け</option>
             <option value="7-1">7-1組</option>
             <option value="7-2">7-2組</option>
           </select>
         </div>
-        <label style="display: flex; align-items: center; gap: 8px;">
-          <input id="agreeCheckbox" type="checkbox" required>
-          <span style="font-size: 0.9rem;">利用規約とプライバシーポリシーに同意します</span>
-        </label>
-        <button type="submit" class="button" style="width: 100%;">始める</button>
+        <div class="form-grid-2">
+          <input id="postStartDate" type="date" required style="padding:10px; border:1px solid var(--border); border-radius:8px;">
+          <input id="postEndDate" type="date" required style="padding:10px; border:1px solid var(--border); border-radius:8px;">
+        </div>
+        <button type="submit" class="button">投稿する</button>
       </form>
     </div>
-  </div>
-
-  <!-- 承認待ち画面 -->
-  <div id="pendingScreen" style="display: none;">
-    <div class="pending-screen">
-      <div class="pending-panel">
-        <h2 style="font-size: 2rem; letter-spacing: -0.04em; margin-bottom: 16px;">🔒 承認待ちです</h2>
-        <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.8; margin-bottom: 24px;">
-          ご申請ありがとうございました。<br>
-          管理者の確認後、このサイトをご利用いただけるようになります。<br>
-          <strong id="pendingUserInfo"></strong>
-        </p>
-        <button class="danger-button" id="logoutPendingButton" style="width: 100%;">ログアウト</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- メインサイト -->
-  <div id="mainContent" style="display: none;">
-    <div class="admin-footer" id="adminFooter" style="display: none; position: fixed; bottom: 16px; right: 16px; z-index: 100;">
-      <button class="ghost-button" id="adminDashboardButton" type="button" style="min-height: 40px; padding: 0 12px; font-size: 0.85rem;">ダッシュボード</button>
-    </div>
-
-    <main class="shell">
-      <section class="site-header">
-        <article class="hero-card frosted">
-          <h1 class="hero-title">予定・宿題・連絡を、毎日見やすく。</h1>
-          <p class="hero-lead">1組・2組向けに、授業予定、宿題、連絡事項をひとつにまとめた共有サイトです。</p>
-        </article>
-      </section>
-
-      <section class="toolbar frosted">
-        <div class="toolbar-row">
-          <div class="date-nav">
-            <button class="ghost-button" id="prevDateButton" type="button">← 前日</button>
-            <div class="date-display" id="dateDisplay">読み込み中...</div>
-            <button class="ghost-button" id="nextDateButton" type="button">次日 →</button>
-          </div>
-        </div>
-        <div class="toolbar-row">
-          <div class="chip-row" id="categoryFilterRow">
-            <button class="chip active" data-category-filter="all">すべて</button>
-            <button class="chip" data-category-filter="予定">予定</button>
-            <button class="chip" data-category-filter="宿題">宿題</button>
-            <button class="chip" data-category-filter="連絡事項">連絡事項</button>
-          </div>
-          <button class="ghost-button" id="termsButton" type="button" style="margin-left: auto;">利用規約</button>
-        </div>
-      </section>
-
-      <section id="adminPostForm" style="display: none;">
-        <div class="panel frosted">
-          <h3 class="panel-title">新しい投稿</h3>
-          <form id="postForm" style="display: grid; gap: 16px;">
-            <div style="display: grid; gap: 8px;">
-              <label for="postTitle" style="font-weight: 700;">タイトル</label>
-              <input id="postTitle" type="text" maxlength="100" placeholder="投稿タイトル" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-            </div>
-            <div style="display: grid; gap: 8px;">
-              <label for="postBody" style="font-weight: 700;">内容</label>
-              <textarea id="postBody" placeholder="投稿内容" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 120px;"></textarea>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
-              <div style="display: grid; gap: 8px;">
-                <label for="postCategory" style="font-weight: 700;">カテゴリ</label>
-                <select id="postCategory" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-                  <option value="">選択</option>
-                  <option value="予定">予定</option>
-                  <option value="宿題">宿題</option>
-                  <option value="連絡事項">連絡事項</option>
-                </select>
-              </div>
-              <div style="display: grid; gap: 8px;">
-                <label for="postTarget" style="font-weight: 700;">対象クラス</label>
-                <select id="postTarget" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-                  <option value="">選択</option>
-                  <option value="7-1">7-1組</option>
-                  <option value="7-2">7-2組</option>
-                  <option value="両方">全体向け</option>
-                </select>
-              </div>
-            </div>
-
-            <div style="display: grid; gap: 8px;">
-              <label style="font-weight: 700;">画像（任意）</label>
-              <div class="file-input-wrapper">
-                <label for="postImage" class="file-input-label">画像を選択</label>
-                <input id="postImage" type="file" accept="image/*">
-              </div>
-              <img id="postImagePreview" class="image-preview" style="display: none;">
-              <small style="color: var(--muted);">最大5MBまで。画像のみ対応。</small>
-            </div>
-
-            <div style="display: grid; gap: 8px;">
-              <label for="postLink" style="font-weight: 700;">リンク（任意）</label>
-              <input id="postLink" type="url" placeholder="https://example.com" style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-            </div>
-
-            <div style="display: flex; gap: 10px;">
-              <button type="submit" class="button">投稿</button>
-            </div>
-          </form>
-        </div>
-      </section>
-
-      <section id="postsContainer"></section>
-    </main>
-  </div>
-
-  <!-- 通報フォームモーダル -->
-  <div class="modal hidden" id="reportModal">
-    <div class="modal-panel" style="width: min(520px, 100%);">
-      <h2 class="modal-title">通報</h2>
-      <p style="color: var(--muted); margin-bottom: 20px;">理由を選択してください。</p>
-      <div style="display: grid; gap: 8px; margin-bottom: 20px;">
-        <!-- 【修正5】ラジオボタンのグループIDを一意化して競合を防止 -->
-        <label style="display: flex; align-items: center; gap: 8px;">
-          <input type="radio" name="reportReasonGroup" value="inappropriate" required>
-          <span>不適切な内容</span>
-        </label>
-        <label style="display: flex; align-items: center; gap: 8px;">
-          <input type="radio" name="reportReasonGroup" value="spam" required>
-          <span>スパム</span>
-        </label>
-        <label style="display: flex; align-items: center; gap: 8px;">
-          <input type="radio" name="reportReasonGroup" value="harassment" required>
-          <span>嫌がらせ</span>
-        </label>
-        <label style="display: flex; align-items: center; gap: 8px;">
-          <input type="radio" name="reportReasonGroup" value="other" required>
-          <span>その他</span>
-        </label>
-      </div>
-      <div class="modal-actions">
-        <button class="ghost-button" type="button" id="cancelReportButton">キャンセル</button>
-        <button class="report-button" type="button" id="submitReportButton">通報</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 利用規約モーダル -->
-  <div class="modal hidden" id="termsModal">
-    <div class="modal-panel" style="width: min(720px, 100%); max-height: 90vh; overflow-y: auto;">
-      <h2 class="modal-title">利用規約とプライバシーポリシー</h2>
-      <div style="font-size: 0.9rem; line-height: 1.8; color: #555; margin-top: 20px;">
-        <p><strong>【利用規約】</strong></p>
-        <p>本サイトは、学校内における予定・宿題・連絡事項の共有を目的とします。以下の行為は禁止です：他人を傷つける発言、不適切な投稿、なりすまし、個人情報の投稿、URL投稿など。</p>
-        <p><strong>【コメント荒らし対策】</strong></p>
-        <p>コメント投稿は10秒に1回までです。300文字以内、URLを含む投稿は不可、新規ユーザーは登録後5分間はコメント不可。5回連続投稿後は30秒投稿不可です。</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- 管理者ダッシュボード -->
-  <div class="modal hidden" id="adminDashboardModal">
-    <div class="modal-panel" style="width: min(800px, 100%); max-height: 90vh; overflow: auto;">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-        <h2 class="modal-title">管理者ダッシュボード</h2>
-        <button type="button" id="closeAdminDashboard" class="ghost-button" style="min-height: 40px;">閉じる</button>
-      </div>
-      <div style="display: grid; gap: 24px;">
-        <div>
-          <h3 style="font-size: 1.2rem; margin-bottom: 16px;">📊 申請中のユーザー</h3>
-          <div id="pendingUsersListAdmin" style="display: grid; gap: 12px;"></div>
-        </div>
-        <div>
-          <h3 style="font-size: 1.2rem; margin-bottom: 16px;">✅ 承認済みユーザー</h3>
-          <div id="allowedUsersListAdmin" style="display: grid; gap: 12px;"></div>
-        </div>
-        <div>
-          <h3 style="font-size: 1.2rem; margin-bottom: 16px;">📢 通報</h3>
-          <div id="reportsListAdmin" style="display: grid; gap: 12px;"></div>
-        </div>
-        <div>
-          <h3 style="font-size: 1.2rem; margin-bottom: 16px;">🔍 ユーザースコア</h3>
-          <div id="scoresListAdmin" style="display: grid; gap: 12px;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="toast" id="toast"></div>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-app.js";
-    import {
-      getAuth,
-      signInWithEmailAndPassword,
-      createUserWithEmailAndPassword,
-      signInWithPopup,
-      GoogleAuthProvider,
-      signOut,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-auth.js";
-    import {
-      getFirestore,
-      collection,
-      onSnapshot,
-      addDoc,
-      deleteDoc,
-      doc,
-      getDoc,
-      setDoc,
-      updateDoc,
-      query,
-      where,
-      getDocs
-    } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-firestore.js";
-    import {
-      getStorage,
-      ref,
-      uploadBytes,
-      getDownloadURL
-    } from "https://www.gstatic.com/firebasejs/12.13.0/firebase-storage.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyAkMLCyIC0x9bT63LEih1x7BXe3XYVuknQ",
-      authDomain: "school-site-475fc.firebaseapp.com",
-      projectId: "school-site-475fc",
-      storageBucket: "school-site-475fc.firebasestorage.app",
-      messagingSenderId: "69139986081",
-      appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0"
-    };
-
-    const firebaseApp = initializeApp(firebaseConfig);
-    const auth = getAuth(firebaseApp);
-    const db = getFirestore(firebaseApp);
-    const storage = getStorage(firebaseApp);
-    const googleProvider = new GoogleAuthProvider();
-
-    const NG_WORDS = ["死ね", "うざい", "きもい", "バカ", "アホ", "クズ"];
-
-    const state = {
-      user: null,
-      isAdmin: false,
-      isAllowed: false,
-      userName: "",
-      userClass: "",
-      categoryFilter: "all",
-      currentDate: new Date(),
-      posts: [],
-      comments: {},
-      commentUnsubscribes: {},
-      userRegistrationTime: null,
-      lastCommentTime: {},
-      lastCommentContent: {},
-      consecutiveComments: {},
-      commentMuteEnd: {},
-      reportingTarget: null,
-      adminUnsubscribes: {
-        reports: null,
-        scores: null,
-        pendingUsers: null,
-        allowedUsers: null
-      },
-      dateButtonListenersAttached: false
-    };
-
-    function showToast(message) {
-      const toast = document.getElementById("toast");
-      toast.textContent = message;
-      toast.classList.add("show");
-      setTimeout(() => toast.classList.remove("show"), 2400);
-    }
-
-    function getLocalDateString(date) {
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0');
-      const day = String(date.getDate()).padStart(2, '0');
-      return `${year}-${month}-${day}`;
-    }
-
-    function updateDateDisplay() {
-      const options = { year: "numeric", month: "long", day: "numeric", weekday: "short" };
-      document.getElementById("dateDisplay").textContent = state.currentDate.toLocaleDateString("ja-JP", options);
-    }
-
-    function attachDateButtonListeners() {
-      if (state.dateButtonListenersAttached) return;
-
-      document.getElementById("prevDateButton")?.addEventListener("click", () => {
-        clearCommentListeners();
-        state.currentDate.setDate(state.currentDate.getDate() - 1);
-        updateDateDisplay();
-        renderPosts();
-      });
-
-      document.getElementById("nextDateButton")?.addEventListener("click", () => {
-        clearCommentListeners();
-        state.currentDate.setDate(state.currentDate.getDate() + 1);
-        updateDateDisplay();
-        renderPosts();
-      });
-
-      state.dateButtonListenersAttached = true;
-    }
-
-    // 【修正2】コメント連投制限を localStorage に保存して永続化
-    function getLastCommentTimeFromStorage() {
-      const stored = localStorage.getItem(`lastCommentTime_${state.user.uid}`);
-      return stored ? parseInt(stored) : null;
-    }
-
-    function setLastCommentTimeInStorage(timestamp) {
-      localStorage.setItem(`lastCommentTime_${state.user.uid}`, timestamp.toString());
-    }
-
-    function getConsecutiveCommentsFromStorage() {
-      const stored = localStorage.getItem(`consecutiveComments_${state.user.uid}`);
-      return stored ? parseInt(stored) : 0;
-    }
-
-    function setConsecutiveCommentsInStorage(count) {
-      localStorage.setItem(`consecutiveComments_${state.user.uid}`, count.toString());
-    }
-
-    function getCommentMuteEndFromStorage() {
-      const stored = localStorage.getItem(`commentMuteEnd_${state.user.uid}`);
-      return stored ? parseInt(stored) : null;
-    }
-
-    function setCommentMuteEndInStorage(timestamp) {
-      localStorage.setItem(`commentMuteEnd_${state.user.uid}`, timestamp.toString());
-    }
-
-    async function validateComment(text) {
-      const now = Date.now();
-
-      if (text.length > 300) {
-        return { valid: false, reason: "コメントは300文字以内です。" };
-      }
-
-      if (/https?:\/\//i.test(text) || /www\./i.test(text)) {
-        return { valid: false, reason: "URLは投稿できません。" };
-      }
-
-      for (const word of NG_WORDS) {
-        if (text.includes(word)) {
-          return { valid: false, reason: "不適切な言葉が含まれています。" };
-        }
-      }
-
-      if (state.userRegistrationTime && (now - state.userRegistrationTime) < 5 * 60 * 1000) {
-        return { valid: false, reason: "新規登録後5分間はコメント投稿できません。" };
-      }
-
-      // 【修正2】localStorage から最後のコメント時刻を読み込み
-      const lastTime = getLastCommentTimeFromStorage();
-      if (lastTime && (now - lastTime) < 10 * 1000) {
-        return { valid: false, reason: "コメントは10秒に1回までです。" };
-      }
-
-      // 【修正2】localStorage からミュート終了時刻を読み込み
-      const muteEnd = getCommentMuteEndFromStorage();
-      if (muteEnd && now < muteEnd) {
-        const remaining = Math.ceil((muteEnd - now) / 1000);
-        return { valid: false, reason: `連続投稿による一時ミュート中です。${remaining}秒待ってください。` };
-      }
-
-      const lastContent = state.lastCommentContent[state.user.uid];
-      if (lastContent === text) {
-        return { valid: false, reason: "同じ内容の連続投稿はできません。" };
-      }
-
-      return { valid: true };
-    }
-
-    async function updateUserScore(userId, increment = 1) {
-      const scoreRef = doc(db, "userScores", userId);
-      const scoreSnap = await getDoc(scoreRef);
-      const currentScore = scoreSnap.exists() ? (scoreSnap.data().score || 0) : 0;
-      const newScore = currentScore + increment;
-
-      await setDoc(scoreRef, {
-        email: state.user?.email || "",
-        score: newScore,
-        updatedAt: new Date().toISOString()
-      }, { merge: true });
-
-      return newScore;
-    }
-
-    async function checkAndApplyAutoHide(postId, commentId = null) {
-      try {
-        const reportQuery = query(
-          collection(db, "reports"),
-          where(commentId ? "commentId" : "postId", "==", commentId || postId)
-        );
-
-        const reportSnap = await getDocs(reportQuery);
-        const reportCount = reportSnap.size;
-
-        if (reportCount >= 3) {
-          if (commentId) {
-            await updateDoc(doc(db, "posts", postId, "comments", commentId), { hidden: true });
-          } else {
-            await updateDoc(doc(db, "posts", postId), { hidden: true });
-          }
-        }
-      } catch (error) {
-        console.error("自動非表示の適用に失敗:", error);
-      }
-    }
-
-    async function checkAndApplyRatingHide(postId, commentId) {
-      try {
-        const commentRef = doc(db, "posts", postId, "comments", commentId);
-        const commentSnap = await getDoc(commentRef);
-        if (commentSnap.exists()) {
-          const dislikes = commentSnap.data().dislikes || 0;
-          if (dislikes >= 5) {
-            await updateDoc(commentRef, { hidden: true });
-          }
-        }
-      } catch (error) {
-        console.error("評価による非表示の適用に失敗:", error);
-      }
-    }
-
-    function filterPosts() {
-      const dateStr = getLocalDateString(state.currentDate);
-      return state.posts.filter(post => {
-        const matchesCategory = state.categoryFilter === "all" || post.category === state.categoryFilter;
-        const matchesDate = post.date === dateStr;
-        const matchesClass = post.classTarget === "両方" || post.classTarget === state.userClass;
-        return matchesCategory && matchesDate && matchesClass;
-      });
-    }
-
-    // 【修正3】コメント送信フォームのイベントリスナーを毎回登録
-    function attachCommentFormListeners() {
-      document.querySelectorAll(".addComment-form").forEach(form => {
-        form.removeEventListener("submit", handleCommentFormSubmit);
-        form.addEventListener("submit", handleCommentFormSubmit);
-      });
-    }
-
-    // 【修正3】コメントフォーム送信ハンドラを外部関数化
-    async function handleCommentFormSubmit(e) {
-      e.preventDefault();
-      const postId = e.target.dataset.postId;
-      const textarea = e.target.querySelector("textarea");
-      const text = textarea.value.trim();
-      if (!text) return;
-
-      const validation = await validateComment(text);
-      if (!validation.valid) {
-        showToast(validation.reason);
-        return;
-      }
-
-      try {
-        const commentsRef = collection(db, "posts", postId, "comments");
-        await addDoc(commentsRef, {
-          author: state.userName,
-          text: text,
-          createdAt: new Date().toISOString(),
-          likes: 0,
-          dislikes: 0,
-          hidden: false,
-          uid: state.user.uid
-        });
-
-        const now = Date.now();
-        // 【修正2】localStorage に保存
-        setLastCommentTimeInStorage(now);
-        state.lastCommentTime[state.user.uid] = now;
-        state.lastCommentContent[state.user.uid] = text;
-
-        const consecutive = (getConsecutiveCommentsFromStorage() || 0) + 1;
-        setConsecutiveCommentsInStorage(consecutive);
-        state.consecutiveComments[state.user.uid] = consecutive;
-
-        if (consecutive >= 5) {
-          const muteEnd = now + 30 * 1000;
-          // 【修正2】localStorage に保存
-          setCommentMuteEndInStorage(muteEnd);
-          state.commentMuteEnd[state.user.uid] = muteEnd;
-          setConsecutiveCommentsInStorage(0);
-          showToast("5回連続投稿のため、30秒間コメント投稿できません。");
-        }
-
-        textarea.value = "";
-        showToast("コメントを追加しました");
-      } catch (error) {
-        showToast("コメント追加に失敗しました");
-      }
-    }
-
-    function renderPosts() {
-      const container = document.getElementById("postsContainer");
-      const filtered = filterPosts();
-
-      container.innerHTML = "";
-
-      if (filtered.length === 0) {
-        container.innerHTML = `<div class="empty-state">この日の投稿がありません。</div>`;
-        return;
-      }
-
-      // 【修正4】.join("") を追加してHTML文字列に変換
-      const postsHTML = filtered.map(post => {
-        const isHidden = post.hidden || false;
-        const postClass = isHidden ? "post-card hidden-post" : "post-card";
-
-        return `
-          <div class="${postClass}">
-            <div class="post-header">
-              <h3 class="post-title">${post.title}</h3>
-              ${state.isAdmin ? `<button class="danger-button deletePost-btn" data-post-id="${post.id}" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem;">削除</button>` : ""}
-            </div>
-            <div style="margin-bottom: 12px;">
-              <span class="badge ${getCategoryClass(post.category)}">${post.category}</span>
-              <span class="badge" style="background: rgba(15, 23, 42, 0.06); color: #334155;">${post.classTarget === "両方" ? "全体向け" : post.classTarget + "向け"}</span>
-            </div>
-            <p class="post-body">${post.body}</p>
-            ${post.imageUrl ? `<img src="${post.imageUrl}" class="post-image" alt="投稿画像">` : ""}
-            ${post.link ? `<a href="${post.link}" target="_blank" class="post-link">🔗 ${post.link}</a>` : ""}
-            
-            <div style="margin-top: 16px; border-top: 1px solid rgba(148, 163, 184, 0.16); padding-top: 16px;">
-              <div style="display: flex; gap: 8px;">
-                <strong style="flex: 1;">コメント</strong>
-                <button class="report-button reportPost-btn" data-post-id="${post.id}">📢 通報</button>
-              </div>
-              <div id="comments-${post.id}" style="display: grid; gap: 12px; margin-top: 12px; margin-bottom: 12px;"></div>
-              
-              ${isHidden ? "" : `
-                <form class="addComment-form" data-post-id="${post.id}" style="display: grid; gap: 10px;">
-                  <textarea name="commentText" placeholder="コメントを入力..." required style="padding: 10px 12px; border: 1px solid var(--border); border-radius: 12px; min-height: 80px; font-family: inherit;"></textarea>
-                  <button type="submit" class="button" style="align-self: flex-start;">送信</button>
-                </form>
-              `}
-            </div>
-          </div>
-        `;
-      }).join("");
-
-      container.innerHTML = postsHTML;
-
-      // 【修正3】投稿をレンダリング後、コメントフォームのリスナーを登録
-      attachCommentFormListeners();
-
-      state.posts.forEach(post => {
-        const commentsContainer = document.getElementById(`comments-${post.id}`);
-        if (commentsContainer) {
-          const postComments = state.comments[post.id] || [];
-          // 【修正4】.join("") を追加
-          commentsContainer.innerHTML = postComments.length > 0
-            ? postComments.map(comment => {
-                const isHidden = comment.hidden || false;
-                return `
-                  <div class="comment-item" ${isHidden ? "style='opacity: 0.5; background: rgba(255, 0, 0, 0.05);'" : ""}>
-                    <div class="comment-author">${isHidden ? "【非表示】" : comment.author}</div>
-                    <div class="comment-text">${isHidden ? "このコメントは非表示です。" : comment.text}</div>
-                    <div class="comment-actions">
-                      <div class="comment-rating">
-                        <button class="rating-btn addLike-btn" data-post-id="${post.id}" data-comment-id="${comment.id}">👍 ${comment.likes || 0}</button>
-                        <button class="rating-btn addDislike-btn" data-post-id="${post.id}" data-comment-id="${comment.id}">👎 ${comment.dislikes || 0}</button>
-                      </div>
-                      ${state.isAdmin || state.userName === comment.author ? `
-                        <button class="danger-button deleteComment-btn" data-post-id="${post.id}" data-comment-id="${comment.id}" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem;">削除</button>
-                      ` : ""}
-                      <button class="report-button reportComment-btn" data-post-id="${post.id}" data-comment-id="${comment.id}">通報</button>
-                    </div>
-                  </div>
-                `;
-              }).join("")
-            : `<p style="color: var(--muted); font-size: 0.9rem;">コメントはまだありません</p>`;
-        }
-      });
-    }
-
-    function getCategoryClass(category) {
-      const classes = {
-        "予定": "schedule",
-        "宿題": "homework",
-        "連絡事項": "notice"
-      };
-      return classes[category] || "schedule";
-    }
-
-    function clearCommentListeners() {
-      Object.values(state.commentUnsubscribes).forEach(unsub => {
-        if (typeof unsub === "function") {
-          unsub();
-        }
-      });
-      state.commentUnsubscribes = {};
-      state.comments = {};
-    }
-
-    function clearAdminListeners() {
-      Object.values(state.adminUnsubscribes).forEach(unsub => {
-        if (typeof unsub === "function") {
-          unsub();
-        }
-      });
-      state.adminUnsubscribes = {
-        reports: null,
-        scores: null,
-        pendingUsers: null,
-        allowedUsers: null
-      };
-    }
-
-    document.addEventListener("click", async (e) => {
-      if (e.target.classList.contains("deletePost-btn")) {
-        const postId = e.target.dataset.postId;
-        if (!confirm("投稿を削除しますか？")) return;
-        try {
-          await deleteDoc(doc(db, "posts", postId));
-          showToast("投稿を削除しました");
-        } catch (error) {
-          showToast("削除に失敗しました");
-        }
-      }
-
-      if (e.target.classList.contains("deleteComment-btn")) {
-        const postId = e.target.dataset.postId;
-        const commentId = e.target.dataset.commentId;
-        if (!confirm("削除しますか？")) return;
-        try {
-          await deleteDoc(doc(db, "posts", postId, "comments", commentId));
-          showToast("コメントを削除しました");
-        } catch (error) {
-          showToast("削除に失敗しました");
-        }
-      }
-
-      if (e.target.classList.contains("addLike-btn")) {
-        const postId = e.target.dataset.postId;
-        const commentId = e.target.dataset.commentId;
-        try {
-          const commentRef = doc(db, "posts", postId, "comments", commentId);
-          const commentSnap = await getDoc(commentRef);
-          const likes = (commentSnap.data().likes || 0) + 1;
-          await updateDoc(commentRef, { likes });
-        } catch (error) {
-          showToast("いいねに失敗しました");
-        }
-      }
-
-      if (e.target.classList.contains("addDislike-btn")) {
-        const postId = e.target.dataset.postId;
-        const commentId = e.target.dataset.commentId;
-        try {
-          const commentRef = doc(db, "posts", postId, "comments", commentId);
-          const commentSnap = await getDoc(commentRef);
-          const dislikes = (commentSnap.data().dislikes || 0) + 1;
-          await updateDoc(commentRef, { dislikes });
-          await checkAndApplyRatingHide(postId, commentId);
-        } catch (error) {
-          showToast("低評価に失敗しました");
-        }
-      }
-
-      if (e.target.classList.contains("reportPost-btn")) {
-        const postId = e.target.dataset.postId;
-        state.reportingTarget = { postId, commentId: null };
-        document.getElementById("reportModal").classList.remove("hidden");
-      }
-
-      if (e.target.classList.contains("reportComment-btn")) {
-        const postId = e.target.dataset.postId;
-        const commentId = e.target.dataset.commentId;
-        state.reportingTarget = { postId, commentId };
-        document.getElementById("reportModal").classList.remove("hidden");
-      }
-    });
-
-    document.addEventListener("submit", async (e) => {
-      if (e.target.id === "postForm") {
-        e.preventDefault();
-        const title = document.getElementById("postTitle").value;
-        const body = document.getElementById("postBody").value;
-        const category = document.getElementById("postCategory").value;
-        const classTarget = document.getElementById("postTarget").value;
-        const link = document.getElementById("postLink").value;
-        const imageFile = document.getElementById("postImage").files[0];
-
-        let imageUrl = null;
-        if (imageFile) {
-          try {
-            if (imageFile.size > 5 * 1024 * 1024) {
-              showToast("ファイルサイズが5MBを超えています。");
-              return;
-            }
-            const storageRef = ref(storage, `posts/${Date.now()}_${imageFile.name}`);
-            await uploadBytes(storageRef, imageFile);
-            imageUrl = await getDownloadURL(storageRef);
-          } catch (error) {
-            showToast("画像アップロードに失敗しました");
-            return;
-          }
-        }
-
-        try {
-          await addDoc(collection(db, "posts"), {
-            title,
-            body,
-            category,
-            classTarget,
-            date: getLocalDateString(new Date()),
-            createdAt: new Date().toISOString(),
-            uid: state.user.uid,
-            imageUrl: imageUrl || null,
-            link: link || null,
-            hidden: false
-          });
-          document.getElementById("postForm").reset();
-          document.getElementById("postImagePreview").style.display = "none";
-          showToast("投稿しました");
-        } catch (error) {
-          showToast("投稿に失敗しました");
-        }
-      }
-
-      if (e.target.id === "emailLoginForm") {
-        e.preventDefault();
-        const email = document.getElementById("emailInput").value;
-        const password = document.getElementById("passwordInput").value;
-
-        try {
-          try {
-            await signInWithEmailAndPassword(auth, email, password);
-          } catch (loginError) {
-            if (loginError.code === "auth/user-not-found" || loginError.code === "auth/invalid-credential") {
-              await createUserWithEmailAndPassword(auth, email, password);
-            } else {
-              throw loginError;
-            }
-          }
-        } catch (error) {
-          showToast("ログインに失敗しました");
-        }
-      }
-
-      if (e.target.id === "adminLoginForm") {
-        e.preventDefault();
-        const email = document.getElementById("adminEmailInput").value;
-        const password = document.getElementById("adminPasswordInput").value;
-
-        try {
-          await signInWithEmailAndPassword(auth, email, password);
-        } catch (error) {
-          showToast("ログインに失敗しました");
-        }
-      }
-
-      if (e.target.id === "setupForm") {
-        e.preventDefault();
-        const name = document.getElementById("setupName").value;
-        const userClass = document.getElementById("setupClass").value;
-        const agree = document.getElementById("agreeCheckbox").checked;
-
-        if (!agree) {
-          showToast("利用規約に同意してください");
-          return;
-        }
-
-        state.userName = name;
-        state.userClass = userClass;
-        state.userRegistrationTime = Date.now();
-        localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify({ 
-          name, 
-          class: userClass,
-          agreedAt: new Date().toISOString() 
-        }));
-
-        document.getElementById("setupModal").classList.add("hidden");
-        document.getElementById("mainContent").style.display = "block";
-
-        clearCommentListeners();
-        attachDateButtonListeners();
-
-        const postsRef = collection(db, "posts");
-        onSnapshot(postsRef, (snapshot) => {
-          state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          
-          state.posts.forEach(post => {
-            if (!state.commentUnsubscribes[post.id]) {
-              const commentsRef = collection(db, "posts", post.id, "comments");
-              state.commentUnsubscribes[post.id] = onSnapshot(commentsRef, (commentSnapshot) => {
-                state.comments[post.id] = commentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                renderPosts();
-              });
-            }
-          });
-          
-          renderPosts();
-        });
-
-        showToast(`${name} で始めます（${userClass}組）`);
-      }
-    });
-
-    document.getElementById("postImage")?.addEventListener("change", (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        if (file.size > 5 * 1024 * 1024) {
-          showToast("ファイルサイズが5MBを超えています。");
-          e.target.value = "";
-          return;
-        }
-        const reader = new FileReader();
-        reader.onload = (event) => {
-          const preview = document.getElementById("postImagePreview");
-          preview.src = event.target.result;
-          preview.style.display = "block";
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    document.getElementById("userTabButton")?.addEventListener("click", () => {
-      document.getElementById("userLoginTab").style.display = "block";
-      document.getElementById("adminLoginTab").style.display = "none";
-      document.getElementById("userTabButton").classList.remove("ghost-button");
-      document.getElementById("userTabButton").classList.add("button");
-      document.getElementById("adminTabButton").classList.remove("button");
-      document.getElementById("adminTabButton").classList.add("ghost-button");
-    });
-
-    document.getElementById("adminTabButton")?.addEventListener("click", () => {
-      document.getElementById("userLoginTab").style.display = "none";
-      document.getElementById("adminLoginTab").style.display = "block";
-      document.getElementById("userTabButton").classList.remove("button");
-      document.getElementById("userTabButton").classList.add("ghost-button");
-      document.getElementById("adminTabButton").classList.remove("ghost-button");
-      document.getElementById("adminTabButton").classList.add("button");
-    });
-
-    document.getElementById("googleLoginButton")?.addEventListener("click", async () => {
-      try {
-        await signInWithPopup(auth, googleProvider);
-      } catch (error) {
-        showToast("ログインに失敗しました");
-      }
-    });
-
-    document.getElementById("termsButton")?.addEventListener("click", () => {
-      document.getElementById("termsModal").classList.remove("hidden");
-    });
-
-    document.querySelectorAll("[data-category-filter]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        state.categoryFilter = btn.dataset.categoryFilter;
-        document.querySelectorAll("[data-category-filter]").forEach(b => {
-          b.classList.toggle("active", b.dataset.categoryFilter === state.categoryFilter);
-        });
-        renderPosts();
-      });
-    });
-
-    document.getElementById("cancelReportButton")?.addEventListener("click", () => {
-      document.getElementById("reportModal").classList.add("hidden");
-    });
-
-    document.getElementById("submitReportButton")?.addEventListener("click", async () => {
-      // 【修正5】reportReasonGroup で取得
-      const reason = document.querySelector('input[name="reportReasonGroup"]:checked');
-      
-      if (!reason) {
-        showToast("理由を選択してください");
-        return;
-      }
-
-      const { postId, commentId } = state.reportingTarget;
-
-      try {
-        await addDoc(collection(db, "reports"), {
-          postId,
-          commentId: commentId || null,
-          reason: reason.value,
-          uid: state.user.uid,
-          createdAt: new Date().toISOString()
-        });
-
-        await checkAndApplyAutoHide(postId, commentId);
-        showToast("通報しました。ありがとうございます。");
-        document.getElementById("reportModal").classList.add("hidden");
-        renderPosts();
-      } catch (error) {
-        showToast("通報に失敗しました");
-      }
-    });
-
-    document.getElementById("adminDashboardButton")?.addEventListener("click", () => {
-      if (!state.isAdmin) {
-        showToast("管理者のみアクセス可能です");
-        return;
-      }
-      document.getElementById("adminDashboardModal").classList.remove("hidden");
-      loadAdminData();
-    });
-
-    document.getElementById("closeAdminDashboard")?.addEventListener("click", () => {
-      document.getElementById("adminDashboardModal").classList.add("hidden");
-      clearAdminListeners();
-    });
-
-    async function loadAdminData() {
-      clearAdminListeners();
-
-      const pendingList = document.getElementById("pendingUsersListAdmin");
-      const allowedList = document.getElementById("allowedUsersListAdmin");
-      const reportsList = document.getElementById("reportsListAdmin");
-      const scoresList = document.getElementById("scoresListAdmin");
-
-      pendingList.innerHTML = "";
-      allowedList.innerHTML = "";
-      reportsList.innerHTML = "";
-      scoresList.innerHTML = "";
-
-      state.adminUnsubscribes.pendingUsers = onSnapshot(collection(db, "pendingUsers"), (snapshot) => {
-        if (snapshot.empty) {
-          pendingList.innerHTML = `<p style="color: var(--muted);">申請者なし</p>`;
-          return;
-        }
-
-        pendingList.innerHTML = snapshot.docs.map(doc => {
-          const user = doc.data();
-          return `
-            <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border); border-radius: 16px; padding: 16px;">
-              <p><strong>${user.name}</strong></p>
-              <p>${user.email}</p>
-              <button class="button" onclick="window.approveUser('${doc.id}', '${user.email}');" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem; margin-right: 8px;">承認</button>
-              <button class="danger-button" onclick="window.rejectUser('${doc.id}');" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem;">拒否</button>
-            </div>
-          `;
-        }).join("");
-      });
-
-      state.adminUnsubscribes.allowedUsers = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
-        if (snapshot.empty) {
-          allowedList.innerHTML = `<p style="color: var(--muted);">承認済みユーザーなし</p>`;
-          return;
-        }
-
-        allowedList.innerHTML = snapshot.docs.map(doc => {
-          const user = doc.data();
-          return `
-            <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border); border-radius: 16px; padding: 16px;">
-              <p><strong>${user.email}</strong></p>
-              <p>${user.isAdmin ? "👑 管理者" : "ユーザー"}</p>
-              <button class="danger-button" onclick="window.removeUser('${doc.id}', '${user.email}');" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem;">削除</button>
-            </div>
-          `;
-        }).join("");
-      });
-
-      state.adminUnsubscribes.reports = onSnapshot(collection(db, "reports"), (snapshot) => {
-        if (snapshot.empty) {
-          reportsList.innerHTML = `<p style="color: var(--muted);">通報なし</p>`;
-          return;
-        }
-
-        reportsList.innerHTML = snapshot.docs.map(doc => {
-          const report = doc.data();
-          return `
-            <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border); border-radius: 16px; padding: 16px;">
-              <p><strong>理由:</strong> ${report.reason}</p>
-              <p><strong>報告日時:</strong> ${new Date(report.createdAt).toLocaleDateString("ja-JP")}</p>
-              <button class="danger-button" onclick="window.deleteReport('${doc.id}');" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem;">削除</button>
-            </div>
-          `;
-        }).join("");
-      });
-
-      state.adminUnsubscribes.scores = onSnapshot(collection(db, "userScores"), (snapshot) => {
-        if (snapshot.empty) {
-          scoresList.innerHTML = `<p style="color: var(--muted);">スコアなし</p>`;
-          return;
-        }
-
-        scoresList.innerHTML = snapshot.docs.map(doc => {
-          const score = doc.data().score || 0;
-          let status = "通常";
-          if (score >= 10) status = "BAN対象";
-          else if (score >= 5) status = "コメント不可";
-          else if (score >= 3) status = "警告";
-
-          return `
-            <div style="background: rgba(248, 250, 252, 0.9); border: 1px solid var(--border); border-radius: 16px; padding: 16px;">
-              <p><strong>${doc.data().email}</strong></p>
-              <p>スコア: ${score} - ${status}</p>
-            </div>
-          `;
-        }).join("");
-      });
-    }
-
-    window.approveUser = async function(uid, email) {
-      if (!confirm(`${email} を承認しますか？`)) return;
-      try {
-        await setDoc(doc(db, "allowedUsers", uid), {
-          email: email,
-          isAdmin: false,
-          approvedAt: new Date().toISOString()
-        });
-        await deleteDoc(doc(db, "pendingUsers", uid));
-        showToast("ユーザーを承認しました");
-        loadAdminData();
-      } catch (error) {
-        showToast("承認に失敗しました");
-      }
-    };
-
-    window.rejectUser = async function(uid) {
-      if (!confirm("申請を拒否しますか？")) return;
-      try {
-        await deleteDoc(doc(db, "pendingUsers", uid));
-        showToast("申請を拒否しました");
-        loadAdminData();
-      } catch (error) {
-        showToast("拒否に失敗しました");
-      }
-    };
-
-    window.removeUser = async function(uid, email) {
-      if (!confirm(`${email} のアクセスを取り消しますか？`)) return;
-      try {
-        await deleteDoc(doc(db, "allowedUsers", uid));
-        showToast("ユーザーを削除しました");
-        loadAdminData();
-      } catch (error) {
-        showToast("削除に失敗しました");
-      }
-    };
-
-    window.deleteReport = async function(reportId) {
-      try {
-        await deleteDoc(doc(db, "reports", reportId));
-        showToast("通報を削除しました");
-        loadAdminData();
-      } catch (error) {
-        showToast("削除に失敗しました");
-      }
-    };
-
-    document.getElementById("logoutPendingButton")?.addEventListener("click", async () => {
-      await signOut(auth);
-      showToast("ログアウトしました");
-    });
-
-    document.getElementById("termsModal")?.addEventListener("click", (e) => {
-      if (e.target === document.getElementById("termsModal")) {
-        document.getElementById("termsModal").classList.add("hidden");
-      }
-    });
-
-    document.getElementById("reportModal")?.addEventListener("click", (e) => {
-      if (e.target === document.getElementById("reportModal")) {
-        document.getElementById("reportModal").classList.add("hidden");
-      }
-    });
-
-    document.getElementById("adminDashboardModal")?.addEventListener("click", (e) => {
-      if (e.target === document.getElementById("adminDashboardModal")) {
-        document.getElementById("adminDashboardModal").classList.add("hidden");
-        clearAdminListeners();
-      }
-    });
-
-    onAuthStateChanged(auth, async (user) => {
-      if (!user) {
-        clearCommentListeners();
-        document.getElementById("loginModal").classList.remove("hidden");
-        document.getElementById("mainContent").style.display = "none";
-        document.getElementById("pendingScreen").style.display = "none";
-        return;
-      }
-
-      state.user = user;
-
-      const allowedRef = doc(db, "allowedUsers", user.uid);
-      const allowedSnap = await getDoc(allowedRef);
-
-      if (allowedSnap.exists()) {
-        state.isAllowed = true;
-        state.isAdmin = allowedSnap.data().isAdmin || false;
-        
-        const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
-        
-        if (!savedSetup) {
-          document.getElementById("loginModal").classList.add("hidden");
-          document.getElementById("mainContent").style.display = "none";
-          document.getElementById("pendingScreen").style.display = "none";
-          document.getElementById("setupModal").classList.remove("hidden");
-          return;
-        }
-        
-        const setup = JSON.parse(savedSetup);
-        state.userName = setup.name;
-        state.userClass = setup.class;
-        
-        document.getElementById("loginModal").classList.add("hidden");
-        document.getElementById("mainContent").style.display = "block";
-        document.getElementById("setupModal").classList.add("hidden");
-        document.getElementById("pendingScreen").style.display = "none";
-        
-        document.getElementById("adminPostForm").style.display = state.isAdmin ? "block" : "none";
-        document.getElementById("adminFooter").style.display = state.isAdmin ? "block" : "none";
-
-        clearCommentListeners();
-        attachDateButtonListeners();
-
-        const postsRef = collection(db, "posts");
-        onSnapshot(postsRef, (snapshot) => {
-          state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-          
-          state.posts.forEach(post => {
-            if (!state.commentUnsubscribes[post.id]) {
-              const commentsRef = collection(db, "posts", post.id, "comments");
-              state.commentUnsubscribes[post.id] = onSnapshot(commentsRef, (commentSnapshot) => {
-                state.comments[post.id] = commentSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                renderPosts();
-              });
-            }
-          });
-          
-          renderPosts();
-        });
-      } else {
-        const pendingRef = doc(db, "pendingUsers", user.uid);
-        const pendingSnap = await getDoc(pendingRef);
-
-        if (!pendingSnap.exists()) {
-          await setDoc(pendingRef, {
-            email: user.email,
-            name: user.displayName || "未設定",
-            appliedAt: new Date().toISOString()
-          });
-        }
-
-        clearCommentListeners();
-        document.getElementById("loginModal").classList.add("hidden");
-        document.getElementById("mainContent").style.display = "none";
-        document.getElementById("pendingScreen").style.display = "block";
-        document.getElementById("setupModal").classList.add("hidden");
-        document.getElementById("pendingUserInfo").textContent = `メール: ${user.email}`;
-      }
-    });
-
-    updateDateDisplay();
-  </script>
+  </section>
+
+  <section id="postsContainer"></section>
+</main>
+
+<div class="admin-footer" id="adminFooter">
+<button class="ghost-button" id="adminDashboardButton" style="display: none;">📊 管理</button>
+<button class="ghost-button" id="profileModalButton">👤 プロフ</button>
+<button class="ghost-button" id="logoutButton">ログアウト</button>
+</div>
+</div>
+
+<div class="modal hidden" id="adminDashboardModal">
+<div class="modal-panel" style="width: min(600px, 100%);">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+<h3 style="margin:0;">📊 管理ダッシュボード</h3>
+<button type="button" id="closeAdminDashboard" class="ghost-button" style="padding:4px 10px; min-height:30px;">閉じる</button>
+</div>
+<div style="display: grid; gap: 16px;">
+<div><h4>⏳ 申請・申し立て</h4><div id="pendingUsersListAdmin" style="display:grid; gap:8px;"></div></div>
+<div><h4>✅ 参加ユーザー</h4><div id="allowedUsersListAdmin" style="display:grid; gap:8px;"></div></div>
+</div>
+</div>
+</div>
+
+<div class="modal hidden" id="profileModal">
+<div class="modal-panel">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+<h3 style="margin:0;">👤 プロフィール設定</h3>
+<button type="button" id="closeProfileModal" class="ghost-button" style="padding:4px 10px; min-height:30px;">閉じる</button>
+</div>
+<form id="profileEditForm" style="display: grid; gap: 12px;">
+<input id="profileImageUrlInput" type="url" placeholder="アバター画像URL">
+<input id="profileNameInput" type="text" maxlength="30" required placeholder="お名前">
+<button type="submit" class="button">保存</button>
+</form>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyAkMLCyIC0x9bT63LEih1x7BXe3XYVuknQ",
+authDomain: "school-site-475fc.firebaseapp.com",
+projectId: "school-site-475fc",
+storageBucket: "school-site-475fc.firebasestorage.app",
+messagingSenderId: "69139986081",
+appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
+
+const state = {
+user: null,
+isAdmin: false,
+userName: "",
+userClass: "",
+userAvatarUrl: "👤",
+currentDate: new Date(),
+posts: [],
+userReactedMap: {},
+commentsMap: {},
+categoryFilter: "all"
+};
+
+function showToast(msg) { const toast = document.getElementById("toast"); toast.textContent = msg; toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2000); }
+function getLocalDateString(date) { return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; }
+
+function updateDateDisplay() {
+const options = { year: "numeric", month: "long", day: "numeric", weekday: "short" };
+document.getElementById("dateDisplay").textContent = state.currentDate.toLocaleDateString("ja-JP", options);
+}
+
+function updateUIProfile() {
+document.getElementById("heroLead").textContent = "AKKI によって開発された共有サイト";
+const avatarContainer = document.getElementById("userAvatarHeader");
+if (avatarContainer) {
+avatarContainer.innerHTML = state.userAvatarUrl.startsWith("http") ? `<img src="${state.userAvatarUrl}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">` : state.userAvatarUrl;
+}
+}
+
+function renderPosts() {
+const container = document.getElementById("postsContainer");
+const today = getLocalDateString(state.currentDate);
+
+const filtered = state.posts.filter(post => {
+const matchesClass = state.isAdmin || post.classTarget === "両方" || post.classTarget === state.userClass;
+return matchesClass && (today >= post.startDate && today <= post.endDate) && (state.categoryFilter === "all" || post.category === state.categoryFilter);
+});
+
+container.innerHTML = filtered.length === 0 ? `<div class="empty-state" style="text-align:center; padding:40px; color:var(--muted); background:#fff; border-radius:16px;">投稿はありません</div>` : filtered.map(post => {
+const reactions = post.reactions || { like: 0, checked: 0, thanks: 0 };
+// 🌟 安全対策: データがまだロードされていない、または空の時のためのガード処理を追加
+const userReacted = state.userReactedMap[post.id] || { like: false, checked: false, thanks: false };
+const comments = state.commentsMap[post.id] || [];
+
+const commentsHTML = comments.map(c => `
+<div style="display:flex; gap:8px; background:rgba(0,0,0,0.02); padding:8px; border-radius:8px; margin-bottom:6px; font-size:0.85rem;">
+<div style="font-weight:bold;">${c.userName}:</div>
+<div style="flex:1;">${c.text}</div>
+</div>`).join("");
+
+return `
+<div class="post-card">
+<h3 style="margin:0 0 8px 0; font-size:1.1rem;">${post.title}</h3>
+<p class="post-body">${post.body}</p>
+<div style="display:flex; gap:8px; margin-bottom:12px;">
+<button class="ghost-button reaction-btn ${userReacted.like ? 'active' : ''}" data-post-id="${post.id}" data-type="like" style="padding:4px 10px; min-height:32px; font-size:0.8rem; ${userReacted.like ? 'background:rgba(0,113,227,0.1); color:var(--accent); font-weight:bold;' : ''}">👍 いいね ${reactions.like || 0}</button>
+<button class="ghost-button reaction-btn ${userReacted.checked ? 'active' : ''}" data-post-id="${post.id}" data-type="checked" style="padding:4px 10px; min-height:32px; font-size:0.8rem; ${userReacted.checked ? 'background:rgba(0,113,227,0.1); color:var(--accent); font-weight:bold;' : ''}">👀 確認した ${reactions.checked || 0}</button>
+</div>
+<div class="comments-area">${commentsHTML}</div>
+<form class="comment-form" data-post-id="${post.id}" style="display:flex; gap:6px; margin-top:8px;">
+<input type="text" class="comment-input" placeholder="コメントを入力..." required style="padding:6px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.85rem;">
+<button type="submit" class="button" style="padding:6px 12px; min-height:32px; font-size:0.85rem; width:auto;">送信</button>
+</form>
+</div>`;
+}).join("");
+}
+
+// イベントリスナー関係の統合と安全化
+document.getElementById("prevDateButton").onclick = () => { state.currentDate.setDate(state.currentDate.getDate() - 1); updateDateDisplay(); renderPosts(); };
+document.getElementById("nextDateButton").onclick = () => { state.currentDate.setDate(state.currentDate.getDate() + 1); updateDateDisplay(); renderPosts(); };
+
+document.getElementById("hamburgerButton").onclick = () => { document.getElementById("hamburgerMenu").classList.add("active"); document.getElementById("hamburgerOverlay").classList.add("active"); };
+document.getElementById("hamburgerOverlay").onclick = () => { document.getElementById("hamburgerMenu").classList.remove("active"); document.getElementById("hamburgerOverlay").classList.remove("active"); };
+window.selectCategory = function(c) { state.categoryFilter = c; document.getElementById("categoryTitle").textContent = c === "all" ? "予定・宿題・連絡" : c; renderPosts(); document.getElementById("hamburgerMenu").classList.remove("active"); document.getElementById("hamburgerOverlay").classList.remove("active"); };
+
+document.getElementById("postsContainer").addEventListener("click", async (e) => {
+const targetBtn = e.target.closest(".reaction-btn");
+if (!targetBtn) return;
+const postId = targetBtn.getAttribute("data-post-id");
+const type = targetBtn.getAttribute("data-type");
+const userReactionRef = doc(db, "userReactions", `${state.user.uid}_${postId}_${type}`);
+const postRef = doc(db, "posts", postId);
+
+if (!state.userReactedMap[postId]) state.userReactedMap[postId] = {};
+const hasReacted = state.userReactedMap[postId][type];
+
+if (hasReacted) {
+await deleteDoc(userReactionRef);
+await updateDoc(postRef, { [`reactions.${type}`]: increment(-1) });
+state.userReactedMap[postId][type] = false;
+} else {
+await setDoc(userReactionRef, { userId: state.user.uid, postId, type, timestamp: serverTimestamp() });
+await updateDoc(postRef, { [`reactions.${type}`]: increment(1) });
+state.userReactedMap[postId][type] = true;
+}
+renderPosts();
+});
+
+document.getElementById("postsContainer").addEventListener("submit", async (e) => {
+const form = e.target.closest(".comment-form");
+if (!form) return; e.preventDefault();
+const postId = form.getAttribute("data-post-id");
+const input = form.querySelector(".comment-input");
+await addDoc(collection(db, "posts", postId, "comments"), { userId: state.user.uid, userName: state.userName, text: input.value.trim(), createdAt: serverTimestamp() });
+input.value = "";
+});
+
+document.getElementById("profileModalButton").onclick = () => { document.getElementById("profileNameInput").value = state.userName; document.getElementById("profileModal").classList.remove("hidden"); };
+document.getElementById("closeProfileModal").onclick = () => { document.getElementById("profileModal").classList.add("hidden"); };
+
+document.addEventListener("submit", async (e) => {
+if (e.target.id === "emailLoginForm") {
+e.preventDefault();
+try {
+await signInWithEmailAndPassword(auth, document.getElementById("emailInput").value, document.getElementById("passwordInput").value);
+} catch {
+await createUserWithEmailAndPassword(auth, document.getElementById("emailInput").value, document.getElementById("passwordInput").value);
+}
+}
+if (e.target.id === "termsForm") { e.preventDefault(); localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true"); document.getElementById("termsModal").classList.add("hidden"); proceedToNextStepAfterLogin(state.user); }
+if (e.target.id === "setupForm") {
+e.preventDefault();
+state.userName = document.getElementById("setupName").value;
+state.userClass = document.getElementById("setupClass").value;
+await setDoc(doc(db, "pendingUsers", state.user.email), { email: state.user.email, name: state.userName, class: state.userClass, avatarUrl: "👤", requestedAt: serverTimestamp() });
+document.getElementById("setupModal").classList.add("hidden");
+checkApprovalStatus(state.user);
+}
+});
+
+function initPosts() {
+onSnapshot(query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100)), (snapshot) => {
+state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+snapshot.docs.forEach(postDoc => {
+onSnapshot(query(collection(db, "posts", postDoc.id, "comments"), orderBy("createdAt", "asc")), (commentSnap) => {
+state.commentsMap[postDoc.id] = commentSnap.docs.map(cDoc => ({ id: cDoc.id, ...cDoc.data() })); renderPosts();
+});
+});
+renderPosts();
+}, (err) => console.error("Firestore Error:", err));
+}
+
+function initUserReactions() {
+onSnapshot(collection(db, "userReactions"), (snapshot) => {
+state.userReactedMap = {};
+snapshot.docs.forEach(doc => { 
+const d = doc.data(); 
+if (d.userId === state.user?.uid) { 
+if (!state.userReactedMap[d.postId]) state.userReactedMap[d.postId] = {}; 
+state.userReactedMap[d.postId][d.type] = true; 
+} 
+});
+renderPosts();
+});
+}
+
+function checkApprovalStatus(user) {
+onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
+if (snapshot.exists()) {
+const data = snapshot.data();
+if (data.status === "suspended") { document.getElementById("suspendedModal").classList.remove("hidden"); document.getElementById("mainContent").style.display = "none"; return; }
+document.getElementById("suspendedModal").classList.add("hidden");
+state.userName = data.name; state.userClass = data.class; state.userAvatarUrl = data.avatarUrl || "👤";
+localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "block";
+updateDateDisplay(); updateUIProfile(); initPosts(); initUserReactions();
+} else {
+document.getElementById("pendingApprovalModal").classList.remove("hidden");
+document.getElementById("mainContent").style.display = "none";
+}
+});
+}
+
+function proceedToNextStepAfterLogin(user) {
+if (user.uid === ADMIN_UID) {
+state.isAdmin = true; state.userName = "管理者"; state.userClass = "管理"; state.userAvatarUrl = "👑";
+document.getElementById("mainContent").style.display = "block"; document.getElementById("adminPostForm").style.display = "block"; document.getElementById("adminDashboardButton").style.display = "block";
+updateDateDisplay(); updateUIProfile(); initPosts(); initUserReactions(); return;
+}
+const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
+if (!savedSetup) { document.getElementById("setupModal").classList.remove("hidden"); return; }
+const setup = JSON.parse(savedSetup);
+state.userName = setup.name; state.userClass = setup.class; state.userAvatarUrl = setup.avatarUrl || "👤";
+checkApprovalStatus(user);
+}
+
+onAuthStateChanged(auth, (user) => {
+if (!user) { document.querySelectorAll(".modal").forEach(m => m.id !== "loginModal" && m.classList.add("hidden")); document.getElementById("loginModal").classList.remove("hidden"); document.getElementById("mainContent").style.display = "none"; return; }
+state.user = user; document.getElementById("loginModal").classList.add("hidden");
+if (!localStorage.getItem(`user_terms_agreed_${user.uid}`)) { document.getElementById("termsModal").classList.remove("hidden"); return; }
+proceedToNextStepAfterLogin(user);
+});
+
+const handleLogout = () => signOut(auth);
+document.getElementById("logoutButton").onclick = handleLogout;
+</script>
 </body>
 </html>
