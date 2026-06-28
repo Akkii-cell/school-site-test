@@ -62,7 +62,7 @@ button { border: none; cursor: pointer; }
 .hero-title { font-size: 1.75rem; margin: 0; font-weight: 800; letter-spacing: -0.03em; }
 .hero-lead { font-size: 0.95rem; margin: 6px 0 0 0; color: var(--muted); font-weight: 500; }
 
-/* 📅 日付ツールバー：絶対に縦並びを防ぐ記述 */
+/* 📅 日付ツールバー */
 .toolbar { padding: 20px 32px; margin-bottom: 32px; }
 .toolbar-row {
   display: flex;
@@ -128,7 +128,7 @@ button { border: none; cursor: pointer; }
 .ghost-button { background: rgba(0, 0, 0, 0.04); color: var(--text); border-radius: 999px; }
 .ghost-button:hover { background: rgba(0, 0, 0, 0.08); }
 
-/* 📱 2枚目画像準拠：すりガラス風に透ける独立したカプセル型ナビゲーション */
+/* 📱 透けるカプセル型下部ナビゲーション（正式名称を収める幅を確保） */
 .admin-footer {
   position: fixed;
   bottom: 24px;
@@ -138,20 +138,20 @@ button { border: none; cursor: pointer; }
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 12px;
   width: calc(100% - 32px);
-  max-width: 420px;
-  background: transparent; /* 全体の外枠を排除し独立化 */
-  pointer-events: none; /* ボタンの隙間をタップ可能に */
+  max-width: 460px; /* 正式名称がしっかり収まるよう最大幅を少し拡大 */
+  background: transparent;
+  pointer-events: none;
 }
 
 .admin-footer .ghost-button {
-  pointer-events: auto; /* ボタン単体はタップ可能 */
-  min-height: 46px;
-  padding: 0 16px;
-  font-size: 0.9rem;
-  border-radius: 999px; /* カプセル型デザイン */
-  background: rgba(255, 255, 255, 0.7); /* 背景が綺麗に透ける半透明 */
+  pointer-events: auto;
+  min-height: 48px;
+  padding: 0 20px;
+  font-size: 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.6);
@@ -165,7 +165,7 @@ button { border: none; cursor: pointer; }
   color: var(--text);
 }
 .admin-footer .ghost-button:hover {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.88);
   transform: translateY(-2px);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
@@ -216,23 +216,22 @@ button { border: none; cursor: pointer; }
   .hero-header-container { padding: 16px 20px; margin-bottom: 16px; border-radius: var(--radius-lg); }
   .hero-title { font-size: 1.3rem; }
   
-  /* 日付バーを絶対に1行で保つためのレスポンシブ微調整 */
   .toolbar { padding: 12px 14px; margin-bottom: 16px; border-radius: var(--radius-lg); }
   .date-display { font-size: 1.05rem; font-weight: 700; }
   .toolbar-row { gap: 8px; }
   .toolbar-row .ghost-button { min-height: 42px; padding: 0 14px; font-size: 0.85rem; }
 
-  /* 下部カプセルナビゲーションのスマホ最適化 */
+  /* 下部カプセルナビゲーションのスマホ最適化（正式名称をきれいに横並びで表示） */
   .admin-footer {
     bottom: 16px;
-    width: calc(100% - 24px);
-    max-width: 360px;
-    gap: 8px;
+    width: calc(100% - 20px);
+    max-width: 390px;
+    gap: 6px;
   }
   .admin-footer .ghost-button {
-    padding: 0 8px;
-    font-size: 0.8rem;
-    min-height: 40px;
+    padding: 0 10px;
+    font-size: 0.78rem; /* 正式名称が1行で収まる絶妙なサイズ */
+    min-height: 42px;
     gap: 4px;
   }
 
@@ -378,8 +377,8 @@ button { border: none; cursor: pointer; }
   </main>
 
   <div class="admin-footer" id="adminFooter">
-    <button class="ghost-button" id="adminDashboardButton" style="display: none;">📊 ダッシュ</button>
-    <button class="ghost-button" id="profileModalButton">👤 プロフ</button>
+    <button class="ghost-button" id="adminDashboardButton" style="display: none;">📊 ダッシュボード</button>
+    <button class="ghost-button" id="profileModalButton">👤 プロフィール</button>
     <button class="ghost-button" id="logoutButton">ログアウト</button>
   </div>
 </div>
