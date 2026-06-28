@@ -1221,34 +1221,38 @@ document.getElementById("profileImageUrlInput").value = "";
 }
 document.getElementById("profileModal").classList.remove("hidden");
 });
+
 document.getElementById("closeProfileModal")?.addEventListener("click", () => {
 document.getElementById("profileModal").classList.add("hidden");
 });
 
-// ====== ここから丸ごと上書きしてください ======
+// ===== 修正箇所: emailLoginForm の addEventListener を正しく追加 =====
+document.getElementById("emailLoginForm")?.addEventListener("submit", async (e) => {
 e.preventDefault();
-  clearDebugErrors();
-  const username = document.getElementById("usernameInput").value.trim();
-  const password = document.getElementById("passwordInput").value;
-  if (!username || !password) return;
-  const fakeEmail = username + "@shiragane.internal"; 
-  try {
-    await signInWithEmailAndPassword(auth, fakeEmail, password);
-    showToast("ログインしました");
-  } catch (loginErr) {
-    if (loginErr.code === "auth/user-not-found" || loginErr.code === "auth/invalid-credential") {
-      try {
-        await createUserWithEmailAndPassword(auth, fakeEmail, password);
-        showToast("アカウントを作成しました。初期設定を行ってください。");
-      } catch (createErr) {
-        showDebugError("loginDebugError", "登録エラー: " + createErr.message);
-      }
-    } else {
-      showDebugError("loginDebugError", "ログインエラー: " + loginErr.message);
+clearDebugErrors();
+const username = document.getElementById("usernameInput").value.trim();
+const password = document.getElementById("passwordInput").value;
+if (!username || !password) return;
+const fakeEmail = username + "@shiragane.internal";
+try {
+  await signInWithEmailAndPassword(auth, fakeEmail, password);
+  showToast("ログインしました");
+} catch (loginErr) {
+  if (loginErr.code === "auth/user-not-found" || loginErr.code === "auth/invalid-credential") {
+    try {
+      await createUserWithEmailAndPassword(auth, fakeEmail, password);
+      showToast("アカウントを作成しました。初期設定を行ってください。");
+    } catch (createErr) {
+      showDebugError("loginDebugError", createErr);
     }
+  } else {
+    showDebugError("loginDebugError", loginErr);
   }
+}
 });
-// ====== ここまで丸ごと上書きしてください ======
+
+// ===== 修正箇所: termsForm・setupForm・profileEditForm・appealForm を document.addEventListener("submit") で正しく囲む =====
+document.addEventListener("submit", async (e) => {
 if (e.target.id === "termsForm") {
 e.preventDefault();
 if (document.getElementById("termsCheckbox").checked) {
@@ -1305,10 +1309,7 @@ showToast("プロフィールを更新しました！");
 if (e.target.id === "appealForm") {
 e.preventDefault();
 const reason = document.getElementById("appealReason").value.trim();
-// ✅ これに書き換えます
-if (!username || !password) {
-  return;
-}
+if (!reason) return;
 try {
 await addDoc(collection(db, "appeals"), {
 email: state.user.email,
@@ -1631,6 +1632,3 @@ updateDateDisplay();
 </script>
 </body>
 </html>
-
-
-
