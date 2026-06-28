@@ -1233,7 +1233,10 @@ document.getElementById("emailLoginForm").addEventListener("submit", async (e) =
   const username = document.getElementById("usernameInput").value.trim();
   const password = document.getElementById("passwordInput").value;
 
-  if (!username || !password) return;
+  // 💡 returnがエラーにならないよう、波カッコ { } で正しく囲いました
+  if (!username || !password) {
+    return;
+  }
 
   const fakeEmail = username + "@shiragane.internal"; 
 
@@ -1635,3 +1638,5 @@ updateDateDisplay();
 </script>
 </body>
 </html>
+
+
