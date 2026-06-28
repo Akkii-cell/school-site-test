@@ -1233,7 +1233,7 @@ document.getElementById("emailLoginForm").addEventListener("submit", async (e) =
   const username = document.getElementById("usernameInput").value.trim();
   const password = document.getElementById("passwordInput").value;
 
-  // 💡 returnがエラーにならないよう、波カッコ { } で正しく囲いました
+  // 💡 エラーにならないようにしっかりと波カッコ { } で囲いました
   if (!username || !password) {
     return;
   }
@@ -1315,7 +1315,10 @@ showToast("プロフィールを更新しました！");
 if (e.target.id === "appealForm") {
 e.preventDefault();
 const reason = document.getElementById("appealReason").value.trim();
-if (!reason) return;
+// ✅ これに書き換えます
+if (!username || !password) {
+  return;
+}
 try {
 await addDoc(collection(db, "appeals"), {
 email: state.user.email,
