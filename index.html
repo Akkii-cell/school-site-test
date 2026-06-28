@@ -126,7 +126,7 @@ button { border: none; cursor: pointer; }
   border: 1px solid rgba(255, 255, 255, 0.5);
   box-shadow: 0 12px 38px rgba(0, 0, 0, 0.08);
   width: max-content;
-  max-width: 95vw;
+  max-width: 90vw;
   flex-wrap: nowrap;
 }
 
@@ -202,8 +202,22 @@ button { border: none; cursor: pointer; }
   .date-display { font-size: 1rem; }
   .toolbar-row .ghost-button { min-height: 38px; padding: 0 14px; font-size: 0.85rem; }
 
-  .admin-footer { bottom: 16px; padding: 6px 10px; gap: 6px; }
-  .admin-footer .ghost-button { padding: 0 10px; font-size: 0.78rem; min-height: 36px; gap: 4px; }
+  /* 🛠️ スマホで下部バーが画面外に飛び出すのを完全に防止 */
+  .admin-footer {
+    bottom: 16px;
+    padding: 6px 10px;
+    gap: 6px;
+    width: calc(100% - 24px);
+    max-width: 360px;
+  }
+  .admin-footer .ghost-button {
+    padding: 0 12px;
+    font-size: 0.8rem;
+    min-height: 36px;
+    gap: 4px;
+    flex: 1;
+    justify-content: center;
+  }
 
   .form-grid-2 { grid-template-columns: 1fr; }
   .post-card { padding: 18px; margin-bottom: 16px; }
@@ -395,7 +409,6 @@ const state = {
   categoryFilter: "all"
 };
 
-// 💡 重複リッスンを防ぐためのリスナー保持マップ
 const activeCommentsListeners = new Map();
 
 function showToast(msg) { const toast = document.getElementById("toast"); toast.textContent = msg; toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2000); }
@@ -441,7 +454,7 @@ function renderPosts() {
     return `
       <div class="post-card">
         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
-          <span style="font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius999px; background:${post.category === '宿題' ? '#fef3c7; color:#d97706;' : post.category === '予定' ? '#d1fae5; color:#059669;' : '#f3e8ff; color:#7c3aed;'}">${post.category}</span>
+          <span style="font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:999px; background:${post.category === '宿題' ? '#fef3c7; color:#d97706;' : post.category === '予定' ? '#d1fae5; color:#059669;' : '#f3e8ff; color:#7c3aed;'}">${post.category}</span>
           <span style="font-size:0.75rem; color:var(--muted); font-weight:500;">対象: ${post.classTarget === '両方' ? '全体向け' : post.classTarget}</span>
         </div>
         <h3 style="margin:0 0 10px 0; font-size:1.25rem; font-weight:800;">${post.title}</h3>
@@ -449,7 +462,7 @@ function renderPosts() {
 
         <div class="reaction-container">
           <button class="ghost-button reaction-btn" data-post-id="${post.id}" data-type="like" style="${isLiked ? 'background:#e0f2fe; border-color:#38bdf8;' : ''}">
-            <span class="reaction-icon-span">🚀</span> ロケット ${reactions.like || 0}
+            <span class="reaction-icon-span">👍</span> いいね ${reactions.like || 0}
           </button>
           <button class="ghost-button reaction-btn" data-post-id="${post.id}" data-type="checked" style="${isChecked ? 'background:#dcfce7; border-color:#4ade80;' : ''}">
             <span class="reaction-icon-span">🙏</span> ありがとう ${reactions.checked || 0}
@@ -501,7 +514,7 @@ document.getElementById("postsContainer").addEventListener("click", async (e) =>
     renderPosts();
   } catch (err) {
     console.error("リアクション反映エラー:", err);
-    showToast("リアクション権限がありません（ルールを確認してください）");
+    showToast("リアクション権限がありません");
   }
 });
 
@@ -596,7 +609,6 @@ function initPosts() {
     state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     
     snapshot.docs.forEach(postDoc => {
-      // 💡 修正: 既にコメントリスナーが登録されている投稿IDは二重登録しない
       if (!activeCommentsListeners.has(postDoc.id)) {
         const unsubscribeComments = onSnapshot(
           query(collection(db, "posts", postDoc.id, "comments"), orderBy("createdAt", "asc")), 
