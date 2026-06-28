@@ -1226,26 +1226,18 @@ document.getElementById("profileModal").classList.add("hidden");
 });
 
 // ====== ここから丸ごと上書きしてください ======
-document.getElementById("emailLoginForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
+e.preventDefault();
   clearDebugErrors();
-
   const username = document.getElementById("usernameInput").value.trim();
   const password = document.getElementById("passwordInput").value;
-
-  // 💡 エラーにならないようにしっかりと波カッコ { } で囲いました
   if (!username || !password) {
     return;
   }
-
   const fakeEmail = username + "@shiragane.internal"; 
-
   try {
-    // 1. まずはログインを試みる
     await signInWithEmailAndPassword(auth, fakeEmail, password);
     showToast("ログインしました");
   } catch (loginErr) {
-    // 2. ユーザーが存在しない、または新しいFirebaseの認証エラーの場合に新規登録へ進む
     if (loginErr.code === "auth/user-not-found" || loginErr.code === "auth/invalid-credential") {
       try {
         await createUserWithEmailAndPassword(auth, fakeEmail, password);
@@ -1641,5 +1633,6 @@ updateDateDisplay();
 </script>
 </body>
 </html>
+
 
 
