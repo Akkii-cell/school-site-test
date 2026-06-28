@@ -1233,34 +1233,31 @@ document.getElementById("emailLoginForm").addEventListener("submit", async (e) =
   e.preventDefault();
   clearDebugErrors();
 
-  // 1. 新しいHTMLのID（usernameInput）からユーザー名を取得
   const username = document.getElementById("usernameInput").value.trim();
   const password = document.getElementById("passwordInput").value;
 
   if (!username || !password) return;
 
-  // 2. ユーザー名の後ろにダミーのドメインを自動付加
-  const fakeEmail = `${username}@shiragane.internal`; 
+  const fakeEmail = username + "@shiragane.internal"; 
 
   try {
-    // 3. まずはログインを試みる
+    // 1. まずはログインを試みる
     await signInWithEmailAndPassword(auth, fakeEmail, password);
     showToast("ログインしました");
   } catch (loginErr) {
-    // 4. 新旧のFirebaseエラー（ユーザーがいない、または認証エラー）に対応して新規登録へ
+    // 2. ユーザーがいない、または新しい認証エラーの場合に新規登録へ進む
     if (loginErr.code === "auth/user-not-found" || loginErr.code === "auth/invalid-credential") {
       try {
         await createUserWithEmailAndPassword(auth, fakeEmail, password);
         showToast("アカウントを作成しました。初期設定を行ってください。");
-     } catch (createErr) {
+      } catch (createErr) {
         showDebugError("loginDebugError", "登録エラー: " + createErr.message);
       }
     } else {
       showDebugError("loginDebugError", "ログインエラー: " + loginErr.message);
     }
   }
-}); // 👈 一番最後にこれを付け足します！
-
+});
 await signInWithEmailAndPassword(auth, email, password);
 showToast("ログインしました");
 } catch {
