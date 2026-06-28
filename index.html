@@ -1225,10 +1225,7 @@ document.getElementById("closeProfileModal")?.addEventListener("click", () => {
 document.getElementById("profileModal").classList.add("hidden");
 });
 
-document.addEventListener("submit", async (e) => {
-clearDebugErrors();
-
-if (e.target.id === "emailLoginForm") {
+// ====== ここから丸ごと上書きしてください ======
 document.getElementById("emailLoginForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   clearDebugErrors();
@@ -1245,7 +1242,7 @@ document.getElementById("emailLoginForm").addEventListener("submit", async (e) =
     await signInWithEmailAndPassword(auth, fakeEmail, password);
     showToast("ログインしました");
   } catch (loginErr) {
-    // 2. ユーザーがいない、または新しい認証エラーの場合に新規登録へ進む
+    // 2. ユーザーが存在しない、または新しいFirebaseの認証エラーの場合に新規登録へ進む
     if (loginErr.code === "auth/user-not-found" || loginErr.code === "auth/invalid-credential") {
       try {
         await createUserWithEmailAndPassword(auth, fakeEmail, password);
@@ -1258,15 +1255,7 @@ document.getElementById("emailLoginForm").addEventListener("submit", async (e) =
     }
   }
 });
-await signInWithEmailAndPassword(auth, email, password);
-showToast("ログインしました");
-} catch {
-await createUserWithEmailAndPassword(auth, email, password);
-showToast("アカウントを作成しました");
-}
-} catch (error) { showDebugError("loginDebugError", error); }
-}
-
+// ====== ここまで丸ごと上書きしてください ======
 if (e.target.id === "termsForm") {
 e.preventDefault();
 if (document.getElementById("termsCheckbox").checked) {
