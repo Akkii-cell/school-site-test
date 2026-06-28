@@ -1252,14 +1252,14 @@ document.getElementById("emailLoginForm").addEventListener("submit", async (e) =
       try {
         await createUserWithEmailAndPassword(auth, fakeEmail, password);
         showToast("アカウントを作成しました。初期設定を行ってください。");
-      } catch (createErr) {
+     } catch (createErr) {
         showDebugError("loginDebugError", "登録エラー: " + createErr.message);
       }
     } else {
       showDebugError("loginDebugError", "ログインエラー: " + loginErr.message);
     }
   }
-});
+}); // 👈 一番最後にこれを付け足します！
 
 await signInWithEmailAndPassword(auth, email, password);
 showToast("ログインしました");
