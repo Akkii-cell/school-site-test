@@ -62,20 +62,38 @@ button { border: none; cursor: pointer; }
 .hero-title { font-size: 1.75rem; margin: 0; font-weight: 800; letter-spacing: -0.03em; }
 .hero-lead { font-size: 0.95rem; margin: 6px 0 0 0; color: var(--muted); font-weight: 500; }
 
+/* 📅 日付ツールバー：絶対に縦並びを防ぐ記述 */
 .toolbar { padding: 20px 32px; margin-bottom: 32px; }
-.toolbar-row { display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.toolbar-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: nowrap; /* 縦並びを絶対に禁止 */
+}
 .toolbar-row .ghost-button {
   width: auto;
   min-height: 48px;
-  padding: 0 28px;
+  padding: 0 24px;
   font-size: 1rem;
   background: rgba(255, 255, 255, 0.8);
   border-radius: 999px;
   font-weight: 600;
   box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
-.date-display { font-size: 1.4rem; font-weight: 800; text-align: center; flex: 1; letter-spacing: -0.01em; }
+.date-display {
+  font-size: 1.4rem;
+  font-weight: 800;
+  text-align: center;
+  flex: 1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 .panel { padding: 36px; margin-bottom: 32px; }
 .panel-title { font-size: 1.4rem; margin-bottom: 24px; font-weight: 800; letter-spacing: -0.02em; }
@@ -110,35 +128,34 @@ button { border: none; cursor: pointer; }
 .ghost-button { background: rgba(0, 0, 0, 0.04); color: var(--text); border-radius: 999px; }
 .ghost-button:hover { background: rgba(0, 0, 0, 0.08); }
 
-/* 📱 スマホ下部バーのはみ出しを絶対に防止するレイアウト */
+/* 📱 2枚目画像準拠：すりガラス風に透ける独立したカプセル型ナビゲーション */
 .admin-footer {
   position: fixed;
-  bottom: 28px;
+  bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1000;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(30px) saturate(200%);
-  -webkit-backdrop-filter: blur(30px) saturate(200%);
-  padding: 10px 20px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+  gap: 10px;
   width: calc(100% - 32px);
-  max-width: 500px;
+  max-width: 420px;
+  background: transparent; /* 全体の外枠を排除し独立化 */
+  pointer-events: none; /* ボタンの隙間をタップ可能に */
 }
 
 .admin-footer .ghost-button {
-  min-height: 44px;
-  padding: 0 20px;
-  font-size: 0.95rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.85);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  pointer-events: auto; /* ボタン単体はタップ可能 */
+  min-height: 46px;
+  padding: 0 16px;
+  font-size: 0.9rem;
+  border-radius: 999px; /* カプセル型デザイン */
+  background: rgba(255, 255, 255, 0.7); /* 背景が綺麗に透ける半透明 */
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   white-space: nowrap;
   flex: 1;
   justify-content: center;
@@ -146,7 +163,11 @@ button { border: none; cursor: pointer; }
   align-items: center;
   gap: 6px;
   color: var(--text);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+.admin-footer .ghost-button:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 .reaction-container {
@@ -189,33 +210,35 @@ button { border: none; cursor: pointer; }
 .hamburger-button { width: 48px; height: 48px; background: rgba(255, 255, 255, 0.8); border: 1px solid var(--border); border-radius: 16px; display: flex;
   align-items: center; justify-content: center; font-size: 1.3rem; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
 
-/* 📱 スマホ専用レスポンシブデザイン */
+/* 📱 スマホ専用レスポンシブ調整 */
 @media (max-width: 768px) {
-  .shell { padding: 20px 16px 140px; }
-  .hero-header-container { padding: 16px 24px; margin-bottom: 20px; border-radius: var(--radius-lg); }
-  .hero-title { font-size: 1.35rem; }
-  .toolbar { padding: 16px; margin-bottom: 20px; border-radius: var(--radius-lg); }
-  .date-display { font-size: 1.15rem; }
-  .toolbar-row .ghost-button { min-height: 40px; padding: 0 16px; font-size: 0.9rem; }
+  .shell { padding: 20px 12px 140px; }
+  .hero-header-container { padding: 16px 20px; margin-bottom: 16px; border-radius: var(--radius-lg); }
+  .hero-title { font-size: 1.3rem; }
+  
+  /* 日付バーを絶対に1行で保つためのレスポンシブ微調整 */
+  .toolbar { padding: 12px 14px; margin-bottom: 16px; border-radius: var(--radius-lg); }
+  .date-display { font-size: 1.05rem; font-weight: 700; }
+  .toolbar-row { gap: 8px; }
+  .toolbar-row .ghost-button { min-height: 42px; padding: 0 14px; font-size: 0.85rem; }
 
-  /* 下部バーをはみ出さず、完全に等幅収縮させる */
+  /* 下部カプセルナビゲーションのスマホ最適化 */
   .admin-footer {
-    bottom: 20px;
-    padding: 8px 12px;
+    bottom: 16px;
+    width: calc(100% - 24px);
+    max-width: 360px;
     gap: 8px;
-    width: calc(100% - 32px);
-    max-width: 380px;
   }
   .admin-footer .ghost-button {
     padding: 0 8px;
     font-size: 0.8rem;
-    min-height: 38px;
+    min-height: 40px;
     gap: 4px;
   }
 
-  .form-grid-2 { grid-template-columns: 1fr; gap: 16px; }
-  .post-card { padding: 24px; margin-bottom: 20px; border-radius: var(--radius-lg); }
-  .panel { padding: 24px; border-radius: var(--radius-lg); }
+  .form-grid-2 { grid-template-columns: 1fr; gap: 14px; }
+  .post-card { padding: 22px; margin-bottom: 16px; border-radius: var(--radius-lg); }
+  .panel { padding: 22px; border-radius: var(--radius-lg); }
 }
 </style>
 </head>
