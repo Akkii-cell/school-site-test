@@ -711,7 +711,6 @@ width: 100% !important;
 </div>
 </div>
 
-<!-- 🛑 アカウント停止ユーザー専用の異議申し立てモーダル -->
 <div class="modal hidden" id="suspendedModal">
 <div class="modal-panel" style="width: min(550px, 100%); text-align: center;">
 <h2 class="modal-title" style="color: #d92d20; font-size: 1.5rem;">🔒 アカウントが停止されています</h2>
@@ -820,7 +819,6 @@ width: 100% !important;
 <h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">✅ 承認済みユーザー</h3>
 <div id="allowedUsersListAdmin" style="display: grid; gap: 12px;"></div>
 </div>
-<!-- 🚨 届いた異議申し立て一覧セクション -->
 <div>
 <h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; color: #d92d20;">⚖️ 届いた異議申し立て</h3>
 <div id="appealsListAdmin" style="display: grid; gap: 12px;"></div>
@@ -1293,7 +1291,7 @@ localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify({ name: stat
 updateUIProfile();
 document.getElementById("profileModal").classList.add("hidden");
 showToast("プロフィールを更新しました！");
-} catch (error) { showDebugError("profileEditForm", error); }
+} catch (error) { showDebugError("profileDebugError", error); }
 }
 
 // 🛑 ユーザーから送信された異議申し立ての処理
@@ -1343,7 +1341,7 @@ state.usersProfileMap[data.uid] = { avatarUrl: data.avatarUrl, name: data.name }
 }
 });
 renderPosts();
-});
+}, (error) => { console.warn("プロファイルデータのリアルタイム同期制限、またはセキュリティルールによる制限:", error); });
 }
 
 function initPosts() {
@@ -1420,12 +1418,10 @@ ${getAvatarHTML(data.avatarUrl)}
 <p><strong>${data.name || "名前なし"}</strong> ${isSuspended ? '<span style="color:#d92d20; font-weight:bold; font-size:0.8rem;">[停止中]</span>' : ''}</p>
 <p style="font-size: 0.85rem; color: var(--muted); margin-bottom:6px;">メール: ${userEmail}</p>
 <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
-    <!-- ✏️ クラス変更機能 -->
     <select onchange="window.updateUserClass('${userEmail}', this.value)" style="padding: 4px 8px; border: 1px solid var(--border); border-radius: 8px; font-size:0.8rem; width:auto; height:32px; display:inline-block;">
         <option value="7-1" ${data.class === '7-1' ? 'selected' : ''}>7-1組</option>
         <option value="7-2" ${data.class === '7-2' ? 'selected' : ''}>7-2組</option>
     </select>
-    <!-- 🛑 アカウント停止 / 解除機能 -->
     <button class="danger-button" onclick="window.toggleSuspendUser('${userEmail}', ${isSuspended})" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto; background: ${isSuspended ? 'rgba(16,185,129,0.12)' : 'rgba(217,45,32,0.12)'}; color: ${isSuspended ? '#10b981' : '#d92d20'}">
         ${isSuspended ? 'アカウント再開' : 'アカウント停止'}
     </button>
@@ -1615,7 +1611,6 @@ document.getElementById("mainContent").style.display = "none";
 document.getElementById("termsModal").classList.remove("hidden");
 document.getElementById("setupModal").classList.add("hidden");
 document.getElementById("pendingApprovalModal").classList.add("hidden");
-document.getElementById("suspendedModal").classList.add("hidden");
 return;
 }
 
