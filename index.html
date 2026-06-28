@@ -37,7 +37,7 @@ button { border: none; cursor: pointer; }
 /* 💻 PCでも横幅を小さくせず、画面いっぱいに心地よく広げるコンテナ設定 */
 .shell {
   width: 100%;
-  max-width: 1400px; /* 大画面の魅力を活かすようワイドに拡張 */
+  max-width: 1400px;
   margin: 0 auto;
   padding: 32px 24px 140px;
 }
@@ -82,7 +82,7 @@ button { border: none; cursor: pointer; }
 
 .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-/* 📑 投稿カード：2カラム等で並べず、流れるような美しい全幅ストリームに */
+/* 📑 投稿カード：美しい全幅ストリーム */
 .post-card {
   background: rgba(255, 255, 255, 0.75);
   backdrop-filter: blur(10px);
@@ -127,7 +127,7 @@ button { border: none; cursor: pointer; }
   box-shadow: 0 12px 38px rgba(0, 0, 0, 0.08);
   width: max-content;
   max-width: 95vw;
-  flex-wrap: nowrap; /* 縦割れ・折り返しを絶対に拒否 */
+  flex-wrap: nowrap;
 }
 
 .admin-footer .ghost-button {
@@ -197,7 +197,6 @@ button { border: none; cursor: pointer; }
   .date-display { font-size: 1rem; }
   .toolbar-row .ghost-button { min-height: 38px; padding: 0 14px; font-size: 0.85rem; }
   
-  /* スマホの極小画面でも絶対に改行・ハズレを起こさせないためのフォント縮小調整 */
   .admin-footer { bottom: 16px; padding: 6px 10px; gap: 6px; }
   .admin-footer .ghost-button { padding: 0 10px; font-size: 0.78rem; min-height: 36px; gap: 4px; }
   
@@ -361,8 +360,8 @@ button { border: none; cursor: pointer; }
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore as initializeFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+// 🛠️ インポート元を正しく firebase-firestore.js に修正しました
+import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAkMLCyIC0x9bT63LEih1x7BXe3XYVuknQ",
@@ -375,7 +374,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = initializeFirestore(app);
+const db = getFirestore(app);
 
 const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
 
@@ -434,7 +433,7 @@ function renderPosts() {
     return `
     <div class="post-card">
       <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
-        <span style="font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:999px; background:${post.category === '宿宿題' || post.category === '宿題' ? '#fef3c7; color:#d97706;' : post.category === '予定' ? '#d1fae5; color:#059669;' : '#f3e8ff; color:#7c3aed;'}">${post.category}</span>
+        <span style="font-size:0.75rem; font-weight:700; padding:4px 10px; border-radius:999px; background:${post.category === '宿題' ? '#fef3c7; color:#d97706;' : post.category === '予定' ? '#d1fae5; color:#059669;' : '#f3e8ff; color:#7c3aed;'}">${post.category}</span>
         <span style="font-size:0.75rem; color:var(--muted); font-weight:500;">対象: ${post.classTarget === '両方' ? '全体向け' : post.classTarget}</span>
       </div>
       <h3 style="margin:0 0 10px 0; font-size:1.25rem; font-weight:800;">${post.title}</h3>
