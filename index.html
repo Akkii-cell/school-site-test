@@ -1238,7 +1238,7 @@ try {
   await signInWithEmailAndPassword(auth, fakeEmail, password);
   showToast("ログインしました");
 } catch (loginErr) {
-  if (loginErr.code === "auth/user-not-found" || loginErr.code === "auth/invalid-credential") {
+  if (loginErr.code === "auth/user-not-found" || loginErr.code === "auth/invalid-credential" || loginErr.code === "auth/invalid-login-credentials" || loginErr.code === "auth/wrong-password") {
     try {
       await createUserWithEmailAndPassword(auth, fakeEmail, password);
       showToast("アカウントを作成しました。初期設定を行ってください。");
