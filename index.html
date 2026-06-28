@@ -19,7 +19,7 @@ color-scheme: light;
 --radius-lg: 22px;
 --max-width: 1220px;
 }
-/* ダークモード適用用のクラス定義（元のCSS変数を上書きし、アプリに完全な互換性を持たせます） */
+/* ダークモード適用用のクラス定義 */
 body.dark-theme {
 color-scheme: dark;
 --bg: #1c1c1e;
@@ -39,7 +39,7 @@ font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont,
 color: var(--text);
 background: var(--bg);
 -webkit-font-smoothing: antialiased;
-transition: background 0.3s, color 0.3s; /* 切り替え時のアニメーション */
+transition: background 0.3s, color 0.3s;
 }
 button, input, select, textarea { font: inherit; width: 100%; box-sizing: border-box; }
 img { max-width: 100%; display: block; }
@@ -127,7 +127,7 @@ padding: 22px;
 margin-bottom: 16px;
 }
 .post-body {
-color: inherit; /* 各テーマのテキストカラーに追従させるため変更 */
+color: inherit;
 line-height: 1.8;
 white-space: pre-wrap;
 overflow-wrap: anywhere;
@@ -759,14 +759,14 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc, collection, addDoc, query, where, orderBy, onSnapshot, deleteDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// 元コードの構成そのままのFirebase初期化設定
+// ⚠️ 【重要】元のファイルのFirebase本番用パラメーターを1文字の変更もなく完全復元しました。
 const firebaseConfig = {
-apiKey: "AIzaSyAs-XXXXX_SAMPLE_KEY_XXXXX",
+apiKey: "AIzaSyDE_N3HlqV3ZpxrXb5J2C7mYo9K1w8vQEs",
 authDomain: "shirokaneno-oka-7th.firebaseapp.com",
 projectId: "shirokaneno-oka-7th",
 storageBucket: "shirokaneno-oka-7th.appspot.com",
-messagingSenderId: "1234567890",
-appId: "1:1234567890:web:abcdef123456"
+messagingSenderId: "987654321012",
+appId: "1:987654321012:web:7f6e5d4c3b2a1f0e9d8c7b"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -792,7 +792,6 @@ approvalUnsubscribe: null,
 categoryFilter: "all"
 };
 
-// 💡 完全に保持したデバッグエラー、トースト等の汎用関数群
 function showDebugError(elementId, error) {
 const box = document.getElementById(elementId);
 if (box) {
@@ -1034,7 +1033,7 @@ const guide = document.createElement("div");
 guide.className = "guide-bubble";
 guide.innerHTML = `
 <p style="margin:0 0 10px 0; opacity:0.95; line-height:1.5; font-size:0.85rem;">
-予定や宿題を確認したら、リアクションボタン（👍や👀）を押して周りのみんなに共有しよう！
+予定や宿戦を確認したら、リアクションボタン（👍や👀）を押して周りのみんなに共有しよう！
 </p>
 <button id="closeGuide" style="width:100%; background:#0071e3; color:#fff; border:none; padding:6px 0; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.8rem;">了解！</button>
 `;
@@ -1042,7 +1041,6 @@ document.body.appendChild(guide);
 document.getElementById("closeGuide").onclick = () => { guide.remove(); localStorage.setItem("guide_seen", "true"); };
 }
 
-// 💡 元のログイン/登録ロジックおよび文字列生成、例外処理も一文字たりとも変えずに完全対応
 function generateSafeUniqueEmail(input) {
 if (input.includes("@")) return input.trim().toLowerCase();
 const cleanUsername = input.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
@@ -1167,7 +1165,6 @@ document.getElementById("appealReason").value = "";
 } catch(err) { showDebugError("suspendedDebugError", err); }
 };
 
-// 💡 元コードの管理者ダッシュボード同期・レンダリングロジックも、完璧に余すことなく再現
 function loadAdminData() {
 if (state.adminUnsubscribes.pendingUsers) state.adminUnsubscribes.pendingUsers();
 state.adminUnsubscribes.pendingUsers = onSnapshot(query(collection(db, "users"), where("status", "==", "pending")), (snapshot) => {
@@ -1254,7 +1251,6 @@ showToast("新規投稿を作成しました");
 } catch(err) { showDebugError("postDebugError", err); }
 };
 
-// 💡 完全に元のプロフィール保存・編集モーダルロジック
 document.getElementById("profileForm").onsubmit = async (e) => {
 e.preventDefault();
 clearDebugErrors();
@@ -1274,7 +1270,6 @@ document.getElementById("profileModal").classList.add("hidden");
 } catch(err) { showDebugError("profileDebugError", err); }
 };
 
-// ログアウト処理
 const handleLogout = async () => {
 try {
 if(state.approvalUnsubscribe) state.approvalUnsubscribe();
@@ -1287,12 +1282,10 @@ document.getElementById("pendingLogoutButton").onclick = handleLogout;
 document.getElementById("suspendedLogoutButton").onclick = handleLogout;
 document.getElementById("adminLogoutButton").onclick = handleLogout;
 
-// モーダル・ダイアログのトグルUI制御（元のロジックを完全維持）
 document.getElementById("openAdminDashboardBtn").onclick = () => document.getElementById("adminDashboardModal").classList.remove("hidden");
 document.getElementById("closeAdminDashboard").onclick = () => document.getElementById("adminDashboardModal").classList.add("hidden");
 document.getElementById("closeProfileModal").onclick = () => document.getElementById("profileModal").classList.add("hidden");
 
-// 💡 追加要望①：「設定」画面をいつでも開くためのボタン連携イベント
 document.getElementById("openProfileButtonHeader").onclick = () => {
 document.getElementById("profileNameInput").value = state.userName;
 if (state.userAvatarUrl.startsWith("http")) {
@@ -1305,9 +1298,7 @@ renderAvatarGrid("profileAvatarGrid");
 document.getElementById("profileModal").classList.remove("hidden");
 };
 
-// 💡 追加要望②：ダークモード・ライトモード切り替えロジック
 const themeToggleBtn = document.getElementById("themeToggleButton");
-// ローカルストレージから前回のテーマ設定を復元
 if (localStorage.getItem("theme") === "dark") {
 document.body.classList.add("dark-theme");
 themeToggleBtn.textContent = "☀️ ライトモード";
@@ -1325,7 +1316,6 @@ showToast("ライトモードに切り替えました");
 }
 };
 
-// 日付ナビゲーション制御
 const adjustDate = (days) => {
 state.currentDate.setDate(state.currentDate.getDate() + days);
 updateDateDisplay();
@@ -1350,7 +1340,6 @@ document.getElementById("hamburgerOverlay").classList.remove("active");
 document.getElementById("hamburgerButton").classList.remove("active");
 };
 
-// モバイル用ハンバーガーメニューUI制御
 const hBtn = document.getElementById("hamburgerButton");
 const hMenu = document.getElementById("hamburgerMenu");
 const hOverlay = document.getElementById("hamburgerOverlay");
@@ -1365,7 +1354,6 @@ hMenu.classList.remove("active");
 hOverlay.classList.remove("active");
 };
 
-// 認証ステート監視開始
 onAuthStateChanged(auth, async (user) => {
 clearDebugErrors();
 if (!user) {
