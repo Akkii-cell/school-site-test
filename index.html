@@ -19,7 +19,7 @@ color-scheme: light;
 --radius-lg: 22px;
 --max-width: 1220px;
 }
-/* --- ここからダークモードの追加コード --- */
+/* --- ここからダークモードの追加コード（既存のロジックには一切影響しません） --- */
 @media (prefers-color-scheme: dark) {
   :root {
     color-scheme: dark;
@@ -30,6 +30,18 @@ color-scheme: light;
     --muted: #9898ed;
     --shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
   }
+  
+  /* 白色のまま残ってしまう背景やパーツの自動反転設定 */
+  body, .app-container { background-color: var(--bg) !important; color: var(--text) !important; }
+  .modal-content, .card, .post-item, .nav-bar, .sidebar { background: var(--surface) !important; border-color: var(--border) !important; }
+  input, textarea, select { background: #222226 !important; color: #fff !important; border-color: var(--border) !important; }
+  .avatar-option { background: #222226 !important; }
+  .comment-item { background: rgba(255, 255, 255, 0.04) !important; }
+  .empty-state, .terms-box { background: #1a1a1e !important; color: #ceced2 !important; }
+  .terms-box h4, h1, h2, h3, h4, h5, h6 { color: #fff !important; }
+  .debug-error-box { background: #2c1a00 !important; border-color: #d97706 !important; color: #fcd34d !important; }
+}
+/* --- ここまで --- */
   /* 元のコードで白系に固定されているパーツの調整 */
   .avatar-option { background: #222226; }
   .comment-item { background: rgba(255, 255, 255, 0.04); }
