@@ -1242,7 +1242,11 @@ try {
     await createUserWithEmailAndPassword(auth, fakeEmail, password);
     showToast("アカウントを作成しました。初期設定を行ってください。");
   } catch (createErr) {
-    showDebugError("loginDebugError", createErr);
+    if (createErr.code === "auth/email-already-in-use") {
+      showDebugError("loginDebugError", { name: "ログインエラー", message: "パスワードが間違っています。" });
+    } else {
+      showDebugError("loginDebugError", createErr);
+    }
   }
 }
 });
