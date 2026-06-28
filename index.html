@@ -278,11 +278,11 @@ transition: background 0.25s, border-color 0.25s;
 .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: rgba(0, 113, 227, 0.1); color: #0071e3; margin-right: 6px; width: auto; }
 .debug-error-box { background: #fef3c7; border: 2px solid #f59e0b; color: #b45309; padding: 12px; border-radius: 12px; font-family: monospace; font-size: 0.85rem; margin-top: 12px; display: none; }
 
-/* 📱 ハンバーガーメニューサイドバー (pointer-eventsと初期値の修正) */
+/* 📱 ハンバーガーメニューサイドバー (pointer-eventsと画面外退避を徹底) */
 .hamburger-menu { 
 position: fixed; 
 top: 0; 
-left: -280px; /* 画面外に完全に隠す */
+left: -280px; 
 width: 280px; 
 height: 100vh; 
 background: var(--surface); 
@@ -293,7 +293,7 @@ padding: 24px;
 display: flex; 
 flex-direction: column; 
 gap: 16px; 
-pointer-events: none; /* 閉じている時はタッチを完全にスルー */
+pointer-events: none; 
 }
 .hamburger-menu.active { left: 0; pointer-events: auto; }
 .hamburger-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.44); z-index: 999; backdrop-filter: blur(4px); }
@@ -306,14 +306,14 @@ pointer-events: none; /* 閉じている時はタッチを完全にスルー */
 
 input, select, textarea { background: var(--card-bg-inline); border: 1px solid var(--border); color: var(--text); }
 
-/* 初期表示はPC用のみ */
+/* 初期はPC用ナビを表示、スマホ用は隠す */
 #pcDateNav { display: grid; }
 #mobileDateNav { display: none !important; }
 
 @media (max-width: 768px) {
   .hamburger-button { display: flex; }
-  #pcDateNav { display: none !important; } /* スマホではPC用を完全に非表示 */
-  #mobileDateNav { display: block !important; } /* スマホ用のみ表示 */
+  #pcDateNav { display: none !important; } /* スマホではPC用を100%非表示 */
+  #mobileDateNav { display: block !important; } /* スマホではスマホ用を100%表示 */
   .shell { padding: 76px 0 100px; }
   
   .hero-card { padding: 14px; gap: 12px; border-radius: 18px; margin-bottom: 12px; }
@@ -581,7 +581,6 @@ function renderPosts() {
   const container = document.getElementById("postsContainer");
   container.innerHTML = "";
   
-  // 選択日を 'YYYY-MM-DD' にフォーマット
   const d = state.currentDate;
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, '0');
@@ -590,13 +589,19 @@ function renderPosts() {
   
   const filtered = state.posts.filter(post => {
     const isWithinDate = targetStr >= post.startDate && targetStr <= post.endDate;
-    const isTargetClass = post.target === "両方" || post.target === state.userClass || state.isAdmin;
+    
+    // クラス名表記の揺れをカバー (例: "7-1" と "7-1組" をどちらも同じとみなす)
+    const cleanUserClass = state.userClass.replace("組", "");
+    const cleanPostTarget = post.target.replace("組", "");
+    const isTargetClass = post.target === "両方" || cleanPostTarget === cleanUserClass || state.isAdmin;
+    
     const isTargetCategory = state.categoryFilter === "all" || post.category === state.categoryFilter;
     return isWithinDate && isTargetClass && isTargetCategory;
   });
 
   if (filtered.length === 0) {
-    container.innerHTML = `<div class="empty-state">この日の${state.categoryFilter === 'all' ? '情報' : state.categoryFilter}はありません。</div>`;
+    const displayCat = state.categoryFilter === 'all' ? '情報' : state.categoryFilter;
+    container.innerHTML = `<div class="empty-state">この日の${displayCat}はありません。</div>`;
     return;
   }
 
@@ -636,10 +641,10 @@ function showToast(msg) {
   setTimeout(() => toast.classList.remove("show"), 2500);
 }
 
-// カテゴリ変更処理
+// カテゴリ変更処理 (タイポ修正版)
 window.selectCategory = function(cat) {
   state.categoryFilter = cat;
-  const titles = { all: "予定・宿題・連絡", "予定": "📅 予定一覧", "宿 homework": "✏️ 宿題一覧", "連絡事項": "📢 連絡事項" };
+  const titles = { all: "予定・宿題・連絡", "予定": "📅 予定一覧", "宿題": "✏️ 宿題一覧", "連絡事項": "📢 連絡事項" };
   document.getElementById("categoryTitle").textContent = titles[cat] || "一覧";
   renderPosts();
 };
