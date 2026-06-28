@@ -7,245 +7,270 @@
 <link rel="icon" href="ChatGPT Image 2026年6月28日 00_40_40.png">
 <style>
 :root {
-color-scheme: light;
---bg: #f5f5f7;
---surface: rgba(255, 255, 255, 0.92);
---border: rgba(15, 23, 42, 0.08);
---text: #111827;
---muted: #6b7280;
---accent: #0071e3;
---shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
---radius-xl: 28px;
---radius-lg: 22px;
---max-width: 1220px;
+  color-scheme: light;
+  --bg: #f5f5f7;
+  --surface: rgba(255, 255, 255, 0.92);
+  --border: rgba(15, 23, 42, 0.08);
+  --text: #111827;
+  --muted: #6b7280;
+  --accent: #0071e3;
+  --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+  --radius-xl: 28px;
+  --radius-lg: 22px;
+  --max-width: 1220px;
 }
 
 * { box-sizing: border-box; }
 body {
-margin: 0;
-min-height: 100vh;
-font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
-color: var(--text);
-background: var(--bg);
--webkit-font-smoothing: antialiased;
+  margin: 0;
+  min-height: 100vh;
+  font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Hiragino Sans", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
 }
 
 button, input, select, textarea { font: inherit; width: 100%; box-sizing: border-box; }
 button { border: none; cursor: pointer; }
 
 .shell {
-width: min(var(--max-width), calc(100vw - 24px));
-margin: 0 auto;
-padding: 16px 0 120px;
+  width: min(var(--max-width), calc(100vw - 24px));
+  margin: 0 auto;
+  padding: 16px 0 120px;
 }
 
 .frosted {
-background: var(--surface);
-border: 1px solid var(--border);
-border-radius: var(--radius-xl);
-box-shadow: var(--shadow);
-backdrop-filter: blur(20px) saturate(140%);
--webkit-backdrop-filter: blur(20px) saturate(140%);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
 }
 
-/* 📅 日付ナビゲーションのスマホ最適化 */
+/* 📅 日付ナビゲーション：PC・スマホ共通で崩れないフレックス設計 */
 .toolbar {
-display: grid;
-gap: 16px;
-padding: 16px;
-margin-bottom: 16px;
+  padding: 16px 24px;
+  margin-bottom: 16px;
 }
 
 .toolbar-row {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* 前日・次日ボタン：絶対に縦書きや改行をさせずインラインに固定 */
+.toolbar-row .ghost-button {
+  min-height: 40px;
+  padding: 0 20px;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+  width: auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .date-display { 
-font-size: 1.1rem; 
-font-weight: 700; 
-text-align: center;
-flex: 1;
-white-space: nowrap;
+  font-size: 1.15rem; 
+  font-weight: 700; 
+  text-align: center;
+  flex: 1;
+  white-space: nowrap;
 }
 
 .panel { padding: 24px; margin-bottom: 16px; }
 .panel-title { font-size: 1.2rem; margin-bottom: 16px; font-weight: 700; }
 
 .form-grid-2 {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
 }
 
 .post-card {
-border: 1px solid var(--border);
-background: var(--surface);
-border-radius: var(--radius-lg);
-padding: 20px;
-margin-bottom: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 16px;
 }
 
 .post-body {
-color: #344054;
-line-height: 1.8;
-white-space: pre-wrap;
-overflow-wrap: anywhere;
-margin-bottom: 16px;
+  color: #344054;
+  line-height: 1.8;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  margin-bottom: 16px;
 }
 
 .button, .ghost-button, .danger-button {
-display: inline-flex;
-align-items: center;
-justify-content: center;
-min-height: 44px;
-padding: 0 16px;
-border-radius: 999px;
-font-weight: 700;
-width: auto;
-text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  width: auto;
+  text-decoration: none;
 }
 
 .button { background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; }
 
 .ghost-button { 
-background: rgba(0, 0, 0, 0.04); 
-color: #111827; 
-border: 1px solid transparent;
-transition: background 0.2s;
+  background: rgba(0, 0, 0, 0.04); 
+  color: #111827; 
+  border: 1px solid transparent;
+  transition: background 0.2s;
 }
 .ghost-button:hover { background: rgba(0, 0, 0, 0.08); }
 
 .modal {
-position: fixed;
-inset: 0;
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 20px;
-background: rgba(15, 23, 42, 0.3);
-backdrop-filter: blur(16px);
--webkit-backdrop-filter: blur(16px);
-z-index: 2000;
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 2000;
 }
 
 .modal.hidden { display: none; }
 
 .modal-panel {
-width: min(500px, 100%);
-max-height: 90vh;
-overflow-y: auto;
-padding: 24px;
-border-radius: 24px;
-background: #fff;
-box-shadow: var(--shadow);
+  width: min(500px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: var(--shadow);
 }
 
 .modal-title { font-size: 1.3rem; margin-bottom: 16px; font-weight: 700; }
 
 .toast {
-position: fixed;
-left: 50%;
-bottom: 100px;
-transform: translateX(-50%);
-padding: 12px 20px;
-border-radius: 999px;
-background: rgba(17, 24, 39, 0.9);
-color: #fff;
-opacity: 0;
-pointer-events: none;
-z-index: 3000;
-transition: opacity 0.2s;
+  position: fixed;
+  left: 50%;
+  bottom: 100px;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: rgba(17, 24, 39, 0.9);
+  color: #fff;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3000;
+  transition: opacity 0.2s;
 }
 .toast.show { opacity: 1; }
 
-/* 📱 ボトム固定ナビゲーション（管理・プロフ等） */
+/* 📱 ボトム固定ナビゲーション：PCでもスマホでも絶対に潰れないカプセル型 */
 .admin-footer { 
-position: fixed; 
-bottom: 24px; 
-left: 50%;
-transform: translateX(-50%);
-z-index: 1000; 
-display: flex; 
-gap: 10px; 
-background: rgba(255, 255, 255, 0.85);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-padding: 8px 16px;
-border-radius: 999px;
-border: 1px solid var(--border);
-box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-width: max-content;
-max-width: 90vw;
+  position: fixed; 
+  bottom: 24px; 
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000; 
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  gap: 12px; 
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  width: max-content;
+  max-width: 90vw;
 }
 
 .admin-footer .ghost-button {
-min-height: 38px;
-padding: 0 14px;
-font-size: 0.85rem;
-border-radius: 999px;
-background: transparent;
+  min-height: 38px;
+  padding: 0 16px;
+  font-size: 0.9rem;
+  border-radius: 999px;
+  background: transparent;
+  white-space: nowrap;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 .admin-footer .ghost-button:hover {
-background: rgba(0,0,0,0.05);
+  background: rgba(0,0,0,0.05);
 }
 
 .hamburger-menu {
-position: fixed;
-top: 0;
-left: -100%;
-width: 280px;
-height: 100vh;
-background: #fff;
-z-index: 1500;
-transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-padding: 24px;
-box-shadow: 20px 0 40px rgba(0,0,0,0.05);
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 280px;
+  height: 100vh;
+  background: #fff;
+  z-index: 1500;
+  transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 24px;
+  box-shadow: 20px 0 40px rgba(0,0,0,0.05);
 }
 .hamburger-menu.active { left: 0; }
 .hamburger-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.2); z-index: 1400; backdrop-filter: blur(4px); }
 .hamburger-overlay.active { display: block; }
 
 .hamburger-button {
-width: 44px;
-height: 44px;
-background: var(--surface);
-border: 1px solid var(--border);
-border-radius: 12px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.3rem;
-box-shadow: var(--shadow);
+  width: 44px;
+  height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: var(--shadow);
 }
 
 .debug-error-box {
-background: #fef3c7;
-border: 1px solid #f59e0b;
-color: #b45309;
-padding: 12px;
-border-radius: 12px;
-font-family: monospace;
-font-size: 0.8rem;
-margin-top: 12px;
-display: none;
-white-space: pre-wrap;
-word-break: break-all;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  color: #b45309;
+  padding: 12px;
+  border-radius: 12px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  margin-top: 12px;
+  display: none;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
-/* 📱 モバイル個別スタイル調整 */
+/* 📱 モバイル個別レスポンシブビュー */
 @media (max-width: 768px) {
-.shell { padding: 12px 0 120px; }
-.hero-header-container { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; justify-content: space-between; }
-.hero-card { display: flex; align-items: center; gap: 12px; background: none; border: none; box-shadow: none; padding: 0; margin: 0; }
-.profile-avatar { width: 40px; height: 40px; font-size: 20px; }
-.hero-title { font-size: 1.1rem; font-weight: 800; }
-.hero-lead { font-size: 0.75rem; }
-.date-display { font-size: 0.95rem; }
-.toolbar .ghost-button { min-height: 36px; padding: 0 12px; font-size: 0.85rem; }
-.form-grid-2 { grid-template-columns: 1fr; }
+  .shell { padding: 12px 0 120px; }
+  .hero-header-container { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; justify-content: space-between; }
+  .hero-card { display: flex; align-items: center; gap: 12px; background: none; border: none; box-shadow: none; padding: 0; margin: 0; }
+  .profile-avatar { width: 40px; height: 40px; font-size: 20px; }
+  .hero-title { font-size: 1.1rem; font-weight: 800; }
+  .hero-lead { font-size: 0.75rem; }
+  
+  .toolbar { padding: 12px 14px; }
+  .toolbar-row { gap: 8px; }
+  .date-display { font-size: 0.95rem; }
+  .toolbar-row .ghost-button { min-height: 36px; padding: 0 12px; font-size: 0.85rem; }
+  
+  .admin-footer { padding: 8px 14px; gap: 6px; }
+  .admin-footer .ghost-button { padding: 0 10px; font-size: 0.8rem; gap: 4px; }
+  
+  .form-grid-2 { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -253,75 +278,75 @@ word-break: break-all;
 
 <div class="modal" id="loginModal">
 <div class="modal-panel">
-<h2 class="modal-title">ログイン / 新規登録</h2>
-<form id="emailLoginForm" style="display: grid; gap: 12px;">
-<input id="emailInput" type="email" placeholder="メール" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<button type="submit" class="button" style="width: 100%;">ログイン / 登録</button>
-</form>
-<div id="loginDebugError" class="debug-error-box"></div>
+  <h2 class="modal-title">ログイン / 新規登録</h2>
+  <form id="emailLoginForm" style="display: grid; gap: 12px;">
+    <input id="emailInput" type="email" placeholder="メール" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+    <input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+    <button type="submit" class="button" style="width: 100%;">ログイン / 登録</button>
+  </form>
+  <div id="loginDebugError" class="debug-error-box"></div>
 </div>
 </div>
 
 <div class="modal hidden" id="termsModal">
 <div class="modal-panel">
-<h2 class="modal-title">利用規約・ポリシー</h2>
-<div style="background:#f9fafb; padding:12px; border-radius:12px; max-height:200px; overflow-y:auto; font-size:0.8rem; margin-bottom:12px;">
-<p>学校予定共有サイトの利用規約です。不適切な投稿や荒らし行為はアカウント停止の対象となります。</p>
-</div>
-<form id="termsForm" style="display: grid; gap: 14px;">
-<label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
-<input id="termsCheckbox" type="checkbox" required style="width: 18px; height: 18px; margin: 0;">
-<span>規約に同意する</span>
-</label>
-<button type="submit" class="button" style="width: 100%;">次へ進む</button>
-</form>
+  <h2 class="modal-title">利用規約・ポリシー</h2>
+  <div style="background:#f9fafb; padding:12px; border-radius:12px; max-height:200px; overflow-y:auto; font-size:0.8rem; margin-bottom:12px;">
+    <p>学校予定共有サイトの利用規約です。不適切な投稿や荒らし行為はアカウント停止の対象となります。</p>
+  </div>
+  <form id="termsForm" style="display: grid; gap: 14px;">
+    <label style="display: flex; align-items: center; gap: 8px; font-size: 0.9rem; cursor: pointer;">
+      <input id="termsCheckbox" type="checkbox" required style="width: 18px; height: 18px; margin: 0;">
+      <span>規約に同意する</span>
+    </label>
+    <button type="submit" class="button" style="width: 100%;">次へ進む</button>
+  </form>
 </div>
 </div>
 
 <div class="modal hidden" id="setupModal">
 <div class="modal-panel">
-<h2 class="modal-title">初期セットアップ</h2>
-<form id="setupForm" style="display: grid; gap: 16px;">
-<input id="setupName" type="text" maxlength="30" placeholder="お名前" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<select id="setupClass" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<option value="">クラスを選択</option>
-<option value="7-1">7-1組</option>
-<option value="7-2">7-2組</option>
-</select>
-<button type="submit" class="button" style="width: 100%;">登録して承認申請</button>
-</form>
-<div id="setupDebugError" class="debug-error-box"></div>
+  <h2 class="modal-title">初期セットアップ</h2>
+  <form id="setupForm" style="display: grid; gap: 16px;">
+    <input id="setupName" type="text" maxlength="30" placeholder="お名前" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+    <select id="setupClass" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+      <option value="">クラスを選択</option>
+      <option value="7-1">7-1組</option>
+      <option value="7-2">7-2組</option>
+    </select>
+    <button type="submit" class="button" style="width: 100%;">登録して承認申請</button>
+  </form>
+  <div id="setupDebugError" class="debug-error-box"></div>
 </div>
 </div>
 
 <div class="modal hidden" id="pendingApprovalModal">
 <div class="modal-panel" style="text-align: center;">
-<h2 class="modal-title" style="color: var(--accent);">⏳ 承認待ち</h2>
-<p style="margin-bottom: 20px; font-size:0.95rem;">アカウント申請中です。<br>管理者の承認をお待ちください。</p>
-<button type="button" id="pendingLogoutButton" class="ghost-button" style="width: 100%;">ログイン画面に戻る</button>
+  <h2 class="modal-title" style="color: var(--accent);">⏳ 承認待ち</h2>
+  <p style="margin-bottom: 20px; font-size:0.95rem;">アカウント申請中です。<br>管理者の承認をお待ちください。</p>
+  <button type="button" id="pendingLogoutButton" class="ghost-button" style="width: 100%;">ログイン画面に戻る</button>
 </div>
 </div>
 
 <div class="modal hidden" id="suspendedModal">
 <div class="modal-panel" style="text-align: center;">
-<h2 class="modal-title" style="color: #d92d20;">⚠️ アカウント停止中</h2>
-<p style="font-size: 0.9rem; margin-bottom: 16px; color: var(--muted);">アクセスが制限されています。解除を求める場合は以下から申し立てを送ってください。</p>
-<form id="appealForm" style="display: grid; gap: 12px; text-align: left;">
-<textarea id="appealReason" placeholder="申し立ての理由..." required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 80px;"></textarea>
-<button type="submit" class="button" style="width: 100%;">申し立てを送信</button>
-</form>
-<button type="button" id="suspendedLogoutButton" class="ghost-button" style="width: 100%; margin-top: 12px;">ログアウト</button>
+  <h2 class="modal-title" style="color: #d92d20;">⚠️ アカウント停止中</h2>
+  <p style="font-size: 0.9rem; margin-bottom: 16px; color: var(--muted);">アクセスが制限されています。解除を求める場合は以下から申し立てを送ってください。</p>
+  <form id="appealForm" style="display: grid; gap: 12px; text-align: left;">
+    <textarea id="appealReason" placeholder="申し立ての理由..." required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 80px;"></textarea>
+    <button type="submit" class="button" style="width: 100%;">申し立てを送信</button>
+  </form>
+  <button type="button" id="suspendedLogoutButton" class="ghost-button" style="width: 100%; margin-top: 12px;">ログアウト</button>
 </div>
 </div>
 
 <div class="hamburger-menu" id="hamburgerMenu">
 <h3 style="margin-top:0; margin-bottom: 20px;">カテゴリ</h3>
 <div style="display:grid; gap:10px;">
-<button class="button" onclick="window.selectCategory('all')">📋 すべて</button>
-<button class="button" onclick="window.selectCategory('予定')" style="background: #10b981;">📅 予定</button>
-<button class="button" onclick="window.selectCategory('宿題')" style="background: #f59e0b;">✏️ 宿題</button>
-<button class="button" onclick="window.selectCategory('連絡事項')" style="background: #a78bfa;">📢 連絡事項</button>
+  <button class="button" onclick="window.selectCategory('all')">📋 すべて</button>
+  <button class="button" onclick="window.selectCategory('予定')" style="background: #10b981;">📅 予定</button>
+  <button class="button" onclick="window.selectCategory('宿題')" style="background: #f59e0b;">✏️ 宿題</button>
+  <button class="button" onclick="window.selectCategory('連絡事項')" style="background: #a78bfa;">📢 連絡事項</button>
 </div>
 </div>
 <div class="hamburger-overlay" id="hamburgerOverlay"></div>
@@ -379,36 +404,36 @@ word-break: break-all;
 </main>
 
 <div class="admin-footer" id="adminFooter">
-<button class="ghost-button" id="adminDashboardButton" style="display: none;">📊 管理</button>
-<button class="ghost-button" id="profileModalButton">👤 プロフ</button>
-<button class="ghost-button" id="logoutButton">ログアウト</button>
+  <button class="ghost-button" id="adminDashboardButton" style="display: none;">📊 ダッシュボード</button>
+  <button class="ghost-button" id="profileModalButton">👤 プロフィール</button>
+  <button class="ghost-button" id="logoutButton">ログアウト</button>
 </div>
 </div>
 
 <div class="modal hidden" id="adminDashboardModal">
 <div class="modal-panel" style="width: min(600px, 100%);">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-<h3 style="margin:0;">📊 管理ダッシュボード</h3>
-<button type="button" id="closeAdminDashboard" class="ghost-button" style="padding:4px 10px; min-height:30px;">閉じる</button>
-</div>
-<div style="display: grid; gap: 16px;">
-<div><h4>⏳ 申請・申し立て</h4><div id="pendingUsersListAdmin" style="display:grid; gap:8px;"></div></div>
-<div><h4>✅ 参加ユーザー</h4><div id="allowedUsersListAdmin" style="display:grid; gap:8px;"></div></div>
-</div>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+    <h3 style="margin:0;">📊 管理ダッシュボード</h3>
+    <button type="button" id="closeAdminDashboard" class="ghost-button" style="padding:4px 10px; min-height:30px;">閉じる</button>
+  </div>
+  <div style="display: grid; gap: 16px;">
+    <div><h4>⏳ 申請・申し立て</h4><div id="pendingUsersListAdmin" style="display:grid; gap:8px;"></div></div>
+    <div><h4>✅ 参加ユーザー</h4><div id="allowedUsersListAdmin" style="display:grid; gap:8px;"></div></div>
+  </div>
 </div>
 </div>
 
 <div class="modal hidden" id="profileModal">
 <div class="modal-panel">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-<h3 style="margin:0;">👤 プロフィール設定</h3>
-<button type="button" id="closeProfileModal" class="ghost-button" style="padding:4px 10px; min-height:30px;">閉じる</button>
-</div>
-<form id="profileEditForm" style="display: grid; gap: 12px;">
-<input id="profileImageUrlInput" type="url" placeholder="アバター画像URL">
-<input id="profileNameInput" type="text" maxlength="30" required placeholder="お名前">
-<button type="submit" class="button">保存</button>
-</form>
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+    <h3 style="margin:0;">👤 プロフィール設定</h3>
+    <button type="button" id="closeProfileModal" class="ghost-button" style="padding:4px 10px; min-height:30px;">閉じる</button>
+  </div>
+  <form id="profileEditForm" style="display: grid; gap: 12px;">
+    <input id="profileImageUrlInput" type="url" placeholder="アバター画像URL">
+    <input id="profileNameInput" type="text" maxlength="30" required placeholder="お名前">
+    <button type="submit" class="button">保存</button>
+  </form>
 </div>
 </div>
 
@@ -420,12 +445,12 @@ import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, si
 import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, serverTimestamp, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
-apiKey: "AIzaSyAkMLCyIC0x9bT63LEih1x7BXe3XYVuknQ",
-authDomain: "school-site-475fc.firebaseapp.com",
-projectId: "school-site-475fc",
-storageBucket: "school-site-475fc.firebasestorage.app",
-messagingSenderId: "69139986081",
-appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0"
+  apiKey: "AIzaSyAkMLCyIC0x9bT63LEih1x7BXe3XYVuknQ",
+  authDomain: "school-site-475fc.firebaseapp.com",
+  projectId: "school-site-475fc",
+  storageBucket: "school-site-475fc.firebasestorage.app",
+  messagingSenderId: "69139986081",
+  appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -435,197 +460,201 @@ const db = getFirestore(app);
 const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
 
 const state = {
-user: null,
-isAdmin: false,
-userName: "",
-userClass: "",
-userAvatarUrl: "👤",
-currentDate: new Date(),
-posts: [],
-userReactedMap: {},
-commentsMap: {},
-categoryFilter: "all"
+  user: null,
+  isAdmin: false,
+  userName: "",
+  userClass: "",
+  userAvatarUrl: "👤",
+  currentDate: new Date(),
+  posts: [],
+  userReactedMap: {},
+  commentsMap: {},
+  categoryFilter: "all"
 };
 
 function showToast(msg) { const toast = document.getElementById("toast"); toast.textContent = msg; toast.classList.add("show"); setTimeout(() => toast.classList.remove("show"), 2000); }
 function getLocalDateString(date) { return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; }
 
 function updateDateDisplay() {
-const options = { year: "numeric", month: "long", day: "numeric", weekday: "short" };
-document.getElementById("dateDisplay").textContent = state.currentDate.toLocaleDateString("ja-JP", options);
+  const options = { year: "numeric", month: "long", day: "numeric", weekday: "short" };
+  document.getElementById("dateDisplay").textContent = state.currentDate.toLocaleDateString("ja-JP", options);
 }
 
 function updateUIProfile() {
-document.getElementById("heroLead").textContent = "AKKI によって開発された共有サイト";
-const avatarContainer = document.getElementById("userAvatarHeader");
-if (avatarContainer) {
-avatarContainer.innerHTML = state.userAvatarUrl.startsWith("http") ? `<img src="${state.userAvatarUrl}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">` : state.userAvatarUrl;
-}
+  document.getElementById("heroLead").textContent = "AKKI によって開発された共有サイト";
+  const avatarContainer = document.getElementById("userAvatarHeader");
+  if (avatarContainer) {
+    avatarContainer.innerHTML = state.userAvatarUrl.startsWith("http") ? `<img src="${state.userAvatarUrl}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">` : state.userAvatarUrl;
+  }
 }
 
 function renderPosts() {
-const container = document.getElementById("postsContainer");
-const today = getLocalDateString(state.currentDate);
+  const container = document.getElementById("postsContainer");
+  const today = getLocalDateString(state.currentDate);
 
-const filtered = state.posts.filter(post => {
-const matchesClass = state.isAdmin || post.classTarget === "両方" || post.classTarget === state.userClass;
-return matchesClass && (today >= post.startDate && today <= post.endDate) && (state.categoryFilter === "all" || post.category === state.categoryFilter);
-});
+  const filtered = state.posts.filter(post => {
+    const matchesClass = state.isAdmin || post.classTarget === "両方" || post.classTarget === state.userClass;
+    return matchesClass && (today >= post.startDate && today <= post.endDate) && (state.categoryFilter === "all" || post.category === state.categoryFilter);
+  });
 
-container.innerHTML = filtered.length === 0 ? `<div class="empty-state" style="text-align:center; padding:40px; color:var(--muted); background:#fff; border-radius:16px;">投稿はありません</div>` : filtered.map(post => {
-const reactions = post.reactions || { like: 0, checked: 0, thanks: 0 };
-// 🌟 安全対策: データがまだロードされていない、または空の時のためのガード処理を追加
-const userReacted = state.userReactedMap[post.id] || { like: false, checked: false, thanks: false };
-const comments = state.commentsMap[post.id] || [];
+  container.innerHTML = filtered.length === 0 ? `<div class="empty-state" style="text-align:center; padding:40px; color:var(--muted); background:#fff; border-radius:16px;">投稿はありません</div>` : filtered.map(post => {
+    const reactions = post.reactions || { like: 0, checked: 0 };
+    const userReacted = state.userReactedMap[post.id] || { like: false, checked: false };
+    const comments = state.commentsMap[post.id] || [];
 
-const commentsHTML = comments.map(c => `
-<div style="display:flex; gap:8px; background:rgba(0,0,0,0.02); padding:8px; border-radius:8px; margin-bottom:6px; font-size:0.85rem;">
-<div style="font-weight:bold;">${c.userName}:</div>
-<div style="flex:1;">${c.text}</div>
-</div>`).join("");
+    const commentsHTML = comments.map(c => `
+    <div style="display:flex; gap:8px; background:rgba(0,0,0,0.02); padding:8px; border-radius:8px; margin-bottom:6px; font-size:0.85rem;">
+      <div style="font-weight:bold;">${c.userName}:</div>
+      <div style="flex:1;">${c.text}</div>
+    </div>`).join("");
 
-return `
-<div class="post-card">
-<h3 style="margin:0 0 8px 0; font-size:1.1rem;">${post.title}</h3>
-<p class="post-body">${post.body}</p>
-<div style="display:flex; gap:8px; margin-bottom:12px;">
-<button class="ghost-button reaction-btn ${userReacted.like ? 'active' : ''}" data-post-id="${post.id}" data-type="like" style="padding:4px 10px; min-height:32px; font-size:0.8rem; ${userReacted.like ? 'background:rgba(0,113,227,0.1); color:var(--accent); font-weight:bold;' : ''}">👍 いいね ${reactions.like || 0}</button>
-<button class="ghost-button reaction-btn ${userReacted.checked ? 'active' : ''}" data-post-id="${post.id}" data-type="checked" style="padding:4px 10px; min-height:32px; font-size:0.8rem; ${userReacted.checked ? 'background:rgba(0,113,227,0.1); color:var(--accent); font-weight:bold;' : ''}">👀 確認した ${reactions.checked || 0}</button>
-</div>
-<div class="comments-area">${commentsHTML}</div>
-<form class="comment-form" data-post-id="${post.id}" style="display:flex; gap:6px; margin-top:8px;">
-<input type="text" class="comment-input" placeholder="コメントを入力..." required style="padding:6px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.85rem;">
-<button type="submit" class="button" style="padding:6px 12px; min-height:32px; font-size:0.85rem; width:auto;">送信</button>
-</form>
-</div>`;
-}).join("");
+    return `
+    <div class="post-card">
+      <h3 style="margin:0 0 8px 0; font-size:1.1rem;">${post.title}</h3>
+      <p class="post-body">${post.body}</p>
+      <div style="display:flex; gap:8px; margin-bottom:12px;">
+        <button class="ghost-button reaction-btn ${userReacted.like ? 'active' : ''}" data-post-id="${post.id}" data-type="like" style="padding:4px 10px; min-height:32px; font-size:0.8rem; ${userReacted.like ? 'background:rgba(0,113,227,0.1); color:var(--accent); font-weight:bold;' : ''}">👍 いいね ${reactions.like || 0}</button>
+        <button class="ghost-button reaction-btn ${userReacted.checked ? 'active' : ''}" data-post-id="${post.id}" data-type="checked" style="padding:4px 10px; min-height:32px; font-size:0.8rem; ${userReacted.checked ? 'background:rgba(0,113,227,0.1); color:var(--accent); font-weight:bold;' : ''}">👀 確認した ${reactions.checked || 0}</button>
+      </div>
+      <div class="comments-area">${commentsHTML}</div>
+      <form class="comment-form" data-post-id="${post.id}" style="display:flex; gap:6px; margin-top:8px;">
+        <input type="text" class="comment-input" placeholder="コメントを入力..." required style="padding:6px 10px; border:1px solid var(--border); border-radius:8px; font-size:0.85rem;">
+        <button type="submit" class="button" style="padding:6px 12px; min-height:32px; font-size:0.85rem; width:auto;">送信</button>
+      </form>
+    </div>`;
+  }).join("");
 }
 
-// イベントリスナー関係の統合と安全化
+// 📅 日付切り替えロジック
 document.getElementById("prevDateButton").onclick = () => { state.currentDate.setDate(state.currentDate.getDate() - 1); updateDateDisplay(); renderPosts(); };
 document.getElementById("nextDateButton").onclick = () => { state.currentDate.setDate(state.currentDate.getDate() + 1); updateDateDisplay(); renderPosts(); };
 
+// ドロワーメニュー制御
 document.getElementById("hamburgerButton").onclick = () => { document.getElementById("hamburgerMenu").classList.add("active"); document.getElementById("hamburgerOverlay").classList.add("active"); };
 document.getElementById("hamburgerOverlay").onclick = () => { document.getElementById("hamburgerMenu").classList.remove("active"); document.getElementById("hamburgerOverlay").classList.remove("active"); };
 window.selectCategory = function(c) { state.categoryFilter = c; document.getElementById("categoryTitle").textContent = c === "all" ? "予定・宿題・連絡" : c; renderPosts(); document.getElementById("hamburgerMenu").classList.remove("active"); document.getElementById("hamburgerOverlay").classList.remove("active"); };
 
+// リアクション処理
 document.getElementById("postsContainer").addEventListener("click", async (e) => {
-const targetBtn = e.target.closest(".reaction-btn");
-if (!targetBtn) return;
-const postId = targetBtn.getAttribute("data-post-id");
-const type = targetBtn.getAttribute("data-type");
-const userReactionRef = doc(db, "userReactions", `${state.user.uid}_${postId}_${type}`);
-const postRef = doc(db, "posts", postId);
+  const targetBtn = e.target.closest(".reaction-btn");
+  if (!targetBtn) return;
+  const postId = targetBtn.getAttribute("data-post-id");
+  const type = targetBtn.getAttribute("data-type");
+  const userReactionRef = doc(db, "userReactions", `${state.user.uid}_${postId}_${type}`);
+  const postRef = doc(db, "posts", postId);
 
-if (!state.userReactedMap[postId]) state.userReactedMap[postId] = {};
-const hasReacted = state.userReactedMap[postId][type];
+  if (!state.userReactedMap[postId]) state.userReactedMap[postId] = {};
+  const hasReacted = state.userReactedMap[postId][type];
 
-if (hasReacted) {
-await deleteDoc(userReactionRef);
-await updateDoc(postRef, { [`reactions.${type}`]: increment(-1) });
-state.userReactedMap[postId][type] = false;
-} else {
-await setDoc(userReactionRef, { userId: state.user.uid, postId, type, timestamp: serverTimestamp() });
-await updateDoc(postRef, { [`reactions.${type}`]: increment(1) });
-state.userReactedMap[postId][type] = true;
-}
-renderPosts();
+  if (hasReacted) {
+    await deleteDoc(userReactionRef);
+    await updateDoc(postRef, { [`reactions.${type}`]: increment(-1) });
+    state.userReactedMap[postId][type] = false;
+  } else {
+    await setDoc(userReactionRef, { userId: state.user.uid, postId, type, timestamp: serverTimestamp() });
+    await updateDoc(postRef, { [`reactions.${type}`]: increment(1) });
+    state.userReactedMap[postId][type] = true;
+  }
+  renderPosts();
 });
 
+// コメント送信
 document.getElementById("postsContainer").addEventListener("submit", async (e) => {
-const form = e.target.closest(".comment-form");
-if (!form) return; e.preventDefault();
-const postId = form.getAttribute("data-post-id");
-const input = form.querySelector(".comment-input");
-await addDoc(collection(db, "posts", postId, "comments"), { userId: state.user.uid, userName: state.userName, text: input.value.trim(), createdAt: serverTimestamp() });
-input.value = "";
+  const form = e.target.closest(".comment-form");
+  if (!form) return; e.preventDefault();
+  const postId = form.getAttribute("data-post-id");
+  const input = form.querySelector(".comment-input");
+  await addDoc(collection(db, "posts", postId, "comments"), { userId: state.user.uid, userName: state.userName, text: input.value.trim(), createdAt: serverTimestamp() });
+  input.value = "";
 });
 
+// プロフィールモーダル制御
 document.getElementById("profileModalButton").onclick = () => { document.getElementById("profileNameInput").value = state.userName; document.getElementById("profileModal").classList.remove("hidden"); };
 document.getElementById("closeProfileModal").onclick = () => { document.getElementById("profileModal").classList.add("hidden"); };
 
+// 各種フォームのサブミット
 document.addEventListener("submit", async (e) => {
-if (e.target.id === "emailLoginForm") {
-e.preventDefault();
-try {
-await signInWithEmailAndPassword(auth, document.getElementById("emailInput").value, document.getElementById("passwordInput").value);
-} catch {
-await createUserWithEmailAndPassword(auth, document.getElementById("emailInput").value, document.getElementById("passwordInput").value);
-}
-}
-if (e.target.id === "termsForm") { e.preventDefault(); localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true"); document.getElementById("termsModal").classList.add("hidden"); proceedToNextStepAfterLogin(state.user); }
-if (e.target.id === "setupForm") {
-e.preventDefault();
-state.userName = document.getElementById("setupName").value;
-state.userClass = document.getElementById("setupClass").value;
-await setDoc(doc(db, "pendingUsers", state.user.email), { email: state.user.email, name: state.userName, class: state.userClass, avatarUrl: "👤", requestedAt: serverTimestamp() });
-document.getElementById("setupModal").classList.add("hidden");
-checkApprovalStatus(state.user);
-}
+  if (e.target.id === "emailLoginForm") {
+    e.preventDefault();
+    try {
+      await signInWithEmailAndPassword(auth, document.getElementById("emailInput").value, document.getElementById("passwordInput").value);
+    } catch {
+      await createUserWithEmailAndPassword(auth, document.getElementById("emailInput").value, document.getElementById("passwordInput").value);
+    }
+  }
+  if (e.target.id === "termsForm") { e.preventDefault(); localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true"); document.getElementById("termsModal").classList.add("hidden"); proceedToNextStepAfterLogin(state.user); }
+  if (e.target.id === "setupForm") {
+    e.preventDefault();
+    state.userName = document.getElementById("setupName").value;
+    state.userClass = document.getElementById("setupClass").value;
+    await setDoc(doc(db, "pendingUsers", state.user.email), { email: state.user.email, name: state.userName, class: state.userClass, avatarUrl: "👤", requestedAt: serverTimestamp() });
+    document.getElementById("setupModal").classList.add("hidden");
+    checkApprovalStatus(state.user);
+  }
 });
 
 function initPosts() {
-onSnapshot(query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100)), (snapshot) => {
-state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-snapshot.docs.forEach(postDoc => {
-onSnapshot(query(collection(db, "posts", postDoc.id, "comments"), orderBy("createdAt", "asc")), (commentSnap) => {
-state.commentsMap[postDoc.id] = commentSnap.docs.map(cDoc => ({ id: cDoc.id, ...cDoc.data() })); renderPosts();
-});
-});
-renderPosts();
-}, (err) => console.error("Firestore Error:", err));
+  onSnapshot(query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100)), (snapshot) => {
+    state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    snapshot.docs.forEach(postDoc => {
+      onSnapshot(query(collection(db, "posts", postDoc.id, "comments"), orderBy("createdAt", "asc")), (commentSnap) => {
+        state.commentsMap[postDoc.id] = commentSnap.docs.map(cDoc => ({ id: cDoc.id, ...cDoc.data() })); renderPosts();
+      });
+    });
+    renderPosts();
+  }, (err) => console.error("Firestore Error:", err));
 }
 
 function initUserReactions() {
-onSnapshot(collection(db, "userReactions"), (snapshot) => {
-state.userReactedMap = {};
-snapshot.docs.forEach(doc => { 
-const d = doc.data(); 
-if (d.userId === state.user?.uid) { 
-if (!state.userReactedMap[d.postId]) state.userReactedMap[d.postId] = {}; 
-state.userReactedMap[d.postId][d.type] = true; 
-} 
-});
-renderPosts();
-});
+  onSnapshot(collection(db, "userReactions"), (snapshot) => {
+    state.userReactedMap = {};
+    snapshot.docs.forEach(doc => { 
+      const d = doc.data(); 
+      if (d.userId === state.user?.uid) { 
+        if (!state.userReactedMap[d.postId]) state.userReactedMap[d.postId] = {}; 
+        state.userReactedMap[d.postId][d.type] = true; 
+      } 
+    });
+    renderPosts();
+  });
 }
 
 function checkApprovalStatus(user) {
-onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
-if (snapshot.exists()) {
-const data = snapshot.data();
-if (data.status === "suspended") { document.getElementById("suspendedModal").classList.remove("hidden"); document.getElementById("mainContent").style.display = "none"; return; }
-document.getElementById("suspendedModal").classList.add("hidden");
-state.userName = data.name; state.userClass = data.class; state.userAvatarUrl = data.avatarUrl || "👤";
-localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
-document.getElementById("pendingApprovalModal").classList.add("hidden");
-document.getElementById("mainContent").style.display = "block";
-updateDateDisplay(); updateUIProfile(); initPosts(); initUserReactions();
-} else {
-document.getElementById("pendingApprovalModal").classList.remove("hidden");
-document.getElementById("mainContent").style.display = "none";
-}
-});
+  onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
+    if (snapshot.exists()) {
+      const data = snapshot.data();
+      if (data.status === "suspended") { document.getElementById("suspendedModal").classList.remove("hidden"); document.getElementById("mainContent").style.display = "none"; return; }
+      document.getElementById("suspendedModal").classList.add("hidden");
+      state.userName = data.name; state.userClass = data.class; state.userAvatarUrl = data.avatarUrl || "👤";
+      localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
+      document.getElementById("pendingApprovalModal").classList.add("hidden");
+      document.getElementById("mainContent").style.display = "block";
+      updateDateDisplay(); updateUIProfile(); initPosts(); initUserReactions();
+    } else {
+      document.getElementById("pendingApprovalModal").classList.remove("hidden");
+      document.getElementById("mainContent").style.display = "none";
+    }
+  });
 }
 
 function proceedToNextStepAfterLogin(user) {
-if (user.uid === ADMIN_UID) {
-state.isAdmin = true; state.userName = "管理者"; state.userClass = "管理"; state.userAvatarUrl = "👑";
-document.getElementById("mainContent").style.display = "block"; document.getElementById("adminPostForm").style.display = "block"; document.getElementById("adminDashboardButton").style.display = "block";
-updateDateDisplay(); updateUIProfile(); initPosts(); initUserReactions(); return;
-}
-const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
-if (!savedSetup) { document.getElementById("setupModal").classList.remove("hidden"); return; }
-const setup = JSON.parse(savedSetup);
-state.userName = setup.name; state.userClass = setup.class; state.userAvatarUrl = setup.avatarUrl || "👤";
-checkApprovalStatus(user);
+  if (user.uid === ADMIN_UID) {
+    state.isAdmin = true; state.userName = "管理者"; state.userClass = "管理"; state.userAvatarUrl = "👑";
+    document.getElementById("mainContent").style.display = "block"; document.getElementById("adminPostForm").style.display = "block"; document.getElementById("adminDashboardButton").style.display = "block";
+    updateDateDisplay(); updateUIProfile(); initPosts(); initUserReactions(); return;
+  }
+  const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
+  if (!savedSetup) { document.getElementById("setupModal").classList.remove("hidden"); return; }
+  const setup = JSON.parse(savedSetup);
+  state.userName = setup.name; state.userClass = setup.class; state.userAvatarUrl = setup.avatarUrl || "👤";
+  checkApprovalStatus(user);
 }
 
 onAuthStateChanged(auth, (user) => {
-if (!user) { document.querySelectorAll(".modal").forEach(m => m.id !== "loginModal" && m.classList.add("hidden")); document.getElementById("loginModal").classList.remove("hidden"); document.getElementById("mainContent").style.display = "none"; return; }
-state.user = user; document.getElementById("loginModal").classList.add("hidden");
-if (!localStorage.getItem(`user_terms_agreed_${user.uid}`)) { document.getElementById("termsModal").classList.remove("hidden"); return; }
-proceedToNextStepAfterLogin(user);
+  if (!user) { document.querySelectorAll(".modal").forEach(m => m.id !== "loginModal" && m.classList.add("hidden")); document.getElementById("loginModal").classList.remove("hidden"); document.getElementById("mainContent").style.display = "none"; return; }
+  state.user = user; document.getElementById("loginModal").classList.add("hidden");
+  if (!localStorage.getItem(`user_terms_agreed_${user.uid}`)) { document.getElementById("termsModal").classList.remove("hidden"); return; }
+  proceedToNextStepAfterLogin(user);
 });
 
 const handleLogout = () => signOut(auth);
