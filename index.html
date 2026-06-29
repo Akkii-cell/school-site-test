@@ -285,60 +285,60 @@ width: auto;
 
 .button { background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; }
 
-.ghost-button {
-background: rgba(255, 255, 255, 0.03);
+.ghost-button { 
+background: rgba(255, 255, 255, 0.03); 
 backdrop-filter: blur(24px) saturate(140%);
 -webkit-backdrop-filter: blur(24px) saturate(140%);
-color: #111827;
-border: 1px solid rgba(255, 255, 255, 0.5);
-box-shadow:
-0 4px 14px rgba(0, 0, 0, 0.02),
-inset 0 1px 1px rgba(255, 255, 255, 0.35),
-inset 0 -1px 2px rgba(0, 0, 0, 0.02);
+color: #111827; 
+border: 1px solid rgba(255, 255, 255, 0.5); 
+box-shadow: 
+  0 4px 14px rgba(0, 0, 0, 0.02), 
+  inset 0 1px 1px rgba(255, 255, 255, 0.35),
+  inset 0 -1px 2px rgba(0, 0, 0, 0.02);
 transition: background 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s, transform 0.1s;
 }
 .ghost-button:hover {
 background: rgba(255, 255, 255, 0.15);
 border-color: rgba(255, 255, 255, 0.65);
-box-shadow:
-0 6px 20px rgba(0, 0, 0, 0.04),
-inset 0 1px 1px rgba(255, 255, 255, 0.5);
+box-shadow: 
+  0 6px 20px rgba(0, 0, 0, 0.04), 
+  inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 @keyframes popIn {
-from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
-to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }
 .guide-bubble {
-position: fixed;
-left: 50%;
-bottom: 80px;
-transform: translateX(-50%);
-background: rgba(17, 24, 39, 0.96);
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-color: #fff;
-padding: 16px 20px;
-border-radius: 20px;
-box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
-z-index: 2000;
-font-size: 0.9rem;
-width: max-content;
-max-width: 320px;
-animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-text-align: left;
+  position: fixed;
+  left: 50%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  background: rgba(17, 24, 39, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  padding: 16px 20px;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+  z-index: 2000;
+  font-size: 0.9rem;
+  width: max-content;
+  max-width: 320px;
+  animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  text-align: left;
 }
 .guide-bubble::after {
-content: "";
-position: absolute;
-bottom: -8px;
-left: 50%;
-transform: translateX(-50%);
-border-width: 8px 8px 0;
-border-style: solid;
-border-color: rgba(17, 24, 39, 0.96) transparent;
-display: block;
-width: 0;
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: rgba(17, 24, 39, 0.96) transparent;
+  display: block;
+  width: 0;
 }
 
 .danger-button { background: rgba(217, 45, 32, 0.12); color: #d92d20; min-height: 36px; padding: 0 12px; font-size: 0.85rem; }
@@ -466,27 +466,27 @@ font-size: 1.4rem;
 #mobileDateNav { display: block !important; }
 .shell { padding: 12px 0 100px; }
 
-.hero-card {
-padding: 10px 14px;
-flex-direction: row;
-text-align: left;
-gap: 12px;
+.hero-card { 
+padding: 10px 14px; 
+flex-direction: row; 
+text-align: left; 
+gap: 12px; 
 border-radius: 18px;
 margin-bottom: 8px;
 }
-.profile-avatar {
-width: 32px;
-height: 32px;
-font-size: 18px;
+.profile-avatar { 
+width: 32px; 
+height: 32px; 
+font-size: 18px; 
 border-width: 1px;
 }
-.hero-title {
-font-size: 0.95rem;
-font-weight: 800;
+.hero-title { 
+font-size: 0.95rem; 
+font-weight: 800; 
 margin-bottom: 0;
 }
-.hero-lead {
-font-size: 0.65rem;
+.hero-lead { 
+font-size: 0.65rem; 
 line-height: 1.2;
 }
 
@@ -497,24 +497,24 @@ border-radius: 18px;
 }
 #mobileDateNav .toolbar-row {
 display: flex;
-flex-wrap: nowrap;
+flex-wrap: nowrap; 
 justify-content: space-between;
 align-items: center;
 gap: 8px;
 width: 100%;
 }
 #mobileDateNav .ghost-button {
-flex: 0 0 auto;
+flex: 0 0 auto; 
 min-height: 34px;
 padding: 0 10px;
 font-size: 0.75rem;
 border-radius: 10px;
 white-space: nowrap;
 width: auto;
-border: 1px solid rgba(255, 255, 255, 0.5);
+border: 1px solid rgba(255, 255, 255, 0.5); 
 }
 #mobileDateNav .date-display {
-flex: 1 1 auto;
+flex: 1 1 auto; 
 font-size: 0.85rem;
 min-width: 0;
 margin: 0;
@@ -737,7 +737,7 @@ width: 100% !important;
 <div class="menu-category">
 <button class="menu-category-btn" onclick="window.selectCategory('all')">📋 すべて</button>
 <button class="menu-category-btn" onclick="window.selectCategory('予定')" style="background: linear-gradient(135deg, #0f9f6e, #10b981);">📅 予定</button>
-<button class="menu-category-btn" onclick="window.selectCategory('宿題')" style="background: linear-gradient(135deg, #d97706, #f59e0b);">✏️ 宿題</button>
+<button class="menu-category-btn" onclick="window.selectCategory('宿現')" style="background: linear-gradient(135deg, #d97706, #f59e0b);">✏️ 宿題</button>
 <button class="menu-category-btn" onclick="window.selectCategory('連絡事項')" style="background: linear-gradient(135deg, #8b5cf6, #a78bfa);">📢 連絡事項</button>
 </div>
 </div>
@@ -799,700 +799,802 @@ width: 100% !important;
 <input id="postStartDate" type="date" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <input id="postEndDate" type="date" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 </div>
-<button type="submit" class="button" style="width: 100%;">投稿する</button>
+<button type="submit" class="button" style="width: 100%;">投稿</button>
 </form>
-<div id="postDebugError" class="debug-error-box"></div>
 </div>
 </section>
 
-<section id="postsContainer">
-<div class="empty-state card">データを読み込んでいます...</div>
-</section>
+<section id="postsContainer"></section>
 </main>
 </div>
 
+<div class="modal hidden" id="adminDashboardModal">
+<div class="modal-panel" style="width: min(800px, 100%); max-height: 90vh; overflow: auto;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<h2 class="modal-title">📊 管理者ダッシュボード</h2>
+<button type="button" id="closeAdminDashboard" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
+</div>
+<div id="dashboardDebugError" class="debug-error-box"></div>
+<div style="display: grid; gap: 24px;">
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">📋 申請中</h3>
+<div id="pendingUsersListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">✅ 承認済みユーザー</h3>
+<div id="allowedUsersListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; color: #d92d20;">⚖️ 届いた異議申し立て</h3>
+<div id="appealsListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+</div>
+</div>
+</div>
+
 <div class="modal hidden" id="profileModal">
-<div class="modal-panel" style="width: min(550px, 100%);">
-<h2 class="modal-title">ユーザープロフィール編集</h2>
-<form id="profileForm" style="display: grid; gap: 16px;">
+<div class="modal-panel" style="width: min(500px, 100%);">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<h2 class="modal-title">👤 プロフィール設定</h2>
+<button type="button" id="closeProfileModal" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
+</div>
+<form id="profileEditForm" style="display: grid; gap: 16px;">
 <div>
-<label style="font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 8px;">アバターアイコンを選択</label>
-<div class="avatar-grid" id="avatarGrid"></div>
+<label style="font-size: 0.85rem; color: var(--muted); font-weight:700; display:block; margin-bottom:8px;">お好きなアバターを選択（全50種）</label>
+<div class="avatar-grid" id="avatarGrid">
+</div>
+</div>
+<div style="border-top: 1px solid var(--border); padding-top:12px;">
+<label style="font-size: 0.85rem; color: var(--muted); font-weight:700;">または、ネット上の画像URLを貼り付け</label>
+<input id="profileImageUrlInput" type="url" placeholder="https://example.com/image.png" style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width:100%; margin-top:4px; font-size:0.9rem;">
 </div>
 <div>
-<label for="profileNameInput" style="font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 6px;">表示名</label>
-<input id="profileNameInput" type="text" maxlength="30" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<label style="font-size: 0.85rem; color: var(--muted); font-weight:700;">お名前</label>
+<input id="profileNameInput" type="text" maxlength="30" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width:100%; margin-top:4px;">
 </div>
-<div>
-<label for="profileClassSelect" style="font-size: 0.85rem; color: var(--muted); display: block; margin-bottom: 6px;">クラス</label>
-<select id="profileClassSelect" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<option value="7-1">7-1組</option>
-<option value="7-2">7-2組</option>
-</select>
-</div>
-<div style="display: flex; gap: 12px; margin-top: 8px;">
-<button type="button" id="closeProfileModalButton" class="ghost-button" style="flex: 1;">キャンセル</button>
-<button type="submit" class="button" style="flex: 1;">保存する</button>
-</div>
+<button type="submit" class="button" style="width: 100%;">保存する</button>
 </form>
 <div id="profileDebugError" class="debug-error-box"></div>
 </div>
 </div>
 
-<div class="modal hidden" id="adminDashboardModal">
-<div class="modal-panel" style="width: min(1000px, 95vw); max-height: 95vh; padding: 20px;">
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-<h2 class="modal-title" style="margin: 0;">📊 管理者ダッシュボード</h2>
-<button class="ghost-button" id="closeAdminDashboardButton" style="min-height: 36px; padding: 0 12px; font-size: 0.85rem;">閉じる</button>
-</div>
-
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 20px;">
-<div class="panel" style="margin: 0; padding: 16px;">
-<h3 class="panel-title" style="font-size: 1.05rem; margin-bottom: 12px; color: #d97706;">⏳ 承認待ちユーザー</h3>
-<div id="pendingUsersList" style="display: grid; gap: 10px; max-height: 250px; overflow-y: auto;">
-<p style="font-size: 0.85rem; color: var(--muted);">承認待ちのユーザーはいません。</p>
-</div>
-</div>
-
-<div class="panel" style="margin: 0; padding: 16px;">
-<h3 class="panel-title" style="font-size: 1.05rem; margin-bottom: 12px; color: #0f9f6e;">✅ 承認済みユーザー一覧</h3>
-<div id="allowedUsersList" style="display: grid; gap: 10px; max-height: 250px; overflow-y: auto;">
-<p style="font-size: 0.85rem; color: var(--muted);">参加中のユーザーはいません。</p>
-</div>
-</div>
-</div>
-
-<div class="panel" style="margin: 0; padding: 16px;">
-<h3 class="panel-title" style="font-size: 1.05rem; margin-bottom: 12px; color: #d92d20;">⚖️ 異議申し立て一覧</h3>
-<div id="appealsList" style="display: grid; gap: 12px; max-height: 300px; overflow-y: auto;">
-<p style="font-size: 0.85rem; color: var(--muted);">現在、異議申し立てはありません。</p>
-</div>
-</div>
-<div id="dashboardDebugError" class="debug-error-box"></div>
-</div>
-</div>
-
-<div class="toast" id="toastNotification">通知メッセージ</div>
+<div class="toast" id="toast"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, arrayUnion, arrayRemove, serverTimestamp, getDocs, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-// 修正：ERR_NAME_NOT_RESOLVED (オフライン環境等での名前解決失敗) によるクラッシュを回避するため、
-// initializeFirestore と persistentLocalCache を新しくインポートに追加
-import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, arrayUnion, arrayRemove, serverTimestamp, getDocs, setDoc, getDoc, initializeFirestore, persistentLocalCache } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const firebaseConfig = { apiKey: "AIzaSyDoMvVErqyv06Tdn-rXNhHkcW_-Q7BfoAg", authDomain: "school-site-475fc.firebaseapp.com", projectId: "school-site-475fc", storageBucket: "school-site-475fc.firebasestorage.app", messagingSenderId: "69139986081", appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0" };
-const app = initializeApp(firebaseConfig); const auth = getAuth(app); 
-
-// 修正：通常の getFirestore(app) を initializeFirestore(app, { localCache: persistentLocalCache() }) に変更
-// これにより、DNS解決ができないオフライン環境や接続不安定な状態でも、Firestoreがローカルキャッシュを用いてエラーを起こさず安全に動作を継続します。
-const db = initializeFirestore(app, {
-  localCache: persistentLocalCache()
-});
-
-const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
-const AVATARS = [ "👤", "🐱", "🐶", "🦊", "🦁", "🐼", "🐨", "🐻", "🐰", "🐸", "🐵", "🐧", "🐦", "🦖", "🦄", "✏️", "📐", "📚", "🎒", "🎓", "🧪", "🎨", "🎺", "🎸", "💻", "⚽", "🏀", "⚾", "🎾", "🏐", "🏓", "🏸", "🏃", "💃", "🎮", "🕹️", "🎧", "🎬", "📸", "🔮", "🛹", "🚀", "🛸", "✈️", "🏎️", "🔥", "⚡", "🌟", "🌈", "👑" ];
-let selectedAvatar = "👤";
-
-const state = { user: null, isAdmin: false, userName: "", userClass: "", userAvatarUrl: "👤", currentDate: new Date(), posts: [], userReactedMap: {}, commentsMap: {}, usersProfileMap: {}, adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null }, approvalUnsubscribe: null, categoryFilter: "all" };
-
-function formatLocalDateString(date) {
-const y = date.getFullYear();
-const m = String(date.getMonth() + 1).padStart(2, '0');
-const d = String(date.getDate()).padStart(2, '0');
-return `${y}-${m}-${d}`;
-}
-
-function updateDateDisplay() {
-const days = ["日", "月", "火", "水", "木", "金", "土"];
-const text = `${state.currentDate.getFullYear()}年 ${state.currentDate.getMonth() + 1}月 ${state.getDate()}日 (${days[state.currentDate.getDay()]})`;
-document.getElementById("dateDisplay").textContent = text;
-document.getElementById("dateDisplayMobile").textContent = text;
-if (state.user) fetchPostsForCurrentDate();
-}
-
-state.getDate = function() { return this.currentDate.getDate(); };
-state.setDate = function(d) { this.currentDate.setDate(d); updateDateDisplay(); };
-
-document.getElementById("prevDateButton").onclick = () => state.setDate(state.getDate() - 1);
-document.getElementById("nextDateButton").onclick = () => state.setDate(state.getDate() + 1);
-document.getElementById("prevDateButtonMobile").onclick = () => state.setDate(state.getDate() - 1);
-document.getElementById("nextDateButtonMobile").onclick = () => state.setDate(state.getDate() + 1);
-
-const hamburgerButton = document.getElementById("hamburgerButton");
-const hamburgerMenu = document.getElementById("hamburgerMenu");
-const hamburgerOverlay = document.getElementById("hamburgerOverlay");
-
-function toggleHamburger() {
-hamburgerButton.classList.toggle("active");
-hamburgerMenu.classList.toggle("active");
-hamburgerOverlay.classList.toggle("active");
-if (hamburgerButton.classList.contains("active")) {
-hamburgerButton.textContent = "✕";
-} else {
-hamburgerButton.textContent = "☰";
-}
-}
-hamburgerButton.onclick = toggleHamburger;
-hamburgerOverlay.onclick = toggleHamburger;
-
-window.selectCategory = function(category) {
-state.categoryFilter = category;
-const titles = { all: "予定・宿題・連絡", "予定": "📅 今日の予定", "宿題": "✏️ 今日の宿題", "連絡事項": "📢 連絡事項" };
-document.getElementById("categoryTitle").textContent = titles[category] || "共有サイト";
-toggleHamburger();
-renderPosts();
+const firebaseConfig = {
+apiKey: "AIzaSyDoMvVErqyv06Tdn-rXNhHkcW_-Q7BfoAg",
+authDomain: "school-site-475fc.firebaseapp.com",
+projectId: "school-site-475fc",
+storageBucket: "school-site-475fc.firebasestorage.app",
+messagingSenderId: "69139986081",
+appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0"
 };
 
-function showToast(msg) {
-const t = document.getElementById("toastNotification");
-t.textContent = msg; t.classList.add("show");
-setTimeout(() => t.classList.remove("show"), 3000);
-}
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-function showDebugError(containerId, err) {
-const box = document.getElementById(containerId);
-if (!box) return;
-box.textContent = `[エラー詳細] ${err.name || "Error"}: ${err.message || err}`;
+const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
+
+const AVATARS = [
+"👤", "🐱", "🐶", "🦊", "🦁", "🐼", "🐨", "🐻", "🐰", "🐸", "🐵", "🐧", "🐦", "🦖", "🦄",
+"✏️", "📐", "📚", "🎒", "🎓", "🧪", "🎨", "🎺", "🎸", "💻",
+"⚽", "🏀", "⚾", "🎾", "🏐", "🏓", "🏸", "🏃", "💃",
+"🎮", "🕹️", "🎧", "🎬", "📸", "🔮", "🛹",
+"🚀", "🛸", "✈️", "🏎️", "🔥", "⚡", "🌟", "🌈", "👑"
+];
+let selectedAvatar = "👤";
+
+const state = {
+user: null,
+isAdmin: false,
+userName: "",
+userClass: "",
+userAvatarUrl: "👤",
+currentDate: new Date(),
+posts: [],
+userReactedMap: {},
+commentsMap: {},
+// 各ユーザーの最新プロフィール情報をリアルタイム同期してキャッシュするマップ
+usersProfileMap: {},
+adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null },
+approvalUnsubscribe: null,
+categoryFilter: "all"
+};
+
+function showDebugError(elementId, error) {
+const box = document.getElementById(elementId);
+if (box) {
+box.textContent = `⚠️ エラー発生: ${error.name || 'Error'}\nメッセージ: ${error.message}`;
 box.style.display = "block";
+}
 }
 
 function clearDebugErrors() {
-document.querySelectorAll(".debug-error-box").forEach(box => {
-box.textContent = ""; box.style.display = "none";
-});
+document.querySelectorAll(".debug-error-box").forEach(box => { box.style.display = "none"; });
 }
 
-function setupAvatarSelectionGrid() {
-const grid = document.getElementById("avatarGrid");
-grid.innerHTML = "";
-AVATARS.forEach(av => {
-const opt = document.createElement("div");
-opt.className = "avatar-option";
-if (av === selectedAvatar) opt.classList.add("selected");
-opt.textContent = av;
-opt.onclick = () => {
-document.querySelectorAll(".avatar-option").forEach(el => el.classList.remove("selected"));
-opt.classList.add("selected");
-selectedAvatar = av;
-};
-grid.appendChild(opt);
-});
+function showToast(msg) {
+const toast = document.getElementById("toast");
+toast.textContent = msg;
+toast.classList.add("show");
+setTimeout(() => toast.classList.remove("show"), 2000);
 }
 
-async function handleUsernameLoginFlow(username, password) {
-const fakeEmail = `${encodeURIComponent(username).toLowerCase()}@school-internal.local`;
-try {
-return await signInWithEmailAndPassword(auth, fakeEmail, password);
-} catch (err) {
-if (err.code === "auth/user-not-found") {
-const cred = await createUserWithEmailAndPassword(auth, fakeEmail, password);
-await updateProfile(cred.user, { displayName: username });
-return cred;
-}
-throw err;
-}
+function getLocalDateString(date) {
+const year = date.getFullYear();
+const month = String(date.getMonth() + 1).padStart(2, '0');
+const day = String(date.getDate()).padStart(2, '0');
+return `${year}-${month}-${day}`;
 }
 
-document.getElementById("emailLoginForm").onsubmit = async (e) => {
-e.preventDefault(); clearDebugErrors();
-const type = document.getElementById("loginType").value;
-const inputVal = document.getElementById("emailInput").value.trim();
-const password = document.getElementById("passwordInput").value;
-if (!inputVal || !password) return;
-try {
-if (type === "email") {
-if (!inputVal.includes("@")) throw new Error("正しいメールアドレスの形式を入力してください。");
-try {
-await signInWithEmailAndPassword(auth, inputVal, password);
-} catch (err) {
-if (err.code === "auth/user-not-found") {
-await createUserWithEmailAndPassword(auth, inputVal, password);
-} else { throw err; }
+function updateDateDisplay() {
+const options = { year: "numeric", month: "long", day: "numeric", weekday: "short" };
+const dateStr = state.currentDate.toLocaleDateString("ja-JP", options);
+document.getElementById("dateDisplay").textContent = dateStr;
+document.getElementById("dateDisplayMobile").textContent = dateStr;
 }
+
+function updateCategoryTitle() {
+const titles = { "all": "予定・宿題・連絡", "予定": "📅 予定", "宿題": "✏️ 宿題", "連絡事項": "📢 連絡事項" };
+document.getElementById("categoryTitle").textContent = titles[state.categoryFilter] || "予定・宿題・連絡";
+}
+
+function updateUIProfile() {
+const headerLead = document.getElementById("heroLead");
+headerLead.textContent = "AKKI によって開発された共有サイト";
+
+const avatarContainer = document.getElementById("userAvatarHeader");
+if (avatarContainer) {
+if (state.userAvatarUrl.startsWith("http")) {
+avatarContainer.innerHTML = `<img src="${state.userAvatarUrl}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
 } else {
-await handleUsernameLoginFlow(inputVal, password);
+avatarContainer.textContent = state.userAvatarUrl || "👤";
 }
-} catch (err) {
-showDebugError("loginDebugError", err);
 }
-};
-
-document.getElementById("termsForm").onsubmit = (e) => {
-e.preventDefault();
-if (!state.user) return;
-if (!document.getElementById("termsCheckbox").checked) return;
-localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true");
-document.getElementById("termsModal").classList.add("hidden");
-proceedToNextStepAfterLogin(state.user);
-};
-
-document.getElementById("setupForm").onsubmit = async (e) => {
-e.preventDefault(); clearDebugErrors();
-if (!state.user) return;
-const name = document.getElementById("setupName").value.trim();
-const cls = document.getElementById("setupClass").value;
-if (!name || !cls) return;
-try {
-const userDocRef = doc(db, "users", state.user.uid);
-const profileData = { name, class: cls, avatarUrl: "👤", status: "pending", updatedAt: serverTimestamp() };
-await setDoc(userDocRef, profileData, { merge: true });
-const setupData = { name, class: cls, avatarUrl: "👤" };
-localStorage.setItem(`user_setup_completed_${state.user.uid}`, JSON.stringify(setupData));
-document.getElementById("setupModal").classList.add("hidden");
-checkApprovalStatus(state.user);
-} catch (err) {
-showDebugError("setupDebugError", err);
-}
-};
-
-document.getElementById("appealForm").onsubmit = async (e) => {
-e.preventDefault(); clearDebugErrors();
-if (!state.user) return;
-const reason = document.getElementById("appealReason").value.trim();
-if (!reason) return;
-try {
-await setDoc(doc(db, "appeals", state.user.uid), {
-uid: state.user.uid, name: state.userName, class: state.userClass, reason: reason, timestamp: serverTimestamp(), status: "unread"
-});
-showToast("異議申し立てを送信しました。レビューを待ってください。");
-document.getElementById("appealForm").reset();
-} catch (err) {
-showDebugError("suspendedDebugError", err);
-}
-};
-
-document.getElementById("profileModalButton").onclick = () => {
-if (!state.user) return;
-selectedAvatar = state.userAvatarUrl || "👤";
-document.getElementById("profileNameInput").value = state.userName || "";
-document.getElementById("profileClassSelect").value = state.userClass || "7-1";
-setupAvatarSelectionGrid();
-document.getElementById("profileModal").classList.remove("hidden");
-};
-
-document.getElementById("closeProfileModalButton").onclick = () => {
-document.getElementById("profileModal").classList.add("hidden");
-};
-
-document.getElementById("profileForm").onsubmit = async (e) => {
-e.preventDefault(); clearDebugErrors();
-if (!state.user) return;
-const name = document.getElementById("profileNameInput").value.trim();
-const cls = document.getElementById("profileClassSelect").value;
-if (!name || !cls) return;
-try {
-await updateDoc(doc(db, "users", state.user.uid), { name, class: cls, avatarUrl: selectedAvatar });
-state.userName = name; state.userClass = cls; state.userAvatarUrl = selectedAvatar;
-const currentSetup = localStorage.getItem(`user_setup_completed_${state.user.uid}`);
-let setupObj = currentSetup ? JSON.parse(currentSetup) : {};
-setupObj.name = name; setupObj.class = cls; setupObj.avatarUrl = selectedAvatar;
-localStorage.setItem(`user_setup_completed_${state.user.uid}`, JSON.stringify(setupObj));
-document.getElementById("userAvatarHeader").textContent = selectedAvatar;
-document.getElementById("profileModal").classList.add("hidden");
-showToast("プロフィールを更新しました。");
-} catch (err) {
-showDebugError("profileDebugError", err);
-}
-};
-
-const logoutActions = [ "logoutButton", "pendingLogoutButton", "suspendedLogoutButton" ];
-logoutActions.forEach(id => {
-const btn = document.getElementById(id);
-if (btn) {
-btn.onclick = async () => {
-clearAdminSubscriptions();
-if (state.approvalUnsubscribe) { state.approvalUnsubscribe(); state.approvalUnsubscribe = null; }
-state.user = null; state.isAdmin = false;
-await signOut(auth);
-};
-}
-});
-
-document.getElementById("adminDashboardButton").onclick = () => {
-if (!state.isAdmin) return;
-clearAdminSubscriptions();
-setupAdminDashboardRealtimeListeners();
-document.getElementById("adminDashboardModal").classList.remove("hidden");
-};
-
-document.getElementById("closeAdminDashboardButton").onclick = () => {
-document.getElementById("adminDashboardModal").classList.add("hidden");
-clearAdminSubscriptions();
-};
-
-function clearAdminSubscriptions() {
-if (state.adminUnsubscribes.pendingUsers) { state.adminUnsubscribes.pendingUsers(); state.adminUnsubscribes.pendingUsers = null; }
-if (state.adminUnsubscribes.allowedUsers) { state.adminUnsubscribes.allowedUsers(); state.adminUnsubscribes.allowedUsers = null; }
-if (state.adminUnsubscribes.appeals) { state.adminUnsubscribes.appeals(); state.adminUnsubscribes.appeals = null; }
-if (state.adminUnsubscribes.dynamicProfiles) { state.adminUnsubscribes.dynamicProfiles(); state.adminUnsubscribes.dynamicProfiles = null; }
 }
 
-function setupAdminDashboardRealtimeListeners() {
-clearAdminSubscriptions(); clearDebugErrors();
-try {
-state.adminUnsubscribes.pendingUsers = onSnapshot(query(collection(db, "users"), orderBy("updatedAt", "desc")), (snap) => {
-const list = document.getElementById("pendingUsersList"); list.innerHTML = ""; let count = 0;
-snap.forEach(fdoc => {
-const u = fdoc.data();
-if (u.status === "pending") {
-count++;
-const d = document.createElement("div"); d.className = "card"; d.style.padding = "12px"; d.style.display = "flex"; d.style.justifyContent = "space-between"; d.style.alignItems = "center"; d.style.fontSize = "0.85rem";
-d.innerHTML = `<div><strong>${u.name || "不明"}</strong> (${u.class || "未配置"})</div>
-<div style="display:flex; gap:6px;"><button class="button" style="min-height:30px; padding:0 10px; font-size:0.75rem;" onclick="window.adminApproveUser('${fdoc.id}')">承認</button>
-<button class="danger-button" style="min-height:30px; padding:0 10px; font-size:0.75rem; border-radius:999px;" onclick="window.adminRejectUser('${fdoc.id}')">拒否</button></div>`;
-list.appendChild(d);
-}
-});
-if (count === 0) list.innerHTML = `<p style="font-size: 0.85rem; color: var(--muted);">承認待ちのユーザーはいません。</p>`;
-}, err => showDebugError("dashboardDebugError", err));
-
-state.adminUnsubscribes.allowedUsers = onSnapshot(query(collection(db, "users"), orderBy("updatedAt", "desc")), (snap) => {
-const list = document.getElementById("allowedUsersList"); list.innerHTML = ""; let count = 0;
-snap.forEach(fdoc => {
-const u = fdoc.data();
-if (u.status === "allowed" || u.status === "suspended") {
-count++;
-const isSuspended = u.status === "suspended";
-const d = document.createElement("div"); d.className = "card"; d.style.padding = "12px"; d.style.display = "flex"; d.style.justifyContent = "space-between"; d.style.alignItems = "center"; d.style.fontSize = "0.85rem";
-d.innerHTML = `<div><strong>${u.name || "不明"}</strong> (${u.class || "未配置"}) ${isSuspended ? '<span style="color:#d92d20; font-weight:bold;">[停止中]</span>':''}</div>
-<div>${isSuspended ? `<button class="button" style="min-height:30px; padding:0 10px; font-size:0.75rem; background:linear-gradient(135deg, #0f9f6e, #10b981);" onclick="window.adminUnsuspendUser('${fdoc.id}')">解除</button>` : `<button class="danger-button" style="min-height:30px; padding:0 10px; font-size:0.75rem; border-radius:999px;" onclick="window.adminSuspendUser('${fdoc.id}')">停止</button>`}</div>`;
-list.appendChild(d);
-}
-});
-if (count === 0) list.innerHTML = `<p style="font-size: 0.85rem; color: var(--muted);">参加中のユーザーはいません。</p>`;
-}, err => showDebugError("dashboardDebugError", err));
-
-state.adminUnsubscribes.appeals = onSnapshot(query(collection(db, "appeals"), orderBy("timestamp", "desc")), (snap) => {
-const list = document.getElementById("appealsList"); list.innerHTML = ""; let count = 0;
-snap.forEach(fdoc => {
-count++; const ap = fdoc.data();
-const d = document.createElement("div"); d.className = "card"; d.style.padding = "14px"; d.style.fontSize = "0.85rem";
-d.innerHTML = `<div style="display:flex; justify-content:space-between; margin-bottom:6px;"><strong>${ap.name || "不明"} (${ap.class || "未指定"})</strong>
-<button class="danger-button" style="min-height:26px; padding:0 8px; font-size:0.75rem; border-radius:6px;" onclick="window.adminDeleteAppeal('${fdoc.id}')">削除</button></div>
-<div style="background:#f9fafb; padding:8px; border-radius:8px; white-space:pre-wrap; border:1px solid var(--border); color:#344054;">${ap.reason || ""}</div>`;
-list.appendChild(d);
-});
-if (count === 0) list.innerHTML = `<p style="font-size: 0.85rem; color: var(--muted);">現在、異議申し立てはありません。</p>`;
-}, err => showDebugError("dashboardDebugError", err));
-} catch (err) { showDebugError("dashboardDebugError", err); }
-}
-
-window.adminApproveUser = async (uid) => { try { await updateDoc(doc(db, "users", uid), { status: "allowed", updatedAt: serverTimestamp() }); showToast("ユーザーを承認しました。"); } catch(e){ alert(e); } };
-window.adminRejectUser = async (uid) => { if(confirm("この申請を拒否してアカウントデータを削除しますか？")){ try { await deleteDoc(doc(db, "users", uid)); showToast("申請を拒否・削除しました。"); } catch(e){ alert(e); } } };
-window.adminSuspendUser = async (uid) => { try { await updateDoc(doc(db, "users", uid), { status: "suspended", updatedAt: serverTimestamp() }); showToast("アカウントを停止しました。"); } catch(e){ alert(e); } };
-window.adminUnsuspendUser = async (uid) => { try { await updateDoc(doc(db, "users", uid), { status: "allowed", updatedAt: serverTimestamp() }); showToast("アカウント停止を解除しました。"); } catch(e){ alert(e); } };
-window.adminDeleteAppeal = async (id) => { try { await deleteDoc(doc(db, "appeals", id)); showToast("申し立てレコードを削除しました。"); } catch(e){ alert(e); } };
-
-document.getElementById("postForm").onsubmit = async (e) => {
-e.preventDefault(); clearDebugErrors();
-if (!state.isAdmin) return;
-const title = document.getElementById("postTitle").value.trim();
-const body = document.getElementById("postBody").value.trim();
-const cat = document.getElementById("postCategory").value;
-const target = document.getElementById("postTarget").value;
-const sDate = document.getElementById("postStartDate").value;
-const eDate = document.getElementById("postEndDate").value;
-if (!title || !body || !cat || !target || !sDate || !eDate) return;
-try {
-await addDoc(collection(db, "posts"), {
-title, body, category: cat, targetClass: target, startDate: sDate, endDate: eDate, authorUid: state.user.uid, authorName: state.userName, createdAt: serverTimestamp(), reactions: { 👍: 0, "😮": 0, "🔥": 0, "💡": 0 }
-});
-document.getElementById("postForm").reset();
-setInitialFormDates();
-showToast("新規予定を投稿しました。");
-} catch (err) {
-showDebugError("postDebugError", err);
-}
-};
-
-window.deletePost = async (postId) => {
-if (!state.isAdmin) return;
-if (!confirm("本当にこの投稿を削除しますか？")) return;
-try {
-await deleteDoc(doc(db, "posts", postId));
-showToast("投稿を削除しました。");
-} catch (err) { alert(err.message); }
-};
-
-window.toggleReaction = async (postId, type) => {
-if (!state.user) return;
-const rKey = `${state.user.uid}_${postId}_${type}`;
-const hasReacted = state.userReactedMap[rKey] === true;
-const userReactRef = doc(db, "posts", postId, "userReactions", state.user.uid);
-try {
-if (hasReacted) {
-await setDoc(userReactRef, { [type]: false }, { merge: true });
-await updateDoc(doc(db, "posts", postId), { [`reactions.${type}`]: increment(-1) });
-state.userReactedMap[rKey] = false;
+function getAvatarHTML(avatarUrl, className = "profile-avatar") {
+if (avatarUrl && avatarUrl.startsWith("http")) {
+return `<img src="${avatarUrl}" class="${className}" style="border-radius:50%; object-fit:cover;">`;
 } else {
-await setDoc(userReactRef, { [type]: true }, { merge: true });
-await updateDoc(doc(db, "posts", postId), { [`reactions.${type}`]: increment(1) });
-state.userReactedMap[rKey] = true;
-}
-updateReactionUIElement(postId, type, !hasReacted);
-} catch (err) { console.error(err); }
-};
-
-function updateReactionUIElement(postId, type, active) {
-const btn = document.querySelector(`[data-post-id="${postId}"][data-reaction-type="${type}"]`);
-if (!btn) return;
-const countSpan = btn.querySelector(".reaction-count");
-let c = parseInt(countSpan.textContent, 10) || 0;
-c = active ? c + 1 : Math.max(0, c - 1);
-countSpan.textContent = c;
-if (active) btn.classList.add("active"); else btn.classList.remove("active");
-}
-
-window.submitComment = async (e, postId) => {
-e.preventDefault();
-if (!state.user) return;
-const input = document.getElementById(`commentInput-${postId}`);
-const text = input.value.trim();
-if (!text) return;
-try {
-await addDoc(collection(db, "posts", postId, "comments"), {
-text, authorUid: state.user.uid, authorName: state.userName, authorClass: state.userClass, authorAvatarUrl: state.userAvatarUrl, createdAt: serverTimestamp()
-});
-input.value = "";
-} catch (err) { alert(err.message); }
-};
-
-window.deleteComment = async (postId, commentId) => {
-if (!state.user) return;
-if (!confirm("コメントを削除しますか？")) return;
-try {
-await deleteDoc(doc(db, "posts", postId, "comments", commentId));
-showToast("コメントを削除しました。");
-} catch (err) { alert(err.message); }
-};
-
-let currentPostsUnsubscribe = null;
-const activeCommentsListeners = {};
-
-function fetchPostsForCurrentDate() {
-if (currentPostsUnsubscribe) { currentPostsUnsubscribe(); currentPostsUnsubscribe = null; }
-Object.keys(activeCommentsListeners).forEach(pId => {
-if (activeCommentsListeners[pId]) { activeCommentsListeners[pId](); delete activeCommentsListeners[pId]; }
-});
-const dStr = formatLocalDateString(state.currentDate);
-const q = query(collection(db, "posts"), orderBy("createdAt", "desc"));
-const container = document.getElementById("postsContainer");
-currentPostsUnsubscribe = onSnapshot(q, (snap) => {
-state.posts = [];
-snap.forEach(fdoc => {
-const p = fdoc.data(); p.id = fdoc.id;
-if (dStr >= p.startDate && dStr <= p.endDate) {
-if (p.targetClass === "両方" || p.targetClass === state.userClass || state.isAdmin) {
-state.posts.push(p);
+return `<div class="${className}" style="display:flex; align-items:center; justify-content:center; background:#e5e7eb; border-radius:50%;">${avatarUrl || "👤"}</div>`;
 }
 }
-});
-renderPosts();
-state.posts.forEach(p => {
-setupCommentsRealtimeListener(p.id);
-setupReactionStateRealtimeListener(p.id);
-});
-}, (err) => {
-container.innerHTML = `<div class="debug-error-box" style="display:block;">予定データの取得に失敗しました。再度お試しください。<br>${err}</div>`;
+
+function showFirstTimeGuide() {
+if (localStorage.getItem("guide_seen")) return;
+
+const guide = document.createElement("div");
+guide.className = "guide-bubble";
+guide.innerHTML = `
+<div style="font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:6px;">💡 使い方のヒント</div>
+<p style="margin:0 0 10px 0; opacity:0.95; line-height:1.5; font-size:0.85rem;">
+予定や宿題を確認したら、リアクションボタン（👍や👀）を押して周りのみんなに共有しよう！
+</p>
+<button id="closeGuide" style="width:100%; background:#0071e3; color:#fff; border:none; padding:6px 0; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.8rem;">了解！</button>
+`;
+document.body.appendChild(guide);
+
+document.getElementById("closeGuide").addEventListener("click", () => {
+guide.remove();
+localStorage.setItem("guide_seen", "true");
 });
 }
 
-function setupReactionStateRealtimeListener(postId) {
-if (!state.user) return;
-const userReactRef = doc(db, "posts", postId, "userReactions", state.user.uid);
-onSnapshot(userReactRef, (docSnap) => {
-if (docSnap.exists()) {
-const data = docSnap.data();
-const types = ["👍", "😮", "🔥", "💡"];
-types.forEach(t => {
-const rKey = `${state.user.uid}_${postId}_${t}`;
-const active = data[t] === true;
-state.userReactedMap[rKey] = active;
-const btn = document.querySelector(`[data-post-id="${postId}"][data-reaction-type="${t}"]`);
-if (btn) { if (active) btn.classList.add("active"); else btn.classList.remove("active"); }
-});
+// 🌐 ユーザー情報のグローバルキャッシュに基づいてリアルタイムアイコン抽出を行う関数
+function getDynamicUserAvatar(commentUserId, fallbackAvatar) {
+if (state.usersProfileMap[commentUserId] && state.usersProfileMap[commentUserId].avatarUrl) {
+return state.usersProfileMap[commentUserId].avatarUrl;
 }
-});
+return fallbackAvatar;
 }
 
-function setupCommentsRealtimeListener(postId) {
-if (activeCommentsListeners[postId]) return;
-const q = query(collection(db, "posts", postId, "comments"), orderBy("createdAt", "asc"));
-activeCommentsListeners[postId] = onSnapshot(q, (snap) => {
-const list = [];
-snap.forEach(fdoc => { const c = fdoc.data(); c.id = fdoc.id; list.push(c); });
-state.commentsMap[postId] = list;
-renderPostComments(postId);
-});
+function getDynamicUserName(commentUserId, fallbackName) {
+if (state.usersProfileMap[commentUserId] && state.usersProfileMap[commentUserId].name) {
+return state.usersProfileMap[commentUserId].name;
+}
+return fallbackName;
 }
 
 function renderPosts() {
 const container = document.getElementById("postsContainer");
-container.innerHTML = "";
-let filtered = state.posts;
-if (state.categoryFilter !== "all") {
-filtered = state.posts.filter(p => p.category === state.categoryFilter);
+const today = getLocalDateString(state.currentDate);
+
+const filtered = state.posts.filter(post => {
+const matchesClass = state.isAdmin || post.classTarget === "両方" || post.classTarget === state.userClass;
+const isInRange = today >= post.startDate && today <= post.endDate;
+const matchesCategory = state.categoryFilter === "all" || post.category === state.categoryFilter;
+return matchesClass && isInRange && matchesCategory;
+});
+
+container.innerHTML = filtered.length === 0
+? `<div class="empty-state">投稿がありません</div>`
+: filtered.map(post => {
+    const reactions = post.reactions || { like: 0, checked: 0, thanks: 0 };
+    const userReacted = state.userReactedMap[post.id] || { like: false, checked: false, thanks: false };
+    const comments = state.commentsMap[post.id] || [];
+
+    const commentsHTML = comments.map(c => {
+        // ✨ コメント投稿者がアイコンや名前を変更していた場合、最新状態を反映させる
+        const currentAvatar = getDynamicUserAvatar(c.userId, c.avatarUrl);
+        const currentName = getDynamicUserName(c.userId, c.userName);
+        return `
+        <div class="comment-item">
+            ${getAvatarHTML(currentAvatar, "comment-avatar")}
+            <div class="comment-content">
+                <div class="comment-author">${currentName}</div>
+                <div class="comment-text">${c.text}</div>
+            </div>
+            ${state.isAdmin ? `<button class="comment-delete-btn" data-post-id="${post.id}" data-comment-id="${c.id}">削除</button>` : ""}
+        </div>
+        `;
+    }).join("");
+
+    return `
+<div class="post-card">
+<div style="display: flex; justify-content: space-between; align-items: start; gap: 12px; margin-bottom: 12px;">
+<h3 style="font-size: 1.2rem; margin: 0;">${post.title}</h3>
+${state.isAdmin ? `<button class="danger-button deletePost-btn" data-post-id="${post.id}">削除</button>` : ""}
+</div>
+<div style="margin-bottom: 12px;">
+<span class="badge">${post.category}</span>
+<span class="badge">${post.startDate}～${post.endDate}</span>
+</div>
+<p class="post-body">${post.body}</p>
+
+<div class="reaction-container">
+<button class="reaction-btn ${userReacted.like ? 'active' : ''}" data-post-id="${post.id}" data-type="like">
+<span>👍 いいね</span>
+<span class="reaction-count">${reactions.like || 0}</span>
+</button>
+<button class="reaction-btn ${userReacted.checked ? 'active' : ''}" data-post-id="${post.id}" data-type="checked">
+<span>👀 確認した</span>
+<span class="reaction-count">${reactions.checked || 0}</span>
+</button>
+<button class="reaction-btn ${userReacted.thanks ? 'active' : ''}" data-post-id="${post.id}" data-type="thanks">
+<span>🙏 ありがとう</span>
+<span class="reaction-count">${reactions.thanks || 0}</span>
+</button>
+</div>
+
+<div class="comment-section">
+    <div class="comment-list">${commentsHTML}</div>
+    <form class="comment-form" data-post-id="${post.id}">
+        <input type="text" class="comment-input" placeholder="コメントを入力..." required maxlength="300">
+        <button type="submit" class="comment-submit-btn">送信</button>
+    </form>
+</div>
+</div>
+`;
+}).join("");
 }
-if (filtered.length === 0) {
-container.innerHTML = `<div class="empty-state card">この日の通知や予定はありません。</div>`;
+
+document.getElementById("postsContainer").addEventListener("click", async (e) => {
+const targetBtn = e.target.closest(".reaction-btn");
+if (targetBtn) {
+const postId = targetBtn.getAttribute("data-post-id");
+const type = targetBtn.getAttribute("data-type");
+if (!state.user) return;
+
+const reactionKey = `${postId}_${type}`;
+const userReactionRef = doc(db, "userReactions", `${state.user.uid}_${reactionKey}`);
+const postRef = doc(db, "posts", postId);
+const hasReacted = state.userReactedMap[postId] && state.userReactedMap[postId][type];
+
+try {
+if (hasReacted) {
+await deleteDoc(userReactionRef);
+await updateDoc(postRef, { [`reactions.${type}`]: increment(-1) });
+if (state.userReactedMap[postId]) {
+    state.userReactedMap[postId][type] = false;
+}
+} else {
+await setDoc(userReactionRef, { userId: state.user.uid, postId, type, timestamp: serverTimestamp() });
+await updateDoc(postRef, { [`reactions.${type}`]: increment(1) });
+if (!state.userReactedMap[postId]) state.userReactedMap[postId] = {};
+state.userReactedMap[postId][type] = true;
+}
+renderPosts();
+} catch (error) { console.error(error); }
 return;
 }
-filtered.forEach(p => {
-const card = document.createElement("article");
-card.className = "post-card card";
-const rx = p.reactions || { 👍: 0, "😮": 0, "🔥": 0, "💡": 0 };
-let badgeStyle = "background: rgba(15, 159, 110, 0.1); color: #0f9f6e;";
-if (p.category === "宿題") badgeStyle = "background: rgba(217, 119, 6, 0.1); color: #d97706;";
-if (p.category === "連絡事項") badgeStyle = "background: rgba(139, 92, 246, 0.1); color: #8b5cf6;";
-let targetBadge = p.targetClass === "両方" ? "全体向け" : `${p.targetClass}組`;
-card.innerHTML = `
-<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px;">
-<div style="display: flex; align-items: center; gap: 4px; flex-wrap: wrap;">
-<span class="badge" style="${badgeStyle} margin:0;">${p.category || "予定"}</span>
-<span class="badge" style="background: rgba(15, 23, 42, 0.05); color: var(--text); margin:0;">${targetBadge}</span>
-</div>
-${state.isAdmin ? `<button class="comment-delete-btn" onclick="window.deletePost('${p.id}')" style="margin:0;">削除</button>` : ""}
-</div>
-<h3 style="font-size: 1.15rem; font-weight:700; margin-bottom:10px; color: var(--text);">${p.title || ""}</h3>
-<div class="post-body">${p.body || ""}</div>
-<div class="reaction-container">
-<button class="reaction-btn" data-post-id="${p.id}" data-reaction-type="👍" onclick="window.toggleReaction('${p.id}', '👍')"><span>👍</span><span class="reaction-count">${rx["👍"] || 0}</span></button>
-<button class="reaction-btn" data-post-id="${p.id}" data-reaction-type="😮" onclick="window.toggleReaction('${p.id}', '😮')"><span>😮</span><span class="reaction-count">${rx["😮"] || 0}</span></button>
-<button class="reaction-btn" data-post-id="${p.id}" data-reaction-type="🔥" onclick="window.toggleReaction('${p.id}', '🔥')"><span>🔥</span><span class="reaction-count">${rx["🔥"] || 0}</span></button>
-<button class="reaction-btn" data-post-id="${p.id}" data-reaction-type="💡" onclick="window.toggleReaction('${p.id}', '💡')"><span>💡</span><span class="reaction-count">${rx["💡"] || 0}</span></button>
-</div>
-<div class="comment-section">
-<div class="comment-list" id="commentList-${p.id}"></div>
-<form class="comment-form" onsubmit="window.submitComment(event, '${p.id}')">
-<input type="text" id="commentInput-${p.id}" class="comment-input" maxlength="250" placeholder="コメントを入力... (250文字以内)" required>
-<button type="submit" class="comment-submit-btn">送信</button>
-</form>
-</div>`;
-container.appendChild(card);
-renderPostComments(p.id);
-const types = ["👍", "😮", "🔥", "💡"];
-types.forEach(t => {
-const rKey = `${state.user.uid}_${p.id}_${t}`;
-if (state.userReactedMap[rKey] === true) {
-const b = card.querySelector(`[data-post-id="${p.id}"][data-reaction-type="${t}"]`);
-if (b) b.classList.add("active");
-}
-});
-});
-}
 
-function renderPostComments(postId) {
-const listContainer = document.getElementById(`commentList-${postId}`);
-if (!listContainer) return;
-listContainer.innerHTML = "";
-const list = state.commentsMap[postId] || [];
-if (list.length === 0) return;
-list.forEach(c => {
-const item = document.createElement("div");
-item.className = "comment-item";
-const isCommentOwner = state.user && c.authorUid === state.user.uid;
-const cachedProfile = state.usersProfileMap[c.authorUid] || {};
-const currentAvatar = cachedProfile.avatarUrl || c.authorAvatarUrl || "👤";
-const currentName = cachedProfile.name || c.authorName || "ユーザー";
-const currentClass = cachedProfile.class || c.authorClass || "";
-let classInfoBadge = currentClass ? `<span style="font-size:0.7rem; font-weight:normal; background:rgba(0,0,0,0.05); padding:2px 4px; border-radius:4px; margin-left:4px;">${currentClass}</span>` : "";
-item.innerHTML = `
-<div class="comment-avatar">${currentAvatar}</div>
-<div class="comment-content">
-<div class="comment-author">${currentName}${classInfoBadge}</div>
-<div class="comment-text">${c.text || ""}</div>
-</div>
-${(isCommentOwner || state.isAdmin) ? `<button class="comment-delete-btn" onclick="window.deleteComment('${postId}', '${c.id}')">削除</button>` : ""}`;
-listContainer.appendChild(item);
-});
-}
-
-function setupGlobalProfilesCachedSyncListener() {
-if (state.adminUnsubscribes.dynamicProfiles) return;
+if (e.target.classList.contains("deletePost-btn")) {
+const postId = e.target.getAttribute("data-post-id");
+if (confirm("この投稿を本当に削除しますか？")) {
 try {
-state.adminUnsubscribes.dynamicProfiles = onSnapshot(collection(db, "users"), (snap) => {
-snap.forEach(fdoc => {
-state.usersProfileMap[fdoc.id] = fdoc.data();
-});
-state.posts.forEach(p => renderPostComments(p.id));
-});
-} catch(e) { console.error(e); }
+await deleteDoc(doc(db, "posts", postId));
+showToast("投稿を削除しました");
+} catch (error) { alert("削除に失敗しました: " + error.message); }
+}
+return;
 }
 
-function setInitialFormDates() {
-const todayStr = formatLocalDateString(new Date());
-const sInput = document.getElementById("postStartDate");
-const eInput = document.getElementById("postEndDate");
-if (sInput) sInput.value = todayStr;
-if (eInput) eInput.value = todayStr;
+if (e.target.classList.contains("comment-delete-btn")) {
+const postId = e.target.getAttribute("data-post-id");
+const commentId = e.target.getAttribute("data-comment-id");
+if (confirm("このコメントを削除しますか？")) {
+try {
+await deleteDoc(doc(db, "posts", postId, "comments", commentId));
+showToast("コメントを削除しました");
+} catch (error) { alert("コメントの削除に失敗しました"); }
 }
+}
+});
+
+document.getElementById("postsContainer").addEventListener("submit", async (e) => {
+const form = e.target.closest(".comment-form");
+if (form) {
+e.preventDefault();
+const postId = form.getAttribute("data-post-id");
+const input = form.querySelector(".comment-input");
+const text = input.value.trim();
+if (!text) return;
+
+try {
+await addDoc(collection(db, "posts", postId, "comments"), {
+userId: state.user.uid,
+userName: state.userName,
+avatarUrl: state.userAvatarUrl,
+text: text,
+createdAt: serverTimestamp()
+});
+input.value = "";
+} catch (error) {
+alert("コメントの送信に失敗しました: " + error.message);
+}
+}
+});
+
+document.getElementById("postForm")?.addEventListener("submit", async (e) => {
+e.preventDefault();
+const title = document.getElementById("postTitle").value;
+const body = document.getElementById("postBody").value;
+const category = document.getElementById("postCategory").value;
+const classTarget = document.getElementById("postTarget").value;
+const startDate = document.getElementById("postStartDate").value;
+const endDate = document.getElementById("postEndDate").value;
+
+try {
+await addDoc(collection(db, "posts"), {
+title, body, category, classTarget, startDate, endDate,
+reactions: { like: 0, checked: 0, thanks: 0 },
+createdAt: serverTimestamp()
+});
+showToast("投稿しました！");
+document.getElementById("postForm").reset();
+} catch (error) { alert("投稿に失敗しました: " + error.message); }
+});
+
+window.selectCategory = function(category) {
+state.categoryFilter = category;
+updateCategoryTitle();
+renderPosts();
+document.getElementById("hamburgerMenu").classList.remove("active");
+document.getElementById("hamburgerOverlay").classList.remove("active");
+document.getElementById("hamburgerButton").classList.remove("active");
+};
+
+document.getElementById("hamburgerButton")?.addEventListener("click", () => {
+document.getElementById("hamburgerMenu").classList.toggle("active");
+document.getElementById("hamburgerOverlay").classList.toggle("active");
+document.getElementById("hamburgerButton").classList.toggle("active");
+});
+
+document.getElementById("hamburgerOverlay")?.addEventListener("click", () => {
+document.getElementById("hamburgerMenu").classList.remove("active");
+document.getElementById("hamburgerOverlay").classList.remove("active");
+document.getElementById("hamburgerButton").classList.remove("active");
+});
+
+document.getElementById("prevDateButton")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() - 1); updateDateDisplay(); renderPosts(); });
+document.getElementById("nextDateButton")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() + 1); updateDateDisplay(); renderPosts(); });
+document.getElementById("prevDateButtonMobile")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() - 1); updateDateDisplay(); renderPosts(); });
+document.getElementById("nextDateButtonMobile")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() + 1); updateDateDisplay(); renderPosts(); });
+
+const avatarGrid = document.getElementById("avatarGrid");
+if (avatarGrid) {
+avatarGrid.innerHTML = AVATARS.map(av => `<div class="avatar-option" data-avatar="${av}">${av}</div>`).join("");
+avatarGrid.addEventListener("click", (e) => {
+const target = e.target.closest(".avatar-option");
+if (target) {
+document.querySelectorAll(".avatar-option").forEach(el => el.classList.remove("selected"));
+target.classList.add("selected");
+selectedAvatar = target.dataset.avatar;
+document.getElementById("profileImageUrlInput").value = "";
+}
+});
+}
+
+document.getElementById("profileModalButton")?.addEventListener("click", () => {
+document.getElementById("profileNameInput").value = state.userName;
+document.querySelectorAll(".avatar-option").forEach(el => {
+el.classList.remove("selected");
+if (el.dataset.avatar === state.userAvatarUrl) { el.classList.add("selected"); selectedAvatar = state.userAvatarUrl; }
+});
+if (state.userAvatarUrl.startsWith("http")) {
+document.getElementById("profileImageUrlInput").value = state.userAvatarUrl;
+selectedAvatar = "";
+} else {
+document.getElementById("profileImageUrlInput").value = "";
+}
+document.getElementById("profileModal").classList.remove("hidden");
+});
+document.getElementById("closeProfileModal")?.addEventListener("click", () => {
+document.getElementById("profileModal").classList.add("hidden");
+});
+
+document.addEventListener("submit", async (e) => {
+clearDebugErrors();
+
+if (e.target.id === "emailLoginForm") {
+e.preventDefault();
+let email = document.getElementById("emailInput").value.trim();
+const password = document.getElementById("passwordInput").value;
+const loginType = document.getElementById("loginType").value;
+
+// ユーザー名ログインなら学校ドメインを付ける
+if (loginType === "username") {
+    email += "@shiragane.com";
+}
+
+
+try {
+try {
+await signInWithEmailAndPassword(auth, email, password);
+showToast("ログインしました");
+} catch {
+await createUserWithEmailAndPassword(auth, email, password);
+showToast("アカウントを作成しました");
+}
+} catch (error) { showDebugError("loginDebugError", error); }
+}
+
+if (e.target.id === "termsForm") {
+e.preventDefault();
+if (document.getElementById("termsCheckbox").checked) {
+localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true");
+document.getElementById("termsModal").classList.add("hidden");
+proceedToNextStepAfterLogin(state.user);
+}
+}
+
+if (e.target.id === "setupForm") {
+e.preventDefault();
+state.userName = document.getElementById("setupName").value;
+state.userClass = document.getElementById("setupClass").value;
+state.userAvatarUrl = "👤";
+
+localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: "👤" }));
+try {
+await setDoc(doc(db, "pendingUsers", state.user.email), {
+email: state.user.email,
+name: state.userName,
+class: state.userClass,
+avatarUrl: "👤",
+uid: state.user.uid,
+requestedAt: serverTimestamp()
+});
+document.getElementById("setupModal").classList.add("hidden");
+checkApprovalStatus(state.user);
+} catch (error) { showDebugError("setupDebugError", error); }
+}
+
+if (e.target.id === "profileEditForm") {
+e.preventDefault();
+const newName = document.getElementById("profileNameInput").value;
+const urlInput = document.getElementById("profileImageUrlInput").value.trim();
+
+let finalAvatar = urlInput !== "" ? urlInput : selectedAvatar;
+
+try {
+await setDoc(doc(db, "allowedUsers", state.user.email), {
+name: newName,
+avatarUrl: finalAvatar
+}, { merge: true });
+
+state.userName = newName;
+state.userAvatarUrl = finalAvatar;
+localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: finalAvatar }));
+updateUIProfile();
+document.getElementById("profileModal").classList.add("hidden");
+showToast("プロフィールを更新しました！");
+} catch (error) { showDebugError("profileDebugError", error); }
+}
+
+// 🛑 ユーザーから送信された異議申し立ての処理
+if (e.target.id === "appealForm") {
+e.preventDefault();
+const reason = document.getElementById("appealReason").value.trim();
+if (!reason) return;
+try {
+await addDoc(collection(db, "appeals"), {
+email: state.user.email,
+name: state.userName,
+reason: reason,
+createdAt: serverTimestamp()
+});
+showToast("異議申し立てを送信しました。");
+document.getElementById("appealForm").reset();
+} catch (error) { showDebugError("suspendedDebugError", error); }
+}
+});
+
+function initUserReactions() {
+if (!state.user) return;
+const q = query(collection(db, "userReactions"));
+onSnapshot(q, (snapshot) => {
+state.userReactedMap = {};
+snapshot.docs.forEach(doc => {
+const data = doc.data();
+if (data.userId === state.user.uid) {
+if (!state.userReactedMap[data.postId]) state.userReactedMap[data.postId] = {};
+state.userReactedMap[data.postId][data.type] = true;
+}
+});
+renderPosts();
+});
+}
+
+let activeCommentListeners = {};
+
+// ✨ コメント内動的アイコン自動書き換えのために全ユーザーのプロファイルをマップに常時ロード
+function initUsersProfiles() {
+if (state.adminUnsubscribes.dynamicProfiles) state.adminUnsubscribes.dynamicProfiles();
+state.adminUnsubscribes.dynamicProfiles = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
+snapshot.docs.forEach(doc => {
+const data = doc.data();
+if (data.uid) {
+state.usersProfileMap[data.uid] = { avatarUrl: data.avatarUrl, name: data.name };
+}
+});
+renderPosts();
+}, (error) => { console.warn("プロファイルデータのリアルタイム同期制限、またはセキュリティルールによる制限:", error); });
+}
+
+function initPosts() {
+const postsRef = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100));
+onSnapshot(postsRef, (snapshot) => {
+state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+snapshot.docs.forEach(postDoc => {
+    const postId = postDoc.id;
+    if (!activeCommentListeners[postId]) {
+        const commentsRef = query(collection(db, "posts", postId, "comments"), orderBy("createdAt", "asc"));
+        activeCommentListeners[postId] = onSnapshot(commentsRef, (commentSnap) => {
+            state.commentsMap[postId] = commentSnap.docs.map(cDoc => ({
+                id: cDoc.id,
+                ...cDoc.data()
+            }));
+            renderPosts();
+        });
+    }
+});
+renderPosts();
+});
+}
+
+document.getElementById("adminDashboardButton")?.addEventListener("click", () => {
+document.getElementById("adminDashboardModal").classList.remove("hidden");
+});
+
+document.getElementById("closeAdminDashboard")?.addEventListener("click", () => {
+document.getElementById("adminDashboardModal").classList.add("hidden");
+});
+
+function loadAdminData() {
+// 既存のリスナーのクリーンアップ
+if (state.adminUnsubscribes.pendingUsers) state.adminUnsubscribes.pendingUsers();
+if (state.adminUnsubscribes.allowedUsers) state.adminUnsubscribes.allowedUsers();
+if (state.adminUnsubscribes.appeals) state.adminUnsubscribes.appeals();
+
+const pendingList = document.getElementById("pendingUsersListAdmin");
+const allowedList = document.getElementById("allowedUsersListAdmin");
+const appealsList = document.getElementById("appealsListAdmin");
+
+state.adminUnsubscribes.pendingUsers = onSnapshot(collection(db, "pendingUsers"), (snapshot) => {
+if (snapshot.empty) { pendingList.innerHTML = `<p style="color:var(--muted);">申請者なし</p>`; return; }
+pendingList.innerHTML = snapshot.docs.map(doc => {
+const data = doc.data();
+const userEmail = doc.id;
+return `
+<div style="background: #f9fafb; border: 1px solid var(--border); border-radius: 12px; padding: 14px; display:flex; align-items:center; gap:12px;">
+${getAvatarHTML(data.avatarUrl)}
+<div>
+<p>お名前: <strong>${data.name || "不明"} (${data.class || "不明"})</strong></p>
+<p style="font-size: 0.85rem; color: var(--muted);">メール: ${userEmail}</p>
+<div style="margin-top:8px;">
+<button class="button" onclick="window.approveUser('${userEmail}', '${data.class || '7-1'}', '${data.name || ''}', '${data.avatarUrl || '👤'}', '${data.uid || ''}')" style="min-height: 32px; padding: 0 12px; font-size: 0.85rem; margin-right: 8px; width:auto;">承認</button>
+<button class="danger-button" onclick="window.rejectUser('${userEmail}')" style="min-height: 32px; padding: 0 12px; font-size: 0.85rem; width:auto;">拒否</button>
+</div>
+</div>
+</div>
+`;
+}).join("");
+}, (error) => { showDebugError("dashboardDebugError", error); });
+
+state.adminUnsubscribes.allowedUsers = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
+if (snapshot.empty) { allowedList.innerHTML = `<p style="color:var(--muted);">承認済みなし</p>`; return; }
+allowedList.innerHTML = snapshot.docs.map(doc => {
+const userEmail = doc.id;
+const data = doc.data();
+const isSuspended = data.suspended === true;
+return `
+<div style="background: #f9fafb; border: 1px solid var(--border); border-radius: 12px; padding: 14px; display:flex; align-items:center; gap:12px; ${isSuspended ? 'border-left: 5px solid #d92d20; background: #fef2f2;' : ''}">
+${getAvatarHTML(data.avatarUrl)}
+<div style="flex:1;">
+<p><strong>${data.name || "名前なし"}</strong> ${isSuspended ? '<span style="color:#d92d20; font-weight:bold; font-size:0.8rem;">[停止中]</span>' : ''}</p>
+<p style="font-size: 0.85rem; color: var(--muted); margin-bottom:6px;">メール: ${userEmail}</p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+    <select onchange="window.updateUserClass('${userEmail}', this.value)" style="padding: 4px 8px; border: 1px solid var(--border); border-radius: 8px; font-size:0.8rem; width:auto; height:32px; display:inline-block;">
+        <option value="7-1" ${data.class === '7-1' ? 'selected' : ''}>7-1組</option>
+        <option value="7-2" ${data.class === '7-2' ? 'selected' : ''}>7-2組</option>
+    </select>
+    <button class="danger-button" onclick="window.toggleSuspendUser('${userEmail}', ${isSuspended})" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto; background: ${isSuspended ? 'rgba(16,185,129,0.12)' : 'rgba(217,45,32,0.12)'}; color: ${isSuspended ? '#10b981' : '#d92d20'}">
+        ${isSuspended ? 'アカウント再開' : 'アカウント停止'}
+    </button>
+    <button class="danger-button" onclick="window.removeUser('${userEmail}')" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto;">削除</button>
+</div>
+</div>
+</div>
+`;
+}).join("");
+}, (error) => { showDebugError("dashboardDebugError", error); });
+
+// ⚖️ 届いた異議申し立て一覧を取得するリスナー
+state.adminUnsubscribes.appeals = onSnapshot(query(collection(db, "appeals"), orderBy("createdAt", "desc")), (snapshot) => {
+if (snapshot.empty) { appealsList.innerHTML = `<p style="color:var(--muted);">現在、異議申し立てはありません</p>`; return; }
+appealsList.innerHTML = snapshot.docs.map(doc => {
+const d = doc.data();
+const date = d.createdAt ? new Date(d.createdAt.seconds * 1000).toLocaleString("ja-JP") : "送信中...";
+return `
+<div style="background: #fff; border: 1px solid #f3f4f6; border-left: 4px solid #f59e0b; border-radius: 12px; padding: 14px; position:relative;">
+    <div style="font-size: 0.8rem; color: var(--muted); margin-bottom: 4px;">${date}</div>
+    <div style="font-weight: 700; margin-bottom: 6px;">${d.name || "不明"} (${d.email})</div>
+    <div style="background: #f9fafb; padding: 10px; border-radius: 8px; font-size: 0.9rem; color: #344054; white-space: pre-wrap; margin-bottom: 8px;">${d.reason}</div>
+    <button class="danger-button" onclick="window.deleteAppeal('${doc.id}')" style="min-height: 28px; padding: 0 10px; font-size: 0.75rem; width:auto;">履歴から削除</button>
+</div>
+`;
+}).join("");
+}, (error) => { showDebugError("dashboardDebugError", error); });
+}
+
+window.approveUser = async (email, userClass, name, avatarUrl, uid) => {
+try {
+await setDoc(doc(db, "allowedUsers", email), { email, class: userClass, name: name, avatarUrl: avatarUrl, uid: uid, suspended: false, approvedAt: serverTimestamp() });
+await deleteDoc(doc(db, "pendingUsers", email));
+showToast("承認しました");
+} catch (error) { showDebugError("dashboardDebugError", error); }
+};
+
+window.rejectUser = async (email) => {
+try { await deleteDoc(doc(db, "pendingUsers", email)); showToast("拒否しました"); } catch (error) { showDebugError("dashboardDebugError", error); }
+};
+
+window.removeUser = async (email) => {
+try { await deleteDoc(doc(db, "allowedUsers", email)); showToast("削除しました"); } catch (error) { showDebugError("dashboardDebugError", error); }
+};
+
+// ✏️ 管理者がユーザーのクラスを即時変更する関数
+window.updateUserClass = async (email, newClass) => {
+try {
+await updateDoc(doc(db, "allowedUsers", email), { class: newClass });
+showToast(`クラスを ${newClass} 組に変更しました`);
+} catch (error) { alert("クラスの変更に失敗しました"); }
+};
+
+// 🛑 管理者がアカウント停止（BAN）を切り替える関数
+window.toggleSuspendUser = async (email, currentSuspendedState) => {
+const actionStr = currentSuspendedState ? "再開" : "停止";
+if (confirm(`このユーザーのアカウントを本当に${actionStr}しますか？`)) {
+try {
+await updateDoc(doc(db, "allowedUsers", email), { suspended: !currentSuspendedState });
+showToast(`アカウントを${actionStr}しました`);
+} catch (error) { alert(`アカウントの${actionStr}処理に失敗しました`); }
+}
+};
+
+window.deleteAppeal = async (id) => {
+try { await deleteDoc(doc(db, "appeals", id)); showToast("申し立て履歴を削除しました"); } catch (error) { alert("削除失敗"); }
+};
+
+function handleLogout() {
+if (state.approvalUnsubscribe) { state.approvalUnsubscribe(); state.approvalUnsubscribe = null; }
+Object.values(activeCommentListeners).forEach(unsub => unsub());
+activeCommentListeners = {};
+signOut(auth).then(() => { showToast("ログアウトしました"); });
+}
+
+document.getElementById("logoutButton")?.addEventListener("click", handleLogout);
+document.getElementById("pendingLogoutButton")?.addEventListener("click", handleLogout);
+document.getElementById("suspendedLogoutButton")?.addEventListener("click", handleLogout);
 
 function checkApprovalStatus(user) {
-if (state.approvalUnsubscribe) { state.approvalUnsubscribe(); state.approvalUnsubscribe = null; }
-state.approvalUnsubscribe = onSnapshot(doc(db, "users", user.uid), (docSnap) => {
-clearDebugErrors();
-if (!docSnap.exists()) {
+if (state.approvalUnsubscribe) state.approvalUnsubscribe();
+
+state.approvalUnsubscribe = onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
+if (snapshot.exists()) {
+const data = snapshot.data();
+
+// 🛑 BAN（停止状態）の監視ロジック
+if (data.suspended === true) {
+document.getElementById("suspendedModal").classList.remove("hidden");
 document.getElementById("mainContent").style.display = "none";
-document.getElementById("hamburgerButton").style.display = "none";
-document.getElementById("setupModal").classList.remove("hidden");
 document.getElementById("pendingApprovalModal").classList.add("hidden");
-document.getElementById("suspendedModal").classList.add("hidden");
-return;
-}
-const uData = docSnap.data();
-state.userName = uData.name || "";
-state.userClass = uData.class || "";
-state.userAvatarUrl = uData.avatarUrl || "👤";
-document.getElementById("userAvatarHeader").textContent = state.userAvatarUrl;
-if (uData.status === "allowed") {
 document.getElementById("setupModal").classList.add("hidden");
-document.getElementById("pendingApprovalModal").classList.add("hidden");
+return;
+} else {
 document.getElementById("suspendedModal").classList.add("hidden");
+}
+
+state.userName = data.name ? data.name : state.userName;
+state.userClass = data.class ? data.class : state.userClass;
+state.userAvatarUrl = data.avatarUrl ? data.avatarUrl : "👤";
+
+localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
+
+document.getElementById("pendingApprovalModal").classList.add("hidden");
 document.getElementById("mainContent").style.display = "block";
 if (window.innerWidth <= 768) {
 document.getElementById("hamburgerButton").style.display = "flex";
-} else {
-document.getElementById("hamburgerButton").style.display = "none";
+document.getElementById("hamburgerMenu").style.display = "block";
+document.getElementById("mobileDateNav").style.display = "block";
 }
-state.isAdmin = (user.uid === ADMIN_UID);
-if (state.isAdmin) {
-document.getElementById("adminDashboardButton").style.display = "inline-flex";
-document.getElementById("adminPostForm").style.display = "block";
-setInitialFormDates();
+updateDateDisplay();
+updateCategoryTitle();
+updateUIProfile();
+initPosts();
+initUserReactions();
+initUsersProfiles();
+showFirstTimeGuide();
+
 } else {
-document.getElementById("adminDashboardButton").style.display = "none";
-document.getElementById("adminPostForm").style.display = "none";
-}
-setupGlobalProfilesCachedSyncListener();
-fetchPostsForCurrentDate();
-} else if (uData.status === "suspended") {
-document.getElementById("mainContent").style.display = "none";
-document.getElementById("hamburgerButton").style.display = "none";
-document.getElementById("setupModal").classList.add("hidden");
-document.getElementById("pendingApprovalModal").classList.add("hidden");
-document.getElementById("suspendedModal").classList.remove("hidden");
-} else {
-document.getElementById("mainContent").style.display = "none";
-document.getElementById("hamburgerButton").style.display = "none";
-document.getElementById("setupModal").classList.add("hidden");
 document.getElementById("pendingApprovalModal").classList.remove("hidden");
+document.getElementById("mainContent").style.display = "none";
 document.getElementById("suspendedModal").classList.add("hidden");
 }
-}, (err) => {
-showDebugError("loginDebugError", err);
-});
+}, (error) => { showDebugError("pendingDebugError", error); });
 }
 
 function proceedToNextStepAfterLogin(user) {
-const savedSetup = localStorage.getItem(`user_setup_completed_${user.uid}`);
+if (user.uid === ADMIN_UID) {
+state.isAdmin = true;
+state.userName = "管理者";
+state.userClass = "管理";
+state.userAvatarUrl = "👑";
+document.getElementById("mainContent").style.display = "block";
+document.getElementById("adminPostForm").style.display = "block";
+document.getElementById("adminDashboardButton").style.display = "block";
+
+if (window.innerWidth <= 768) {
+document.getElementById("hamburgerButton").style.display = "flex";
+document.getElementById("hamburgerMenu").style.display = "block";
+document.getElementById("mobileDateNav").style.display = "block";
+}
+
+updateDateDisplay();
+updateUIProfile();
+initPosts();
+initUserReactions();
+initUsersProfiles();
+loadAdminData();
+showFirstTimeGuide();
+return;
+}
+
+const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
 if (!savedSetup) {
 document.getElementById("setupModal").classList.remove("hidden");
 document.getElementById("pendingApprovalModal").classList.add("hidden");
 document.getElementById("suspendedModal").classList.add("hidden");
 return;
 }
+
 const setup = JSON.parse(savedSetup);
 state.userName = setup.name;
 state.userClass = setup.class;
@@ -1512,8 +1614,10 @@ document.getElementById("mainContent").style.display = "none";
 document.getElementById("hamburgerButton").style.display = "none";
 return;
 }
+
 state.user = user;
 document.getElementById("loginModal").classList.add("hidden");
+
 const hasAgreed = localStorage.getItem(`user_terms_agreed_${user.uid}`);
 if (!hasAgreed) {
 document.getElementById("mainContent").style.display = "none";
@@ -1522,6 +1626,7 @@ document.getElementById("setupModal").classList.add("hidden");
 document.getElementById("pendingApprovalModal").classList.add("hidden");
 return;
 }
+
 proceedToNextStepAfterLogin(user);
 });
 
@@ -1529,3 +1634,7 @@ updateDateDisplay();
 </script>
 </body>
 </html>
+
+
+
+
