@@ -997,10 +997,11 @@ width: 100% !important;
 <div class="toast" id="toast"></div>
 
 <script>
-// ダークモード: localStorageとボタン表示を同期する
+// ダークモード: 初期表示はシステム設定、明示的な切り替えは保存する
 (function () {
 const storageKey = "site-theme";
 const toggleButton = document.getElementById("themeToggleButton");
+const mediaQuery = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
 
 function updateToggleLabel(theme) {
 if (!toggleButton) return;
@@ -1010,6 +1011,15 @@ toggleButton.setAttribute("aria-pressed", String(isDark));
 toggleButton.setAttribute("title", isDark ? "通常モードに切り替え" : "ダークモードに切り替え");
 }
 
+function getStoredThemePreference() {
+const value = localStorage.getItem(storageKey);
+return value === "dark" || value === "light" ? value : null;
+}
+
+function getSystemTheme() {
+return mediaQuery && mediaQuery.matches ? "dark" : "light";
+}
+
 function applyTheme(theme) {
 const isDark = theme === "dark";
 document.body.classList.toggle("dark-mode", isDark);
@@ -1017,16 +1027,29 @@ document.documentElement.classList.toggle("dark-mode", isDark);
 document.body.setAttribute("data-theme", theme);
 document.documentElement.setAttribute("data-theme", theme);
 updateToggleLabel(theme);
+
+if (getStoredThemePreference() !== null) {
 localStorage.setItem(storageKey, theme);
 }
+}
 
-const storedTheme = localStorage.getItem(storageKey);
-const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-const initialTheme = storedTheme || (prefersDark ? "dark" : "light");
+function syncThemeFromSystem() {
+const storedTheme = getStoredThemePreference();
+const initialTheme = storedTheme || getSystemTheme();
 applyTheme(initialTheme);
+}
+
+syncThemeFromSystem();
+
+mediaQuery?.addEventListener?.("change", () => {
+if (getStoredThemePreference() === null) {
+applyTheme(getSystemTheme());
+}
+});
 
 toggleButton?.addEventListener("click", () => {
 const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+localStorage.setItem(storageKey, nextTheme);
 applyTheme(nextTheme);
 });
 })();
