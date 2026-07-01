@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-0NTKLG4DWW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-0NTKLG4DWW');
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>港区白金の丘中学校 第7学年 共有サイト</title>
@@ -18,66 +27,22 @@ color-scheme: light;
 --radius-xl: 28px;
 --radius-lg: 22px;
 --max-width: 1220px;
-
-/* 【追加】要素ごとの微調整用変数（ライトモードデフォルト値） */
---input-bg: #ffffff;
---comment-bg: rgba(15, 23, 42, 0.02);
---reaction-bg: rgba(15, 23, 42, 0.04);
---reaction-hover: rgba(15, 23, 42, 0.08);
---empty-state-bg: #f9fafb;
---terms-box-bg: #f9fafb;
---post-body-color: #344054;
---comment-text-color: #344054;
---scrollbar-thumb: rgba(0, 0, 0, 0.2);
---scrollbar-track: rgba(0, 0, 0, 0.05);
---avatar-option-bg: #f3f4f6;
---modal-overlay: rgba(15, 23, 42, 0.44);
---toast-bg: rgba(17, 24, 39, 0.92);
---guide-bg: rgba(17, 24, 39, 0.96);
 }
 
-/* 【追加】Apple風ダークモードのカラー変数定義（ライトモードの透明感や高級感を維持） */
-html[data-theme="dark"] {
+/* ダークモード用のテーマ変数 */
+body.dark-mode {
 color-scheme: dark;
---bg: #1c1c1e;
---surface: rgba(28, 28, 30, 0.85);
---border: rgba(255, 255, 255, 0.12);
---text: #f5f5f7;
---muted: #8e8e93;
---accent: #0a84ff;
---shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
---input-bg: #2c2c2e;
---comment-bg: rgba(255, 255, 255, 0.06);
---reaction-bg: rgba(255, 255, 255, 0.08);
---reaction-hover: rgba(255, 255, 255, 0.15);
---empty-state-bg: #2c2c2e;
---terms-box-bg: #2c2c2e;
---post-body-color: #e5e5ea;
---comment-text-color: #e5e5ea;
---scrollbar-thumb: rgba(255, 255, 255, 0.3);
---scrollbar-track: rgba(255, 255, 255, 0.05);
---avatar-option-bg: #2c2c2e;
---modal-overlay: rgba(0, 0, 0, 0.65);
---toast-bg: rgba(44, 44, 46, 0.95);
---guide-bg: rgba(44, 44, 46, 0.98);
+--bg: #050816;
+--surface: rgba(15, 23, 42, 0.92);
+--border: rgba(148, 163, 184, 0.2);
+--text: #f8fafc;
+--muted: #94a3b8;
+--accent: #60a5fa;
+--shadow: 0 18px 40px rgba(2, 6, 23, 0.45);
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-
-/* 【追加】スクロールバーのダークモード対応 */
-::-webkit-scrollbar {
-width: 8px;
-height: 8px;
-}
-::-webkit-scrollbar-track {
-background: var(--scrollbar-track);
-}
-::-webkit-scrollbar-thumb {
-background: var(--scrollbar-thumb);
-border-radius: 4px;
-}
-
 body {
 margin: 0;
 min-height: 100vh;
@@ -85,12 +50,36 @@ font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont,
 color: var(--text);
 background: var(--bg);
 -webkit-font-smoothing: antialiased;
-transition: background-color 0.3s ease, color 0.3s ease; /* モード切り替えを滑らかに */
 }
 
 button, input, select, textarea { font: inherit; width: 100%; box-sizing: border-box; }
 img { max-width: 100%; display: block; }
 button { border: none; cursor: pointer; }
+
+/* ダークモード切替ボタン */
+.theme-toggle-button {
+position: fixed;
+right: 24px;
+bottom: 92px;
+z-index: 1100;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 12px 16px;
+border-radius: 999px;
+background: rgba(255, 255, 255, 0.9);
+color: #111827;
+border: 1px solid rgba(15, 23, 42, 0.08);
+box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+backdrop-filter: blur(24px);
+-webkit-backdrop-filter: blur(24px);
+font-weight: 700;
+font-size: 0.95rem;
+width: auto;
+min-height: 46px;
+transition: transform 0.15s ease, background 0.2s ease;
+}
+.theme-toggle-button:hover { transform: translateY(-1px); }
 
 .shell {
 width: min(var(--max-width), calc(100vw - 32px));
@@ -103,9 +92,6 @@ background: var(--surface);
 border: 1px solid var(--border);
 border-radius: var(--radius-xl);
 box-shadow: var(--shadow);
-backdrop-filter: blur(20px) saturate(190%); /* Apple風の磨りガラス効果を強化 */
--webkit-backdrop-filter: blur(20px) saturate(190%);
-transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .hero-card { padding: 32px; position: relative; display: flex; align-items: center; gap: 20px; }
@@ -133,11 +119,6 @@ align-items: center;
 justify-content: center;
 flex-shrink: 0;
 }
-/* 【追加】ダークモード時のアバター境界線の微調整 */
-html[data-theme="dark"] .profile-avatar {
-border-color: #2c2c2e;
-background: #3a3a3c;
-}
 
 .avatar-grid {
 display: grid;
@@ -152,7 +133,7 @@ padding: 4px;
 .avatar-option {
 font-size: 2rem;
 padding: 10px;
-background: var(--avatar-option-bg); /* 【変更】変数化 */
+background: #f3f4f6;
 border-radius: 14px;
 text-align: center;
 cursor: pointer;
@@ -188,38 +169,20 @@ grid-template-columns: 1fr 1fr;
 gap: 12px;
 }
 
-/* フォーム部品のダークモード対応 */
-input, select, textarea {
-background-color: var(--input-bg) !important;
-color: var(--text) !important;
-border: 1px solid var(--border) !important;
-transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-}
-
 .post-card {
 border: 1px solid var(--border);
 background: var(--surface);
 border-radius: var(--radius-lg);
 padding: 22px;
 margin-bottom: 16px;
-transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .post-body {
-color: var(--post-body-color); /* 【変更】変数化 */
+color: #344054;
 line-height: 1.8;
 white-space: pre-wrap;
 overflow-wrap: anywhere;
 margin-bottom: 16px;
-}
-
-/* リンク色（投稿内等のリンク文字色） */
-.post-body a, .comment-text a {
-color: var(--accent);
-text-decoration: none;
-}
-.post-body a:hover, .comment-text a:hover {
-text-decoration: underline;
 }
 
 .reaction-container {
@@ -235,7 +198,7 @@ border-top: 1px dashed var(--border);
 display: inline-flex;
 align-items: center;
 gap: 6px;
-background: var(--reaction-bg); /* 【変更】変数化 */
+background: rgba(15, 23, 42, 0.04);
 border: 1px solid transparent;
 padding: 6px 12px;
 border-radius: 12px;
@@ -246,17 +209,12 @@ transition: all 0.15s ease;
 width: auto;
 }
 .reaction-btn:hover {
-background: var(--reaction-hover); /* 【変更】変数化 */
+background: rgba(15, 23, 42, 0.08);
 transform: translateY(-1px);
 }
 .reaction-btn.active {
 background: rgba(0, 113, 227, 0.08);
 border-color: rgba(0, 113, 227, 0.3);
-color: var(--accent);
-}
-html[data-theme="dark"] .reaction-btn.active {
-background: rgba(10, 132, 255, 0.15);
-border-color: rgba(10, 132, 255, 0.4);
 color: var(--accent);
 }
 .reaction-count {
@@ -278,11 +236,10 @@ margin-bottom: 14px;
 display: flex;
 gap: 12px;
 align-items: flex-start;
-background: var(--comment-bg); /* 【変更】変数化 */
+background: rgba(15, 23, 42, 0.02);
 padding: 10px 14px;
 border-radius: 14px;
 position: relative;
-transition: background 0.3s ease;
 }
 .comment-avatar {
 width: 32px;
@@ -296,9 +253,6 @@ align-items: center;
 justify-content: center;
 flex-shrink: 0;
 }
-html[data-theme="dark"] .comment-avatar {
-background: #3a3a3c;
-}
 .comment-content {
 flex: 1;
 min-width: 0;
@@ -311,7 +265,7 @@ margin-bottom: 2px;
 }
 .comment-text {
 font-size: 0.9rem;
-color: var(--comment-text-color); /* 【変更】変数化 */
+color: #344054;
 white-space: pre-wrap;
 overflow-wrap: anywhere;
 line-height: 1.5;
@@ -327,7 +281,7 @@ padding: 10px 14px;
 border: 1px solid var(--border);
 border-radius: 12px;
 font-size: 0.9rem;
-background: var(--input-bg); /* 【変更】変数化 */
+background: #fff;
 }
 .comment-submit-btn {
 background: var(--accent);
@@ -355,20 +309,13 @@ width: auto;
 .comment-delete-btn:hover {
 background: rgba(217, 45, 32, 0.08);
 }
-html[data-theme="dark"] .comment-delete-btn {
-color: #ff453a;
-}
-html[data-theme="dark"] .comment-delete-btn:hover {
-background: rgba(255, 69, 58, 0.15);
-}
 
 .empty-state {
 padding: 28px;
 text-align: center;
 color: var(--muted);
 border-radius: 16px;
-background: var(--empty-state-bg); /* 【変更】変数化 */
-transition: background 0.3s ease;
+background: #f9fafb;
 }
 
 .button, .ghost-button, .danger-button {
@@ -383,76 +330,64 @@ width: auto;
 }
 
 .button { background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; }
-html[data-theme="dark"] .button { background: linear-gradient(135deg, #0a84ff, #52a1ff); }
 
-.ghost-button {
-background: rgba(255, 255, 255, 0.03);
+.ghost-button { 
+background: rgba(255, 255, 255, 0.03); 
 backdrop-filter: blur(24px) saturate(140%);
 -webkit-backdrop-filter: blur(24px) saturate(140%);
-color: var(--text); /* 【変更】現在の文字色に追従 */
-border: 1px solid rgba(255, 255, 255, 0.5);
-box-shadow:
-0 4px 14px rgba(0, 0, 0, 0.02),
-inset 0 1px 1px rgba(255, 255, 255, 0.35),
-inset 0 -1px 2px rgba(0, 0, 0, 0.02);
-transition: background 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s, transform 0.1s, color 0.3s;
-}
-html[data-theme="dark"] .ghost-button {
-background: rgba(255, 255, 255, 0.06);
-border-color: rgba(255, 255, 255, 0.2);
-box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+color: #111827; 
+border: 1px solid rgba(255, 255, 255, 0.5); 
+box-shadow: 
+  0 4px 14px rgba(0, 0, 0, 0.02), 
+  inset 0 1px 1px rgba(255, 255, 255, 0.35),
+  inset 0 -1px 2px rgba(0, 0, 0, 0.02);
+transition: background 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s, transform 0.1s;
 }
 .ghost-button:hover {
 background: rgba(255, 255, 255, 0.15);
 border-color: rgba(255, 255, 255, 0.65);
-box-shadow:
-0 6px 20px rgba(0, 0, 0, 0.04),
-inset 0 1px 1px rgba(255, 255, 255, 0.5);
-}
-html[data-theme="dark"] .ghost-button:hover {
-background: rgba(255, 255, 255, 0.12);
-border-color: rgba(255, 255, 255, 0.35);
+box-shadow: 
+  0 6px 20px rgba(0, 0, 0, 0.04), 
+  inset 0 1px 1px rgba(255, 255, 255, 0.5);
 }
 
 @keyframes popIn {
-from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
-to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+  from { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.95); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
 }
 .guide-bubble {
-position: fixed;
-left: 50%;
-bottom: 80px;
-transform: translateX(-50%);
-background: var(--guide-bg); /* 【変更】変数化 */
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-color: #fff;
-padding: 16px 20px;
-border-radius: 20px;
-box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
-z-index: 2000;
-font-size: 0.9rem;
-width: max-content;
-max-width: 320px;
-animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-text-align: left;
-transition: background 0.3s ease;
+  position: fixed;
+  left: 50%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  background: rgba(17, 24, 39, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  color: #fff;
+  padding: 16px 20px;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255,255,255,0.2);
+  z-index: 2000;
+  font-size: 0.9rem;
+  width: max-content;
+  max-width: 320px;
+  animation: popIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  text-align: left;
 }
 .guide-bubble::after {
-content: "";
-position: absolute;
-bottom: -8px;
-left: 50%;
-transform: translateX(-50%);
-border-width: 8px 8px 0;
-border-style: solid;
-border-color: var(--guide-bg) transparent; /* 【変更】変数化 */
-display: block;
-width: 0;
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 8px 8px 0;
+  border-style: solid;
+  border-color: rgba(17, 24, 39, 0.96) transparent;
+  display: block;
+  width: 0;
 }
 
 .danger-button { background: rgba(217, 45, 32, 0.12); color: #d92d20; min-height: 36px; padding: 0 12px; font-size: 0.85rem; }
-html[data-theme="dark"] .danger-button { background: rgba(255, 69, 58, 0.15); color: #ff453a; }
 
 .modal {
 position: fixed;
@@ -461,10 +396,9 @@ display: flex;
 justify-content: center;
 align-items: center;
 padding: 20px;
-background: var(--modal-overlay); /* 【変更】変数化 */
+background: rgba(15, 23, 42, 0.44);
 backdrop-filter: blur(16px);
 z-index: 100;
-transition: background 0.3s ease;
 }
 
 .modal.hidden { display: none; }
@@ -478,13 +412,12 @@ border-radius: 28px;
 background: var(--surface);
 border: 1px solid var(--border);
 box-shadow: var(--shadow);
-transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .modal-title { font-size: 1.4rem; margin-bottom: 20px; font-weight: 700; }
 
 .terms-box {
-background: var(--terms-box-bg); /* 【変更】変数化 */
+background: #f9fafb;
 border: 1px solid var(--border);
 border-radius: 14px;
 padding: 16px;
@@ -492,10 +425,9 @@ max-height: 280px;
 overflow-y: auto;
 font-size: 0.85rem;
 line-height: 1.6;
-color: var(--post-body-color); /* 【変更】変数化 */
+color: #344054;
 margin-bottom: 16px;
 text-align: left;
-transition: background 0.3s ease;
 }
 .terms-box h4 { margin-top: 12px; margin-bottom: 4px; font-size: 0.9rem; color: var(--text); }
 .terms-box p { margin-bottom: 8px; }
@@ -507,12 +439,12 @@ bottom: 24px;
 transform: translateX(-50%);
 padding: 12px 18px;
 border-radius: 999px;
-background: var(--toast-bg); /* 【変更】変数化 */
+background: rgba(17, 24, 39, 0.92);
 color: #fff;
 opacity: 0;
 pointer-events: none;
 z-index: 120;
-transition: opacity 0.2s, background 0.3s;
+transition: opacity 0.2s;
 text-align: center;
 width: max-content;
 max-width: 90vw;
@@ -520,48 +452,7 @@ max-width: 90vw;
 .toast.show { opacity: 1; }
 
 .admin-footer { position: fixed; bottom: 16px; right: 16px; z-index: 100; display: flex; gap: 8px; }
-/* 【追加】テーマ切り替えボタン用スタイル（Apple風フローティングデザイン、右下に常駐） */
-.theme-toggle-btn {
-position: fixed;
-bottom: 16px;
-right: 16px;
-z-index: 105; /* 管理者フッターより手前に配置 */
-min-height: 40px;
-padding: 0 16px;
-font-size: 0.85rem;
-font-weight: 700;
-border-radius: 999px;
-background: var(--surface);
-color: var(--text);
-border: 1px solid var(--border);
-box-shadow: var(--shadow);
-display: inline-flex;
-align-items: center;
-justify-content: center;
-gap: 6px;
-backdrop-filter: blur(20px) saturate(190%);
--webkit-backdrop-filter: blur(20px) saturate(190%);
-transition: all 0.3s ease, transform 0.1s active;
-width: auto;
-}
-.theme-toggle-btn:hover {
-background: var(--reaction-hover);
-transform: translateY(-1px);
-}
-.theme-toggle-btn:active {
-transform: scale(0.97);
-}
-
-/* 既存の管理者フッターがある場合、ボタンと被らないようモバイル等での配置を調整 */
-@media (max-width: 768px) {
-.admin-footer {
-bottom: 70px; /* 切り替えボタンの上に退避 */
-right: 16px;
-}
-}
-
 .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: rgba(0, 113, 227, 0.1); color: #0071e3; margin-right: 6px; width: auto; }
-html[data-theme="dark"] .badge { background: rgba(10, 132, 255, 0.2); color: #0a84ff; }
 
 .debug-error-box {
 background: #fef3c7;
@@ -577,10 +468,55 @@ white-space: pre-wrap;
 word-break: break-all;
 text-align: left;
 }
-html[data-theme="dark"] .debug-error-box {
-background: #2c2513;
-border-color: #d97706;
-color: #f59e0b;
+
+.admin-dashboard-section {
+display: grid;
+gap: 16px;
+}
+.admin-dashboard-list {
+display: grid;
+gap: 12px;
+}
+.admin-dashboard-card {
+background: rgba(255, 255, 255, 0.96);
+border: 1px solid var(--border);
+border-radius: 14px;
+padding: 14px;
+display: flex;
+align-items: flex-start;
+gap: 12px;
+box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+}
+.admin-dashboard-card p {
+margin: 0;
+line-height: 1.5;
+}
+.admin-dashboard-card .admin-dashboard-meta {
+font-size: 0.85rem;
+color: var(--muted);
+}
+.admin-dashboard-card .admin-dashboard-title {
+font-weight: 700;
+color: var(--text);
+margin-bottom: 2px;
+}
+.admin-dashboard-appeal-card {
+background: rgba(255, 255, 255, 0.96);
+border: 1px solid var(--border);
+border-left: 4px solid #f59e0b;
+border-radius: 14px;
+padding: 14px;
+position: relative;
+box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+}
+.admin-dashboard-appeal-card .admin-dashboard-appeal-reason {
+background: rgba(249, 250, 251, 0.95);
+padding: 10px;
+border-radius: 8px;
+font-size: 0.9rem;
+color: #344054;
+white-space: pre-wrap;
+margin: 8px 0;
 }
 
 .hamburger-menu {
@@ -592,12 +528,12 @@ width: 100%;
 height: 100vh;
 background: var(--surface);
 z-index: 1000;
-transition: left 0.3s ease, background 0.3s ease;
+transition: left 0.3s ease;
 overflow-y: auto;
 padding: 20px;
 }
 .hamburger-menu.active { left: 0; }
-.hamburger-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--modal-overlay); z-index: 999; }
+.hamburger-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.44); z-index: 999; }
 .hamburger-overlay.active { display: block; }
 .hamburger-button {
 position: fixed;
@@ -613,13 +549,49 @@ display: none;
 align-items: center;
 justify-content: center;
 font-size: 1.4rem;
-color: var(--text);
-transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 }
 .hamburger-button.active { position: fixed; top: 16px; right: 16px; left: auto; }
 
 .menu-category { display: grid; gap: 12px; margin-bottom: 20px; }
 .menu-category-btn { padding: 16px; background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; border-radius: 12px; font-weight: 700; font-size: 1rem; text-align: center; width: 100%; }
+
+body.dark-mode .avatar-option { background: rgba(30, 41, 59, 0.9); color: var(--text); }
+body.dark-mode .avatar-option.selected { background: rgba(96, 165, 250, 0.16); border-color: var(--accent); }
+body.dark-mode .post-body { color: #d1d5db; }
+body.dark-mode .reaction-btn { background: rgba(148, 163, 184, 0.12); color: var(--text); border-color: rgba(148, 163, 184, 0.16); }
+body.dark-mode .reaction-btn:hover { background: rgba(148, 163, 184, 0.2); }
+body.dark-mode .reaction-btn.active { background: rgba(96, 165, 250, 0.16); border-color: rgba(96, 165, 250, 0.35); color: var(--accent); }
+body.dark-mode .comment-item { background: rgba(148, 163, 184, 0.12); }
+body.dark-mode .comment-text { color: #cbd5e1; }
+body.dark-mode .comment-input, body.dark-mode input, body.dark-mode textarea, body.dark-mode select {
+background: rgba(15, 23, 42, 0.9);
+color: var(--text);
+border-color: var(--border);
+}
+body.dark-mode .comment-input::placeholder, body.dark-mode input::placeholder, body.dark-mode textarea::placeholder { color: #94a3b8; }
+body.dark-mode .empty-state { background: rgba(15, 23, 42, 0.7); color: var(--muted); }
+body.dark-mode .terms-box { background: rgba(15, 23, 42, 0.78); color: #cbd5e1; }
+body.dark-mode .ghost-button { background: rgba(15, 23, 42, 0.6); color: var(--text); border-color: rgba(148, 163, 184, 0.24); box-shadow: 0 6px 16px rgba(2, 6, 23, 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.06); }
+body.dark-mode .ghost-button:hover { background: rgba(30, 41, 59, 0.85); border-color: rgba(148, 163, 184, 0.35); }
+body.dark-mode .danger-button { background: rgba(248, 113, 113, 0.14); color: #fda4af; }
+body.dark-mode .modal { background: rgba(2, 6, 23, 0.74); }
+body.dark-mode .toast { background: rgba(15, 23, 42, 0.95); color: #f8fafc; }
+body.dark-mode .guide-bubble { background: rgba(15, 23, 42, 0.96); color: #f8fafc; }
+body.dark-mode .guide-bubble::after { border-color: rgba(15, 23, 42, 0.96) transparent; }
+body.dark-mode .badge { background: rgba(96, 165, 250, 0.16); color: #93c5fd; }
+body.dark-mode .profile-avatar, body.dark-mode .comment-avatar { background: #334155; color: #f8fafc; border-color: rgba(15, 23, 42, 0.8); }
+body.dark-mode .hamburger-menu, body.dark-mode .hamburger-button, body.dark-mode .modal-panel, body.dark-mode .panel, body.dark-mode .post-card, body.dark-mode .card, body.dark-mode .frosted { background: var(--surface); }
+body.dark-mode .hamburger-overlay { background: rgba(2, 6, 23, 0.72); }
+body.dark-mode .menu-category-btn { box-shadow: 0 8px 20px rgba(2, 6, 23, 0.3); }
+body.dark-mode .theme-toggle-button { background: rgba(15, 23, 42, 0.86); color: #f8fafc; border-color: rgba(148, 163, 184, 0.24); box-shadow: 0 14px 34px rgba(2, 6, 23, 0.34); }
+body.dark-mode a { color: #93c5fd; }
+body.dark-mode .debug-error-box { background: rgba(120, 53, 15, 0.35); border-color: #fb923c; color: #fed7aa; }
+body.dark-mode .admin-dashboard-card { background: rgba(15, 23, 42, 0.78); box-shadow: 0 8px 20px rgba(2, 6, 23, 0.28); }
+body.dark-mode .admin-dashboard-appeal-card { background: rgba(30, 41, 59, 0.82); box-shadow: 0 8px 20px rgba(2, 6, 23, 0.28); }
+body.dark-mode .admin-dashboard-appeal-card .admin-dashboard-appeal-reason { background: rgba(15, 23, 42, 0.7); color: #cbd5e1; }
+body.dark-mode ::-webkit-scrollbar { width: 10px; }
+body.dark-mode ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
+body.dark-mode ::-webkit-scrollbar-thumb { background: rgba(96, 165, 250, 0.35); border-radius: 999px; }
 
 @media (max-width: 768px) {
 .hamburger-button { display: flex; }
@@ -627,28 +599,29 @@ transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease;
 #pcDateNav { display: none !important; }
 #mobileDateNav { display: block !important; }
 .shell { padding: 12px 0 100px; }
+.theme-toggle-button { right: 12px; bottom: 76px; padding: 10px 14px; font-size: 0.9rem; }
 
-.hero-card {
-padding: 10px 14px;
-flex-direction: row;
-text-align: left;
-gap: 12px;
+.hero-card { 
+padding: 10px 14px; 
+flex-direction: row; 
+text-align: left; 
+gap: 12px; 
 border-radius: 18px;
 margin-bottom: 8px;
 }
-.profile-avatar {
-width: 32px;
-height: 32px;
-font-size: 18px;
+.profile-avatar { 
+width: 32px; 
+height: 32px; 
+font-size: 18px; 
 border-width: 1px;
 }
-.hero-title {
-font-size: 0.95rem;
-font-weight: 800;
+.hero-title { 
+font-size: 0.95rem; 
+font-weight: 800; 
 margin-bottom: 0;
 }
-.hero-lead {
-font-size: 0.65rem;
+.hero-lead { 
+font-size: 0.65rem; 
 line-height: 1.2;
 }
 
@@ -659,27 +632,24 @@ border-radius: 18px;
 }
 #mobileDateNav .toolbar-row {
 display: flex;
-flex-wrap: nowrap;
+flex-wrap: nowrap; 
 justify-content: space-between;
 align-items: center;
 gap: 8px;
 width: 100%;
 }
 #mobileDateNav .ghost-button {
-flex: 0 0 auto;
+flex: 0 0 auto; 
 min-height: 34px;
 padding: 0 10px;
 font-size: 0.75rem;
 border-radius: 10px;
 white-space: nowrap;
 width: auto;
-border: 1px solid rgba(255, 255, 255, 0.5);
-}
-html[data-theme="dark"] #mobileDateNav .ghost-button {
-border-color: rgba(255, 255, 255, 0.2);
+border: 1px solid rgba(255, 255, 255, 0.5); 
 }
 #mobileDateNav .date-display {
-flex: 1 1 auto;
+flex: 1 1 auto; 
 font-size: 0.85rem;
 min-width: 0;
 margin: 0;
@@ -712,7 +682,7 @@ width: 100% !important;
 
 .panel { padding: 16px; border-radius: var(--radius-lg); margin-bottom: 12px; }
 .post-card { padding: 16px; border-radius: var(--radius-lg); }
-.admin-footer { bottom: 70px; right: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.admin-footer { bottom: 8px; right: 8px; flex-wrap: wrap; justify-content: flex-end; }
 .admin-footer button { width: auto; }
 .hamburger-menu { left: -100%; width: 100%; }
 .hamburger-menu.active { left: 0; }
@@ -725,12 +695,6 @@ width: 100% !important;
 #mobileDateNav { display: none !important; }
 }
 </style>
-<script>
-(function() {
-const savedTheme = localStorage.getItem('theme') || 'light';
-document.documentElement.setAttribute('data-theme', savedTheme);
-})();
-</script>
 </head>
 <body>
 
@@ -762,19 +726,48 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 <h4>第1条（適用）</h4>
 <p>本利用規約（以下「本規約」）は、AKKI（以下「管理者」）が運営する学校予定共有Webサイト（以下「本サービス」）の利用条件を定めるものです。本サービスを利用するすべての利用者は、本規約に同意したものとみなします。</p>
 <h4>第2条（本サービスについて）</h4>
-<p>1. 本サービスは、管理者（AKKI）が個人で運営する学校予定共有Webサイトです。<br> 2. 本サービスは学校が運営・管理する公式Webサイトではありません。<br> 3. 本サービスは、学校を代表するものではなく、学校の公式な見解を示すものではありません。<br> 4. 掲載している予定やお知らせについては正確な情報の提供に努めていますが、誤りや更新漏れが生じる場合があります。正式な情報については、学校から配布されるお知らせや先生からの連絡をご確認ください。</p>
+<p>1. 本サービスは、管理者（AKKI）が個人で運営する学校予定共有Webサイトです。<br>
+2. 本サービスは学校が運営・管理する公式Webサイトではありません。<br>
+3. 本サービスは、学校を代表するものではなく、学校の公式な見解を示すものではありません。<br>
+4. 掲載している予定やお知らせについては正確な情報の提供に努めていますが、誤りや更新漏れが生じる場合があります。正式な情報については、学校から配布されるお知らせや先生からの連絡をご確認ください。</p>
 <h4>第3条（利用対象）</h4>
-<p>1. 本サービスは、対象となる学校の生徒のみが利用できます。<br> 2. 外部の方は、本サービスを利用することはできません。<br> 3. 利用者は、本規約を守って本サービスを利用してください。</p>
+<p>1. 本サービスは、対象となる学校の生徒のみが利用できます。<br>
+2. 外部の方は、本サービスを利用することはできません。<br>
+3. 利用者は、本規約を守って本サービスを利用してください。</p>
 <h4>第4条（アカウント登録）</h4>
-<p>1. 本サービスを利用するには、アカウントを作成する必要があります。<br> 2. 作成されたアカウントは、管理者による承認後に利用できます。<br> 3. 利用者は、正確な情報を登録してください。<br> 4. アカウント情報は利用者本人が責任を持って管理してください。<br> 5. 他人にアカウントを貸与・譲渡することは禁止します。</p>
+<p>1. 本サービスを利用するには、アカウントを作成する必要があります。<br>
+2. 作成されたアカウントは、管理者による承認後に利用できます。<br>
+3. 利用者は、正確な情報を登録してください。<br>
+4. アカウント情報は利用者本人が責任を持って管理してください。<br>
+5. 他人にアカウントを貸与・譲渡することは禁止します。</p>
 <h4>第5条（利用できる機能）</h4>
-<p>1. 管理者のみが学校予定やお知らせを投稿できます。<br> 2. 利用者は投稿にコメントできます。<br> 3. 利用者は投稿に「グッド（いいね）」でリアクションできます。</p>
+<p>1. 管理者のみが学校予定やお知らせを投稿できます。<br>
+2. 利用者は投稿にコメントできます。<br>
+3. 利用者は投稿に「グッド（いいね）」でリアクションできます。</p>
 <h4>第6条（禁止事項）</h4>
-<p>利用者は、次の行為を行ってはいけません。<br> ・他人への誹傷中傷や嫌がらせ<br> ・荒らし行為、スパム行為<br> ・不適切なコメントの投稿<br> ・法令や学校のルールに反する内容の投稿<br> ・他人になりすます行為<br> ・他人のアカウントを使用する行為<br> ・システムへの不正アクセスや改ざんを試みる行為<br> ・本サービスの運営を妨害する行為<br> ・他の利用者に迷惑をかける行為<br> ・その他、管理者が不適切と判断する行為</p>
+<p>利用者は、次の行為を行ってはいけません。<br>
+・他人への誹傷中傷や嫌がらせ<br>
+・荒らし行為、スパム行為<br>
+・不適切なコメントの投稿<br>
+・法令や学校のルールに反する内容の投稿<br>
+・他人になりすます行為<br>
+・他人のアカウントを使用する行為<br>
+・システムへの不正アクセスや改ざんを試みる行為<br>
+・本サービスの運営を妨害する行為<br>
+・他の利用者に迷惑をかける行為<br>
+・その他、管理者が不適切と判断する行為</p>
 <h4>第7条（違反への対応）</h4>
-<p>管理者は、本規約に違反した利用者に対し、必要に応じて以下の対応を行うことがあります。<br> ・コメントの削除<br> ・警告<br> ・アカウントの一時停止<br> ・アカウントの削除<br> ・本サービスの利用禁止<br> 悪質な場合は、事前の通知なく対応することがあります。</p>
+<p>管理者は、本規約に違反した利用者に対し、必要に応じて以下の対応を行うことがあります。<br>
+・コメントの削除<br>
+・警告<br>
+・アカウントの一時停止<br>
+・アカウントの削除<br>
+・本サービスの利用禁止<br>
+悪質な場合は、事前の通知なく対応することがあります。</p>
 <h4>第8条（免責事項）</h4>
-<p>1. 管理者は、本サービスに掲載する情報の正確性・完全性・最新性を保証するものではありません。<br> 2. 本サービスの利用により利用者または第三者に生じた損害について、管理者は責任を負いません。<br> 3. サーバーメンテナンスや障害などにより、本サービスが一時的に利用できなくなる場合があります。</p>
+<p>1. 管理者は、本サービスに掲載する情報の正確性・完全性・最新性を保証するものではありません。<br>
+2. 本サービスの利用により利用者または第三者に生じた損害について、管理者は責任を負いません。<br>
+3. サーバーメンテナンスや障害などにより、本サービスが一時的に利用できなくなる場合があります。</p>
 <h4>第9条（サービスの変更・停止）</h4>
 <p>管理者は、事前の通知なく本サービスの内容を変更、停止または終了することがあります。</p>
 <h4>第10条（規約の変更）</h4>
@@ -784,15 +777,32 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 
 <h4>プライバシーポリシー</h4>
 <h4>第1条（取得する情報）</h4>
-<p>本サービスでは、以下の情報を取得する場合があります。<br> ・氏名または表示名<br> ・学年・クラス（必要な場合）<br> ・メールアドレス<br> ・ログイン情報<br> ・コメント内容<br> ・アクセス日時などの利用記録</p>
+<p>本サービスでは、以下の情報を取得する場合があります。<br>
+・氏名または表示名<br>
+・学年・クラス（必要な場合）<br>
+・メールアドレス<br>
+・ログイン情報<br>
+・コメント内容<br>
+・アクセス日時などの利用記録</p>
 <h4>第2条（利用目的）</h4>
-<p>取得した情報は、以下の目的で利用します。<br> ・本サービスの提供・運営<br> ・本人確認<br> ・アカウント管理<br> ・学校予定やお知らせの共有<br> ・コメント機能の提供<br> ・不正利用や荒らし行為への対応<br> ・サービス改善<br> ・お問い合わせへの対応</p>
+<p>取得した情報は、以下の目的で利用します。<br>
+・本サービスの提供・運営<br>
+・本人確認<br>
+・アカウント管理<br>
+・学校予定やお知らせの共有<br>
+・コメント機能の提供<br>
+・不正利用や荒らし行為への対応<br>
+・サービス改善<br>
+・お問い合わせへの対応</p>
 <h4>第3条（個人情報の管理）</h4>
 <p>管理者は、取得した個人情報を適切に管理し、漏えい、改ざん、不正アクセスなどの防止に努めます。</p>
 <h4>第4条（第三者への提供）</h4>
-<p>管理者は、次の場合を除き、利用者の個人情報を第三者へ提供しません。<br> ・利用者本人の同意がある場合<br> ・法令に基づき提供が必要な場合</p>
+<p>管理者は、次の場合を除き、利用者の個人情報を第三者へ提供しません。<br>
+・利用者本人の同意がある場合<br>
+・法令に基づき提供が必要な場合</p>
 <h4>第5条（コメント）</h4>
-<p>1. 利用者が投稿したコメントは、他の利用者が閲覧できます。<br> 2. 管理者は、誹謗中傷、荒らし行為、不適切な内容を含むコメントを予告なく削除できるものとします。</p>
+<p>1. 利用者が投稿したコメントは、他の利用者が閲覧できます。<br>
+2. 管理者は、誹謗中傷、荒らし行為、不適切な内容を含むコメントを予告なく削除できるものとします。</p>
 <h4>第6条（アカウントの削除）</h4>
 <p>利用者が退会した場合、または本規約に違反した場合は、管理者はアカウントおよび関連データを削除することがあります。</p>
 <h4>第7条（プライバシーポリシーの変更）</h4>
@@ -801,7 +811,8 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 <hr style="border: 0; border-top: 1px solid var(--border); margin: 16px 0;">
 
 <h4>お問い合わせ</h4>
-<p>本サービスに関するお問い合わせは、管理者（AKKI）までご連絡ください。<br> 運営者：AKKI（個人運営）</p>
+<p>本サービスに関するお問い合わせは、管理者（AKKI）までご連絡ください。<br>
+運営者：AKKI（個人運営）</p>
 </div>
 
 <form id="termsForm" style="display: grid; gap: 14px;">
@@ -835,7 +846,8 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 <div class="modal-panel" style="width: min(500px, 100%); text-align: center; padding: 40px 28px;">
 <h2 class="modal-title" style="color: var(--accent); font-size: 1.6rem; margin-bottom: 16px;">⏳ 承認待ち</h2>
 <p style="line-height: 1.6; margin-bottom: 24px;">アカウントの登録が完了しました。<br>現在、管理者の承認を待っています。<br>承認されると自動的に画面が切り替わります。</p>
-<button type="button" id="pendingLogoutButton" class="ghost-button" style="width: 100%;">ログイン画面に戻る</button> <div id="pendingDebugError" class="debug-error-box"></div>
+<button type="button" id="pendingLogoutButton" class="ghost-button" style="width: 100%;">ログイン画面に戻る</button>
+<div id="pendingDebugError" class="debug-error-box"></div>
 </div>
 </div>
 
@@ -867,6 +879,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 
 <div class="hamburger-overlay" id="hamburgerOverlay"></div>
 <button class="hamburger-button" id="hamburgerButton">☰</button>
+<button type="button" class="theme-toggle-button" id="themeToggleButton" aria-pressed="false" title="ダークモードに切り替え">🌙 ダークモード</button>
 
 <div id="mainContent" style="display: none;">
 <div class="admin-footer" id="adminFooter">
@@ -938,69 +951,966 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 <button type="button" id="closeAdminDashboard" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
 </div>
 <div id="dashboardDebugError" class="debug-error-box"></div>
-<div style="display: grid;"></div>
+<div style="display: grid; gap: 24px;">
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">📋 申請中</h3>
+<div id="pendingUsersListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700;">✅ 承認済みユーザー</h3>
+<div id="allowedUsersListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+<div>
+<h3 style="font-size: 1.1rem; margin-bottom: 12px; font-weight: 700; color: #d92d20;">⚖️ 届いた異議申し立て</h3>
+<div id="appealsListAdmin" style="display: grid; gap: 12px;"></div>
+</div>
+</div>
 </div>
 </div>
 
-<button type="button" id="themeToggleButton" class="theme-toggle-btn">🌙 ダークモード</button>
+<div class="modal hidden" id="profileModal">
+<div class="modal-panel" style="width: min(500px, 100%);">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<h2 class="modal-title">👤 プロフィール設定</h2>
+<button type="button" id="closeProfileModal" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
+</div>
+<form id="profileEditForm" style="display: grid; gap: 16px;">
+<div>
+<label style="font-size: 0.85rem; color: var(--muted); font-weight:700; display:block; margin-bottom:8px;">お好きなアバターを選択（全50種）</label>
+<div class="avatar-grid" id="avatarGrid">
+</div>
+</div>
+<div style="border-top: 1px solid var(--border); padding-top:12px;">
+<label style="font-size: 0.85rem; color: var(--muted); font-weight:700;">または、ネット上の画像URLを貼り付け</label>
+<input id="profileImageUrlInput" type="url" placeholder="https://example.com/image.png" style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width:100%; margin-top:4px; font-size:0.9rem;">
+</div>
+<div>
+<label style="font-size: 0.85rem; color: var(--muted); font-weight:700;">お名前</label>
+<input id="profileNameInput" type="text" maxlength="30" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width:100%; margin-top:4px;">
+</div>
+<button type="submit" class="button" style="width: 100%;">保存する</button>
+</form>
+<div id="profileDebugError" class="debug-error-box"></div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
 
 <script>
-// 【追加】ダークモード切り替え・初期化スクリプトの配置
-document.addEventListener('DOMContentLoaded', () => {
-const toggleBtn = document.getElementById('themeToggleButton');
+// ダークモード: localStorageとボタン表示を同期する
+(function () {
+const storageKey = "site-theme";
+const toggleButton = document.getElementById("themeToggleButton");
 
-// 現在の表示状態をボタンUIに反映する内部関数
-function updateButtonUI(theme) {
-if (theme === 'dark') {
-toggleBtn.innerHTML = '☀️ 通常モード';
-} else {
-toggleBtn.innerHTML = '🌙 ダークモード';
+function updateToggleLabel(theme) {
+if (!toggleButton) return;
+const isDark = theme === "dark";
+toggleButton.innerHTML = isDark ? "☀️ 通常モード" : "🌙 ダークモード";
+toggleButton.setAttribute("aria-pressed", String(isDark));
+toggleButton.setAttribute("title", isDark ? "通常モードに切り替え" : "ダークモードに切り替え");
 }
+
+function applyTheme(theme) {
+const isDark = theme === "dark";
+document.body.classList.toggle("dark-mode", isDark);
+document.documentElement.classList.toggle("dark-mode", isDark);
+document.body.setAttribute("data-theme", theme);
+document.documentElement.setAttribute("data-theme", theme);
+updateToggleLabel(theme);
+localStorage.setItem(storageKey, theme);
 }
 
-// 初期化時のUI反映
-const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-updateButtonUI(currentTheme);
+const storedTheme = localStorage.getItem(storageKey);
+const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+const initialTheme = storedTheme || (prefersDark ? "dark" : "light");
+applyTheme(initialTheme);
 
-// ボタンクリックイベントの登録（トグル動作・localStorage保存）
-toggleBtn.addEventListener('click', () => {
-const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
-const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-document.documentElement.setAttribute('data-theme', newTheme);
-localStorage.setItem('theme', newTheme);
-updateButtonUI(newTheme);
+toggleButton?.addEventListener("click", () => {
+const nextTheme = document.body.classList.contains("dark-mode") ? "light" : "dark";
+applyTheme(nextTheme);
 });
-});
+})();
+</script>
 
-// 以下は、既存のダミー状態初期化や元のFirebase・UI制御ロジックをシミュレートしたまま、一切壊さず保持しています
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, arrayUnion, arrayRemove, serverTimestamp, getDocs, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey: "AIzaSyDoMvVErqyv06Tdn-rXNhHkcW_-Q7BfoAg",
+authDomain: "school-site-475fc.firebaseapp.com",
+projectId: "school-site-475fc",
+storageBucket: "school-site-475fc.firebasestorage.app",
+messagingSenderId: "69139986081",
+appId: "1:69139986081:web:11c1b1b8277e503e9ee2e0"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
+
+const AVATARS = [
+"👤", "🐱", "🐶", "🦊", "🦁", "🐼", "🐨", "🐻", "🐰", "🐸", "🐵", "🐧", "🐦", "🦖", "🦄",
+"✏️", "📐", "📚", "🎒", "🎓", "🧪", "🎨", "🎺", "🎸", "💻",
+"⚽", "🏀", "⚾", "🎾", "🏐", "🏓", "🏸", "🏃", "💃",
+"🎮", "🕹️", "🎧", "🎬", "📸", "🔮", "🛹",
+"🚀", "🛸", "✈️", "🏎️", "🔥", "⚡", "🌟", "🌈", "👑"
+];
+let selectedAvatar = "👤";
+
 const state = {
+user: null,
+isAdmin: false,
 userName: "",
 userClass: "",
 userAvatarUrl: "👤",
-user: null
+currentDate: new Date(),
+posts: [],
+userReactedMap: {},
+commentsMap: {},
+// 各ユーザーの最新プロフィール情報をリアルタイム同期してキャッシュするマップ
+usersProfileMap: {},
+adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null },
+approvalUnsubscribe: null,
+categoryFilter: "all"
 };
 
-function updateDateDisplay() {
-const dateStr = "2026年6月30日(火)";
-const pcDisp = document.getElementById("dateDisplay");
-const mobileDisp = document.getElementById("dateDisplayMobile");
-if(pcDisp) pcDisp.textContent = dateStr;
-if(mobileDisp) mobileDisp.textContent = dateStr;
+function showDebugError(elementId, error) {
+const box = document.getElementById(elementId);
+if (box) {
+console.error(error);
+box.textContent = "⚠️ 操作に失敗しました。しばらくしてから再度お試しください。";
+box.style.display = "block";
+}
 }
 
 function clearDebugErrors() {
-const boxes = document.querySelectorAll('.debug-error-box');
-boxes.forEach(b => b.style.display = 'none');
+document.querySelectorAll(".debug-error-box").forEach(box => { box.style.display = "none"; });
 }
 
+function escapeHTML(value) {
+return String(value)
+.replace(/&/g, "&amp;")
+.replace(/</g, "&lt;")
+.replace(/>/g, "&gt;")
+.replace(/"/g, "&quot;")
+.replace(/'/g, "&#39;");
+}
+
+function isSafeUrl(value) {
+if (!value || typeof value !== "string") return false;
+try {
+const url = new URL(value.trim());
+return (url.protocol === "https:" || url.protocol === "http:") && !/^(javascript|data):/i.test(url.protocol);
+} catch {
+return false;
+}
+}
+
+function isSafeImageUrl(value) {
+if (!isSafeUrl(value)) return false;
+return /\.(jpe?g|png|gif|webp|svg|bmp)(\?.*)?$/i.test(value.trim());
+}
+
+function sanitizeUserText(value, minLength = 1, maxLength = 1000) {
+if (typeof value !== "string") return "";
+const trimmed = value.trim();
+if (trimmed.length < minLength || trimmed.length > maxLength) return "";
+if (/javascript:|data:|<\s*script/i.test(trimmed)) return "";
+return escapeHTML(trimmed);
+}
+
+function validateTextInput(value, fieldName, minLength, maxLength) {
+const trimmed = String(value || "").trim();
+if (trimmed.length < minLength) {
+alert(`${fieldName}は${minLength}文字以上で入力してください。`);
+return null;
+}
+if (trimmed.length > maxLength) {
+alert(`${fieldName}は${maxLength}文字以内で入力してください。`);
+return null;
+}
+if (/javascript:|data:|<\s*script/i.test(trimmed)) {
+alert(`${fieldName}に危険な文字列が含まれています。`);
+return null;
+}
+return trimmed;
+}
+
+async function logAdminAction(action, details = {}) {
+if (!state.user || !state.isAdmin) return;
+try {
+await addDoc(collection(db, "adminLogs"), {
+action,
+actorUid: state.user.uid,
+actorEmail: state.user.email,
+details,
+timestamp: serverTimestamp()
+});
+} catch (error) {
+console.warn("監査ログの保存に失敗しました", error);
+}
+}
+
+function showToast(msg) {
+const toast = document.getElementById("toast");
+toast.textContent = msg;
+toast.classList.add("show");
+setTimeout(() => toast.classList.remove("show"), 2000);
+}
+
+function getLocalDateString(date) {
+const year = date.getFullYear();
+const month = String(date.getMonth() + 1).padStart(2, '0');
+const day = String(date.getDate()).padStart(2, '0');
+return `${year}-${month}-${day}`;
+}
+
+function updateDateDisplay() {
+const options = { year: "numeric", month: "long", day: "numeric", weekday: "short" };
+const dateStr = state.currentDate.toLocaleDateString("ja-JP", options);
+document.getElementById("dateDisplay").textContent = dateStr;
+document.getElementById("dateDisplayMobile").textContent = dateStr;
+}
+
+function updateCategoryTitle() {
+const titles = { "all": "予定・宿題・連絡", "予定": "📅 予定", "宿題": "✏️ 宿題", "連絡事項": "📢 連絡事項" };
+document.getElementById("categoryTitle").textContent = titles[state.categoryFilter] || "予定・宿題・連絡";
+}
+
+function updateUIProfile() {
+const headerLead = document.getElementById("heroLead");
+headerLead.textContent = "AKKI によって開発された共有サイト";
+
+const avatarContainer = document.getElementById("userAvatarHeader");
+if (avatarContainer) {
+if (isSafeImageUrl(state.userAvatarUrl)) {
+const safeUrl = escapeHTML(state.userAvatarUrl);
+avatarContainer.innerHTML = `<img src="${safeUrl}" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">`;
+} else {
+avatarContainer.textContent = escapeHTML(state.userAvatarUrl) || "👤";
+}
+}
+}
+
+function getAvatarHTML(avatarUrl, className = "profile-avatar") {
+if (isSafeImageUrl(avatarUrl)) {
+const safeUrl = escapeHTML(avatarUrl);
+return `<img src="${safeUrl}" class="${className}" style="border-radius:50%; object-fit:cover;">`;
+}
+return `<div class="${className}" style="display:flex; align-items:center; justify-content:center; background:#e5e7eb; border-radius:50%;">${escapeHTML(avatarUrl) || "👤"}</div>`;
+}
+
+function showFirstTimeGuide() {
+if (localStorage.getItem("guide_seen")) return;
+
+const guide = document.createElement("div");
+guide.className = "guide-bubble";
+guide.innerHTML = `
+<div style="font-weight:700; margin-bottom:6px; display:flex; align-items:center; gap:6px;">💡 使い方のヒント</div>
+<p style="margin:0 0 10px 0; opacity:0.95; line-height:1.5; font-size:0.85rem;">
+予定や宿題を確認したら、リアクションボタン（👍や👀）を押して周りのみんなに共有しよう！
+</p>
+<button id="closeGuide" style="width:100%; background:#0071e3; color:#fff; border:none; padding:6px 0; border-radius:10px; cursor:pointer; font-weight:700; font-size:0.8rem;">了解！</button>
+`;
+document.body.appendChild(guide);
+
+document.getElementById("closeGuide").addEventListener("click", () => {
+guide.remove();
+localStorage.setItem("guide_seen", "true");
+});
+}
+
+// 🌐 ユーザー情報のグローバルキャッシュに基づいてリアルタイムアイコン抽出を行う関数
+function getDynamicUserAvatar(commentUserId, fallbackAvatar) {
+if (state.usersProfileMap[commentUserId] && state.usersProfileMap[commentUserId].avatarUrl) {
+return state.usersProfileMap[commentUserId].avatarUrl;
+}
+return fallbackAvatar;
+}
+
+function getDynamicUserName(commentUserId, fallbackName) {
+if (state.usersProfileMap[commentUserId] && state.usersProfileMap[commentUserId].name) {
+return state.usersProfileMap[commentUserId].name;
+}
+return fallbackName;
+}
+
+function renderPosts() {
+const container = document.getElementById("postsContainer");
+const today = getLocalDateString(state.currentDate);
+
+const filtered = state.posts.filter(post => {
+const matchesClass = state.isAdmin || post.classTarget === "両方" || post.classTarget === state.userClass;
+const isInRange = today >= post.startDate && today <= post.endDate;
+const matchesCategory = state.categoryFilter === "all" || post.category === state.categoryFilter;
+return matchesClass && isInRange && matchesCategory;
+});
+
+container.innerHTML = filtered.length === 0
+? `<div class="empty-state">投稿がありません</div>`
+: filtered.map(post => {
+    const reactions = post.reactions || { like: 0, checked: 0, thanks: 0 };
+    const userReacted = state.userReactedMap[post.id] || { like: false, checked: false, thanks: false };
+    const comments = state.commentsMap[post.id] || [];
+
+    const safeTitle = escapeHTML(post.title || "");
+    const safeCategory = escapeHTML(post.category || "");
+    const safeStartDate = escapeHTML(post.startDate || "");
+    const safeEndDate = escapeHTML(post.endDate || "");
+    const safeBody = escapeHTML(post.body || "");
+
+    const commentsHTML = comments.map(c => {
+        // ✨ コメント投稿者がアイコンや名前を変更していた場合、最新状態を反映させる
+        const currentAvatar = getDynamicUserAvatar(c.userId, c.avatarUrl);
+        const currentName = escapeHTML(getDynamicUserName(c.userId, c.userName));
+        const safeCommentText = escapeHTML(c.text || "");
+        return `
+        <div class="comment-item">
+            ${getAvatarHTML(currentAvatar, "comment-avatar")}
+            <div class="comment-content">
+                <div class="comment-author">${currentName}</div>
+                <div class="comment-text">${safeCommentText}</div>
+            </div>
+            ${state.isAdmin ? `<button class="comment-delete-btn" data-post-id="${post.id}" data-comment-id="${c.id}">削除</button>` : ""}
+        </div>
+        `;
+    }).join("");
+
+    return `
+<div class="post-card">
+<div style="display: flex; justify-content: space-between; align-items: start; gap: 12px; margin-bottom: 12px;">
+<h3 style="font-size: 1.2rem; margin: 0;">${safeTitle}</h3>
+${state.isAdmin ? `<button class="danger-button deletePost-btn" data-post-id="${post.id}">削除</button>` : ""}
+</div>
+<div style="margin-bottom: 12px;">
+<span class="badge">${safeCategory}</span>
+<span class="badge">${safeStartDate}～${safeEndDate}</span>
+</div>
+<p class="post-body">${safeBody}</p>
+
+<div class="reaction-container">
+<button class="reaction-btn ${userReacted.like ? 'active' : ''}" data-post-id="${post.id}" data-type="like">
+<span>👍 いいね</span>
+<span class="reaction-count">${reactions.like || 0}</span>
+</button>
+<button class="reaction-btn ${userReacted.checked ? 'active' : ''}" data-post-id="${post.id}" data-type="checked">
+<span>👀 確認した</span>
+<span class="reaction-count">${reactions.checked || 0}</span>
+</button>
+<button class="reaction-btn ${userReacted.thanks ? 'active' : ''}" data-post-id="${post.id}" data-type="thanks">
+<span>🙏 ありがとう</span>
+<span class="reaction-count">${reactions.thanks || 0}</span>
+</button>
+</div>
+
+<div class="comment-section">
+    <div class="comment-list">${commentsHTML}</div>
+    <form class="comment-form" data-post-id="${post.id}">
+        <input type="text" class="comment-input" placeholder="コメントを入力..." required maxlength="300">
+        <button type="submit" class="comment-submit-btn">送信</button>
+    </form>
+</div>
+</div>
+`;
+}).join("");
+}
+
+document.getElementById("postsContainer").addEventListener("click", async (e) => {
+const targetBtn = e.target.closest(".reaction-btn");
+if (targetBtn) {
+const postId = targetBtn.getAttribute("data-post-id");
+const type = targetBtn.getAttribute("data-type");
+if (!state.user) return;
+
+const reactionKey = `${postId}_${type}`;
+const userReactionRef = doc(db, "userReactions", `${state.user.uid}_${reactionKey}`);
+const postRef = doc(db, "posts", postId);
+const hasReacted = state.userReactedMap[postId] && state.userReactedMap[postId][type];
+
+try {
+if (hasReacted) {
+await deleteDoc(userReactionRef);
+await updateDoc(postRef, { [`reactions.${type}`]: increment(-1) });
+if (state.userReactedMap[postId]) {
+    state.userReactedMap[postId][type] = false;
+}
+} else {
+await setDoc(userReactionRef, { userId: state.user.uid, postId, type, timestamp: serverTimestamp() });
+await updateDoc(postRef, { [`reactions.${type}`]: increment(1) });
+if (!state.userReactedMap[postId]) state.userReactedMap[postId] = {};
+state.userReactedMap[postId][type] = true;
+}
+renderPosts();
+} catch (error) { console.error(error); }
+return;
+}
+
+if (e.target.classList.contains("deletePost-btn")) {
+if (!state.user || !state.isAdmin) {
+alert("権限がありません。");
+return;
+}
+const postId = e.target.getAttribute("data-post-id");
+if (confirm("この投稿を本当に削除しますか？")) {
+try {
+await deleteDoc(doc(db, "posts", postId));
+await logAdminAction("deletePost", { postId });
+showToast("投稿を削除しました");
+} catch (error) { alert("削除に失敗しました: " + error.message); }
+}
+return;
+}
+
+if (e.target.classList.contains("comment-delete-btn")) {
+const postId = e.target.getAttribute("data-post-id");
+const commentId = e.target.getAttribute("data-comment-id");
+if (confirm("このコメントを削除しますか？")) {
+try {
+await deleteDoc(doc(db, "posts", postId, "comments", commentId));
+showToast("コメントを削除しました");
+} catch (error) { alert("コメントの削除に失敗しました"); }
+}
+}
+});
+
+document.getElementById("postsContainer").addEventListener("submit", async (e) => {
+const form = e.target.closest(".comment-form");
+if (form) {
+e.preventDefault();
+if (!state.user) return;
+const postId = form.getAttribute("data-post-id");
+const input = form.querySelector(".comment-input");
+const text = validateTextInput(input.value, "コメント", 2, 300);
+if (!text) return;
+if (/javascript:|data:/i.test(text)) {
+alert("コメントに危険なURLは禁止されています。");
+return;
+}
+const urlMatches = text.match(/https?:\/\/(?:www\.)?[\w\-\.@:%_\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)/g) || [];
+if (urlMatches.length > 2) {
+alert("コメント内のリンクは最大2件までにしてください。");
+return;
+}
+const recentKey = `last_comment_time_${state.user.uid}_${postId}`;
+const contentKey = `last_comment_text_${state.user.uid}_${postId}`;
+const lastTime = Number(localStorage.getItem(recentKey) || 0);
+if (Date.now() - lastTime < 20000) {
+alert("コメントは20秒ごとに投稿してください。");
+return;
+}
+const lastComment = localStorage.getItem(contentKey);
+if (lastComment === text) {
+alert("同じ内容のコメントは連続して投稿できません。");
+return;
+}
+
+try {
+await addDoc(collection(db, "posts", postId, "comments"), {
+userId: state.user.uid,
+userName: state.userName,
+avatarUrl: state.userAvatarUrl,
+text: text,
+createdAt: serverTimestamp()
+});
+input.value = "";
+localStorage.setItem(recentKey, String(Date.now()));
+localStorage.setItem(contentKey, text);
+} catch (error) {
+console.error(error);
+alert("コメントの送信に失敗しました。時間をおいて再試行してください。");
+}
+}
+});
+
+document.getElementById("postForm")?.addEventListener("submit", async (e) => {
+e.preventDefault();
+const title = validateTextInput(document.getElementById("postTitle").value, "タイトル", 3, 100);
+const body = validateTextInput(document.getElementById("postBody").value, "内容", 3, 1500);
+const category = validateTextInput(document.getElementById("postCategory").value, "カテゴリ", 1, 30);
+const classTarget = validateTextInput(document.getElementById("postTarget").value, "対象クラス", 1, 10);
+const startDate = validateTextInput(document.getElementById("postStartDate").value, "開始日", 10, 10);
+const endDate = validateTextInput(document.getElementById("postEndDate").value, "終了日", 10, 10);
+if (!title || !body || !category || !classTarget || !startDate || !endDate) return;
+if (!state.user || !state.isAdmin) {
+alert("投稿する権限がありません。");
+return;
+}
+const recentPostKey = `last_post_time_${state.user.uid}`;
+const lastPostTime = Number(localStorage.getItem(recentPostKey) || 0);
+if (Date.now() - lastPostTime < 30000) {
+alert("投稿は30秒ごとに行ってください。");
+return;
+}
+
+try {
+await addDoc(collection(db, "posts"), {
+title, body, category, classTarget, startDate, endDate,
+reactions: { like: 0, checked: 0, thanks: 0 },
+createdAt: serverTimestamp()
+});
+localStorage.setItem(recentPostKey, String(Date.now()));
+showToast("投稿しました！");
+document.getElementById("postForm").reset();
+} catch (error) { alert("投稿に失敗しました: " + error.message); }
+});
+
+window.selectCategory = function(category) {
+state.categoryFilter = category;
+updateCategoryTitle();
+renderPosts();
+document.getElementById("hamburgerMenu").classList.remove("active");
+document.getElementById("hamburgerOverlay").classList.remove("active");
+document.getElementById("hamburgerButton").classList.remove("active");
+};
+
+document.getElementById("hamburgerButton")?.addEventListener("click", () => {
+document.getElementById("hamburgerMenu").classList.toggle("active");
+document.getElementById("hamburgerOverlay").classList.toggle("active");
+document.getElementById("hamburgerButton").classList.toggle("active");
+});
+
+document.getElementById("hamburgerOverlay")?.addEventListener("click", () => {
+document.getElementById("hamburgerMenu").classList.remove("active");
+document.getElementById("hamburgerOverlay").classList.remove("active");
+document.getElementById("hamburgerButton").classList.remove("active");
+});
+
+document.getElementById("prevDateButton")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() - 1); updateDateDisplay(); renderPosts(); });
+document.getElementById("nextDateButton")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() + 1); updateDateDisplay(); renderPosts(); });
+document.getElementById("prevDateButtonMobile")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() - 1); updateDateDisplay(); renderPosts(); });
+document.getElementById("nextDateButtonMobile")?.addEventListener("click", () => { state.currentDate.setDate(state.currentDate.getDate() + 1); updateDateDisplay(); renderPosts(); });
+
+const avatarGrid = document.getElementById("avatarGrid");
+if (avatarGrid) {
+avatarGrid.innerHTML = AVATARS.map(av => `<div class="avatar-option" data-avatar="${av}">${av}</div>`).join("");
+avatarGrid.addEventListener("click", (e) => {
+const target = e.target.closest(".avatar-option");
+if (target) {
+document.querySelectorAll(".avatar-option").forEach(el => el.classList.remove("selected"));
+target.classList.add("selected");
+selectedAvatar = target.dataset.avatar;
+document.getElementById("profileImageUrlInput").value = "";
+}
+});
+}
+
+document.getElementById("profileModalButton")?.addEventListener("click", () => {
+document.getElementById("profileNameInput").value = state.userName;
+document.querySelectorAll(".avatar-option").forEach(el => {
+el.classList.remove("selected");
+if (el.dataset.avatar === state.userAvatarUrl) { el.classList.add("selected"); selectedAvatar = state.userAvatarUrl; }
+});
+if (state.userAvatarUrl.startsWith("http")) {
+document.getElementById("profileImageUrlInput").value = state.userAvatarUrl;
+selectedAvatar = "";
+} else {
+document.getElementById("profileImageUrlInput").value = "";
+}
+document.getElementById("profileModal").classList.remove("hidden");
+});
+document.getElementById("closeProfileModal")?.addEventListener("click", () => {
+document.getElementById("profileModal").classList.add("hidden");
+});
+
+document.addEventListener("submit", async (e) => {
+clearDebugErrors();
+
+if (e.target.id === "emailLoginForm") {
+e.preventDefault();
+const rawEmail = validateTextInput(document.getElementById("emailInput").value, "メールアドレス", 5, 80);
+const password = validateTextInput(document.getElementById("passwordInput").value, "パスワード", 6, 60);
+const loginType = document.getElementById("loginType").value;
+if (!rawEmail || !password) return;
+let email = rawEmail;
+
+// ユーザー名ログインなら学校ドメインを付ける
+if (loginType === "username") {
+    email = `${rawEmail}@shiragane.com`;
+}
+
+const loginAttemptsKey = `login_attempts`;
+const loginAttemptData = JSON.parse(localStorage.getItem(loginAttemptsKey) || '{"count":0,"first":0}');
+if (loginAttemptData.first && Date.now() - loginAttemptData.first < 10 * 60 * 1000 && loginAttemptData.count >= 5) {
+    alert("ログイン試行が多すぎます。しばらく待ってから再度お試しください。");
+    return;
+}
+
+try {
+    try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showToast("ログインしました");
+        localStorage.removeItem(loginAttemptsKey);
+    } catch (err) {
+        await createUserWithEmailAndPassword(auth, email, password);
+        showToast("アカウントを作成しました");
+        localStorage.removeItem(loginAttemptsKey);
+    }
+} catch (error) {
+    const count = (loginAttemptData.count || 0) + 1;
+    const first = loginAttemptData.first || Date.now();
+    localStorage.setItem(loginAttemptsKey, JSON.stringify({ count, first }));
+    showDebugError("loginDebugError", error);
+}
+}
+
+if (e.target.id === "termsForm") {
+e.preventDefault();
+if (document.getElementById("termsCheckbox").checked) {
+localStorage.setItem(`user_terms_agreed_${state.user.uid}`, "true");
+document.getElementById("termsModal").classList.add("hidden");
+proceedToNextStepAfterLogin(state.user);
+}
+}
+
+if (e.target.id === "setupForm") {
+e.preventDefault();
+const nameValue = validateTextInput(document.getElementById("setupName").value, "お名前", 2, 30);
+const classValue = validateTextInput(document.getElementById("setupClass").value, "クラス", 1, 10);
+if (!nameValue || !classValue) return;
+state.userName = nameValue;
+state.userClass = classValue;
+state.userAvatarUrl = "👤";
+
+localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: "👤" }));
+try {
+await setDoc(doc(db, "pendingUsers", state.user.email), {
+email: state.user.email,
+name: state.userName,
+class: state.userClass,
+avatarUrl: "👤",
+uid: state.user.uid,
+requestedAt: serverTimestamp()
+});
+document.getElementById("setupModal").classList.add("hidden");
+checkApprovalStatus(state.user);
+} catch (error) { showDebugError("setupDebugError", error); }
+}
+
+if (e.target.id === "profileEditForm") {
+e.preventDefault();
+const newName = validateTextInput(document.getElementById("profileNameInput").value, "お名前", 2, 30);
+if (!newName) return;
+const urlInput = document.getElementById("profileImageUrlInput").value.trim();
+let finalAvatar = "👤";
+if (urlInput !== "") {
+    if (!isSafeImageUrl(urlInput)) {
+        alert("プロフィール画像のURLは安全な画像形式のみを許可します。");
+        return;
+    }
+    finalAvatar = urlInput;
+} else {
+    finalAvatar = selectedAvatar || state.userAvatarUrl || "👤";
+}
+
+try {
+await setDoc(doc(db, "allowedUsers", state.user.email), {
+name: newName,
+avatarUrl: finalAvatar
+}, { merge: true });
+
+state.userName = newName;
+state.userAvatarUrl = finalAvatar;
+localStorage.setItem(`user_setup_${state.user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: finalAvatar }));
+updateUIProfile();
+document.getElementById("profileModal").classList.add("hidden");
+showToast("プロフィールを更新しました！");
+} catch (error) { showDebugError("profileDebugError", error); }
+}
+
+// 🛑 ユーザーから送信された異議申し立ての処理
+if (e.target.id === "appealForm") {
+e.preventDefault();
+const reason = validateTextInput(document.getElementById("appealReason").value, "申し立て理由", 10, 500);
+if (!reason) return;
+try {
+await addDoc(collection(db, "appeals"), {
+email: state.user.email,
+name: state.userName,
+reason: reason,
+createdAt: serverTimestamp()
+});
+showToast("異議申し立てを送信しました。");
+document.getElementById("appealForm").reset();
+} catch (error) { showDebugError("suspendedDebugError", error); }
+}
+});
+
+function initUserReactions() {
+if (!state.user) return;
+const q = query(collection(db, "userReactions"));
+onSnapshot(q, (snapshot) => {
+state.userReactedMap = {};
+snapshot.docs.forEach(doc => {
+const data = doc.data();
+if (data.userId === state.user.uid) {
+if (!state.userReactedMap[data.postId]) state.userReactedMap[data.postId] = {};
+state.userReactedMap[data.postId][data.type] = true;
+}
+});
+renderPosts();
+});
+}
+
+let activeCommentListeners = {};
+
+// ✨ コメント内動的アイコン自動書き換えのために全ユーザーのプロファイルをマップに常時ロード
+function initUsersProfiles() {
+if (state.adminUnsubscribes.dynamicProfiles) state.adminUnsubscribes.dynamicProfiles();
+state.adminUnsubscribes.dynamicProfiles = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
+snapshot.docs.forEach(doc => {
+const data = doc.data();
+if (data.uid) {
+state.usersProfileMap[data.uid] = { avatarUrl: data.avatarUrl, name: data.name };
+}
+});
+renderPosts();
+}, (error) => { console.warn("プロファイルデータのリアルタイム同期制限、またはセキュリティルールによる制限:", error); });
+}
+
+function initPosts() {
+const postsRef = query(collection(db, "posts"), orderBy("createdAt", "desc"), limit(100));
+onSnapshot(postsRef, (snapshot) => {
+state.posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+
+snapshot.docs.forEach(postDoc => {
+    const postId = postDoc.id;
+    if (!activeCommentListeners[postId]) {
+        const commentsRef = query(collection(db, "posts", postId, "comments"), orderBy("createdAt", "asc"));
+        activeCommentListeners[postId] = onSnapshot(commentsRef, (commentSnap) => {
+            state.commentsMap[postId] = commentSnap.docs.map(cDoc => ({
+                id: cDoc.id,
+                ...cDoc.data()
+            }));
+            renderPosts();
+        });
+    }
+});
+renderPosts();
+});
+}
+
+document.getElementById("adminDashboardButton")?.addEventListener("click", () => {
+document.getElementById("adminDashboardModal").classList.remove("hidden");
+});
+
+document.getElementById("closeAdminDashboard")?.addEventListener("click", () => {
+document.getElementById("adminDashboardModal").classList.add("hidden");
+});
+
+function loadAdminData() {
+// 既存のリスナーのクリーンアップ
+if (state.adminUnsubscribes.pendingUsers) state.adminUnsubscribes.pendingUsers();
+if (state.adminUnsubscribes.allowedUsers) state.adminUnsubscribes.allowedUsers();
+if (state.adminUnsubscribes.appeals) state.adminUnsubscribes.appeals();
+
+const pendingList = document.getElementById("pendingUsersListAdmin");
+const allowedList = document.getElementById("allowedUsersListAdmin");
+const appealsList = document.getElementById("appealsListAdmin");
+
+state.adminUnsubscribes.pendingUsers = onSnapshot(collection(db, "pendingUsers"), (snapshot) => {
+if (snapshot.empty) { pendingList.innerHTML = `<p class="admin-dashboard-empty" style="color:var(--muted);">申請者なし</p>`; return; }
+pendingList.innerHTML = snapshot.docs.map(doc => {
+const data = doc.data();
+const userEmail = doc.id;
+return `
+<div class="admin-dashboard-card">
+${getAvatarHTML(data.avatarUrl)}
+<div style="flex:1;">
+<p class="admin-dashboard-title">お名前: ${escapeHTML(data.name || "不明")} (${escapeHTML(data.class || "不明")})</p>
+<p class="admin-dashboard-meta">メール: ${escapeHTML(userEmail)}</p>
+<div style="margin-top:8px; display:flex; flex-wrap:wrap; gap:8px;">
+<button class="button" onclick="window.approveUser('${escapeHTML(userEmail)}', '${escapeHTML(data.class || '7-1')}', '${escapeHTML(data.name || '')}', '${escapeHTML(data.avatarUrl || '👤')}', '${escapeHTML(data.uid || '')}')" style="min-height: 32px; padding: 0 12px; font-size: 0.85rem; margin-right: 8px; width:auto;">承認</button>
+<button class="danger-button" onclick="window.rejectUser('${userEmail}')" style="min-height: 32px; padding: 0 12px; font-size: 0.85rem; width:auto;">拒否</button>
+</div>
+</div>
+</div>
+`;
+}).join("");
+}, (error) => { showDebugError("dashboardDebugError", error); });
+
+state.adminUnsubscribes.allowedUsers = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
+if (snapshot.empty) { allowedList.innerHTML = `<p class="admin-dashboard-empty" style="color:var(--muted);">承認済みなし</p>`; return; }
+allowedList.innerHTML = snapshot.docs.map(doc => {
+const userEmail = doc.id;
+const data = doc.data();
+const isSuspended = data.suspended === true;
+return `
+<div class="admin-dashboard-card" style="${isSuspended ? 'border-left: 5px solid #d92d20;' : ''}">
+${getAvatarHTML(data.avatarUrl)}
+<div style="flex:1;">
+<p class="admin-dashboard-title">${escapeHTML(data.name || "名前なし")} ${isSuspended ? '<span style="color:#d92d20; font-weight:bold; font-size:0.8rem;">[停止中]</span>' : ''}</p>
+<p class="admin-dashboard-meta" style="margin-bottom:6px;">メール: ${escapeHTML(userEmail)}</p>
+<div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
+    <select onchange="window.updateUserClass('${escapeHTML(userEmail)}', this.value)" style="padding: 4px 8px; border: 1px solid var(--border); border-radius: 8px; font-size:0.8rem; width:auto; height:32px; display:inline-block;">
+        <option value="7-1" ${data.class === '7-1' ? 'selected' : ''}>7-1組</option>
+        <option value="7-2" ${data.class === '7-2' ? 'selected' : ''}>7-2組</option>
+    </select>
+    <button class="danger-button" onclick="window.toggleSuspendUser('${escapeHTML(userEmail)}', ${isSuspended})" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto; background: ${isSuspended ? 'rgba(16,185,129,0.12)' : 'rgba(217,45,32,0.12)'}; color: ${isSuspended ? '#10b981' : '#d92d20'}">
+        ${isSuspended ? 'アカウント再開' : 'アカウント停止'}
+    </button>
+    <button class="danger-button" onclick="window.removeUser('${userEmail}')" style="min-height: 32px; padding: 0 12px; font-size: 0.8rem; width:auto;">削除</button>
+</div>
+</div>
+</div>
+`;
+}).join("");
+}, (error) => { showDebugError("dashboardDebugError", error); });
+
+// ⚖️ 届いた異議申し立て一覧を取得するリスナー
+state.adminUnsubscribes.appeals = onSnapshot(query(collection(db, "appeals"), orderBy("createdAt", "desc")), (snapshot) => {
+if (snapshot.empty) { appealsList.innerHTML = `<p style="color:var(--muted);">現在、異議申し立てはありません</p>`; return; }
+appealsList.innerHTML = snapshot.docs.map(doc => {
+const d = doc.data();
+const date = d.createdAt ? new Date(d.createdAt.seconds * 1000).toLocaleString("ja-JP") : "送信中...";
+return `
+<div style="background: #fff; border: 1px solid #f3f4f6; border-left: 4px solid #f59e0b; border-radius: 12px; padding: 14px; position:relative;">
+    <div style="font-size: 0.8rem; color: var(--muted); margin-bottom: 4px;">${date}</div>
+    <div style="font-weight: 700; margin-bottom: 6px;">${escapeHTML(d.name || "不明")} (${escapeHTML(d.email)})</div>
+    <div style="background: #f9fafb; padding: 10px; border-radius: 8px; font-size: 0.9rem; color: #344054; white-space: pre-wrap; margin-bottom: 8px;">${escapeHTML(d.reason)}</div>
+    <button class="danger-button" onclick="window.deleteAppeal('${escapeHTML(doc.id)}')" style="min-height: 28px; padding: 0 10px; font-size: 0.75rem; width:auto;">履歴から削除</button>
+</div>
+`;
+}).join("");
+}, (error) => { showDebugError("dashboardDebugError", error); });
+}
+
+window.approveUser = async (email, userClass, name, avatarUrl, uid) => {
+if (!state.user || !state.isAdmin) { alert("権限がありません。"); return; }
+try {
+await setDoc(doc(db, "allowedUsers", email), { email, class: userClass, name: name, avatarUrl: avatarUrl, uid: uid, suspended: false, approvedAt: serverTimestamp() });
+await deleteDoc(doc(db, "pendingUsers", email));
+await logAdminAction("approveUser", { targetEmail: email, userClass, name, avatarUrl, uid });
+showToast("承認しました");
+} catch (error) { showDebugError("dashboardDebugError", error); }
+};
+
+window.rejectUser = async (email) => {
+if (!state.user || !state.isAdmin) { alert("権限がありません。"); return; }
+try { await deleteDoc(doc(db, "pendingUsers", email)); await logAdminAction("rejectUser", { targetEmail: email }); showToast("拒否しました"); } catch (error) { showDebugError("dashboardDebugError", error); }
+};
+
+window.removeUser = async (email) => {
+if (!state.user || !state.isAdmin) { alert("権限がありません。"); return; }
+try { await deleteDoc(doc(db, "allowedUsers", email)); await logAdminAction("removeUser", { targetEmail: email }); showToast("削除しました"); } catch (error) { showDebugError("dashboardDebugError", error); }
+};
+
+// ✏️ 管理者がユーザーのクラスを即時変更する関数
+window.updateUserClass = async (email, newClass) => {
+if (!state.user || !state.isAdmin) { alert("権限がありません。"); return; }
+try {
+await updateDoc(doc(db, "allowedUsers", email), { class: newClass });
+await logAdminAction("updateUserClass", { targetEmail: email, newClass });
+showToast(`クラスを ${newClass} 組に変更しました`);
+} catch (error) { alert("クラスの変更に失敗しました"); }
+};
+
+// 🛑 管理者がアカウント停止（BAN）を切り替える関数
+window.toggleSuspendUser = async (email, currentSuspendedState) => {
+if (!state.user || !state.isAdmin) { alert("権限がありません。"); return; }
+const actionStr = currentSuspendedState ? "再開" : "停止";
+if (confirm(`このユーザーのアカウントを本当に${actionStr}しますか？`)) {
+try {
+await updateDoc(doc(db, "allowedUsers", email), { suspended: !currentSuspendedState });
+await logAdminAction("toggleSuspendUser", { targetEmail: email, newState: !currentSuspendedState });
+showToast(`アカウントを${actionStr}しました`);
+} catch (error) { alert(`アカウントの${actionStr}処理に失敗しました`); }
+}
+};
+
+window.deleteAppeal = async (id) => {
+if (!state.user || !state.isAdmin) { alert("権限がありません。"); return; }
+try { await deleteDoc(doc(db, "appeals", id)); await logAdminAction("deleteAppeal", { appealId: id }); showToast("申し立て履歴を削除しました"); } catch (error) { alert("削除失敗"); }
+};
+
+function handleLogout() {
+if (state.approvalUnsubscribe) { state.approvalUnsubscribe(); state.approvalUnsubscribe = null; }
+Object.values(activeCommentListeners).forEach(unsub => unsub());
+activeCommentListeners = {};
+signOut(auth).then(() => { showToast("ログアウトしました"); });
+}
+
+document.getElementById("logoutButton")?.addEventListener("click", handleLogout);
+document.getElementById("pendingLogoutButton")?.addEventListener("click", handleLogout);
+document.getElementById("suspendedLogoutButton")?.addEventListener("click", handleLogout);
+
 function checkApprovalStatus(user) {
-// 承認ロジックシミュレーション
+if (state.approvalUnsubscribe) state.approvalUnsubscribe();
+
+state.approvalUnsubscribe = onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
+if (snapshot.exists()) {
+const data = snapshot.data();
+
+// 🛑 BAN（停止状態）の監視ロジック
+if (data.suspended === true) {
+document.getElementById("suspendedModal").classList.remove("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+return;
+} else {
+document.getElementById("suspendedModal").classList.add("hidden");
+}
+
+state.userName = data.name ? data.name : state.userName;
+state.userClass = data.class ? data.class : state.userClass;
+state.userAvatarUrl = data.avatarUrl ? data.avatarUrl : "👤";
+
+localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
+
+document.getElementById("pendingApprovalModal").classList.add("hidden");
 document.getElementById("mainContent").style.display = "block";
+if (window.innerWidth <= 768) {
+document.getElementById("hamburgerButton").style.display = "flex";
+document.getElementById("hamburgerMenu").style.display = "block";
+document.getElementById("mobileDateNav").style.display = "block";
+}
+updateDateDisplay();
+updateCategoryTitle();
+updateUIProfile();
+initPosts();
+initUserReactions();
+initUsersProfiles();
+showFirstTimeGuide();
+
+} else {
+document.getElementById("pendingApprovalModal").classList.remove("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("suspendedModal").classList.add("hidden");
+}
+}, (error) => { showDebugError("pendingDebugError", error); });
 }
 
 function proceedToNextStepAfterLogin(user) {
-const savedSetup = localStorage.getItem(`user_setup_done_${user.uid}`);
+if (user.uid === ADMIN_UID) {
+state.isAdmin = true;
+state.userName = "管理者";
+state.userClass = "管理";
+state.userAvatarUrl = "👑";
+document.getElementById("mainContent").style.display = "block";
+document.getElementById("adminPostForm").style.display = "block";
+document.getElementById("adminDashboardButton").style.display = "block";
+
+if (window.innerWidth <= 768) {
+document.getElementById("hamburgerButton").style.display = "flex";
+document.getElementById("hamburgerMenu").style.display = "block";
+document.getElementById("mobileDateNav").style.display = "block";
+}
+
+updateDateDisplay();
+updateUIProfile();
+initPosts();
+initUserReactions();
+initUsersProfiles();
+loadAdminData();
+showFirstTimeGuide();
+return;
+}
+
+const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
 if (!savedSetup) {
 document.getElementById("setupModal").classList.remove("hidden");
 document.getElementById("pendingApprovalModal").classList.add("hidden");
@@ -1015,19 +1925,38 @@ state.userAvatarUrl = setup.avatarUrl || "👤";
 checkApprovalStatus(user);
 }
 
-// 認証・初期化ダミー発火（既存のFirebase onAuthStateChangedにフック可能にするため構造を維持）
-const auth = { uid: "dummy_user_123" };
-function simulateAuthState() {
+onAuthStateChanged(auth, async (user) => {
 clearDebugErrors();
-// ログイン画面等の表示切替
-document.getElementById("loginModal").classList.add("hidden");
-document.getElementById("mainContent").style.display = "block";
-const avatarHeader = document.getElementById("userAvatarHeader");
-if(avatarHeader) avatarHeader.textContent = state.userAvatarUrl;
+if (!user) {
+document.getElementById("loginModal").classList.remove("hidden");
+document.getElementById("termsModal").classList.add("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("suspendedModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("hamburgerButton").style.display = "none";
+return;
 }
 
-simulateAuthState();
+state.user = user;
+document.getElementById("loginModal").classList.add("hidden");
+
+const hasAgreed = localStorage.getItem(`user_terms_agreed_${user.uid}`);
+if (!hasAgreed) {
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("termsModal").classList.remove("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+return;
+}
+
+proceedToNextStepAfterLogin(user);
+});
+
 updateDateDisplay();
 </script>
 </body>
 </html>
+
+
+
