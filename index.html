@@ -589,10 +589,77 @@ body.dark-mode .debug-error-box { background: rgba(120, 53, 15, 0.35); border-co
 body.dark-mode .admin-dashboard-card { background: rgba(15, 23, 42, 0.78); box-shadow: 0 8px 20px rgba(2, 6, 23, 0.28); }
 body.dark-mode .admin-dashboard-appeal-card { background: rgba(30, 41, 59, 0.82); box-shadow: 0 8px 20px rgba(2, 6, 23, 0.28); }
 body.dark-mode .admin-dashboard-appeal-card .admin-dashboard-appeal-reason { background: rgba(15, 23, 42, 0.7); color: #cbd5e1; }
+body.dark-mode .chat-panel, body.dark-mode .chat-sidebar, body.dark-mode .chat-thread, body.dark-mode .chat-create-card, body.dark-mode .chat-room-item, body.dark-mode .chat-message-bubble { background: var(--surface); border-color: var(--border); color: var(--text); }
+body.dark-mode .chat-room-item.active { background: rgba(96, 165, 250, 0.16); }
+body.dark-mode .chat-message-bubble.mine { background: rgba(96, 165, 250, 0.22); }
+body.dark-mode .chat-message-bubble.other { background: rgba(148, 163, 184, 0.16); }
+body.dark-mode .chat-input { background: rgba(15, 23, 42, 0.82); color: var(--text); border-color: var(--border); }
 body.dark-mode ::-webkit-scrollbar { width: 10px; }
 body.dark-mode ::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
 body.dark-mode ::-webkit-scrollbar-thumb { background: rgba(96, 165, 250, 0.35); border-radius: 999px; }
 
+.chat-fab {
+position: fixed;
+right: 24px;
+bottom: 24px;
+z-index: 1300;
+width: 58px;
+height: 58px;
+border-radius: 999px;
+background: linear-gradient(135deg, #0071e3, #2e90fa);
+color: #fff;
+font-size: 1.4rem;
+box-shadow: 0 16px 38px rgba(0, 113, 227, 0.28);
+}
+.chat-fab:hover { transform: translateY(-1px); }
+.chat-panel {
+position: fixed;
+right: 18px;
+bottom: 92px;
+z-index: 1250;
+width: min(920px, calc(100vw - 24px));
+max-height: min(760px, calc(100vh - 110px));
+display: grid;
+grid-template-rows: auto 1fr;
+background: rgba(255, 255, 255, 0.98);
+border: 1px solid var(--border);
+border-radius: 24px;
+box-shadow: var(--shadow);
+overflow: hidden;
+backdrop-filter: blur(24px);
+-webkit-backdrop-filter: blur(24px);
+}
+.chat-panel.hidden { display: none; }
+.chat-panel-header {
+display: flex; justify-content: space-between; align-items: center; padding: 16px 18px; border-bottom: 1px solid var(--border);}
+.chat-panel-title { font-size: 1.05rem; font-weight: 800; }
+.chat-panel-subtitle { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
+.chat-panel-body { display: grid; grid-template-columns: 300px 1fr; min-height: 0; }
+.chat-sidebar { border-right: 1px solid var(--border); background: rgba(248, 250, 252, 0.9); padding: 14px; display: flex; flex-direction: column; gap: 12px; min-height: 0; overflow: hidden; }
+.chat-sidebar-actions { display: grid; gap: 8px; }
+.chat-admin-panel { display: grid; gap: 8px; padding: 10px; border-radius: 14px; background: rgba(255, 255, 255, 0.85); border: 1px solid var(--border); }
+.chat-admin-title { font-size: 0.8rem; font-weight: 800; color: var(--muted); }
+.chat-admin-item { display: flex; justify-content: space-between; align-items: center; gap: 6px; background: rgba(248, 250, 252, 0.9); border-radius: 10px; padding: 8px; font-size: 0.8rem; }
+.chat-admin-actions { display: flex; gap: 6px; }
+.chat-rooms-list { display: grid; gap: 8px; overflow-y: auto; padding-right: 2px; }
+.chat-room-item { display: grid; gap: 4px; padding: 10px 12px; border-radius: 14px; border: 1px solid var(--border); background: #fff; text-decoration: none; color: var(--text); }
+.chat-room-item.active { background: rgba(0, 113, 227, 0.12); border-color: rgba(0, 113, 227, 0.2); }
+.chat-room-badge { font-size: 0.72rem; font-weight: 700; color: var(--accent); }
+.chat-room-preview { font-size: 0.8rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-thread { display: flex; flex-direction: column; min-height: 0; background: rgba(255, 255, 255, 0.85); }
+.chat-thread-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 16px; border-bottom: 1px solid var(--border); }
+.chat-messages-list { flex: 1; overflow-y: auto; padding: 14px 16px; display: grid; gap: 10px; }
+.chat-message-bubble { max-width: min(80%, 560px); padding: 10px 12px; border-radius: 14px; line-height: 1.5; font-size: 0.92rem; word-break: break-word; }
+.chat-message-bubble.mine { margin-left: auto; background: rgba(0, 113, 227, 0.12); color: var(--text); }
+.chat-message-bubble.other { background: rgba(15, 23, 42, 0.06); color: var(--text); }
+.chat-message-meta { font-size: 0.72rem; color: var(--muted); margin-top: 4px; }
+.chat-message-form { display: flex; gap: 8px; padding: 12px 14px; border-top: 1px solid var(--border); }
+.chat-input { flex: 1; border: 1px solid var(--border); background: #fff; border-radius: 999px; padding: 10px 14px; min-height: 44px; }
+.chat-create-card { flex: 1; padding: 16px; overflow-y: auto; display: grid; gap: 12px; }
+.chat-user-option { display: flex; align-items: center; gap: 8px; padding: 8px 10px; border: 1px solid var(--border); border-radius: 12px; background: #fff; }
+.chat-empty-state { color: var(--muted); padding: 22px; text-align: center; font-size: 0.9rem; }
+.chat-form-grid { display: grid; gap: 10px; }
+.chat-form-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 @media (max-width: 768px) {
 .hamburger-button { display: flex; }
 .hamburger-menu { display: block; }
@@ -996,6 +1063,39 @@ width: 100% !important;
 
 <div class="toast" id="toast"></div>
 
+<button class="chat-fab" id="chatFab" aria-expanded="false" title="チャットを開く">💬</button>
+<div class="chat-panel hidden" id="chatPanel">
+  <div class="chat-panel-header">
+    <div>
+      <div class="chat-panel-title">チャット</div>
+      <div class="chat-panel-subtitle">グループ作成・DM</div>
+    </div>
+    <button type="button" class="ghost-button" id="closeChatPanel" style="min-height: 36px; padding: 0 12px; font-size: 0.8rem; width: auto;">閉じる</button>
+  </div>
+  <div class="chat-panel-body">
+    <div class="chat-sidebar">
+      <div class="chat-sidebar-actions">
+        <button type="button" class="button" id="chatCreateGroupButton" style="width: 100%; min-height: 42px;">＋ グループ作成</button>
+        <button type="button" class="ghost-button" id="chatCreateDmButton" style="width: 100%; min-height: 42px;">＋ DM作成</button>
+      </div>
+      <div id="chatAdminManage" class="chat-admin-panel"></div>
+      <div id="chatRoomsList" class="chat-rooms-list"></div>
+    </div>
+    <div class="chat-thread">
+      <div id="chatThreadEmpty" class="chat-empty-state">会話を選択してください</div>
+      <div id="chatThreadContent" style="display:none; height:100%; flex-direction:column;">
+        <div id="chatThreadHeader" class="chat-thread-header"></div>
+        <div id="chatMessagesList" class="chat-messages-list"></div>
+        <form id="chatMessageForm" class="chat-message-form">
+          <input id="chatMessageInput" class="chat-input" type="text" maxlength="500" placeholder="メッセージを入力..." required>
+          <button type="submit" class="button" style="min-height: 44px; padding: 0 14px;">送信</button>
+        </form>
+      </div>
+      <div id="chatCreationFormPanel" class="chat-create-card" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 // ダークモード: 初期表示はシステム設定、明示的な切り替えは保存する
 (function () {
@@ -1096,10 +1196,20 @@ userReactedMap: {},
 commentsMap: {},
 // 各ユーザーの最新プロフィール情報をリアルタイム同期してキャッシュするマップ
 usersProfileMap: {},
+chatRooms: [],
+chatUsers: [],
+chatUsersById: {},
+selectedChatRoomId: null,
+chatMessages: [],
+chatListenerRoomId: null,
 adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null },
 approvalUnsubscribe: null,
 categoryFilter: "all"
 };
+
+let chatUsersUnsub = null;
+let chatRoomsUnsub = null;
+let chatMessagesUnsub = null;
 
 function showDebugError(elementId, error) {
 const box = document.getElementById(elementId);
@@ -1183,6 +1293,363 @@ const toast = document.getElementById("toast");
 toast.textContent = msg;
 toast.classList.add("show");
 setTimeout(() => toast.classList.remove("show"), 2000);
+}
+
+function getCurrentChatUserMeta(userId) {
+if (!userId) return null;
+if (state.chatUsersById?.[userId]) return state.chatUsersById[userId];
+if (userId === state.user?.uid) {
+return {
+uid: state.user.uid,
+name: state.userName || state.user.email || "あなた",
+email: state.user.email || "",
+avatarUrl: state.userAvatarUrl || "👤",
+class: state.userClass || ""
+};
+}
+return null;
+}
+
+function getChatRoomDisplayName(room) {
+if (room.type === "dm") {
+const otherUserId = room.members.find(id => id !== state.user?.uid);
+const otherUser = getCurrentChatUserMeta(otherUserId);
+return otherUser ? otherUser.name : room.name || "DM";
+}
+return room.name || "グループ";
+}
+
+function isChatRoomVisible(room) {
+if (!room || !Array.isArray(room.members)) return false;
+if (state.isAdmin) return true;
+return room.members.includes(state.user?.uid);
+}
+
+function renderChatRooms() {
+const list = document.getElementById("chatRoomsList");
+if (!list) return;
+const visibleRooms = (state.chatRooms || []).filter(isChatRoomVisible);
+if (!visibleRooms.length) {
+list.innerHTML = '<div class="chat-empty-state">まだ会話がありません</div>';
+return;
+}
+list.innerHTML = visibleRooms.map(room => {
+const roomTitle = escapeHTML(getChatRoomDisplayName(room));
+const preview = escapeHTML(room.lastMessage || "メッセージを送信しよう");
+const isActive = room.id === state.selectedChatRoomId;
+return `
+<a href="#" class="chat-room-item ${isActive ? "active" : ""}" data-room-id="${room.id}">
+  <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+    <strong>${roomTitle}</strong>
+    <span class="chat-room-badge">${room.type === "dm" ? "DM" : "群"}</span>
+  </div>
+  <div class="chat-room-preview">${preview}</div>
+</a>`;
+}).join("");
+}
+
+function renderChatAdminManage() {
+const panel = document.getElementById("chatAdminManage");
+if (!panel) return;
+if (!state.isAdmin) {
+panel.innerHTML = "";
+return;
+}
+const groups = (state.chatRooms || []).filter(room => room.type !== "dm" && isChatRoomVisible(room));
+if (!groups.length) {
+panel.innerHTML = '<div class="chat-admin-title">管理</div><div class="chat-empty-state" style="padding: 8px 0;">表示できるグループはありません</div>';
+return;
+}
+panel.innerHTML = `
+<div class="chat-admin-title">管理</div>
+${groups.map(room => `
+<div class="chat-admin-item">
+  <div>${escapeHTML(room.name || "グループ")}</div>
+  <div class="chat-admin-actions">
+    <button type="button" class="ghost-button" data-chat-admin="rename" data-room-id="${room.id}" style="min-height: 28px; padding: 0 8px; font-size: 0.72rem; width: auto;">名前</button>
+    <button type="button" class="danger-button" data-chat-admin="delete" data-room-id="${room.id}" style="min-height: 28px; padding: 0 8px; font-size: 0.72rem; width: auto;">削除</button>
+  </div>
+</div>`).join("")}
+`;
+}
+
+function renderChatThread() {
+const empty = document.getElementById("chatThreadEmpty");
+const content = document.getElementById("chatThreadContent");
+const header = document.getElementById("chatThreadHeader");
+const messagesList = document.getElementById("chatMessagesList");
+const creationPanel = document.getElementById("chatCreationFormPanel");
+if (!state.selectedChatRoomId) {
+if (empty) empty.style.display = "block";
+if (content) { content.style.display = "none"; }
+if (creationPanel) creationPanel.style.display = "none";
+return;
+}
+const room = (state.chatRooms || []).find(item => item.id === state.selectedChatRoomId);
+if (!room) {
+if (empty) empty.style.display = "block";
+if (content) content.style.display = "none";
+if (creationPanel) creationPanel.style.display = "none";
+return;
+}
+if (empty) empty.style.display = "none";
+if (content) content.style.display = "flex";
+if (creationPanel) creationPanel.style.display = "none";
+if (header) {
+const roomName = escapeHTML(getChatRoomDisplayName(room));
+header.innerHTML = `
+<div>
+  <div style="font-weight:800;">${roomName}</div>
+  <div style="font-size:0.8rem; color:var(--muted);">${room.type === "dm" ? "DM" : "グループチャット"}</div>
+</div>
+<div style="font-size:0.75rem; color:var(--muted);">${room.members?.length || 0}人</div>`;
+}
+if (messagesList) {
+const messages = (state.chatMessages || []).map(msg => {
+const sender = getCurrentChatUserMeta(msg.senderId);
+const isMine = msg.senderId === state.user?.uid;
+const senderName = sender ? escapeHTML(sender.name) : "不明";
+const messageText = escapeHTML(msg.text || "");
+const time = msg.createdAt?.seconds ? new Date(msg.createdAt.seconds * 1000).toLocaleTimeString("ja-JP", {hour: "2-digit", minute: "2-digit"}) : "";
+return `
+<div class="chat-message-bubble ${isMine ? "mine" : "other"}">
+  ${!isMine ? `<div style="font-size:0.72rem; font-weight:700; margin-bottom:4px;">${senderName}</div>` : ""}
+  <div>${messageText}</div>
+  <div class="chat-message-meta">${time}</div>
+</div>`;
+}).join("");
+messagesList.innerHTML = messages || '<div class="chat-empty-state">まだメッセージがありません</div>';
+messagesList.scrollTop = messagesList.scrollHeight;
+}
+}
+
+function toggleChatPanel(forceOpen) {
+const panel = document.getElementById("chatPanel");
+const fab = document.getElementById("chatFab");
+if (!panel || !fab) return;
+const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : panel.classList.contains("hidden");
+panel.classList.toggle("hidden", !shouldOpen);
+fab.setAttribute("aria-expanded", String(shouldOpen));
+if (shouldOpen) {
+renderChatRooms();
+renderChatAdminManage();
+if (!state.selectedChatRoomId && (state.chatRooms || []).filter(isChatRoomVisible).length) {
+const firstRoom = (state.chatRooms || []).filter(isChatRoomVisible)[0];
+if (firstRoom) {
+selectChatRoom(firstRoom.id);
+}
+}
+}
+}
+
+function closeChatCreateForm() {
+const panel = document.getElementById("chatCreationFormPanel");
+if (panel) panel.style.display = "none";
+}
+
+function showChatCreateForm(type) {
+const panel = document.getElementById("chatCreationFormPanel");
+const empty = document.getElementById("chatThreadEmpty");
+const content = document.getElementById("chatThreadContent");
+if (!panel) return;
+if (empty) empty.style.display = "none";
+if (content) content.style.display = "none";
+panel.style.display = "block";
+
+if (type === "dm") {
+panel.innerHTML = `
+<div class="chat-form-grid">
+  <h3 style="margin:0; font-size:1rem;">DMを作成</h3>
+  <label style="font-size:0.85rem; color:var(--muted);">相手を選択</label>
+  <select id="chatDmSelect" class="chat-input" style="padding:10px 12px; border-radius: 12px; width:100%;">
+    <option value="">相手を選択してください</option>
+    ${(state.chatUsers || []).filter(user => user.uid !== state.user?.uid).map(user => `<option value="${user.uid}">${escapeHTML(user.name || user.email || "ユーザー")}</option>`).join("")}
+  </select>
+  <div class="chat-form-actions">
+    <button type="button" class="ghost-button" id="chatCreateCancelButton" style="min-height: 40px; padding: 0 12px; width: auto;">キャンセル</button>
+    <button type="submit" class="button" style="min-height: 40px; padding: 0 12px; width: auto;">DMを開始</button>
+  </div>
+</div>`;
+const form = document.createElement("form");
+form.id = "chatCreateDmForm";
+form.innerHTML = panel.innerHTML;
+panel.innerHTML = "";
+panel.appendChild(form);
+const cancelButton = document.getElementById("chatCreateCancelButton");
+cancelButton?.addEventListener("click", () => closeChatCreateForm());
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const targetUid = document.getElementById("chatDmSelect")?.value;
+  if (!targetUid) { alert("相手を選択してください"); return; }
+  const existingRoom = (state.chatRooms || []).find(room => room.type === "dm" && room.members.includes(state.user.uid) && room.members.includes(targetUid) && room.members.length === 2);
+  if (existingRoom) {
+    selectChatRoom(existingRoom.id);
+    return;
+  }
+  const targetUser = getCurrentChatUserMeta(targetUid);
+  try {
+    const roomRef = await addDoc(collection(db, "chatRooms"), {
+      name: targetUser ? targetUser.name : "DM",
+      type: "dm",
+      members: [state.user.uid, targetUid],
+      createdBy: state.user.uid,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    });
+    showToast("DMを開始しました");
+    selectChatRoom(roomRef.id);
+  } catch (error) {
+    console.error(error);
+    alert("DMの開始に失敗しました");
+  }
+});
+return;
+}
+
+panel.innerHTML = `
+<form id="chatCreateGroupForm" class="chat-form-grid">
+  <h3 style="margin:0; font-size:1rem;">グループを作成</h3>
+  <input id="chatGroupNameInput" class="chat-input" type="text" maxlength="40" placeholder="グループ名" required>
+  <label style="font-size:0.85rem; color:var(--muted);">参加者を選択</label>
+  <div style="display:grid; gap:8px;">
+    ${(state.chatUsers || []).filter(user => user.uid !== state.user?.uid).map(user => `
+      <label class="chat-user-option">
+        <input type="checkbox" name="chatGroupMembers" value="${user.uid}">
+        <span>${escapeHTML(user.name || user.email || "ユーザー")}</span>
+      </label>`).join("")}
+  </div>
+  <div class="chat-form-actions">
+    <button type="button" class="ghost-button" id="chatCreateCancelButton" style="min-height: 40px; padding: 0 12px; width: auto;">キャンセル</button>
+    <button type="submit" class="button" style="min-height: 40px; padding: 0 12px; width: auto;">グループ作成</button>
+  </div>
+</form>`;
+const form = document.getElementById("chatCreateGroupForm");
+const cancelButton = document.getElementById("chatCreateCancelButton");
+cancelButton?.addEventListener("click", () => closeChatCreateForm());
+form?.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  const groupName = document.getElementById("chatGroupNameInput")?.value?.trim();
+  if (!groupName) { alert("グループ名を入力してください"); return; }
+  const selectedMembers = Array.from(document.querySelectorAll("input[name='chatGroupMembers']:checked")).map(input => input.value);
+  const roomMembers = Array.from(new Set([state.user.uid, ...selectedMembers]));
+  try {
+    const roomRef = await addDoc(collection(db, "chatRooms"), {
+      name: groupName,
+      type: "group",
+      members: roomMembers,
+      createdBy: state.user.uid,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp()
+    });
+    showToast("グループを作成しました");
+    selectChatRoom(roomRef.id);
+  } catch (error) {
+    console.error(error);
+    alert("グループ作成に失敗しました");
+  }
+});
+}
+
+async function manageChatRoom(action, roomId) {
+const room = (state.chatRooms || []).find(item => item.id === roomId);
+if (!room) return;
+if (action === "rename") {
+const nextName = prompt("新しいグループ名を入力してください", room.name || "");
+if (!nextName) return;
+try {
+await updateDoc(doc(db, "chatRooms", roomId), { name: nextName.trim() });
+showToast("グループ名を更新しました");
+} catch (error) {
+console.error(error);
+alert("名前の更新に失敗しました");
+}
+return;
+}
+if (action === "delete") {
+if (!confirm("このグループを削除しますか？")) return;
+try {
+await deleteDoc(doc(db, "chatRooms", roomId));
+if (state.selectedChatRoomId === roomId) {
+state.selectedChatRoomId = null;
+}
+showToast("グループを削除しました");
+} catch (error) {
+console.error(error);
+alert("グループの削除に失敗しました");
+}
+}
+}
+
+function initChatRealtime() {
+if (!state.user || !db) return;
+if (chatUsersUnsub) chatUsersUnsub();
+chatUsersUnsub = onSnapshot(collection(db, "allowedUsers"), (snapshot) => {
+const users = [];
+const usersById = {};
+snapshot.docs.forEach(doc => {
+const data = doc.data();
+const uid = data.uid || doc.id;
+const meta = {
+uid,
+name: data.name || doc.id,
+email: data.email || doc.id,
+avatarUrl: data.avatarUrl || "👤",
+class: data.class || ""
+};
+users.push(meta);
+usersById[uid] = meta;
+});
+usersById[state.user.uid] = {
+uid: state.user.uid,
+name: state.userName || state.user.email || "あなた",
+email: state.user.email || "",
+avatarUrl: state.userAvatarUrl || "👤",
+class: state.userClass || ""
+};
+state.chatUsers = users;
+state.chatUsersById = usersById;
+renderChatRooms();
+renderChatAdminManage();
+}, (error) => { console.warn("チャットユーザーの同期に失敗しました", error); });
+
+if (chatRoomsUnsub) chatRoomsUnsub();
+chatRoomsUnsub = onSnapshot(query(collection(db, "chatRooms"), orderBy("updatedAt", "desc")), (snapshot) => {
+state.chatRooms = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+const visibleRooms = state.chatRooms.filter(isChatRoomVisible);
+if (!state.selectedChatRoomId && visibleRooms.length) {
+state.selectedChatRoomId = visibleRooms[0].id;
+}
+if (state.selectedChatRoomId && !state.chatRooms.some(room => room.id === state.selectedChatRoomId)) {
+state.selectedChatRoomId = null;
+}
+renderChatRooms();
+renderChatAdminManage();
+if (state.selectedChatRoomId && state.chatListenerRoomId !== state.selectedChatRoomId) {
+selectChatRoom(state.selectedChatRoomId);
+} else if (!state.selectedChatRoomId) {
+renderChatThread();
+}
+}, (error) => { console.warn("チャットルームの同期に失敗しました", error); });
+}
+
+function selectChatRoom(roomId) {
+if (!roomId) return;
+state.selectedChatRoomId = roomId;
+state.chatListenerRoomId = roomId;
+if (chatMessagesUnsub) {
+chatMessagesUnsub();
+chatMessagesUnsub = null;
+}
+state.chatMessages = [];
+const messagesRef = query(collection(db, "chatRooms", roomId, "messages"), orderBy("createdAt", "asc"));
+chatMessagesUnsub = onSnapshot(messagesRef, (snapshot) => {
+state.chatMessages = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+renderChatThread();
+renderChatRooms();
+}, (error) => { console.warn("チャットメッセージの同期に失敗しました", error); });
+renderChatRooms();
+renderChatAdminManage();
+renderChatThread();
 }
 
 function getLocalDateString(date) {
@@ -1716,6 +2183,50 @@ renderPosts();
 });
 }
 
+document.getElementById("chatFab")?.addEventListener("click", () => toggleChatPanel());
+document.getElementById("closeChatPanel")?.addEventListener("click", () => toggleChatPanel(false));
+document.getElementById("chatPanel")?.addEventListener("click", (event) => {
+if (event.target.id === "chatPanel") {
+toggleChatPanel(false);
+}
+});
+document.getElementById("chatRoomsList")?.addEventListener("click", (event) => {
+const roomItem = event.target.closest("[data-room-id]");
+if (roomItem) {
+event.preventDefault();
+selectChatRoom(roomItem.getAttribute("data-room-id"));
+}
+});
+document.getElementById("chatAdminManage")?.addEventListener("click", async (event) => {
+const button = event.target.closest("[data-chat-admin]");
+if (!button) return;
+await manageChatRoom(button.getAttribute("data-chat-admin"), button.getAttribute("data-room-id"));
+});
+document.getElementById("chatCreateGroupButton")?.addEventListener("click", () => showChatCreateForm("group"));
+document.getElementById("chatCreateDmButton")?.addEventListener("click", () => showChatCreateForm("dm"));
+document.getElementById("chatPanel")?.addEventListener("submit", async (event) => {
+if (event.target.id === "chatMessageForm") {
+event.preventDefault();
+const input = document.getElementById("chatMessageInput");
+const text = validateTextInput(input.value, "メッセージ", 1, 500);
+if (!text || !state.selectedChatRoomId) return;
+try {
+await addDoc(collection(db, "chatRooms", state.selectedChatRoomId, "messages"), {
+senderId: state.user.uid,
+senderName: state.userName || state.user.email || "ユーザー",
+text,
+createdAt: serverTimestamp()
+});
+await updateDoc(doc(db, "chatRooms", state.selectedChatRoomId), { lastMessage: text, updatedAt: serverTimestamp() });
+input.value = "";
+showToast("送信しました");
+} catch (error) {
+console.error(error);
+alert("メッセージの送信に失敗しました");
+}
+}
+});
+
 document.getElementById("adminDashboardButton")?.addEventListener("click", () => {
 document.getElementById("adminDashboardModal").classList.remove("hidden");
 });
@@ -1897,6 +2408,7 @@ updateUIProfile();
 initPosts();
 initUserReactions();
 initUsersProfiles();
+initChatRealtime();
 showFirstTimeGuide();
 
 } else {
@@ -1928,6 +2440,7 @@ updateUIProfile();
 initPosts();
 initUserReactions();
 initUsersProfiles();
+initChatRealtime();
 loadAdminData();
 showFirstTimeGuide();
 return;
