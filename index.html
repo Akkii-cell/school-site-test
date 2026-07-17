@@ -1159,7 +1159,6 @@ container.innerHTML = filtered.length === 0
         `;
     }).join("");
 
-    const tag = post.tagId ? state.tags.find(t => t.id === post.tagId) : null;
     const postBodyHtml = parsePostBody(post.body);
 
     return `
