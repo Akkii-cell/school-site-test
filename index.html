@@ -1012,16 +1012,16 @@ categoryFilter: "all"
 function showDebugError(elementId, error) {
 const box = document.getElementById(elementId);
 if (box) {
-const message = error && error.message ? error.message : "不明なエラーです";
-const normalizedMessage = message.includes("password") || message.includes("Password")
-? "パスワードが違います"
-: message.includes("email-already-in-use") || message.includes("already in use")
-? "このメールアドレスはすでに登録されています"
-: message.includes("network") || message.includes("Network")
-? "通信に失敗しました"
-: message.includes("server") || message.includes("internal")
-? "サーバーでエラーが発生しました"
-: "エラーが発生しました";
+const message = error && error.message ? error.message : "";
+const code = error && error.code ? error.code : "";
+let normalizedMessage = "エラーが発生しました";
+
+if (code === "auth/email-already-in-use" || message.includes("email-already-in-use") || message.includes("already in use")) {
+normalizedMessage = "このメールアドレスはすでに登録されています";
+} else if (code === "auth/wrong-password" || code === "auth/user-not-found" || message.includes("wrong-password") || message.includes("user-not-found") || message.includes("password") || message.includes("Password")) {
+normalizedMessage = "メールアドレスかパスワードが違います";
+}
+
 box.textContent = normalizedMessage;
 box.style.display = "block";
 }
