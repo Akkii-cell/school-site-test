@@ -639,7 +639,7 @@ width: 100% !important;
 <input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <div style="display: flex; gap: 10px;">
 <button type="submit" name="authAction" value="login" class="button" style="flex: 1;">ログイン</button>
-<button type="submit" name="authAction" value="signup" class="ghost-button" style="flex: 1;">新規登録</button>
+<button type="submit" name="authAction" value="signup" style="flex: 1; min-height: 44px; padding: 0 16px; border-radius: 999px; font-weight: 700; width: auto; background: rgba(15, 23, 42, 0.04); color: #111827; border: 1px solid var(--border);">新規登録</button>
 </div>
 </form>
 <div id="loginDebugError" class="debug-error-box"></div>
@@ -1022,7 +1022,7 @@ const normalizedMessage = message.includes("password") || message.includes("Pass
 : message.includes("server") || message.includes("internal")
 ? "サーバーでエラーが発生しました"
 : "エラーが発生しました";
-box.textContent = `⚠️ ${normalizedMessage}`;
+box.textContent = normalizedMessage;
 box.style.display = "block";
 }
 }
