@@ -1009,7 +1009,17 @@ categoryFilter: "all"
 function showDebugError(elementId, error) {
 const box = document.getElementById(elementId);
 if (box) {
-box.textContent = `⚠️ エラー発生: ${error.name || 'Error'}\nメッセージ: ${error.message}`;
+const message = error && error.message ? error.message : "不明なエラーです";
+const normalizedMessage = message.includes("password") || message.includes("Password")
+? "パスワードが違います"
+: message.includes("email-already-in-use") || message.includes("already in use")
+? "このメールアドレスはすでに登録されています"
+: message.includes("network") || message.includes("Network")
+? "通信に失敗しました"
+: message.includes("server") || message.includes("internal")
+? "サーバーでエラーが発生しました"
+: "エラーが発生しました";
+box.textContent = `⚠️ ${normalizedMessage}`;
 box.style.display = "block";
 }
 }
