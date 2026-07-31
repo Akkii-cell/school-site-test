@@ -637,7 +637,10 @@ width: 100% !important;
 </select>
 <input id="emailInput" type="text" placeholder="メールアドレス または ユーザー名" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<button type="submit" class="button" style="width: 100%;">ログイン / 登録</button>
+<div style="display: flex; gap: 10px;">
+<button type="submit" name="authAction" value="login" class="button" style="flex: 1;">ログイン</button>
+<button type="submit" name="authAction" value="signup" class="ghost-button" style="flex: 1;">新規登録</button>
+</div>
 </form>
 <div id="loginDebugError" class="debug-error-box"></div>
 </div>
@@ -1414,6 +1417,7 @@ clearDebugErrors();
 
 if (e.target.id === "emailLoginForm") {
 e.preventDefault();
+const action = e.submitter?.value || "login";
 let email = document.getElementById("emailInput").value.trim();
 const password = document.getElementById("passwordInput").value;
 const loginType = document.getElementById("loginType").value;
@@ -1423,16 +1427,24 @@ if (loginType === "username") {
     email += "@shiragane.com";
 }
 
-
 try {
-try {
-await signInWithEmailAndPassword(auth, email, password);
-showToast("ログインしました");
-} catch {
-await createUserWithEmailAndPassword(auth, email, password);
-showToast("アカウントを作成しました");
+if (action === "signup") {
+    await createUserWithEmailAndPassword(auth, email, password);
+    showToast("アカウントを作成しました");
+} else {
+    await signInWithEmailAndPassword(auth, email, password);
+    showToast("ログインしました");
 }
-} catch (error) { showDebugError("loginDebugError", error); }
+} catch (error) {
+if (action === "signup") {
+    const message = error?.code === "auth/email-already-in-use" || (error?.message || "").includes("already in use")
+        ? "このメールアドレスはすでに登録されています"
+        : "エラーが発生しました";
+    showDebugError("loginDebugError", { message });
+} else {
+    showDebugError("loginDebugError", { message: "メールアドレスかパスワードが違います" });
+}
+}
 }
 
 if (e.target.id === "termsForm") {
