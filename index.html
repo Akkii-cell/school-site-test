@@ -114,15 +114,6 @@ justify-content: center;
 
 .date-display { font-size: 1.1rem; font-weight: 700; min-width: 220px; text-align: center; }
 
-.panel { padding: 24px; margin-bottom: 16px; }
-.panel-title { font-size: 1.2rem; margin-bottom: 16px; font-weight: 700; }
-
-.form-grid-2 {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 12px;
-}
-
 .post-card {
 border: 1px solid var(--border);
 background: var(--surface);
@@ -1011,8 +1002,7 @@ tags: [],
 usersProfileMap: {},
 adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null, tags: null },
 approvalUnsubscribe: null,
-categoryFilter: "all"
-};
+    pendingApprovalUnsubscribe: null,
 
 function showDebugError(elementId, error) {
 const box = document.getElementById(elementId);
@@ -1169,6 +1159,7 @@ ${state.isAdmin ? `<button class="danger-button deletePost-btn" data-post-id="${
 </div>
 <div style="margin-bottom: 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
 <span class="badge">${post.category}</span>
+</span>
 <span class="badge">${post.startDate}～${post.endDate}</span>
 ${tag ? `<span class="tag-chip" style="background:${tag.color}20; color:${tag.color}; border-color:${tag.color}40;">${tag.name}</span>` : ''}
 </div>
@@ -1733,6 +1724,7 @@ try { await deleteDoc(doc(db, "appeals", id)); showToast("申し立て履歴を�
 
 function handleLogout() {
 if (state.approvalUnsubscribe) { state.approvalUnsubscribe(); state.approvalUnsubscribe = null; }
+if (state.pendingApprovalUnsubscribe) { state.pendingApprovalUnsubscribe(); state.pendingApprovalUnsubscribe = null; }
 Object.values(activeCommentListeners).forEach(unsub => unsub());
 activeCommentListeners = {};
 signOut(auth).then(() => { showToast("ログアウトしました"); });
@@ -1744,12 +1736,12 @@ document.getElementById("suspendedLogoutButton")?.addEventListener("click", hand
 
 function checkApprovalStatus(user) {
 if (state.approvalUnsubscribe) state.approvalUnsubscribe();
+if (state.pendingApprovalUnsubscribe) state.pendingApprovalUnsubscribe();
 
 state.approvalUnsubscribe = onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
 if (snapshot.exists()) {
 const data = snapshot.data();
 
-// 🛑 BAN（停止状態）の監視ロジック
 if (data.suspended === true) {
 document.getElementById("suspendedModal").classList.remove("hidden");
 document.getElementById("mainContent").style.display = "none";
@@ -1782,9 +1774,36 @@ initUsersProfiles();
     loadTagData();
 }
 }, (error) => { showDebugError("pendingDebugError", error); });
+
+state.pendingApprovalUnsubscribe = onSnapshot(doc(db, "pendingUsers", user.email), async (snapshot) => {
+if (snapshot.exists()) {
+const data = snapshot.data();
+state.userName = data.name ? data.name : state.userName;
+state.userClass = data.class ? data.class : state.userClass;
+state.userAvatarUrl = data.avatarUrl ? data.avatarUrl : state.userAvatarUrl;
+localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
+document.getElementById("setupModal").classList.add("hidden");
+document.getElementById("pendingApprovalModal").classList.remove("hidden");
+document.getElementById("suspendedModal").classList.add("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("loginModal").classList.add("hidden");
+document.getElementById("termsModal").classList.add("hidden");
+return;
 }
 
-function proceedToNextStepAfterLogin(user) {
+const approvedSnap = await getDoc(doc(db, "allowedUsers", user.email));
+if (!approvedSnap.exists()) {
+try {
+await signOut(auth);
+showToast("申請が拒否されたため、ログイン画面に戻ります");
+} catch (error) {
+console.warn(error);
+}
+}
+}, (error) => { showDebugError("pendingDebugError", error); });
+}
+
+async function proceedToNextStepAfterLogin(user) {
 if (user.uid === ADMIN_UID) {
 state.isAdmin = true;
 state.userName = "管理者";
@@ -1807,6 +1826,33 @@ initUserReactions();
 initUsersProfiles();
 loadAdminData();
 showFirstTimeGuide();
+return;
+}
+
+const allowedSnap = await getDoc(doc(db, "allowedUsers", user.email));
+if (allowedSnap.exists()) {
+const data = allowedSnap.data();
+if (data.suspended === true) {
+document.getElementById("suspendedModal").classList.remove("hidden");
+document.getElementById("mainContent").style.display = "none";
+document.getElementById("pendingApprovalModal").classList.add("hidden");
+document.getElementById("setupModal").classList.add("hidden");
+return;
+}
+state.userName = data.name ? data.name : state.userName;
+state.userClass = data.class ? data.class : state.userClass;
+state.userAvatarUrl = data.avatarUrl ? data.avatarUrl : "👤";
+checkApprovalStatus(user);
+return;
+}
+
+const pendingSnap = await getDoc(doc(db, "pendingUsers", user.email));
+if (pendingSnap.exists()) {
+const data = pendingSnap.data();
+state.userName = data.name ? data.name : state.userName;
+state.userClass = data.class ? data.class : state.userClass;
+state.userAvatarUrl = data.avatarUrl ? data.avatarUrl : "👤";
+checkApprovalStatus(user);
 return;
 }
 
