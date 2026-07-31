@@ -1012,13 +1012,17 @@ categoryFilter: "all"
 function showDebugError(elementId, error) {
 const box = document.getElementById(elementId);
 if (box) {
-const message = error && error.message ? error.message : "";
-const code = error && error.code ? error.code : "";
+const message = typeof error?.message === "string" ? error.message : "";
+const code = typeof error?.code === "string" ? error.code : "";
 let normalizedMessage = "エラーが発生しました";
 
-if (code === "auth/email-already-in-use" || message.includes("email-already-in-use") || message.includes("already in use")) {
+if (message === "このメールアドレスはすでに登録されています") {
+normalizedMessage = message;
+} else if (message === "メールアドレスかパスワードが違います") {
+normalizedMessage = message;
+} else if (code === "auth/email-already-in-use" || message.includes("email-already-in-use") || message.includes("already in use")) {
 normalizedMessage = "このメールアドレスはすでに登録されています";
-} else if (code === "auth/wrong-password" || code === "auth/user-not-found" || message.includes("wrong-password") || message.includes("user-not-found") || message.includes("password") || message.includes("Password")) {
+} else if (code === "auth/wrong-password" || code === "auth/user-not-found" || code === "auth/invalid-credential") {
 normalizedMessage = "メールアドレスかパスワードが違います";
 }
 
@@ -1437,10 +1441,7 @@ if (action === "signup") {
 }
 } catch (error) {
 if (action === "signup") {
-    const message = error?.code === "auth/email-already-in-use" || (error?.message || "").includes("already in use")
-        ? "このメールアドレスはすでに登録されています"
-        : "エラーが発生しました";
-    showDebugError("loginDebugError", { message });
+    showDebugError("loginDebugError", error);
 } else {
     showDebugError("loginDebugError", { message: "メールアドレスかパスワードが違います" });
 }
