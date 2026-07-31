@@ -412,9 +412,9 @@ inset: 0;
 display: flex;
 justify-content: center;
 align-items: center;
-padding: 20px;
-background: rgba(15, 23, 42, 0.44);
-backdrop-filter: blur(16px);
+padding: 40px;
+background: linear-gradient(180deg, rgba(247, 251, 255, 0.95), rgba(255, 255, 255, 0.96));
+backdrop-filter: blur(12px);
 z-index: 100;
 }
 
@@ -432,6 +432,350 @@ box-shadow: var(--shadow);
 }
 
 .modal-title { font-size: 1.4rem; margin-bottom: 20px; font-weight: 700; }
+
+#loginModal { background: linear-gradient(135deg, #f7fbff 0%, #ffffff 100%); }
+
+#loginModal .modal-panel {
+width: min(1320px, 90vw);
+max-width: 1320px;
+max-height: 90vh;
+overflow: hidden;
+border-radius: 32px;
+background: transparent;
+box-shadow: 0 30px 80px rgba(15, 23, 42, 0.08);
+border: none;
+}
+
+.login-card {
+display: flex;
+width: 100%;
+min-height: 90vh;
+background: #fff;
+border-radius: 32px;
+backdrop-filter: blur(20px);
+overflow: hidden;
+}
+
+.login-left,
+.login-right {
+width: 50%;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+padding: 48px 56px;
+}
+
+.login-left {
+background: linear-gradient(180deg, #eef5ff 0%, #f8fbff 100%);
+position: relative;
+}
+
+.login-left::before {
+content: "";
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: 100%;
+background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 45%), radial-gradient(circle at 80% 80%, rgba(37,99,235,0.08) 0%, rgba(37,99,235,0) 35%);
+z-index: 0;
+}
+
+.login-left > * { position: relative; z-index: 1; }
+
+.login-brand {
+display: flex;
+align-items: center;
+gap: 14px;
+font-family: "Inter", "Noto Sans JP", system-ui, sans-serif;
+font-weight: 800;
+font-size: 34px;
+color: #111827;
+}
+
+.login-brand-icon {
+width: 40px;
+height: 40px;
+border-radius: 12px;
+background: linear-gradient(135deg, #2563eb, #1d4ed8);
+display: grid;
+place-items: center;
+box-shadow: 0 18px 40px rgba(37, 99, 235, 0.18);
+color: #fff;
+font-size: 20px;
+}
+
+.login-hero {
+margin-top: 140px;
+}
+
+.login-hero-title {
+font-family: "Inter", "Noto Sans JP", system-ui, sans-serif;
+font-size: 72px;
+line-height: 1.15;
+font-weight: 800;
+color: #0f172a;
+letter-spacing: -0.03em;
+margin-bottom: 24px;
+}
+
+.login-hero-subtitle {
+font-size: 28px;
+line-height: 1.4;
+color: #64748b;
+max-width: 520px;
+}
+
+.login-illustration {
+margin-top: 24px;
+min-height: 240px;
+background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9), transparent 35%), radial-gradient(circle at 70% 30%, rgba(37,99,235,0.15), transparent 20%);
+border-radius: 32px;
+box-shadow: inset 0 0 0 1px rgba(255,255,255,0.6);
+}
+
+.login-right {
+background: #ffffff;
+}
+
+.login-header {
+display: flex;
+justify-content: flex-end;
+font-size: 16px;
+color: #334155;
+font-family: "Inter", "Noto Sans JP", system-ui, sans-serif;
+}
+
+.login-header span {
+cursor: pointer;
+}
+
+.login-form-wrap {
+flex: 1;
+display: flex;
+flex-direction: column;
+justify-content: center;
+gap: 24px;
+}
+
+.login-title {
+font-family: "Inter", "Noto Sans JP", system-ui, sans-serif;
+font-size: 64px;
+font-weight: 800;
+color: #0f172a;
+line-height: 1.05;
+}
+
+.login-description {
+font-size: 22px;
+color: #94a3b8;
+line-height: 1.6;
+}
+
+.login-field {
+display: grid;
+gap: 12px;
+}
+
+.login-field label {
+font-size: 20px;
+font-weight: 500;
+color: #0f172a;
+}
+
+.login-input-group {
+position: relative;
+}
+
+.login-input {
+height: 68px;
+padding: 0 20px 0 52px;
+border: 1px solid #dbe3ef;
+border-radius: 16px;
+background: #ffffff;
+font-size: 16px;
+color: #0f172a;
+outline: none;
+}
+
+.login-input::placeholder {
+color: #cbd5e1;
+}
+
+.login-input-icon {
+position: absolute;
+left: 18px;
+top: 50%;
+transform: translateY(-50%);
+font-size: 24px;
+color: #94a3b8;
+}
+
+.login-eye-button {
+position: absolute;
+right: 16px;
+top: 50%;
+transform: translateY(-50%);
+background: transparent;
+border: none;
+color: #94a3b8;
+cursor: pointer;
+font-size: 20px;
+}
+
+.login-options {
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 16px;
+font-size: 16px;
+}
+
+.login-options label {
+display: flex;
+align-items: center;
+gap: 10px;
+color: #334155;
+font-size: 16px;
+}
+
+.login-options a {
+color: #2563eb;
+text-decoration: none;
+font-weight: 600;
+}
+
+.login-actions {
+display: grid;
+gap: 16px;
+}
+
+.login-primary-button {
+height: 64px;
+border-radius: 16px;
+background: linear-gradient(180deg, #2563eb 0%, #1d4ed8 100%);
+color: #fff;
+font-size: 18px;
+font-weight: 700;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+border: none;
+cursor: pointer;
+transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.login-primary-button:hover {
+transform: translateY(-1px);
+filter: brightness(105%);
+}
+
+.login-divider {
+display: flex;
+align-items: center;
+gap: 16px;
+color: #cbd5e1;
+font-size: 14px;
+}
+
+.login-divider::before,
+.login-divider::after {
+content: "";
+flex: 1;
+height: 1px;
+background: #e5e7eb;
+}
+
+.login-secondary-button {
+height: 64px;
+border-radius: 16px;
+background: #ffffff;
+border: 1px solid #dbe3ef;
+color: #0f172a;
+font-size: 18px;
+font-weight: 700;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+cursor: pointer;
+}
+
+.login-footer {
+margin-top: 24px;
+text-align: center;
+font-size: 15px;
+color: #94a3b8;
+line-height: 1.6;
+}
+
+.login-footer a {
+color: inherit;
+text-decoration: none;
+font-weight: 600;
+}
+
+.login-error {
+margin-top: 8px;
+padding: 14px 18px;
+background: rgba(254, 226, 226, 0.7);
+border: 1px solid #fca5a5;
+color: #b91c1c;
+border-radius: 16px;
+font-size: 15px;
+}
+
+@media (max-width: 1120px) {
+.login-card {
+flex-direction: column;
+min-height: auto;
+height: auto;
+}
+
+.login-left,
+.login-right {
+width: 100%;
+padding: 32px;
+}
+
+.login-left {
+order: 2;
+}
+
+.login-right {
+order: 1;
+}
+
+.login-hero-title {
+font-size: 48px;
+}
+
+.login-hero-subtitle {
+font-size: 22px;
+}
+
+.login-right {
+padding-top: 40px;
+}
+}
+
+@media (max-width: 768px) {
+.modal { padding: 20px; }
+.login-card { width: 100%; border-radius: 24px; }
+.login-left, .login-right { padding: 24px; }
+.login-brand { font-size: 28px; }
+.login-hero-title { font-size: 36px; }
+.login-hero-subtitle { font-size: 18px; }
+.login-title { font-size: 40px; }
+.login-description { font-size: 18px; }
+.login-field label { font-size: 18px; }
+.login-input { height: 60px; }
+.login-options { flex-direction: column; align-items: stretch; }
+.login-options a { align-self: flex-start; }
+.login-actions { gap: 12px; }
+.login-primary-button, .login-secondary-button { height: 58px; font-size: 16px; }
+}
 
 .terms-box {
 background: #f9fafb;
@@ -627,22 +971,64 @@ width: 100% !important;
 <body>
 
 <div class="modal" id="loginModal">
-<div class="modal-panel" style="width: min(500px, 100%);">
-<h2 class="modal-title">ログイン / 新規登録</h2>
-<form id="emailLoginForm" style="display: grid; gap: 12px;">
+<div class="modal-panel">
+<div class="login-card">
+<section class="login-left">
+<div class="login-brand">
+<div class="login-brand-icon">S</div>
+<span>School Schedule</span>
+</div>
+<div class="login-hero">
+<h1 class="login-hero-title">学校生活を、<br>もっとスマートに。</h1>
+<p class="login-hero-subtitle">みんなで予定を共有し、毎日をもっと充実させよう。</p>
+</div>
+<div class="login-illustration"></div>
+</section>
+<section class="login-right">
+<div class="login-header"><span>日本語 ▼</span></div>
+<div class="login-form-wrap">
+<div>
+<div class="login-title">ログイン</div>
+<p class="login-description">アカウントにログインして続行します</p>
+</div>
+<form id="emailLoginForm" style="display: grid; gap: 24px;">
+<div class="login-field">
 <label for="loginType">ログイン方法</label>
-<select id="loginType">
+<select id="loginType" class="login-input" style="appearance: none; padding-left: 20px;">
 <option value="username" selected>ユーザー名</option>
 <option value="email">メールアドレス</option>
 </select>
-<input id="emailInput" type="text" placeholder="メールアドレス または ユーザー名" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<div style="display: flex; gap: 10px;">
-<button type="submit" name="authAction" value="login" class="button" style="flex: 1;">ログイン</button>
-<button type="submit" name="authAction" value="signup" style="flex: 1; min-height: 44px; padding: 0 16px; border-radius: 999px; font-weight: 700; width: auto; background: rgba(15, 23, 42, 0.04); color: #111827; border: 1px solid var(--border);">新規登録</button>
+</div>
+<div class="login-field">
+<label for="emailInput">ユーザー名</label>
+<div class="login-input-group">
+<span class="login-input-icon">👤</span>
+<input id="emailInput" type="text" placeholder="ユーザー名またはメールアドレス" required class="login-input">
+</div>
+</div>
+<div class="login-field">
+<label for="passwordInput">パスワード</label>
+<div class="login-input-group">
+<span class="login-input-icon">🔒</span>
+<input id="passwordInput" type="password" placeholder="パスワード" required class="login-input">
+<button type="button" class="login-eye-button">👁️</button>
+</div>
+</div>
+<div class="login-options">
+<label><input type="checkbox" style="width: unset; height: unset;"> ログインしたままにする</label>
+<a href="#">パスワードをお忘れですか？</a>
+</div>
+<div class="login-actions">
+<button type="submit" name="authAction" value="login" class="login-primary-button">ログイン →</button>
+<div class="login-divider">または</div>
+<button type="submit" name="authAction" value="signup" class="login-secondary-button">＋ 新規登録</button>
 </div>
 </form>
-<div id="loginDebugError" class="debug-error-box"></div>
+<div id="loginDebugError" class="login-error"></div>
+</div>
+<div class="login-footer">©2025 School Schedule. All rights reserved. <a href="#">利用規約</a> | <a href="#">プライバシーポリシー</a></div>
+</section>
+</div>
 </div>
 </div>
 
