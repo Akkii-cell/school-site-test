@@ -5,6 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>港区白金の丘中学校 第7学年 共有サイト</title>
 <link rel="icon" href="ChatGPT Image 2026年6月28日 00_40_40 - コピー.png">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#0a84ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="共有サイト">
 <style>
 :root {
 color-scheme: light;
@@ -495,6 +499,92 @@ max-width: 90vw;
 }
 .toast.show { opacity: 1; }
 
+.notification-shell { position: relative; margin-left: auto; }
+.notification-button {
+position: relative;
+display: inline-flex;
+align-items: center;
+gap: 8px;
+padding: 10px 14px;
+border-radius: 999px;
+background: rgba(10, 132, 255, 0.12);
+color: var(--accent);
+font-weight: 700;
+min-height: 44px;
+width: auto;
+}
+.notification-badge {
+display: none;
+position: absolute;
+top: -4px;
+right: -4px;
+min-width: 20px;
+height: 20px;
+padding: 0 6px;
+border-radius: 999px;
+background: #d92d20;
+color: #fff;
+font-size: 0.72rem;
+font-weight: 800;
+align-items: center;
+justify-content: center;
+}
+.notification-panel {
+position: absolute;
+top: calc(100% + 10px);
+right: 0;
+width: min(320px, calc(100vw - 24px));
+max-height: 380px;
+overflow: hidden;
+background: rgba(255,255,255,0.98);
+border: 1px solid var(--border);
+border-radius: 18px;
+box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
+z-index: 130;
+display: flex;
+flex-direction: column;
+}
+.notification-panel[hidden] { display: none !important; }
+.notification-panel-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 12px 14px;
+border-bottom: 1px solid var(--border);
+background: #f8fafc;
+}
+.notification-list {
+padding: 8px;
+display: grid;
+gap: 8px;
+overflow-y: auto;
+}
+.notification-item {
+text-align: left;
+padding: 10px 12px;
+border-radius: 12px;
+border: 1px solid transparent;
+background: #fff;
+color: var(--text);
+width: 100%;
+display: grid;
+gap: 4px;
+}
+.notification-item.unread {
+border-color: rgba(10, 132, 255, 0.24);
+background: rgba(10, 132, 255, 0.06);
+}
+.notification-title { font-weight: 700; font-size: 0.9rem; }
+.notification-message { font-size: 0.82rem; color: var(--muted); line-height: 1.45; }
+.notification-meta { font-size: 0.74rem; color: var(--muted); }
+.link-button {
+background: none;
+color: var(--accent);
+padding: 0;
+width: auto;
+font-size: 0.8rem;
+}
+
 .admin-footer { position: fixed; bottom: 16px; right: 16px; z-index: 100; display: flex; gap: 8px; }
 .badge { display: inline-block; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700; background: rgba(0, 113, 227, 0.1); color: #0071e3; margin-right: 6px; width: auto; }
 
@@ -876,9 +966,21 @@ margin: 0 0 12px;
 <main class="shell">
 <section class="hero-card frosted" style="margin-bottom: 12px;">
 <div id="userAvatarHeader" class="profile-avatar">👤</div>
-<div>
+<div style="flex: 1;">
 <h1 class="hero-title" id="categoryTitle">予定・宿題・連絡</h1>
 <p class="hero-lead" id="heroLead">共有サイト</p>
+</div>
+<div class="notification-shell">
+<button type="button" class="notification-button" id="notificationButton" aria-haspopup="true" aria-expanded="false">
+<span>🔔</span><span>通知</span><span class="notification-badge" id="notificationBadge"></span>
+</button>
+<div class="notification-panel" id="notificationPanel" hidden>
+<div class="notification-panel-header">
+<strong>通知</strong>
+<button type="button" class="link-button" id="markAllReadButton">すべて既読</button>
+</div>
+<div class="notification-list" id="notificationList"></div>
+</div>
 </div>
 </section>
 
@@ -1058,7 +1160,7 @@ margin: 0 0 12px;
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, arrayUnion, arrayRemove, serverTimestamp, getDocs, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc, updateDoc, query, orderBy, limit, increment, arrayUnion, arrayRemove, serverTimestamp, getDocs, setDoc, getDoc, where } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
 
 const firebaseConfig = {
@@ -1097,10 +1199,13 @@ posts: [],
 userReactedMap: {},
 commentsMap: {},
 tags: [],
+notifications: [],
+unreadNotificationCount: 0,
 // 各ユーザーの最新プロフィール情報をリアルタイム同期してキャッシュするマップ
 usersProfileMap: {},
-adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null, tags: null },
+adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null, tags: null, notifications: null },
 approvalUnsubscribe: null,
+notificationUnsubscribe: null,
 categoryFilter: "all"
 };
 
@@ -1121,6 +1226,155 @@ const toast = document.getElementById("toast");
 toast.textContent = msg;
 toast.classList.add("show");
 setTimeout(() => toast.classList.remove("show"), 2000);
+}
+
+let notificationAudioContext = null;
+function playNotificationSound() {
+if (typeof window === "undefined") return;
+if (window.localStorage.getItem("notificationSoundEnabled") === "false") return;
+try {
+const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+if (!AudioContextClass) return;
+if (!notificationAudioContext) notificationAudioContext = new AudioContextClass();
+if (notificationAudioContext.state === "suspended") notificationAudioContext.resume();
+const oscillator = notificationAudioContext.createOscillator();
+const gainNode = notificationAudioContext.createGain();
+oscillator.type = "sine";
+oscillator.frequency.value = 880;
+oscillator.connect(gainNode);
+gainNode.connect(notificationAudioContext.destination);
+gainNode.gain.setValueAtTime(0.0001, notificationAudioContext.currentTime);
+gainNode.gain.exponentialRampToValueAtTime(0.12, notificationAudioContext.currentTime + 0.02);
+gainNode.gain.exponentialRampToValueAtTime(0.0001, notificationAudioContext.currentTime + 0.22);
+oscillator.start();
+oscillator.stop(notificationAudioContext.currentTime + 0.24);
+} catch (error) {
+console.warn("通知音の再生に失敗しました", error);
+}
+}
+
+function focusPostCard(postId) {
+if (!postId) return;
+const target = document.querySelector(`.post-card[data-post-id="${postId}"]`);
+if (!target) return;
+target.scrollIntoView({ behavior: "smooth", block: "center" });
+target.classList.remove("highlight");
+void target.offsetWidth;
+target.classList.add("highlight");
+setTimeout(() => target.classList.remove("highlight"), 2200);
+}
+
+async function requestNotificationPermission() {
+if (!("Notification" in window)) {
+showToast("この端末ではOS通知に対応していません");
+return false;
+}
+if (Notification.permission === "granted") return true;
+if (Notification.permission === "denied") {
+showToast("OS通知はブロックされています。ブラウザ設定を確認してください");
+return false;
+}
+const permission = await Notification.requestPermission();
+if (permission === "granted") {
+showToast("OS通知を許可しました");
+return true;
+}
+showToast("OS通知の許可がありません");
+return false;
+}
+
+function showSystemNotification(title, body, postId) {
+if (!("Notification" in window)) return;
+if (Notification.permission !== "granted") return;
+if (document.visibilityState === "visible") {
+playNotificationSound();
+return;
+}
+const notification = new Notification(title, {
+body,
+icon: "ChatGPT Image 2026年6月28日 00_40_40 - コピー.png"
+});
+notification.onclick = () => {
+window.focus();
+if (postId) focusPostCard(postId);
+notification.close();
+};
+playNotificationSound();
+}
+
+function formatNotificationDate(value) {
+if (!value) return "今";
+const date = value?.toDate ? value.toDate() : new Date(value);
+return date.toLocaleString("ja-JP", { month: "numeric", day: "numeric", hour: "2-digit", minute: "2-digit" });
+}
+
+function renderNotifications() {
+const badge = document.getElementById("notificationBadge");
+const list = document.getElementById("notificationList");
+if (!badge || !list) return;
+const unreadCount = state.notifications.filter(item => !item.read).length;
+state.unreadNotificationCount = unreadCount;
+badge.textContent = unreadCount > 99 ? "99+" : unreadCount;
+badge.style.display = unreadCount > 0 ? "inline-flex" : "none";
+if (!state.notifications.length) {
+list.innerHTML = `<div class="notification-item"><div class="notification-title">通知はありません</div><div class="notification-message">投稿やコメントに反応するとここに表示されます。</div></div>`;
+return;
+}
+list.innerHTML = state.notifications.map(item => `
+<button type="button" class="notification-item ${item.read ? "" : "unread"}" data-id="${item.id}">
+<div class="notification-title">${item.title}</div>
+<div class="notification-message">${item.message}</div>
+<div class="notification-meta">${formatNotificationDate(item.createdAt)}</div>
+</button>
+`).join("");
+}
+
+async function addNotification(recipientUid, payload) {
+if (!recipientUid || !payload) return;
+try {
+await addDoc(collection(db, "notifications"), {
+recipientId: recipientUid,
+title: payload.title || "通知",
+message: payload.message || "",
+type: payload.type || "general",
+postId: payload.postId || null,
+actorName: payload.actorName || "",
+actorId: payload.actorId || null,
+read: false,
+createdAt: serverTimestamp()
+});
+if (state.user && recipientUid !== state.user.uid) {
+showSystemNotification(payload.title || "通知", payload.message || "", payload.postId || null);
+}
+} catch (error) {
+console.warn("通知の保存に失敗しました", error);
+}
+}
+
+function initNotifications() {
+if (state.notificationUnsubscribe) {
+state.notificationUnsubscribe();
+state.notificationUnsubscribe = null;
+}
+if (!state.user) {
+state.notifications = [];
+renderNotifications();
+return;
+}
+const q = query(collection(db, "notifications"), where("recipientId", "==", state.user.uid), orderBy("createdAt", "desc"));
+state.notificationUnsubscribe = onSnapshot(q, (snapshot) => {
+state.notifications = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+renderNotifications();
+}, (error) => {
+console.warn("通知の取得に失敗しました", error);
+});
+}
+
+async function markAllNotificationsRead() {
+if (!state.user || !state.notifications.some(item => !item.read)) return;
+const unreadItems = state.notifications.filter(item => !item.read);
+await Promise.all(unreadItems.map(item => updateDoc(doc(db, "notifications", item.id), { read: true })));
+showToast("通知をすべて既読にしました");
 }
 
 function showFriendlyAuthError(elementId, error, mode) {
@@ -1279,7 +1533,7 @@ container.innerHTML = filtered.length === 0
     const postBodyHtml = parsePostBody(post.body);
 
     return `
-<div class="post-card" style="${cardStyle}">
+<div class="post-card" data-post-id="${post.id}" style="${cardStyle}">
 <div style="display: flex; justify-content: space-between; align-items: start; gap: 12px; margin-bottom: 12px;">
 <h3 style="font-size: 1.2rem; margin: 0;">${post.title}</h3>
 ${state.isAdmin ? `<div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
@@ -1338,6 +1592,8 @@ const postRef = doc(db, "posts", postId);
 const hasReacted = state.userReactedMap[postId] && state.userReactedMap[postId][type];
 
 try {
+const postSnap = await getDoc(postRef);
+const postData = postSnap.data() || {};
 if (hasReacted) {
 await deleteDoc(userReactionRef);
 await updateDoc(postRef, { [`reactions.${type}`]: increment(-1) });
@@ -1349,6 +1605,15 @@ await setDoc(userReactionRef, { userId: state.user.uid, postId, type, timestamp:
 await updateDoc(postRef, { [`reactions.${type}`]: increment(1) });
 if (!state.userReactedMap[postId]) state.userReactedMap[postId] = {};
 state.userReactedMap[postId][type] = true;
+if (postData.authorUid && postData.authorUid !== state.user.uid) {
+    await addNotification(postData.authorUid, {
+        title: "リアクション",
+        message: `${state.userName || "誰か"}さんが${type === "like" ? "いいね" : type === "checked" ? "確認した" : "ありがとう"}を送りました。`,
+        type: "reaction",
+        postId,
+        actorName: state.userName || "誰か"
+    });
+}
 }
 renderPosts();
 } catch (error) { console.error(error); }
@@ -1398,6 +1663,9 @@ const text = input.value.trim();
 if (!text) return;
 
 try {
+const postRef = doc(db, "posts", postId);
+const postSnap = await getDoc(postRef);
+const postData = postSnap.data() || {};
 await addDoc(collection(db, "posts", postId, "comments"), {
 userId: state.user.uid,
 userName: state.userName,
@@ -1405,6 +1673,15 @@ avatarUrl: state.userAvatarUrl,
 text: text,
 createdAt: serverTimestamp()
 });
+if (postData.authorUid && postData.authorUid !== state.user.uid) {
+await addNotification(postData.authorUid, {
+title: "コメント",
+message: `${state.userName || "誰か"}さんがコメントしました。`,
+type: "comment",
+postId,
+actorName: state.userName || "誰か"
+});
+}
 input.value = "";
 } catch (error) {
 alert("コメントの送信に失敗しました: " + error.message);
@@ -1432,7 +1709,7 @@ try {
   await uploadBytes(fileRef, imageFile);
   imageUrl = await getDownloadURL(fileRef);
  }
- await addDoc(collection(db, "posts"), {
+ const postRef = await addDoc(collection(db, "posts"), {
   title,
   body,
   category,
@@ -1444,8 +1721,24 @@ try {
   reactions: { like: 0, checked: 0, thanks: 0 },
   reactionsEnabled,
   commentsEnabled,
+  authorUid: state.user.uid,
+  authorName: state.userName,
+  authorAvatarUrl: state.userAvatarUrl,
   createdAt: serverTimestamp()
  });
+ const allowedUsersSnap = await getDocs(collection(db, "allowedUsers"));
+ for (const userDoc of allowedUsersSnap.docs) {
+  const userData = userDoc.data();
+  if (userData.uid && userData.uid !== state.user.uid) {
+    await addNotification(userData.uid, {
+      title: "新しい投稿",
+      message: `${title} が共有されました。`,
+      type: "post",
+      postId: postRef.id,
+      actorName: state.userName || "管理者"
+    });
+  }
+ }
  showToast("投稿しました！");
  document.getElementById("postForm").reset();
 } catch (error) { alert("投稿に失敗しました: " + error.message); }
@@ -1783,6 +2076,43 @@ state.adminUnsubscribes.tags = onSnapshot(collection(db, "postTags"), (snapshot)
 }
 
 
+document.getElementById("notificationButton")?.addEventListener("click", async () => {
+const panel = document.getElementById("notificationPanel");
+if (!panel) return;
+if (Notification.permission === "default") {
+await requestNotificationPermission();
+}
+panel.hidden = !panel.hidden;
+document.getElementById("notificationButton").setAttribute("aria-expanded", panel.hidden ? "false" : "true");
+});
+
+document.getElementById("markAllReadButton")?.addEventListener("click", async () => {
+await markAllNotificationsRead();
+});
+
+document.getElementById("notificationList")?.addEventListener("click", async (e) => {
+const item = e.target.closest(".notification-item");
+if (!item?.dataset.id) return;
+const notification = state.notifications.find(n => n.id === item.dataset.id);
+if (!notification) return;
+if (!notification.read) {
+await updateDoc(doc(db, "notifications", notification.id), { read: true });
+}
+if (notification.postId) {
+focusPostCard(notification.postId);
+}
+document.getElementById("notificationPanel")?.setAttribute("hidden", "true");
+});
+
+document.addEventListener("click", (e) => {
+const panel = document.getElementById("notificationPanel");
+const button = document.getElementById("notificationButton");
+if (panel && button && !panel.hidden && !e.target.closest("#notificationPanel") && !e.target.closest("#notificationButton")) {
+panel.hidden = true;
+button.setAttribute("aria-expanded", "false");
+}
+});
+
 document.getElementById("adminDashboardButton")?.addEventListener("click", () => {
 loadTagData();
 document.getElementById("adminDashboardModal").classList.remove("hidden");
@@ -1940,8 +2270,11 @@ try { await deleteDoc(doc(db, "appeals", id)); showToast("申し立て履歴を�
 
 function handleLogout() {
 if (state.approvalUnsubscribe) { state.approvalUnsubscribe(); state.approvalUnsubscribe = null; }
+if (state.notificationUnsubscribe) { state.notificationUnsubscribe(); state.notificationUnsubscribe = null; }
 Object.values(activeCommentListeners).forEach(unsub => unsub());
 activeCommentListeners = {};
+state.notifications = [];
+renderNotifications();
 signOut(auth).then(() => { showToast("ログアウトしました"); });
 }
 
@@ -1983,6 +2316,7 @@ document.getElementById("mobileDateNav").style.display = "block";
 updateDateDisplay();
 updateCategoryTitle();
 updateUIProfile();
+initNotifications();
 initPosts();
 initUserReactions();
 initUsersProfiles();
@@ -2009,6 +2343,7 @@ document.getElementById("mobileDateNav").style.display = "block";
 
 updateDateDisplay();
 updateUIProfile();
+initNotifications();
 initPosts();
 initUserReactions();
 initUsersProfiles();
@@ -2059,6 +2394,12 @@ return;
 
 proceedToNextStepAfterLogin(user);
 });
+
+if ("serviceWorker" in navigator) {
+window.addEventListener("load", () => {
+navigator.serviceWorker.register("./sw.js").catch((error) => console.warn("Service Worker 登録に失敗しました", error));
+});
+}
 
 updateDateDisplay();
 </script>
