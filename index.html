@@ -645,17 +645,16 @@ margin: 0 0 12px;
 <div class="modal" id="loginModal">
 <div class="modal-panel" style="width: min(560px, 100%);">
 <h2 class="modal-title">ログイン / 新規登録</h2>
-<p style="color: var(--muted); font-size: 0.95rem; margin-top: -6px; margin-bottom: 14px;">下の2つのボタンから選んでください。</p>
-<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px;">
-<button type="button" id="modeLoginBtn" class="button" style="width: 100%;">ログイン</button>
-<button type="button" id="modeRegisterBtn" class="ghost-button" style="width: 100%;">新規登録</button>
-</div>
+<p style="color: var(--muted); font-size: 0.95rem; margin-top: -6px; margin-bottom: 14px;">メールアドレスとパスワードを入力してください。</p>
 <form id="authForm" style="display: grid; gap: 12px;">
 <label for="emailInput">メールアドレス</label>
 <input id="emailInput" type="email" placeholder="メールアドレス" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <label for="passwordInput">パスワード</label>
 <input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<button type="submit" id="authSubmitBtn" class="button" style="width: 100%;">ログインする</button>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 4px;">
+<button type="submit" class="button" style="width: 100%;">ログイン</button>
+<button type="submit" class="ghost-button" style="width: 100%;">新規登録</button>
+</div>
 </form>
 <div id="loginDebugError" class="debug-error-box"></div>
 <div id="registerDebugError" class="debug-error-box"></div>
@@ -1444,22 +1443,6 @@ document.getElementById("closeProfileModal")?.addEventListener("click", () => {
 document.getElementById("profileModal").classList.add("hidden");
 });
 
-document.addEventListener("click", (e) => {
-if (e.target.id === "modeLoginBtn") {
-document.getElementById("modeLoginBtn").className = "button";
-document.getElementById("modeRegisterBtn").className = "ghost-button";
-document.getElementById("authSubmitBtn").textContent = "ログインする";
-document.getElementById("authForm").dataset.mode = "login";
-}
-
-if (e.target.id === "modeRegisterBtn") {
-document.getElementById("modeLoginBtn").className = "ghost-button";
-document.getElementById("modeRegisterBtn").className = "button";
-document.getElementById("authSubmitBtn").textContent = "新規登録する";
-document.getElementById("authForm").dataset.mode = "register";
-}
-});
-
 document.addEventListener("submit", async (e) => {
 clearDebugErrors();
 
@@ -1467,7 +1450,7 @@ if (e.target.id === "authForm") {
 e.preventDefault();
 const email = document.getElementById("emailInput").value.trim();
 const password = document.getElementById("passwordInput").value;
-const mode = document.getElementById("authForm").dataset.mode || "login";
+const mode = e.submitter && e.submitter.textContent.includes("新規登録") ? "register" : "login";
 
 try {
 if (mode === "register") {
