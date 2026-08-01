@@ -8,13 +8,16 @@
 <style>
 :root {
 color-scheme: light;
---bg: #f5f5f7;
---surface: rgba(255, 255, 255, 0.92);
---border: rgba(15, 23, 42, 0.08);
+--bg: linear-gradient(180deg, #f7f9fc 0%, #f2f4f8 100%);
+--surface: rgba(255, 255, 255, 0.94);
+--surface-strong: #ffffff;
+--border: rgba(15, 23, 42, 0.06);
 --text: #111827;
---muted: #6b7280;
---accent: #0071e3;
---shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+--muted: #64708a;
+--accent: #0a84ff;
+--accent-2: #5ac8fa;
+--shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+--shadow-strong: 0 20px 60px rgba(15, 23, 42, 0.08);
 --radius-xl: 28px;
 --radius-lg: 22px;
 --max-width: 1220px;
@@ -25,13 +28,27 @@ html { scroll-behavior: smooth; }
 body {
 margin: 0;
 min-height: 100vh;
-font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", sans-serif;
+font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Hiragino Sans", "Yu Gothic UI", sans-serif;
 color: var(--text);
 background: var(--bg);
+background-attachment: fixed;
 -webkit-font-smoothing: antialiased;
+letter-spacing: 0.01em;
 }
 
 button, input, select, textarea { font: inherit; width: 100%; box-sizing: border-box; }
+input, select, textarea {
+background: rgba(255, 255, 255, 0.9);
+border: 1px solid rgba(71, 100, 232, 0.14);
+border-radius: 14px;
+box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+color: var(--text);
+}
+input:focus, select:focus, textarea:focus {
+outline: none;
+border-color: rgba(71, 100, 232, 0.34);
+box-shadow: 0 0 0 4px rgba(71, 100, 232, 0.12);
+}
 img { max-width: 100%; display: block; }
 button { border: none; cursor: pointer; }
 
@@ -42,10 +59,12 @@ padding: 28px 0 100px;
 }
 
 .card, .frosted, .panel {
-background: var(--surface);
+background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(248,250,252,0.92));
 border: 1px solid var(--border);
 border-radius: var(--radius-xl);
-box-shadow: var(--shadow);
+box-shadow: var(--shadow-strong);
+backdrop-filter: blur(18px);
+-webkit-backdrop-filter: blur(18px);
 }
 
 .hero-card { padding: 32px; position: relative; display: flex; align-items: center; gap: 20px; }
@@ -116,10 +135,11 @@ justify-content: center;
 
 .post-card {
 border: 1px solid var(--border);
-background: var(--surface);
+background: linear-gradient(135deg, rgba(255,255,255,0.97), rgba(248,250,252,0.94));
 border-radius: var(--radius-lg);
 padding: 22px;
 margin-bottom: 16px;
+box-shadow: 0 10px 28px rgba(15, 23, 42, 0.04);
 }
 
 .post-body {
@@ -346,26 +366,31 @@ font-weight: 700;
 width: auto;
 }
 
-.button { background: linear-gradient(135deg, #0071e3, #2e90fa); color: #fff; }
+.button {
+background: linear-gradient(135deg, var(--accent), var(--accent-2));
+color: #fff;
+box-shadow: 0 10px 20px rgba(10, 132, 255, 0.16);
+transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+.button:hover {
+transform: translateY(-1px);
+box-shadow: 0 12px 24px rgba(10, 132, 255, 0.2);
+filter: saturate(1.04);
+}
 
-.ghost-button { 
-background: rgba(255, 255, 255, 0.03); 
-backdrop-filter: blur(24px) saturate(140%);
--webkit-backdrop-filter: blur(24px) saturate(140%);
-color: #111827; 
-border: 1px solid rgba(255, 255, 255, 0.5); 
-box-shadow: 
-  0 4px 14px rgba(0, 0, 0, 0.02), 
-  inset 0 1px 1px rgba(255, 255, 255, 0.35),
-  inset 0 -1px 2px rgba(0, 0, 0, 0.02);
-transition: background 0.25s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.25s, transform 0.1s;
+.ghost-button {
+background: rgba(255, 255, 255, 0.76);
+backdrop-filter: blur(20px) saturate(140%);
+-webkit-backdrop-filter: blur(20px) saturate(140%);
+color: var(--text);
+border: 1px solid rgba(15, 23, 42, 0.08);
+box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+transition: background 0.25s ease, border-color 0.25s ease, transform 0.1s ease;
 }
 .ghost-button:hover {
-background: rgba(255, 255, 255, 0.15);
-border-color: rgba(255, 255, 255, 0.65);
-box-shadow: 
-  0 6px 20px rgba(0, 0, 0, 0.04), 
-  inset 0 1px 1px rgba(255, 255, 255, 0.5);
+background: rgba(255, 255, 255, 0.92);
+border-color: rgba(10, 132, 255, 0.18);
+transform: translateY(-1px);
 }
 
 @keyframes popIn {
@@ -425,10 +450,12 @@ width: min(720px, 100%);
 max-height: 90vh;
 overflow-y: auto;
 padding: 28px;
-border-radius: 28px;
-background: var(--surface);
-border: 1px solid var(--border);
-box-shadow: var(--shadow);
+border-radius: 30px;
+background: linear-gradient(135deg, rgba(255,255,255,0.97), rgba(244,247,255,0.94));
+border: 1px solid rgba(71, 100, 232, 0.16);
+box-shadow: 0 30px 80px rgba(49, 69, 122, 0.16);
+backdrop-filter: blur(22px);
+-webkit-backdrop-filter: blur(22px);
 }
 
 .modal-title { font-size: 1.4rem; margin-bottom: 20px; font-weight: 700; }
@@ -645,10 +672,15 @@ margin: 0 0 12px;
 <div class="modal" id="loginModal">
 <div class="modal-panel" style="width: min(560px, 100%);">
 <h2 class="modal-title">ログイン / 新規登録</h2>
-<p style="color: var(--muted); font-size: 0.95rem; margin-top: -6px; margin-bottom: 14px;">メールアドレスとパスワードを入力してください。</p>
+<p style="color: var(--muted); font-size: 0.95rem; margin-top: -6px; margin-bottom: 14px;">メールアドレスまたはユーザー名とパスワードを入力してください。</p>
 <form id="authForm" style="display: grid; gap: 12px;">
-<label for="emailInput">メールアドレス</label>
-<input id="emailInput" type="email" placeholder="メールアドレス" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<label for="loginType">ログイン方法</label>
+<select id="loginType" style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<option value="username">ユーザー名</option>
+<option value="email">メールアドレス</option>
+</select>
+<label for="emailInput">メールアドレス / ユーザー名</label>
+<input id="emailInput" type="text" placeholder="メールアドレス または ユーザー名" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <label for="passwordInput">パスワード</label>
 <input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
 <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-top: 4px;">
@@ -972,6 +1004,55 @@ margin: 0 0 12px;
 </div>
 </div>
 
+<div class="modal hidden" id="editPostModal">
+<div class="modal-panel" style="width: min(720px, 100%);">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<h2 class="modal-title">✏️ 投稿を編集</h2>
+<button type="button" id="closeEditPostModal" class="ghost-button" style="min-height: 40px; width: auto;">閉じる</button>
+</div>
+<form id="editPostForm" style="display: grid; gap: 14px;">
+<input type="hidden" id="editPostId">
+<input type="hidden" id="editPostCurrentImageUrl">
+<input id="editPostTitle" type="text" maxlength="100" placeholder="タイトル" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width: 100%;">
+<textarea id="editPostBody" placeholder="内容" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; min-height: 140px; width: 100%;"></textarea>
+<div class="form-grid-2">
+<select id="editPostCategory" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<option value="予定">予定</option>
+<option value="宿題">宿題</option>
+<option value="連絡事項">連絡事項</option>
+</select>
+<select id="editPostTarget" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<option value="両方">全体向け</option>
+<option value="7-1">7-1組</option>
+<option value="7-2">7-2組</option>
+</select>
+</div>
+<div class="form-grid-2">
+<input id="editPostStartDate" type="date" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<input id="editPostEndDate" type="date" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+</div>
+<div class="form-grid-2">
+<input id="editPostImageFile" type="file" accept="image/*" style="padding: 10px 14px; border: 1px solid var(--border); border-radius: 12px; background:#fff;">
+<select id="editPostTagSelect" style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<option value="">タグなし</option>
+</select>
+</div>
+<div style="display: grid; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: 16px; background: rgba(248, 250, 252, 0.9);">
+<label style="display:flex; align-items:center; gap:10px; font-size:0.95rem;">
+<input id="editPostReactionsEnabled" type="checkbox" checked>
+<span>この投稿でリアクションを有効にする</span>
+</label>
+<label style="display:flex; align-items:center; gap:10px; font-size:0.95rem;">
+<input id="editPostCommentsEnabled" type="checkbox" checked>
+<span>この投稿でコメントを有効にする</span>
+</label>
+</div>
+<button type="submit" class="button" style="width: 100%;">保存する</button>
+</form>
+<div id="editPostDebugError" class="debug-error-box"></div>
+</div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script type="module">
@@ -1201,7 +1282,10 @@ container.innerHTML = filtered.length === 0
 <div class="post-card" style="${cardStyle}">
 <div style="display: flex; justify-content: space-between; align-items: start; gap: 12px; margin-bottom: 12px;">
 <h3 style="font-size: 1.2rem; margin: 0;">${post.title}</h3>
-${state.isAdmin ? `<button class="danger-button deletePost-btn" data-post-id="${post.id}">削除</button>` : ""}
+${state.isAdmin ? `<div style="display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;">
+<button class="ghost-button editPost-btn" data-post-id="${post.id}" style="min-height:36px; padding:0 12px; font-size:0.8rem; width:auto;">編集</button>
+<button class="danger-button deletePost-btn" data-post-id="${post.id}" style="min-height:36px; padding:0 12px; font-size:0.8rem; width:auto;">削除</button>
+</div>` : ""}
 </div>
 <div style="margin-bottom: 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
 <span class="badge">${post.category}</span>
@@ -1268,6 +1352,16 @@ state.userReactedMap[postId][type] = true;
 }
 renderPosts();
 } catch (error) { console.error(error); }
+return;
+}
+
+if (e.target.classList.contains("editPost-btn") || e.target.closest(".editPost-btn")) {
+const btn = e.target.closest(".editPost-btn");
+const postId = btn.getAttribute("data-post-id");
+const post = state.posts.find(item => item.id === postId);
+if (post) {
+openEditPostModal(post);
+}
 return;
 }
 
@@ -1442,15 +1536,82 @@ document.getElementById("profileModal").classList.remove("hidden");
 document.getElementById("closeProfileModal")?.addEventListener("click", () => {
 document.getElementById("profileModal").classList.add("hidden");
 });
+document.getElementById("closeEditPostModal")?.addEventListener("click", () => {
+document.getElementById("editPostModal").classList.add("hidden");
+});
+
+function openEditPostModal(post) {
+populateTagSelects();
+document.getElementById("editPostId").value = post.id;
+document.getElementById("editPostCurrentImageUrl").value = post.imageUrl || "";
+document.getElementById("editPostTitle").value = post.title || "";
+document.getElementById("editPostBody").value = post.body || "";
+document.getElementById("editPostCategory").value = post.category || "予定";
+document.getElementById("editPostTarget").value = post.classTarget || "両方";
+document.getElementById("editPostStartDate").value = post.startDate || "";
+document.getElementById("editPostEndDate").value = post.endDate || "";
+document.getElementById("editPostTagSelect").value = post.tagId || "";
+document.getElementById("editPostReactionsEnabled").checked = post.reactionsEnabled !== false;
+document.getElementById("editPostCommentsEnabled").checked = post.commentsEnabled !== false;
+document.getElementById("editPostImageFile").value = "";
+document.getElementById("editPostModal").classList.remove("hidden");
+}
+
+document.getElementById("editPostForm")?.addEventListener("submit", async (e) => {
+e.preventDefault();
+const postId = document.getElementById("editPostId").value;
+const title = document.getElementById("editPostTitle").value.trim();
+const body = document.getElementById("editPostBody").value.trim();
+const category = document.getElementById("editPostCategory").value;
+const classTarget = document.getElementById("editPostTarget").value;
+const startDate = document.getElementById("editPostStartDate").value;
+const endDate = document.getElementById("editPostEndDate").value;
+const tagId = document.getElementById("editPostTagSelect").value || null;
+const imageFile = document.getElementById("editPostImageFile").files[0];
+const reactionsEnabled = document.getElementById("editPostReactionsEnabled").checked;
+const commentsEnabled = document.getElementById("editPostCommentsEnabled").checked;
+const currentImageUrl = document.getElementById("editPostCurrentImageUrl").value;
+
+try {
+let imageUrl = currentImageUrl || null;
+if (imageFile) {
+const fileRef = storageRef(storage, `post-images/${Date.now()}_${imageFile.name}`);
+await uploadBytes(fileRef, imageFile);
+imageUrl = await getDownloadURL(fileRef);
+}
+await updateDoc(doc(db, "posts", postId), {
+title,
+body,
+category,
+classTarget,
+startDate,
+endDate,
+tagId,
+imageUrl,
+reactionsEnabled,
+commentsEnabled,
+updatedAt: serverTimestamp()
+});
+showToast("投稿を更新しました");
+document.getElementById("editPostModal").classList.add("hidden");
+} catch (error) {
+showDebugError("editPostDebugError", error);
+}
+});
 
 document.addEventListener("submit", async (e) => {
 clearDebugErrors();
 
 if (e.target.id === "authForm") {
 e.preventDefault();
-const email = document.getElementById("emailInput").value.trim();
+let email = document.getElementById("emailInput").value.trim();
 const password = document.getElementById("passwordInput").value;
 const mode = e.submitter && e.submitter.textContent.includes("新規登録") ? "register" : "login";
+const loginType = document.getElementById("loginType").value;
+
+if (loginType === "username") {
+email += "@shiragane.com";
+}
 
 try {
 if (mode === "register") {
@@ -1594,14 +1755,22 @@ renderPosts();
 });
 }
 
+function populateTagSelects() {
+const selects = [document.getElementById("postTagSelect"), document.getElementById("editPostTagSelect")];
+selects.forEach(select => {
+if (select) {
+select.innerHTML = `<option value="">タグなし</option>` + state.tags.map(tag => `<option value="${tag.id}">${tag.name}</option>`).join("");
+}
+});
+}
+
 function loadTagData() {
 if (state.adminUnsubscribes.tags) state.adminUnsubscribes.tags();
-const tagSelect = document.getElementById("postTagSelect");
 const tagList = document.getElementById("tagManagementList");
 
 state.adminUnsubscribes.tags = onSnapshot(collection(db, "postTags"), (snapshot) => {
  state.tags = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
- tagSelect.innerHTML = `<option value="">タグなし</option>` + state.tags.map(tag => `<option value="${tag.id}">${tag.name}</option>`).join("");
+ populateTagSelects();
  tagList.innerHTML = state.tags.map(tag => `
  <div class="tag-management-row" style="gap:10px;">
  <input type="text" value="${tag.name}" data-tag-id="${tag.id}" class="editTagName" style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
