@@ -643,36 +643,22 @@ margin: 0 0 12px;
 <body>
 
 <div class="modal" id="loginModal">
-<div class="modal-panel" style="width: min(760px, 100%);">
+<div class="modal-panel" style="width: min(560px, 100%);">
 <h2 class="modal-title">ログイン / 新規登録</h2>
-<p style="color: var(--muted); font-size: 0.95rem; margin-top: -6px; margin-bottom: 14px;">ログインまたは新規登録を選んでください。</p>
-<div class="auth-layout">
-<div class="auth-panel">
-<h3>ログイン</h3>
-<form id="loginForm" style="display: grid; gap: 12px;">
-<label for="loginType">ログイン方法</label>
-<select id="loginType">
-<option value="username" selected>ユーザー名</option>
-<option value="email">メールアドレス</option>
-</select>
-<input id="emailInput" type="text" placeholder="メールアドレス または ユーザー名" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<p style="color: var(--muted); font-size: 0.95rem; margin-top: -6px; margin-bottom: 14px;">下のボタンを選んで、メールアドレスとパスワードで続けてください。</p>
+<div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px;">
+<button type="button" id="modeLoginBtn" class="button" style="width: 100%;">ログイン</button>
+<button type="button" id="modeRegisterBtn" class="ghost-button" style="width: 100%;">新規登録</button>
+</div>
+<form id="authForm" style="display: grid; gap: 12px;">
+<label for="emailInput">メールアドレス</label>
+<input id="emailInput" type="email" placeholder="メールアドレス" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
+<label for="passwordInput">パスワード</label>
 <input id="passwordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<button type="submit" class="button" style="width: 100%;">ログイン</button>
+<button type="submit" id="authSubmitBtn" class="button" style="width: 100%;">ログインする</button>
 </form>
 <div id="loginDebugError" class="debug-error-box"></div>
-</div>
-<div class="auth-panel">
-<h3>新規登録</h3>
-<form id="registerForm" style="display: grid; gap: 12px;">
-<label for="registerEmailInput">メールアドレス</label>
-<input id="registerEmailInput" type="email" placeholder="メールアドレス" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<label for="registerPasswordInput">パスワード</label>
-<input id="registerPasswordInput" type="password" placeholder="パスワード" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px;">
-<button type="submit" class="button" style="width: 100%;">新規登録</button>
-</form>
 <div id="registerDebugError" class="debug-error-box"></div>
-</div>
-</div>
 </div>
 </div>
 
@@ -1458,39 +1444,45 @@ document.getElementById("closeProfileModal")?.addEventListener("click", () => {
 document.getElementById("profileModal").classList.add("hidden");
 });
 
+document.addEventListener("click", (e) => {
+if (e.target.id === "modeLoginBtn") {
+document.getElementById("modeLoginBtn").className = "button";
+document.getElementById("modeRegisterBtn").className = "ghost-button";
+document.getElementById("authSubmitBtn").textContent = "ログインする";
+document.getElementById("authForm").dataset.mode = "login";
+}
+
+if (e.target.id === "modeRegisterBtn") {
+document.getElementById("modeLoginBtn").className = "ghost-button";
+document.getElementById("modeRegisterBtn").className = "button";
+document.getElementById("authSubmitBtn").textContent = "新規登録する";
+document.getElementById("authForm").dataset.mode = "register";
+}
+});
+
 document.addEventListener("submit", async (e) => {
 clearDebugErrors();
 
-if (e.target.id === "loginForm") {
+if (e.target.id === "authForm") {
 e.preventDefault();
-let email = document.getElementById("emailInput").value.trim();
+const email = document.getElementById("emailInput").value.trim();
 const password = document.getElementById("passwordInput").value;
-const loginType = document.getElementById("loginType").value;
-
-// ユーザー名ログインなら学校ドメインを付ける
-if (loginType === "username") {
-    email += "@shiragane.com";
-}
+const mode = document.getElementById("authForm").dataset.mode || "login";
 
 try {
-await signInWithEmailAndPassword(auth, email, password);
-showToast("ログインしました");
-} catch (error) {
-showFriendlyAuthError("loginDebugError", error, "login");
-}
-return;
-}
-
-if (e.target.id === "registerForm") {
-e.preventDefault();
-const email = document.getElementById("registerEmailInput").value.trim();
-const password = document.getElementById("registerPasswordInput").value;
-
-try {
+if (mode === "register") {
 await createUserWithEmailAndPassword(auth, email, password);
 showToast("アカウントを作成しました");
+} else {
+await signInWithEmailAndPassword(auth, email, password);
+showToast("ログインしました");
+}
 } catch (error) {
+if (mode === "register") {
 showFriendlyAuthError("registerDebugError", error, "register");
+} else {
+showFriendlyAuthError("loginDebugError", error, "login");
+}
 }
 return;
 }
