@@ -1747,13 +1747,13 @@ ${state.isAdmin ? `<div style="display:flex; gap:8px; flex-wrap:wrap; justify-co
 </div>
 <div style="margin-bottom: 12px; display:flex; flex-wrap:wrap; gap:8px; align-items:center;">
 <span class="badge">${post.category}</span>
-</span>
 <span class="badge">${post.startDate}～${post.endDate}</span>
 ${tag ? `<span class="tag-chip" style="background:${tag.color}20; color:${tag.color}; border-color:${tag.color}40;">${tag.name}</span>` : ''}
 </div>
-${isSummerMode ? '' : `${post.imageUrl ? `<div class="post-image"><img src="${post.imageUrl}" alt="投稿画像"></div>` : ''}
-<p class="post-body">${postBodyHtml}</p>`}
-${!isSummerMode ? '' : `<p class="post-body">${postBodyHtml}</p>`}`
+${isSummerMode ? `<p class="post-body">${postBodyHtml}</p>` : `
+${post.imageUrl ? `<div class="post-image"><img src="${post.imageUrl}" alt="投稿画像"></div>` : ''}
+<p class="post-body">${postBodyHtml}</p>
+`}
 ${reactionsEnabled ? `
 <div class="reaction-container">
 <button class="reaction-btn ${userReacted.like ? 'active' : ''}" data-post-id="${post.id}" data-type="like">
