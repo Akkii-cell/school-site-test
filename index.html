@@ -975,9 +975,12 @@ margin: 0 0 12px;
 <span>🔔</span><span>通知</span><span class="notification-badge" id="notificationBadge"></span>
 </button>
 <div class="notification-panel" id="notificationPanel" hidden>
-<div class="notification-panel-header">
+<div class="notification-panel-header" style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
 <strong>通知</strong>
+<div style="display:flex; gap:8px; align-items:center;">
+<button type="button" class="link-button" id="requestPermissionButton">通知を許可</button>
 <button type="button" class="link-button" id="markAllReadButton">すべて既読</button>
+</div>
 </div>
 <div class="notification-list" id="notificationList"></div>
 </div>
@@ -1099,6 +1102,12 @@ margin: 0 0 12px;
 <div>
 <label style="font-size: 0.85rem; color: var(--muted); font-weight:700;">お名前</label>
 <input id="profileNameInput" type="text" maxlength="30" required style="padding: 12px 14px; border: 1px solid var(--border); border-radius: 12px; width:100%; margin-top:4px;">
+</div>
+<div style="display:flex; align-items:center; gap:10px;">
+    <label style="font-size:0.95rem; display:flex; align-items:center; gap:8px; margin:0;">
+        <input id="notificationSoundToggle" type="checkbox" style="width:18px; height:18px;"> 通知音を鳴らす
+    </label>
+    <small style="color:var(--muted);">通知音はブラウザの再生ポリシーに依存します</small>
 </div>
 <button type="submit" class="button" style="width: 100%;">保存する</button>
 </form>
@@ -1264,23 +1273,101 @@ target.classList.add("highlight");
 setTimeout(() => target.classList.remove("highlight"), 2200);
 }
 
+function setNotificationPermissionState(value) {
+  localStorage.setItem('notificationPermissionState', value);
+  if (value !== 'default') {
+    localStorage.setItem('notificationPermissionPrompted', 'true');
+  }
+}
+
 async function requestNotificationPermission() {
-if (!("Notification" in window)) {
-showToast("この端末ではOS通知に対応していません");
-return false;
+  if (!("Notification" in window)) {
+    showToast("この端末ではOS通知に対応していません");
+    return false;
+  }
+  if (Notification.permission === "granted") {
+    setNotificationPermissionState('granted');
+    showToast("OS通知はすでに許可されています");
+    return true;
+  }
+  if (Notification.permission === "denied") {
+    setNotificationPermissionState('denied');
+    showToast("OS通知は拒否されています。ブラウザのサイト設定で通知を許可してください");
+    return false;
+  }
+  const permission = await Notification.requestPermission();
+  if (permission === "granted") {
+    setNotificationPermissionState('granted');
+    showToast("OS通知を許可しました");
+    return true;
+  }
+  if (permission === 'denied') {
+    setNotificationPermissionState('denied');
+  } else {
+    setNotificationPermissionState('default');
+  }
+  showToast("OS通知の許可がありません");
+  return false;
 }
-if (Notification.permission === "granted") return true;
-if (Notification.permission === "denied") {
-showToast("OS通知はブロックされています。ブラウザ設定を確認してください");
-return false;
+
+function updateNotificationPermissionButton() {
+  const button = document.getElementById('requestPermissionButton');
+  if (!button || !("Notification" in window)) return;
+  const permission = Notification.permission;
+  if (permission === 'granted') {
+    button.textContent = '通知は許可済み';
+    button.disabled = true;
+    button.style.opacity = '0.6';
+  } else if (permission === 'denied') {
+    button.textContent = '再度許可する';
+    button.disabled = false;
+    button.style.opacity = '1';
+  } else {
+    button.textContent = '通知を許可';
+    button.disabled = false;
+    button.style.opacity = '1';
+  }
 }
-const permission = await Notification.requestPermission();
-if (permission === "granted") {
-showToast("OS通知を許可しました");
-return true;
+
+async function handleNotificationPermissionRequest() {
+  if (!("Notification" in window)) {
+    showToast("この端末ではOS通知に対応していません");
+    return;
+  }
+  if (Notification.permission === 'denied') {
+    const ok = confirm('通知が拒否されています。ブラウザのサイト設定で通知を許可しますか？\n\n「OK」を押すと設定方法を表示します。');
+    if (ok) {
+      alert('ブラウザのアドレスバーまたはサイト設定から通知を許可してください。');
+    }
+    updateNotificationPermissionButton();
+    return;
+  }
+  await requestNotificationPermission();
+  updateNotificationPermissionButton();
 }
-showToast("OS通知の許可がありません");
-return false;
+
+async function ensureNotificationPermission() {
+  if (!("Notification" in window)) return false;
+  if (Notification.permission === 'granted') {
+    setNotificationPermissionState('granted');
+    return true;
+  }
+  if (Notification.permission === 'denied') {
+    setNotificationPermissionState('denied');
+    return false;
+  }
+  const hasPrompted = localStorage.getItem('notificationPermissionPrompted') === 'true';
+  if (hasPrompted) {
+    return false;
+  }
+  const granted = await requestNotificationPermission();
+  if (granted && localStorage.getItem('notificationSoundEnabled') === null) {
+    localStorage.setItem('notificationSoundEnabled', 'true');
+  }
+  if (!granted && localStorage.getItem('notificationSoundEnabled') === null) {
+    localStorage.setItem('notificationSoundEnabled', 'false');
+  }
+  return granted;
 }
 
 function showSystemNotification(title, body, postId) {
@@ -1446,7 +1533,8 @@ return `<div class="${className}" style="display:flex; align-items:center; justi
 }
 
 function showFirstTimeGuide() {
-if (localStorage.getItem("guide_seen")) return;
+const guideKey = state.user?.uid ? `guide_seen_${state.user.uid}` : "guide_seen";
+if (localStorage.getItem(guideKey)) return;
 
 const guide = document.createElement("div");
 guide.className = "guide-bubble";
@@ -1460,8 +1548,8 @@ guide.innerHTML = `
 document.body.appendChild(guide);
 
 document.getElementById("closeGuide").addEventListener("click", () => {
-guide.remove();
-localStorage.setItem("guide_seen", "true");
+  guide.remove();
+  localStorage.setItem(guideKey, "true");
 });
 }
 
@@ -1910,9 +1998,11 @@ try {
 if (mode === "register") {
 await createUserWithEmailAndPassword(auth, email, password);
 showToast("アカウントを作成しました");
+await ensureNotificationPermission();
 } else {
 await signInWithEmailAndPassword(auth, email, password);
 showToast("ログインしました");
+await ensureNotificationPermission();
 }
 } catch (error) {
 if (mode === "register") {
@@ -2080,10 +2170,15 @@ document.getElementById("notificationButton")?.addEventListener("click", async (
 const panel = document.getElementById("notificationPanel");
 if (!panel) return;
 if (Notification.permission === "default") {
-await requestNotificationPermission();
+await ensureNotificationPermission();
 }
 panel.hidden = !panel.hidden;
 document.getElementById("notificationButton").setAttribute("aria-expanded", panel.hidden ? "false" : "true");
+updateNotificationPermissionButton();
+});
+
+document.getElementById("requestPermissionButton")?.addEventListener("click", async () => {
+  await handleNotificationPermissionRequest();
 });
 
 document.getElementById("markAllReadButton")?.addEventListener("click", async () => {
@@ -2286,85 +2381,114 @@ function checkApprovalStatus(user) {
 if (state.approvalUnsubscribe) state.approvalUnsubscribe();
 
 state.approvalUnsubscribe = onSnapshot(doc(db, "allowedUsers", user.email), (snapshot) => {
-if (snapshot.exists()) {
-const data = snapshot.data();
+  if (snapshot.exists()) {
+    const data = snapshot.data();
 
-// 🛑 BAN（停止状態）の監視ロジック
-if (data.suspended === true) {
-document.getElementById("suspendedModal").classList.remove("hidden");
-document.getElementById("mainContent").style.display = "none";
-document.getElementById("pendingApprovalModal").classList.add("hidden");
-document.getElementById("setupModal").classList.add("hidden");
-return;
-} else {
-document.getElementById("suspendedModal").classList.add("hidden");
-}
+    // 🛑 BAN（停止状態）の監視ロジック
+    if (data.suspended === true) {
+      document.getElementById("suspendedModal").classList.remove("hidden");
+      document.getElementById("mainContent").style.display = "none";
+      document.getElementById("pendingApprovalModal").classList.add("hidden");
+      document.getElementById("setupModal").classList.add("hidden");
+      document.getElementById("termsModal").classList.add("hidden");
+      document.getElementById("loginModal").classList.add("hidden");
+      document.getElementById("hamburgerButton").style.display = "none";
+      document.getElementById("hamburgerMenu").style.display = "none";
+      document.getElementById("mobileDateNav").style.display = "none";
+      return;
+    }
 
-state.userName = data.name ? data.name : state.userName;
-state.userClass = data.class ? data.class : state.userClass;
-state.userAvatarUrl = data.avatarUrl ? data.avatarUrl : "👤";
+    document.getElementById("suspendedModal").classList.add("hidden");
+    document.getElementById("pendingApprovalModal").classList.add("hidden");
+    document.getElementById("setupModal").classList.add("hidden");
+    document.getElementById("termsModal").classList.add("hidden");
+    document.getElementById("loginModal").classList.add("hidden");
 
-localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
+    state.userName = data.name ? data.name : state.userName;
+    state.userClass = data.class ? data.class : state.userClass;
+    state.userAvatarUrl = data.avatarUrl ? data.avatarUrl : "👤";
 
-document.getElementById("pendingApprovalModal").classList.add("hidden");
-document.getElementById("mainContent").style.display = "block";
-if (window.innerWidth <= 768) {
-document.getElementById("hamburgerButton").style.display = "flex";
-document.getElementById("hamburgerMenu").style.display = "block";
-document.getElementById("mobileDateNav").style.display = "block";
-}
-updateDateDisplay();
-updateCategoryTitle();
-updateUIProfile();
-initNotifications();
-initPosts();
-initUserReactions();
-initUsersProfiles();
+    localStorage.setItem(`user_setup_${user.uid}`, JSON.stringify({ name: state.userName, class: state.userClass, avatarUrl: state.userAvatarUrl }));
+
+    document.getElementById("mainContent").style.display = "block";
+    if (window.innerWidth <= 768) {
+      document.getElementById("hamburgerButton").style.display = "flex";
+      document.getElementById("hamburgerMenu").style.display = "block";
+      document.getElementById("mobileDateNav").style.display = "block";
+    }
+    updateDateDisplay();
+    updateCategoryTitle();
+    updateUIProfile();
+    initNotifications();
+    initPosts();
+    initUserReactions();
+    initUsersProfiles();
     loadTagData();
-}
+    showFirstTimeGuide();
+  } else {
+    document.getElementById("pendingApprovalModal").classList.remove("hidden");
+    document.getElementById("mainContent").style.display = "none";
+    document.getElementById("setupModal").classList.add("hidden");
+    document.getElementById("suspendedModal").classList.add("hidden");
+    document.getElementById("termsModal").classList.add("hidden");
+    document.getElementById("loginModal").classList.add("hidden");
+    document.getElementById("hamburgerButton").style.display = "none";
+    document.getElementById("hamburgerMenu").style.display = "none";
+    document.getElementById("mobileDateNav").style.display = "none";
+  }
 }, (error) => { showDebugError("pendingDebugError", error); });
 }
 
-function proceedToNextStepAfterLogin(user) {
-if (user.uid === ADMIN_UID) {
-state.isAdmin = true;
-state.userName = "管理者";
-state.userClass = "管理";
-state.userAvatarUrl = "👑";
-document.getElementById("mainContent").style.display = "block";
-document.getElementById("adminPostForm").style.display = "block";
-document.getElementById("adminDashboardButton").style.display = "block";
+async function proceedToNextStepAfterLogin(user) {
+  if (user.uid === ADMIN_UID) {
+    state.isAdmin = true;
+    state.userName = "管理者";
+    state.userClass = "管理";
+    state.userAvatarUrl = "👑";
 
-if (window.innerWidth <= 768) {
-document.getElementById("hamburgerButton").style.display = "flex";
-document.getElementById("hamburgerMenu").style.display = "block";
-document.getElementById("mobileDateNav").style.display = "block";
-}
+    document.getElementById("mainContent").style.display = "block";
+    document.getElementById("adminPostForm").style.display = "block";
+    document.getElementById("adminDashboardButton").style.display = "block";
 
-updateDateDisplay();
-updateUIProfile();
-initNotifications();
-initPosts();
-initUserReactions();
-initUsersProfiles();
-loadAdminData();
-showFirstTimeGuide();
-return;
-}
+    if (window.innerWidth <= 768) {
+      document.getElementById("hamburgerButton").style.display = "flex";
+      document.getElementById("hamburgerMenu").style.display = "block";
+      document.getElementById("mobileDateNav").style.display = "block";
+    }
 
-const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
-if (!savedSetup) {
-document.getElementById("setupModal").classList.remove("hidden");
-document.getElementById("pendingApprovalModal").classList.add("hidden");
-document.getElementById("suspendedModal").classList.add("hidden");
-return;
-}
+    updateDateDisplay();
+    updateUIProfile();
+    initNotifications();
+    initPosts();
+    initUserReactions();
+    initUsersProfiles();
+    loadAdminData();
+    await ensureNotificationPermission();
+    showFirstTimeGuide();
+    return;
+  }
 
-const setup = JSON.parse(savedSetup);
-state.userName = setup.name;
-state.userClass = setup.class;
-state.userAvatarUrl = setup.avatarUrl || "👤";
-checkApprovalStatus(user);
+  const savedSetup = localStorage.getItem(`user_setup_${user.uid}`);
+  if (!savedSetup) {
+    document.getElementById("setupModal").classList.remove("hidden");
+    document.getElementById("pendingApprovalModal").classList.add("hidden");
+    document.getElementById("suspendedModal").classList.add("hidden");
+    document.getElementById("termsModal").classList.add("hidden");
+    document.getElementById("loginModal").classList.add("hidden");
+    document.getElementById("mainContent").style.display = "none";
+    document.getElementById("hamburgerButton").style.display = "none";
+    document.getElementById("hamburgerMenu").style.display = "none";
+    document.getElementById("mobileDateNav").style.display = "none";
+    await ensureNotificationPermission();
+    return;
+  }
+
+  const setup = JSON.parse(savedSetup);
+  state.userName = setup.name;
+  state.userClass = setup.class;
+  state.userAvatarUrl = setup.avatarUrl || "👤";
+  await ensureNotificationPermission();
+  checkApprovalStatus(user);
 }
 
 onAuthStateChanged(auth, async (user) => {
@@ -2385,15 +2509,26 @@ document.getElementById("loginModal").classList.add("hidden");
 
 const hasAgreed = localStorage.getItem(`user_terms_agreed_${user.uid}`);
 if (!hasAgreed) {
-document.getElementById("mainContent").style.display = "none";
-document.getElementById("termsModal").classList.remove("hidden");
-document.getElementById("setupModal").classList.add("hidden");
-document.getElementById("pendingApprovalModal").classList.add("hidden");
-return;
+  document.getElementById("mainContent").style.display = "none";
+  document.getElementById("termsModal").classList.remove("hidden");
+  document.getElementById("setupModal").classList.add("hidden");
+  document.getElementById("pendingApprovalModal").classList.add("hidden");
+  return;
 }
 
-proceedToNextStepAfterLogin(user);
+await proceedToNextStepAfterLogin(user);
 });
+
+// 初期表示: 通知音トグルの状態を反映
+(() => {
+    const el = document.getElementById('notificationSoundToggle');
+    if (!el) return;
+    const enabled = localStorage.getItem('notificationSoundEnabled');
+    el.checked = (enabled !== 'false');
+    el.addEventListener('change', () => {
+        localStorage.setItem('notificationSoundEnabled', el.checked ? 'true' : 'false');
+    });
+})();
 
 if ("serviceWorker" in navigator) {
 window.addEventListener("load", () => {
