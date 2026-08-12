@@ -730,6 +730,290 @@ color: var(--text);
 }
 }
 
+/* =========================================================
+   LOGIN UI FIX
+   ※ Firebase / JavaScript / 認証機能には触れない
+   ========================================================= */
+
+#loginModal {
+    overflow: hidden;
+    padding: 24px;
+}
+
+#loginModal .modal-panel {
+    width: min(1460px, 94vw);
+    height: min(900px, calc(100vh - 48px));
+    max-height: calc(100vh - 48px);
+    padding: 0;
+    overflow: hidden;
+}
+
+#loginModal .login-card {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    display: grid;
+    grid-template-columns: 52% 48%;
+    overflow: hidden;
+    border-radius: 32px;
+}
+
+/* 左側 */
+#loginModal .login-left {
+    width: auto;
+    min-width: 0;
+    height: 100%;
+    padding: 56px 60px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    background:
+        radial-gradient(
+            circle at 20% 15%,
+            rgba(255,255,255,.95) 0%,
+            rgba(239,246,255,.88) 45%,
+            rgba(226,238,255,.95) 100%
+        );
+}
+
+/* ロゴ */
+#loginModal .login-brand {
+    font-size: 27px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    flex-shrink: 0;
+}
+
+#loginModal .login-brand-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+/* キャッチコピー */
+#loginModal .login-hero {
+    margin-top: 105px;
+    flex-shrink: 0;
+}
+
+#loginModal .login-hero-title {
+    margin: 0;
+    font-size: clamp(44px, 4vw, 58px);
+    line-height: 1.13;
+    font-weight: 700;
+    letter-spacing: -0.045em;
+}
+
+#loginModal .login-hero-subtitle {
+    margin-top: 24px;
+    max-width: 560px;
+    font-size: 20px;
+    line-height: 1.65;
+    color: #64748b;
+}
+
+/* 左下イラスト */
+#loginModal .login-illustration {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    width: 100%;
+    height: 43%;
+
+    margin: 0;
+
+    background-size: 78% auto;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+
+    pointer-events: none;
+}
+
+/* 右側 */
+#loginModal .login-right {
+    width: auto;
+    min-width: 0;
+    height: 100%;
+    padding: 54px 72px 40px;
+
+    display: flex;
+    flex-direction: column;
+
+    background: #ffffff;
+}
+
+/* 言語 */
+#loginModal .login-header {
+    flex-shrink: 0;
+    font-size: 15px;
+    color: #334155;
+}
+
+/* フォーム全体 */
+#loginModal .login-form-wrap {
+    flex: 1;
+    min-height: 0;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    padding-top: 58px;
+}
+
+/* ログイン */
+#loginModal .login-title {
+    font-size: 48px;
+    line-height: 1.15;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+}
+
+#loginModal .login-description {
+    margin-top: 10px;
+    font-size: 17px;
+    line-height: 1.5;
+    color: #94a3b8;
+}
+
+/* フォーム */
+#loginModal #emailLoginForm {
+    gap: 18px !important;
+    margin-top: 40px;
+}
+
+/* ラベル */
+#loginModal .login-field label {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* 入力 */
+#loginModal .login-input {
+    height: 66px;
+    min-height: 66px;
+    border-radius: 16px;
+    border: 1px solid #dbe3ef;
+    font-size: 16px;
+    background: #fff;
+    box-shadow: none;
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+#loginModal .login-input:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59,130,246,.10);
+}
+
+/* 入力アイコン */
+#loginModal .login-input-icon {
+    font-size: 18px;
+}
+
+/* オプション */
+#loginModal .login-options {
+    margin-top: 2px;
+    font-size: 14px;
+}
+
+/* ログインボタン */
+#loginModal .login-primary-button {
+    width: 100%;
+    height: 62px;
+    border-radius: 15px;
+    font-size: 17px;
+    font-weight: 600;
+
+    background:
+        linear-gradient(
+            180deg,
+            #3478f6 0%,
+            #2563eb 100%
+        );
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.18);
+}
+
+/* 新規登録 */
+#loginModal .login-secondary-button {
+    width: 100%;
+    height: 62px;
+    border-radius: 15px;
+    font-size: 17px;
+    font-weight: 500;
+    background: #fff;
+    border: 1px solid #dbe3ef;
+}
+
+/* フッター */
+#loginModal .login-footer {
+    flex-shrink: 0;
+    margin-top: 20px;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    #loginModal {
+        padding: 12px;
+        overflow-y: auto;
+    }
+
+    #loginModal .modal-panel {
+        width: 100%;
+        height: auto;
+        max-height: none;
+        overflow: visible;
+    }
+
+    #loginModal .login-card {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        min-height: 0;
+    }
+
+    #loginModal .login-left {
+        width: 100%;
+        min-height: 420px;
+        height: 420px;
+    }
+
+    #loginModal .login-right {
+        width: 100%;
+        height: auto;
+        padding: 44px 32px 32px;
+    }
+
+    #loginModal .login-hero {
+        margin-top: 70px;
+    }
+
+    #loginModal .login-hero-title {
+        font-size: 42px;
+    }
+
+    #loginModal .login-form-wrap {
+        padding-top: 40px;
+    }
+}
+
 .modal-title { font-size: 1.4rem; margin-bottom: 20px; font-weight: 700; }
 
 .terms-box {
