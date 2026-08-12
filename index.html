@@ -1243,32 +1243,40 @@ const storage = getStorage(app);
 const ADMIN_UID = "Z4YHNqiKySV3KLkHIjtDaj36WUa2";
 
 const AVATARS = [
-"👤", "🐱", "🐶", "🦊", "🦁", "🐼", "🐨", "🐻", "🐰", "🐸", "🐵", "🐧", "🐦", "🦖", "🦄",
-"✏️", "📐", "📚", "🎒", "🎓", "🧪", "🎨", "🎺", "🎸", "💻",
-"⚽", "🏀", "⚾", "🎾", "🏐", "🏓", "🏸", "🏃", "💃",
-"🎮", "🕹️", "🎧", "🎬", "📸", "🔮", "🛹",
-"🚀", "🛸", "✈️", "🏎️", "🔥", "⚡", "🌟", "🌈", "👑"
+  "👤", "🐱", "🐶", "🦊", "🦁", "🐼", "🐨", "🐻", "🐰", "🐸", "🐵", "🐧", "🐦", "🦖", "🦄",
+  "✏️", "📐", "📚", "🎒", "🎓", "🧪", "🎨", "🎺", "🎸", "💻",
+  "⚽", "🏀", "⚾", "🎾", "🏐", "🏓", "🏸", "🏃", "💃",
+  "🎮", "🕹️", "🎧", "🎬", "📸", "🔮", "🛹",
+  "🚀", "🛸", "✈️", "🏎️", "🔥", "⚡", "🌟", "🌈", "👑"
 ];
 let selectedAvatar = "👤";
 
 const state = {
-user: null,
-isAdmin: false,
-userName: "",
-userClass: "",
-userAvatarUrl: "👤",
-currentDate: new Date(),
-posts: [],
-userReactedMap: {},
-commentsMap: {},
-tags: [],
-notifications: [],
-unreadNotificationCount: 0,
-// 各ユーザーの最新プロフィール情報をリアルタイム同期してキャッシュするマップ
-usersProfileMap: {},
+  user: null,
+  isAdmin: false,
+  userName: "",
+  userClass: "",
+  userAvatarUrl: "👤",
+  currentDate: new Date(),
+  posts: [],
+  userReactedMap: {},
+  commentsMap: {},
+  tags: [],
+  notifications: [],
+  unreadNotificationCount: 0,
+  usersProfileMap: {},
   adminReminders: [],
   adminSettings: { summerModeEnabled: false, summerModeStartDate: "", summerModeEndDate: "" },
-  adminUnsubscribes: { pendingUsers: null, allowedUsers: null, appeals: null, dynamicProfiles: null, tags: null, notifications: null, adminSettings: null, reminders: null }
+  adminUnsubscribes: {
+    pendingUsers: null,
+    allowedUsers: null,
+    appeals: null,
+    dynamicProfiles: null,
+    tags: null,
+    notifications: null,
+    adminSettings: null,
+    reminders: null
+  }
 };
 
 function showDebugError(elementId, error) {
