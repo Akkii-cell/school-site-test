@@ -1560,9 +1560,15 @@ state.notifications = [];
 renderNotifications();
 return;
 }
-const q = query(collection(db, "notifications"), where("recipientId", "==", state.user.uid), orderBy("createdAt", "desc"));
+const q = query(collection(db, "notifications"), where("recipientId", "==", state.user.uid));
 state.notificationUnsubscribe = onSnapshot(q, (snapshot) => {
-state.notifications = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+const items = snapshot.docs.map(docSnap => ({ id: docSnap.id, ...docSnap.data() }));
+items.sort((a, b) => {
+const timeA = a.createdAt && a.createdAt.toDate ? a.createdAt.toDate().getTime() : new Date(a.createdAt || 0).getTime();
+const timeB = b.createdAt && b.createdAt.toDate ? b.createdAt.toDate().getTime() : new Date(b.createdAt || 0).getTime();
+return timeB - timeA;
+});
+state.notifications = items;
 renderNotifications();
 }, (error) => {
 console.warn("通知の取得に失敗しました", error);
@@ -2755,9 +2761,9 @@ await proceedToNextStepAfterLogin(user);
     });
 })();
 
-if ("serviceWorker" in navigator) {
+if ("serviceWorker" in navigator && (location.protocol === "http:" || location.protocol === "https:")) {
 window.addEventListener("load", () => {
-navigator.serviceWorker.register("./sw.js").catch((error) => console.warn("Service Worker 登録に失敗しました", error));
+navigator.serviceWorker.register(new URL("./sw.js", location.href).href).catch((error) => console.warn("Service Worker 登録に失敗しました", error));
 });
 }
 
