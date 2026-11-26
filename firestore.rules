@@ -1,0 +1,135 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isAdmin() { return signedIn() && request.auth.uid == 'Z4YHNqiKySV3KLkHIjtDaj36WUa2'; }
+    function path_(c, id) { return /databases/$(database)/documents/$(c)/$(id); }
+    function isSuspended() { return exists(path_('suspended', request.auth.uid)); }
+    function isMember() { return signedIn() && exists(path_('members', request.auth.uid)) && !isSuspended(); }
+    function myClass() { return get(path_('members', request.auth.uid)).data.classId; }
+    function forMe(target) { return target == '両方' || target == myClass(); }
+    function canSeePost(postId) {
+      return isAdmin() || (isMember() && forMe(get(path_('posts', postId)).data.classTarget));
+    }
+    function validName(n) { return n is string && n.size() >= 1 && n.size() <= 30; }
+    function validClass(c) { return c in ['7-1', '7-2']; }
+    function validAvatar(a) { return a is string && a.size() >= 1 && a.size() <= 8; }
+
+    // 招待コード（管理者だけが読める）
+    match /config/{id} { allow read, write: if isAdmin(); }
+
+    // 参加申請：招待コードが一致するときだけ作れる
+    match /requests/{uid} {
+      allow read: if isAdmin() || (signedIn() && request.auth.uid == uid);
+      allow create: if signedIn() && request.auth.uid == uid
+        && !exists(path_('members', uid))
+        && request.resource.data.keys().hasOnly(['name','classId','avatar','code','loginId','agreedAt'])
+        && validName(request.resource.data.name)
+        && validClass(request.resource.data.classId)
+        && validAvatar(request.resource.data.avatar)
+        && request.resource.data.code == get(path_('config', 'invite')).data.code
+        && request.resource.data.loginId == request.auth.token.email
+        && request.resource.data.agreedAt == request.time;
+      allow delete: if isAdmin() || (signedIn() && request.auth.uid == uid);
+    }
+
+    match /members/{uid} {
+      allow get: if isAdmin() || (signedIn() && request.auth.uid == uid) || isMember();
+      allow list: if isAdmin() || isMember();
+      allow create, delete: if isAdmin();
+      // 本人は名前とアバターだけ変更できる（クラスは管理者のみ）
+      allow update: if isAdmin() || (isMember() && request.auth.uid == uid
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['name','avatar'])
+        && validName(request.resource.data.name)
+        && validAvatar(request.resource.data.avatar));
+    }
+
+    match /memberPrivate/{uid} { allow read, write: if isAdmin(); }
+
+    match /suspended/{uid} {
+      allow get: if isAdmin() || (signedIn() && request.auth.uid == uid);
+      allow list, write: if isAdmin();
+    }
+
+    match /appeals/{uid} {
+      allow read, delete: if isAdmin();
+      allow create: if signedIn() && request.auth.uid == uid && isSuspended()
+        && request.resource.data.keys().hasOnly(['reason','createdAt'])
+        && request.resource.data.reason is string
+        && request.resource.data.reason.size() >= 1 && request.resource.data.reason.size() <= 1000
+        && request.resource.data.createdAt == request.time;
+    }
+
+    match /posts/{postId} {
+      allow read: if isAdmin() || (isMember() && forMe(resource.data.classTarget));
+      allow write: if isAdmin();
+
+      match /comments/{commentId} {
+        allow read: if canSeePost(postId);
+        allow create: if canSeePost(postId)
+          && get(path_('posts', postId)).data.commentsEnabled == true
+          && request.resource.data.keys().hasOnly(['uid','text','createdAt'])
+          && request.resource.data.uid == request.auth.uid
+          && request.resource.data.text is string
+          && request.resource.data.text.size() >= 1 && request.resource.data.text.size() <= 300
+          && request.resource.data.createdAt == request.time;
+        allow delete: if isAdmin();
+      }
+
+      // 1人1ドキュメント。件数は画面側で数えるので水増しできない
+      match /reactions/{uid} {
+        allow read: if canSeePost(postId);
+        allow create, update: if canSeePost(postId) && request.auth.uid == uid
+          && get(path_('posts', postId)).data.reactionsEnabled == true
+          && request.resource.data.keys().hasOnly(['like','checked','thanks'])
+          && request.resource.data.get('like', false) is bool
+          && request.resource.data.get('checked', false) is bool
+          && request.resource.data.get('thanks', false) is bool;
+        allow delete: if isAdmin();
+      }
+    }
+
+    match /images/{postId} {
+      allow read: if canSeePost(postId);
+      allow write: if isAdmin();
+    }
+
+    match /tags/{id} {
+      allow read: if isAdmin() || isMember();
+      allow write: if isAdmin();
+    }
+
+    match /settings/{id} {
+      allow read: if isAdmin() || isMember();
+      allow write: if isAdmin();
+    }
+
+    // お知らせ・リマインダー
+    match /announcements/{id} {
+      allow read: if isAdmin() || (isMember() && resource.data.published == true && forMe(resource.data.classTarget));
+      allow write: if isAdmin();
+    }
+
+    // 管理者あての通知
+    match /adminInbox/{id} {
+      allow read, update, delete: if isAdmin();
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['type','uid','postId','createdAt','pushed'])
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.pushed == false
+        && request.resource.data.createdAt == request.time
+        && ((request.resource.data.type == 'request' && exists(path_('requests', request.auth.uid)))
+          || (request.resource.data.type in ['comment','reaction'] && isMember()));
+    }
+
+    // 端末の通知用トークン
+    match /pushTokens/{token} {
+      allow read: if isAdmin();
+      allow create, update: if signedIn()
+        && request.resource.data.keys().hasOnly(['uid','updatedAt'])
+        && request.resource.data.uid == request.auth.uid;
+      allow delete: if isAdmin() || (signedIn() && resource.data.uid == request.auth.uid);
+    }
+  }
+}

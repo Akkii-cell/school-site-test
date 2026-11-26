@@ -1,0 +1,7 @@
+rules_version = '2';
+// このサイトは Cloud Storage を使わないので、すべて禁止
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} { allow read, write: if false; }
+  }
+}
